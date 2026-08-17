@@ -118,8 +118,8 @@ export function DaySection({ day, index }: DaySectionProps) {
             </summary>
             <div className="weather-plan__body">
               <div><strong>약한 비</strong><p>원안을 유지합니다.</p></div>
-              <div><strong>계속되는 비</strong><p>스펀폭포 우선 삭제를 검토합니다.</p></div>
-              <div><strong>폭우·강풍</strong><p>예류·스펀을 축소하거나 실내 일정으로 바꿉니다.</p></div>
+              <div><strong>계속되는 비</strong><p>스펀폭포를 우선 삭제하거나 축소할지 검토합니다.</p></div>
+              <div><strong>폭우·강풍</strong><p>예류·스펀 일부를 줄이고 기사와 상의해 같은 지역 범위에서 유연하게 대체합니다.</p></div>
               <div><strong>지우펀</strong><p>가벼운 비라면 유지할 수 있습니다.</p></div>
             </div>
             <p className="weather-plan__note">이 카드는 확정 일정이 아닌 비상 대안입니다. 여행 직전 예보와 부모님 컨디션을 기준으로 결정합니다.</p>

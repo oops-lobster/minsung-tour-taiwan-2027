@@ -116,12 +116,12 @@ function StatusOverview({ compact = false }: { compact?: boolean }) {
           eyebrow="TRIP READINESS"
           title={compact ? '지금, 여행은 여기까지' : '여행 준비 현황'}
           description={compact
-            ? '예약된 것과 아직 정해야 할 것을 짧게 확인하세요.'
+            ? '예약된 것과 아직 비교하거나 기다리는 것을 짧게 확인하세요.'
             : '가족 모두가 지금 어디까지 준비됐는지 한눈에 볼 수 있어요. 예약번호나 개인정보는 담지 않았습니다.'}
         />
         <div className="status-summary" aria-label="예약 상태 요약">
           <div><strong>2</strong><span>예약 완료</span></div>
-          <div><strong>2</strong><span>견적·협의</span></div>
+          <div><strong>2</strong><span>비교·검토</span></div>
           <div><strong>1</strong><span>예약 대기</span></div>
           <div><strong>1</strong><span>현장 결정</span></div>
         </div>
@@ -345,15 +345,15 @@ function MobilityView() {
             </article>
             <article>
               <span className="transport-grid__icon"><CarFront size={26} aria-hidden="true" /></span>
-              <small>DAY 2</small><h3>토요타 알파드</h3>
-              <p>예류·스펀을 거쳐 지우펀 드롭에서 종료. 2023년식 7인승 모델을 지정 요청합니다.</p>
-              <StatusBadge tone="progress">견적 문의 중</StatusBadge>
+              <small>DAY 2</small><h3>VIP 의전차량</h3>
+              <p>Alphard 40·Lexus LM350h 등 후보 중 2열 리클라이너·오토만·통풍·열선·마사지와 승차감을 우선해 비교합니다.</p>
+              <StatusBadge tone="progress">최종 비교 중</StatusBadge>
             </article>
             <article>
               <span className="transport-grid__icon"><Luggage size={26} aria-hidden="true" /></span>
-              <small>DAY 4</small><h3>짐은 차량에</h3>
-              <p>호텔에서 비전옥을 거쳐 공항까지. 식사 중 차량이 대기하며 짐을 보관합니다.</p>
-              <StatusBadge tone="progress">패키지 협의 예정</StatusBadge>
+              <small>DAY 4</small><h3>같은 업체 재이용 검토</h3>
+              <p>호텔에서 비전옥을 거쳐 공항까지. Day 2 선정 업체가 식사 중 대기하며 짐을 보관하는 방향입니다.</p>
+              <StatusBadge tone="progress">예약 미정</StatusBadge>
             </article>
           </div>
         </div>
@@ -463,30 +463,39 @@ function BudgetView() {
         image="taipei-night.webp"
         eyebrow="BUDGET & PROMISE"
         title="예산과 원칙"
-        description="확정 금액과 예상 금액을 구분하고, 우리 가족 여행의 기준을 함께 적었습니다."
+        description="정산이 끝난 항공·숙소 금액은 숨기고, 앞으로 확인할 현지비와 우리 가족 여행의 기준만 적었습니다."
       />
       <section className="budget section-pad">
         <div className="page-shell budget__layout">
           <SectionHeader
-            eyebrow="BUDGET DRAFT"
-            title="예산 초안"
-            description="차량과 85TD 예약이 정해지면 한 파일에서 바로 수정할 수 있습니다."
+            eyebrow="LOCAL BUDGET"
+            title="현지비 준비 현황"
+            description="이미 정산한 항공·숙소는 상태만 보여주고, 아직 필요한 비용은 확정되기 전까지 금액을 표시하지 않습니다."
           />
           <div className="budget-card">
             <div className="budget-card__confirmed">
-              <span>확정 / 예약</span>
-              {budget.confirmed.map((item) => (
+              <span>예약·정산 완료</span>
+              {budget.settled.map((item) => (
                 <div key={item.label}>
                   <p><strong>{item.label}</strong><small>{item.note}</small></p>
-                  <b>{item.amount}</b>
+                  <b>{item.status}</b>
                 </div>
               ))}
             </div>
             <div className="budget-card__estimate">
-              <span className="estimate-badge">예상 · 변동 가능</span>
-              <p>현지비 예상</p><strong>{budget.localEstimate}</strong><i />
-              <p>전체 여행 예상</p><h3>{budget.totalEstimate}</h3>
-              <small>LM 최종 견적, 85TD 예약, 식사 가격에 따라 달라질 수 있어요.</small>
+              <span className="estimate-badge">예약 대기 · 현지비</span>
+              <p>앞으로 확인할 항목</p>
+              <h3>확정된 비용만<br />나중에 공유할게요</h3>
+              <i />
+              <div className="budget-card__pending-list">
+                {budget.pending.map((item) => (
+                  <div key={item.label}>
+                    <p><strong>{item.label}</strong><small>{item.note}</small></p>
+                    <b>{item.status}</b>
+                  </div>
+                ))}
+              </div>
+              <small>업체별 견적과 협상 과정은 가족용 사이트에 표시하지 않습니다.</small>
             </div>
           </div>
         </div>

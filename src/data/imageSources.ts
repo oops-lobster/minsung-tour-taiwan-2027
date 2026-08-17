@@ -180,16 +180,6 @@ export const imageSources: ImageSource[] = [
     attributionRequired: false,
     retrievedAt: '2026-08-17',
   },
-  {
-    file: 'alphard.webp',
-    place: '2023 Toyota Alphard Hybrid',
-    alt: '흰색 2023년식 토요타 알파드 하이브리드 차량의 앞모습',
-    sourceUrl: 'https://commons.wikimedia.org/wiki/File:2023_Toyota_Alphard_Hybrid_(AH40)_1.jpg',
-    author: 'Benespit',
-    license: 'CC BY-SA 4.0',
-    attributionRequired: true,
-    retrievedAt: '2026-08-17',
-  },
 ]
 
 export const imageSourceByFile = Object.fromEntries(

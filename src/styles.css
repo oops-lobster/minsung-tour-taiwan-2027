@@ -2014,7 +2014,7 @@ button {
   font-weight: 700;
 }
 
-.budget-card__estimate p {
+.budget-card__estimate > p {
   margin: 22px 0 2px;
   color: rgba(255, 255, 255, 0.58);
   font-size: 0.72rem;
@@ -2038,6 +2038,43 @@ button {
   font-size: clamp(1.7rem, 7vw, 2.7rem);
   font-weight: 500;
   line-height: 1.2;
+}
+
+.budget-card__pending-list {
+  margin: 20px 0 24px;
+  border-top: 1px solid var(--white-line);
+}
+
+.budget-card__pending-list > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--white-line);
+}
+
+.budget-card__pending-list p {
+  display: flex;
+  min-width: 0;
+  margin: 0;
+  flex-direction: column;
+}
+
+.budget-card__pending-list p strong {
+  font-size: 0.8rem;
+}
+
+.budget-card__pending-list p small {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.64rem;
+}
+
+.budget-card__pending-list b {
+  color: #f0d19c;
+  font-size: 0.72rem;
+  white-space: nowrap;
 }
 
 .budget-card__estimate > small {
