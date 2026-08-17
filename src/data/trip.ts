@@ -1,3 +1,5 @@
+import type { PlaceId } from './localTools'
+
 export type StatusTone = 'confirmed' | 'progress' | 'waiting' | 'flexible'
 
 export interface TripStatus {
@@ -17,6 +19,7 @@ export interface TimelineItem {
   tags?: string[]
   image?: string
   mapQuery?: string
+  placeId?: PlaceId
   optional?: boolean
 }
 
@@ -121,6 +124,7 @@ export const days: TripDay[] = [
         localName: '桃園國際機場 第一航廈',
         description: '입국과 수하물 수령을 마친 뒤 서두르지 않고 이동합니다.',
         mapQuery: 'Taoyuan International Airport Terminal 1',
+        placeId: 'taoyuan-t1',
       },
       {
         time: '12:40–13:30',
@@ -134,6 +138,7 @@ export const days: TripDay[] = [
         localName: '台北花園大酒店',
         description: '체크인 전 짐을 맡기고 가볍게 첫 일정을 시작합니다.',
         mapQuery: 'Taipei Garden Hotel',
+        placeId: 'hotel',
       },
       {
         time: '14:00–14:50',
@@ -141,6 +146,7 @@ export const days: TripDay[] = [
         localName: '春水堂 中正店',
         description: '공푸면과 버블티로 첫 끼는 가볍게. 비행 뒤 부담 없이 먹는 점심입니다.',
         mapQuery: 'Chun Shui Tang Chiang Kai-shek Memorial Hall Taipei',
+        placeId: 'chun-shui-tang',
         tags: ['점심'],
       },
       {
@@ -150,6 +156,7 @@ export const days: TripDay[] = [
         description: '넓은 공간을 전부 돌기보다 핵심 구역만 45–50분 천천히 둘러봅니다.',
         image: 'chiang-kai-shek.webp',
         mapQuery: 'Chiang Kai-shek Memorial Hall',
+        placeId: 'chiang-kai-shek',
       },
       {
         time: '16:00 전후',
@@ -165,12 +172,14 @@ export const days: TripDay[] = [
         transport: '택시',
         image: 'tamsui.webp',
         mapQuery: "Tamsui Fisherman's Wharf Lover's Bridge",
+        placeId: 'tamsui-wharf',
       },
       {
         time: '17:30–19:30',
         title: '魚藏餐廳',
         description: '단수이에서 대만식 해산물로 여유 있게 저녁을 먹습니다.',
         mapQuery: '魚藏餐廳 淡水',
+        placeId: 'yuzang',
         tags: ['저녁'],
       },
       {
@@ -186,6 +195,7 @@ export const days: TripDay[] = [
         description: '조명이 켜진 사찰의 분위기를 보고, 올드 타이베이의 밤으로 이어갑니다.',
         image: 'longshan.webp',
         mapQuery: 'Longshan Temple Taipei',
+        placeId: 'longshan',
       },
       {
         time: '이후',
@@ -194,6 +204,7 @@ export const days: TripDay[] = [
         description: '먹방 일정이 아니라 20–30분 정도 밤 골목의 분위기만 봅니다. 피곤하면 바로 줄입니다.',
         image: 'huaxi.webp',
         mapQuery: 'Huaxi Street Night Market',
+        placeId: 'huaxi',
         tags: ['선택 일정'],
         optional: true,
       },
@@ -203,6 +214,7 @@ export const days: TripDay[] = [
         localName: '三味食堂',
         description: '용산사·야시장 동선에서 상황이 되면 연어초밥을 포장해 호텔 야식으로 먹습니다. 대기가 길거나 시간이 빠듯하면 미련 없이 패스합니다.',
         mapQuery: '三味食堂 Taipei',
+        placeId: 'sanwei',
         tags: ['호텔 야식', '대기 길면 패스'],
         optional: true,
       },
@@ -213,6 +225,7 @@ export const days: TripDay[] = [
         description: '야시장 이후 시먼딩 방향으로 걸으며 네온의 밤을 즐깁니다. 18일 타이완 생맥주를 마실 정확한 술집은 현장에서 정한 뒤 택시로 호텔에 돌아갑니다.',
         image: 'ximending.webp',
         mapQuery: 'Ximending Taipei',
+        placeId: 'ximending',
         tags: ['2차 · 술집 현장 결정'],
         optional: true,
       },
@@ -237,6 +250,7 @@ export const days: TripDay[] = [
         time: '07:00–07:50',
         title: '호텔 조식',
         description: '활동량이 많은 날이니 호텔에서 든든하게 시작합니다.',
+        placeId: 'hotel',
         tags: ['아침'],
       },
       {
@@ -253,12 +267,14 @@ export const days: TripDay[] = [
         description: '바닷바람을 맞으며 핵심 바위 구역 중심으로 천천히 둘러봅니다.',
         image: 'yehliu.webp',
         mapQuery: 'Yehliu Geopark',
+        placeId: 'yehliu',
       },
       {
         time: '11:00–12:00',
         title: 'Qiao Yan Seafood / 俏宴',
         description: '예류 인근의 깔끔한 실내에서 해산물과 스시·사시미 계열 점심을 먹습니다.',
         mapQuery: '俏宴 Yehliu',
+        placeId: 'qiao-yan',
         tags: ['점심 · 후보'],
       },
       {
@@ -274,6 +290,7 @@ export const days: TripDay[] = [
         description: '날씨가 괜찮다면 폭포 전망 구간을 보고, 비가 계속되면 가장 먼저 생략을 검토합니다.',
         image: 'shifen-waterfall.webp',
         mapQuery: 'Shifen Waterfall',
+        placeId: 'shifen-waterfall',
       },
       {
         time: '14:10–15:20',
@@ -282,6 +299,7 @@ export const days: TripDay[] = [
         description: '철길 마을을 구경하고 세 사람의 소원을 적은 풍등을 띄웁니다.',
         image: 'shifen-lantern.webp',
         mapQuery: 'Shifen Old Street',
+        placeId: 'shifen-old-street',
       },
       {
         time: '15:20 이후',
@@ -295,6 +313,7 @@ export const days: TripDay[] = [
         localName: '九份老街',
         description: '지우펀 드롭에서 기사님과 작별합니다. 차량 서비스는 여기에서 종료하는 계획입니다.',
         transport: '전용차 종료',
+        placeId: 'jiufen',
         tags: ['중요'],
       },
       {
@@ -303,6 +322,7 @@ export const days: TripDay[] = [
         description: '붉은 등불이 켜지는 골목을 천천히 걷고, 현지식과 고량주로 저녁을 즐깁니다.',
         image: 'jiufen.webp',
         mapQuery: 'Jiufen Old Street',
+        placeId: 'jiufen',
         tags: ['저녁'],
       },
       {
@@ -332,6 +352,7 @@ export const days: TripDay[] = [
         time: '08:00–08:30',
         title: '호텔 인근 가벼운 아침',
         description: '맥모닝 등 익숙하고 가벼운 메뉴로 시작합니다.',
+        placeId: 'hotel',
         tags: ['아침'],
       },
       {
@@ -347,6 +368,7 @@ export const days: TripDay[] = [
         description: '대표 소장품과 핵심 전시 중심으로 1시간 30분. 모든 전시를 보려 욕심내지 않습니다.',
         image: 'palace.webp',
         mapQuery: 'National Palace Museum Taipei',
+        placeId: 'palace',
       },
       {
         time: '11:00–11:30',
@@ -361,6 +383,7 @@ export const days: TripDay[] = [
         description: '원조 계보의 신생점에서 샤오롱바오와 딤섬을 함께 나눠 먹는 점심입니다.',
         image: 'xiaolongbao.webp',
         mapQuery: 'Din Tai Fung Xinsheng Branch Taipei',
+        placeId: 'din-tai-fung-xinsheng',
         tags: ['점심'],
       },
       {
@@ -369,6 +392,7 @@ export const days: TripDay[] = [
         localName: '永康街 · 青田街',
         description: '식사 후 바로 걸어서 골목과 카페거리를 즐깁니다. 부모님 컨디션에 맞춰 카페에서 충분히 쉽니다.',
         mapQuery: 'Yongkang Street and Qingtian Street Taipei',
+        placeId: 'yongkang-qingtian',
       },
       {
         time: '15:00–15:30',
@@ -380,6 +404,7 @@ export const days: TripDay[] = [
         time: '15:30–17:00',
         title: '호텔 휴식 · 옷 갈아입기',
         description: '마지막 저녁을 즐길 체력을 회복하는 시간입니다. 기본적으로 삭제하지 않습니다.',
+        placeId: 'hotel',
         tags: ['꼭 쉬기'],
       },
       {
@@ -394,12 +419,14 @@ export const days: TripDay[] = [
         description: '타이베이 야경을 바라보며 세 사람의 여행을 기념하는 저녁입니다. 예약 오픈을 기다리는 중입니다.',
         image: 'taipei-night.webp',
         mapQuery: '85TD Taipei',
+        placeId: '85td',
         tags: ['예약 오픈 대기'],
       },
       {
         time: '식사 후',
         title: 'Taipei 101 주변 야경',
         description: '메인 디너 뒤 건물 주변의 야경을 잠깐 감상합니다.',
+        placeId: 'taipei-101',
         tags: ['짧게 산책'],
       },
       {
@@ -444,11 +471,13 @@ export const days: TripDay[] = [
         description: '호텔에서 가까운 초록길을 컨디션에 따라 40–80분 산책합니다.',
         image: 'botanical.webp',
         mapQuery: 'Taipei Botanical Garden',
+        placeId: 'botanical',
       },
       {
         time: '10:30–11:20',
         title: '호텔 복귀 · 체크아웃',
         description: '짐을 정리하고 로비에서 차량을 만납니다.',
+        placeId: 'hotel',
       },
       {
         time: '이후',
@@ -463,6 +492,7 @@ export const days: TripDay[] = [
         description: '여행의 마지막 식사는 일본식 장어덮밥입니다. 식사하는 약 2시간 동안 차량이 대기하고 캐리어는 차량에 보관합니다.',
         image: 'unadon.webp',
         mapQuery: '肥前屋 Taipei',
+        placeId: 'hizenya',
         tags: ['짐은 차량 보관'],
       },
       {
@@ -472,6 +502,7 @@ export const days: TripDay[] = [
         description: '비즈니스 체크인과 라운지를 이용하며 여유 있게 쉬다가 탑승합니다.',
         transport: '전용차',
         mapQuery: 'Taoyuan International Airport Terminal 1',
+        placeId: 'taoyuan-t1',
       },
       {
         time: '17:10–20:35',

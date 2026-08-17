@@ -12,6 +12,8 @@ import {
   Home,
   Hotel,
   Info,
+  Languages,
+  LockKeyhole,
   Luggage,
   Plane,
   Route,
@@ -25,11 +27,15 @@ import {
 import { Brand } from './components/Brand'
 import { Countdown } from './components/Countdown'
 import { DaySection } from './components/DaySection'
+import { LocalToolsView, RestaurantPlanB } from './components/LocalToolsView'
+import type { ToolsTab } from './components/LocalToolsView'
 import { MapLinkButton } from './components/MapLinkButton'
 import { OpeningSequence } from './components/OpeningSequence'
+import { HotelReturnButton } from './components/PlaceActions'
 import { SectionHeader } from './components/SectionHeader'
 import { StatusBadge } from './components/StatusBadge'
 import { imageSourceByFile, imageSources } from './data/imageSources'
+import { placeCatalog, todayTaiwanCards } from './data/localTools'
 import {
   budget,
   days,
@@ -41,7 +47,7 @@ import {
 } from './data/trip'
 import { imagePath } from './lib/paths'
 
-type ViewId = 'home' | 'schedule' | 'bookings' | 'food' | 'budget'
+type ViewId = 'home' | 'schedule' | 'bookings' | 'food' | 'budget' | 'tools'
 type BookingTab = 'status' | 'stay' | 'mobility'
 
 interface AppRoute {
@@ -63,13 +69,19 @@ const primaryNav: Array<{ id: ViewId; label: string; shortLabel: string; icon: L
   { id: 'bookings', label: '예약·이동', shortLabel: '예약', icon: Plane, href: '#bookings/status' },
   { id: 'food', label: '식사', shortLabel: '식사', icon: Utensils, href: '#food' },
   { id: 'budget', label: '예산', shortLabel: '예산', icon: WalletCards, href: '#budget' },
+  { id: 'tools', label: '현지 도구', shortLabel: '현지 도구', icon: Languages, href: '#tools/quick' },
 ]
+
+const mobileNav = primaryNav.filter((item) => item.id !== 'budget')
 
 const bookingTabs: Array<{ id: BookingTab; label: string }> = [
   { id: 'status', label: '예약 현황' },
   { id: 'stay', label: '숙소·항공' },
   { id: 'mobility', label: '차량·지도' },
 ]
+
+const toolsTabs: ToolsTab[] = ['quick', 'language', 'weather', 'guide']
+const kakaoGuideStorageKey = 'minsung-tour-kakao-guide-v2-seen'
 
 function readRoute(): AppRoute {
   const raw = window.location.hash.replace(/^#/, '')
@@ -83,6 +95,9 @@ function readRoute(): AppRoute {
   }
   if (view === 'bookings') {
     return { view: 'bookings', section: bookingTabs.some((tab) => tab.id === section) ? section : 'status' }
+  }
+  if (view === 'tools') {
+    return { view: 'tools', section: toolsTabs.includes(section as ToolsTab) ? section : 'quick' }
   }
   if (view === 'food' || view === 'budget' || view === 'home') return { view }
 
@@ -152,6 +167,9 @@ function StatusOverview({ compact = false }: { compact?: boolean }) {
 
 function HomeView() {
   const heroSource = imageSourceByFile['hero.webp']
+  const today = new Date()
+  const localDayIndex = Math.floor(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) / 86_400_000)
+  const todayCard = todayTaiwanCards[localDayIndex % todayTaiwanCards.length]
 
   return (
     <div className="portal-view portal-view--home">
@@ -202,6 +220,28 @@ function HomeView() {
       </section>
 
       <StatusOverview compact />
+
+      <section className="today-taiwan section-pad" aria-labelledby="today-taiwan-title">
+        <div className="page-shell">
+          <a className="today-taiwan__card" href={todayCard.href}>
+            <img
+              src={imagePath(todayCard.image)}
+              alt={imageSourceByFile[todayCard.image].alt}
+              width="1600"
+              height="1067"
+              loading="lazy"
+              decoding="async"
+            />
+            <span className="today-taiwan__scrim" />
+            <div className="today-taiwan__copy">
+              <span>{todayCard.eyebrow}</span>
+              <h2 id="today-taiwan-title">{todayCard.title}</h2>
+              <p>{todayCard.copy}</p>
+              <strong>일정에서 보기 <ArrowRight size={18} aria-hidden="true" /></strong>
+            </div>
+          </a>
+        </div>
+      </section>
 
       <section className="day-overview section-pad">
         <div className="page-shell">
@@ -345,9 +385,15 @@ function MobilityView() {
             </article>
             <article>
               <span className="transport-grid__icon"><CarFront size={26} aria-hidden="true" /></span>
-              <small>DAY 2</small><h3>VIP 의전차량</h3>
-              <p>Alphard 40·Lexus LM350h 등 후보 중 2열 리클라이너·오토만·통풍·열선·마사지와 승차감을 우선해 비교합니다.</p>
-              <StatusBadge tone="progress">최종 비교 중</StatusBadge>
+              <small>DAY 2 · 후보 A</small><h3>Toyota Alphard 40系</h3>
+              <p>2023년 이후 모델. 2열 리클라이너·오토만·통풍·열선·마사지 기능과 부모님 승하차 편의성을 비교합니다.</p>
+              <StatusBadge tone="progress">확정 아님 · 최종 비교 중</StatusBadge>
+            </article>
+            <article>
+              <span className="transport-grid__icon"><Sparkles size={26} aria-hidden="true" /></span>
+              <small>DAY 2 · 후보 B</small><h3>Lexus LM350h</h3>
+              <p>2023~2026년식 후보. 동일한 2열 리클라이너·오토만·통풍·열선·마사지 기능과 승차감을 비교합니다.</p>
+              <StatusBadge tone="progress">확정 아님 · 최종 비교 중</StatusBadge>
             </article>
             <article>
               <span className="transport-grid__icon"><Luggage size={26} aria-hidden="true" /></span>
@@ -452,6 +498,7 @@ function FoodView() {
           </div>
         </div>
       </section>
+      <RestaurantPlanB />
     </div>
   )
 }
@@ -546,6 +593,9 @@ function SiteFooter() {
         <div className="site-footer__note">
           <p><ShieldCheck size={17} aria-hidden="true" /> 예약번호, 여권번호, 결제정보 등 민감정보는 저장하지 않습니다.</p>
           <div>
+            <a className="site-footer__private-link" href="#tools/quick" aria-label="민성 모드 위치">
+              <LockKeyhole size={15} aria-hidden="true" /> 민성 모드
+            </a>
             <button type="button" onClick={() => window.dispatchEvent(new Event('minsung-tour:replay-opening'))}>오프닝 다시 보기</button>
             <span>MADE WITH CARE FOR OUR FAMILY · 2027</span>
           </div>
@@ -560,6 +610,14 @@ function App() {
   const firstRender = useRef(true)
 
   useEffect(() => {
+    const isKakaoBrowser = /KAKAOTALK/i.test(window.navigator.userAgent)
+    if (!isKakaoBrowser || window.sessionStorage.getItem(kakaoGuideStorageKey) === 'true') return
+
+    window.sessionStorage.setItem(kakaoGuideStorageKey, 'true')
+    if (window.location.hash !== '#tools/guide') window.location.hash = 'tools/guide'
+  }, [])
+
+  useEffect(() => {
     const handleHashChange = () => setRoute(readRoute())
     window.addEventListener('hashchange', handleHashChange)
     return () => window.removeEventListener('hashchange', handleHashChange)
@@ -572,6 +630,7 @@ function App() {
       bookings: '예약과 이동',
       food: '식사 계획',
       budget: '예산과 원칙',
+      tools: '현지 도구',
     }
     document.title = `${labels[route.view]} | 민성투어 대만 2027`
 
@@ -586,6 +645,7 @@ function App() {
   }, [route])
 
   const bookingTab = (route.section ?? 'status') as BookingTab
+  const toolsTab = (route.section ?? 'quick') as ToolsTab
 
   return (
     <>
@@ -614,12 +674,15 @@ function App() {
         {route.view === 'bookings' && <BookingsView tab={bookingTab} />}
         {route.view === 'food' && <FoodView />}
         {route.view === 'budget' && <BudgetView />}
+        {route.view === 'tools' && <LocalToolsView tab={toolsTab} />}
       </main>
+
+      {(route.view === 'schedule' || route.view === 'tools') && <HotelReturnButton hotel={placeCatalog.hotel} />}
 
       <SiteFooter />
 
       <nav className="mobile-primary-nav" aria-label="모바일 주요 메뉴">
-        {primaryNav.map((item) => {
+        {mobileNav.map((item) => {
           const Icon = item.icon
           const active = route.view === item.id
           return (

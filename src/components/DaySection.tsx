@@ -1,8 +1,10 @@
 import { CarFront, ChevronDown, Footprints, Gauge, Map, UtensilsCrossed } from 'lucide-react'
 import type { TripDay } from '../data/trip'
 import { imageSourceByFile } from '../data/imageSources'
+import { placeCatalog, rainPlans } from '../data/localTools'
 import { imagePath } from '../lib/paths'
 import { MapLinkButton } from './MapLinkButton'
+import { PlaceActions } from './PlaceActions'
 
 interface DaySectionProps {
   day: TripDay
@@ -19,6 +21,7 @@ export function DaySection({ day, index }: DaySectionProps) {
     { label: '주요 식사', value: day.keyMeal },
   ]
   const coverSource = imageSourceByFile[day.cover]
+  const rainPlan = rainPlans.find((plan) => plan.day === day.day)
 
   return (
     <section className={`day-section day-section--${index + 1}`} id={day.id} data-day-section={day.id}>
@@ -100,27 +103,33 @@ export function DaySection({ day, index }: DaySectionProps) {
                       <figcaption>{imageSource.place}</figcaption>
                     </figure>
                   )}
-                  {item.mapQuery && <MapLinkButton query={item.mapQuery} compact />}
+                  {item.placeId ? (
+                    <PlaceActions place={placeCatalog[item.placeId]} compact />
+                  ) : (
+                    item.mapQuery && <MapLinkButton query={item.mapQuery} compact />
+                  )}
                 </div>
               </details>
             )
           })}
         </div>
 
-        {day.id === 'day-2' && (
+        {rainPlan && (
           <details className="weather-plan">
             <summary>
               <span>
                 <small>WEATHER PLAN B</small>
-                <strong>비가 오면 어떻게 할까요?</strong>
+                <strong>{rainPlan.title}</strong>
               </span>
               <span className="weather-plan__toggle">대안 보기</span>
             </summary>
             <div className="weather-plan__body">
-              <div><strong>약한 비</strong><p>원안을 유지합니다.</p></div>
-              <div><strong>계속되는 비</strong><p>스펀폭포를 우선 삭제하거나 축소할지 검토합니다.</p></div>
-              <div><strong>폭우·강풍</strong><p>예류·스펀 일부를 줄이고 기사와 상의해 같은 지역 범위에서 유연하게 대체합니다.</p></div>
-              <div><strong>지우펀</strong><p>가벼운 비라면 유지할 수 있습니다.</p></div>
+              {rainPlan.options.map((option) => (
+                <div key={option.condition}>
+                  <strong>{option.condition}</strong>
+                  <p>{option.action}</p>
+                </div>
+              ))}
             </div>
             <p className="weather-plan__note">이 카드는 확정 일정이 아닌 비상 대안입니다. 여행 직전 예보와 부모님 컨디션을 기준으로 결정합니다.</p>
           </details>
