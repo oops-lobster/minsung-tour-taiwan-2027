@@ -59,7 +59,7 @@ export function OpeningSequence() {
         <div className="opening__content">
           <span className="opening__eyebrow">FOR OUR FAMILY, WITH CARE</span>
           <div className="opening__monogram" aria-hidden="true">
-            <span>M</span><i />
+            <img src={imagePath('brand-logo.webp')} alt="" width="512" height="512" />
           </div>
           <div className="opening__title-mask">
             <h2>민성투어</h2>
