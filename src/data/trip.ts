@@ -63,8 +63,8 @@ export const tripStatuses: TripStatus[] = [
     icon: 'hotel',
   },
   {
-    label: 'Day 2 Lexus LM350h',
-    detail: '7인승 · 차량 지정',
+    label: 'Day 2 토요타 알파드',
+    detail: '2023년식 · 7인승',
     status: '견적 문의 중',
     tone: 'progress',
     icon: 'car',
@@ -208,7 +208,7 @@ export const days: TripDay[] = [
     lead: '여행 중 가장 많이 움직이는 날이지만, 장거리 구간은 전용차에서 충분히 쉬며 이어갑니다.',
     intensity: '높음',
     walking: '약 9천–1.2만 보 예상',
-    transport: 'Lexus LM350h 예정',
+    transport: '토요타 알파드 2023년식 예정',
     keyPlaces: '예류 · 스펀 · 지우펀',
     keyMeal: 'Qiao Yan · 지우펀 현지식',
     cover: 'jiufen.webp',
@@ -222,9 +222,9 @@ export const days: TripDay[] = [
       {
         time: '08:30',
         title: '호텔 로비 출발',
-        description: '신형 Lexus LM350h 7인승을 지정 요청했습니다. 기본적인 영어 소통이 가능한 기사님도 함께 요청합니다.',
-        transport: 'Lexus LM350h',
-        image: 'lexus.webp',
+        description: '토요타 알파드 2023년식 7인승을 지정 요청했습니다. 기본적인 영어 소통이 가능한 기사님도 함께 요청합니다.',
+        transport: '토요타 알파드 · 2023년식',
+        image: 'alphard.webp',
         tags: ['견적 문의 중'],
       },
       {
@@ -396,10 +396,10 @@ export const days: TripDay[] = [
       },
       {
         time: '이후',
-        title: 'Lexus LM350h 차량 계획',
+        title: '토요타 알파드 2023년식 차량 계획',
         description: 'Day 2와 같은 업체에 호텔 → 비전옥 → 타오위안공항 T1 패키지 견적을 요청할 예정입니다.',
-        transport: 'LM350h 예정',
-        image: 'lexus.webp',
+        transport: '알파드 2023년식 예정',
+        image: 'alphard.webp',
         tags: ['협의 예정'],
       },
       {

@@ -345,8 +345,8 @@ function MobilityView() {
             </article>
             <article>
               <span className="transport-grid__icon"><CarFront size={26} aria-hidden="true" /></span>
-              <small>DAY 2</small><h3>Lexus LM350h</h3>
-              <p>예류·스펀을 거쳐 지우펀 드롭에서 종료. 7인승 모델을 지정 요청합니다.</p>
+              <small>DAY 2</small><h3>토요타 알파드</h3>
+              <p>예류·스펀을 거쳐 지우펀 드롭에서 종료. 2023년식 7인승 모델을 지정 요청합니다.</p>
               <StatusBadge tone="progress">견적 문의 중</StatusBadge>
             </article>
             <article>
