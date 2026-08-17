@@ -9,6 +9,7 @@ UI/UX Pro Max의 storytelling hero, editorial typography, mobile-first accessibi
 - 따뜻하고 정돈된 여행사 상품 페이지의 신뢰감
 - 부모님도 별도 설명 없이 읽을 수 있는 큰 글씨와 선명한 정보 위계
 - 첫 진입에만 짧은 타이포그래피 오프닝, 이후에는 콘텐츠 중심
+- 긴 단일 페이지 대신 화면·탭·아코디언을 이용한 progressive disclosure
 
 ## Color tokens
 
@@ -38,7 +39,10 @@ UI/UX Pro Max의 storytelling hero, editorial typography, mobile-first accessibi
 
 - Mobile-first breakpoints: 375, 640, 900, 1280px
 - Content shell: mobile 16px gutter, tablet 24px, desktop 36px, max 1200px
-- Sticky header + five-item day anchor navigation
+- Desktop header + mobile five-item bottom navigation
+- Top-level views: 홈 / 일정 / 예약 / 식사 / 예산
+- 일정은 DAY 1–4 탭, 예약은 현황 / 숙소·항공 / 차량·지도 탭
+- Hash deep link와 브라우저 back stack 유지
 - Touch target 44px minimum
 - Card nesting을 피하고 border, whitespace, editorial image composition으로 섹션을 구분
 

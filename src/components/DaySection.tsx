@@ -1,4 +1,4 @@
-import { CarFront, Footprints, Gauge, Map, UtensilsCrossed } from 'lucide-react'
+import { CarFront, ChevronDown, Footprints, Gauge, Map, UtensilsCrossed } from 'lucide-react'
 import type { TripDay } from '../data/trip'
 import { imageSourceByFile } from '../data/imageSources'
 import { imagePath } from '../lib/paths'
@@ -69,19 +69,18 @@ export function DaySection({ day, index }: DaySectionProps) {
           {day.schedule.map((item, itemIndex) => {
             const imageSource = item.image ? imageSourceByFile[item.image] : undefined
             return (
-              <article className={`timeline-item ${item.optional ? 'timeline-item--optional' : ''}`} key={`${item.time}-${item.title}`}>
-                <div className="timeline-item__rail" aria-hidden="true">
-                  <span>{String(itemIndex + 1).padStart(2, '0')}</span>
-                </div>
-                <div className="timeline-item__content">
-                  <time>{item.time}</time>
-                  <div className="timeline-item__heading">
-                    <div>
-                      <h3>{item.title}</h3>
-                      {item.localName && <p className="timeline-item__local">{item.localName}</p>}
-                    </div>
-                    {item.transport && <span className="transport-label">{item.transport}</span>}
-                  </div>
+              <details className={`timeline-item ${item.optional ? 'timeline-item--optional' : ''}`} key={`${item.time}-${item.title}`}>
+                <summary className="timeline-item__summary">
+                  <span className="timeline-item__index" aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</span>
+                  <span className="timeline-item__summary-copy">
+                    <time>{item.time}</time>
+                    <h3>{item.title}</h3>
+                    {item.localName && <span className="timeline-item__local">{item.localName}</span>}
+                  </span>
+                  <span className="timeline-item__expand" aria-hidden="true"><ChevronDown size={20} /></span>
+                </summary>
+                <div className="timeline-item__details">
+                  {item.transport && <span className="transport-label">{item.transport}</span>}
                   <p className="timeline-item__description">{item.description}</p>
                   {item.tags && (
                     <div className="tag-row" aria-label="일정 상태">
@@ -103,7 +102,7 @@ export function DaySection({ day, index }: DaySectionProps) {
                   )}
                   {item.mapQuery && <MapLinkButton query={item.mapQuery} compact />}
                 </div>
-              </article>
+              </details>
             )
           })}
         </div>
