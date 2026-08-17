@@ -536,7 +536,10 @@ function SiteFooter() {
         </details>
         <div className="site-footer__note">
           <p><ShieldCheck size={17} aria-hidden="true" /> 예약번호, 여권번호, 결제정보 등 민감정보는 저장하지 않습니다.</p>
-          <span>MADE WITH CARE FOR OUR FAMILY · 2027</span>
+          <div>
+            <button type="button" onClick={() => window.dispatchEvent(new Event('minsung-tour:replay-opening'))}>오프닝 다시 보기</button>
+            <span>MADE WITH CARE FOR OUR FAMILY · 2027</span>
+          </div>
         </div>
       </div>
     </footer>
