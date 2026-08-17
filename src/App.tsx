@@ -432,7 +432,7 @@ function FoodView() {
           <div className="meal-editorial">
             <figure className="meal-editorial__main">
               <img src={imagePath('xiaolongbao.webp')} alt={imageSourceByFile['xiaolongbao.webp'].alt} width="1600" height="960" loading="lazy" decoding="async" />
-              <figcaption><span>DAY 3 LUNCH</span><strong>딘타이펑의 딤섬</strong></figcaption>
+              <figcaption><span>DAY 3 LUNCH</span><strong>딘타이펑 신생점의 딤섬</strong></figcaption>
             </figure>
             <figure className="meal-editorial__side">
               <img src={imagePath('unadon.webp')} alt={imageSourceByFile['unadon.webp'].alt} width="1600" height="1067" loading="lazy" decoding="async" />

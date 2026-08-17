@@ -141,16 +141,6 @@ export const imageSources: ImageSource[] = [
     retrievedAt: '2026-08-17',
   },
   {
-    file: 'songshan.webp',
-    place: '송산문창원구',
-    alt: '벽돌 건물과 초록 정원이 어우러진 송산문창원구',
-    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Songshan_Cultural_and_Creative_Park_%E6%9D%BE%E5%B1%B1%E6%96%87%E5%89%B5%E5%9C%92%E5%8D%80_-_panoramio.jpg',
-    author: 'lienyuan lee',
-    license: 'CC BY 3.0',
-    attributionRequired: true,
-    retrievedAt: '2026-08-17',
-  },
-  {
     file: 'taipei-night.webp',
     place: '타이베이 101에서 본 신이구 야경',
     alt: '타이베이 101 고층에서 내려다본 신이구의 넓은 밤 풍경',
