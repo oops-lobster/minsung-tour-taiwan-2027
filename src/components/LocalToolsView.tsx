@@ -4,6 +4,7 @@ import {
   AppWindow,
   CarTaxiFront,
   Check,
+  ChevronDown,
   CloudSun,
   Copy,
   CreditCard,
@@ -184,6 +185,7 @@ function SnackAtlas() {
   const [checked, setChecked] = useState<string[]>(() => {
     try { return JSON.parse(window.localStorage.getItem('minsung-tour-snacks-v2') ?? '[]') as string[] } catch { return [] }
   })
+  const [showAll, setShowAll] = useState(false)
 
   const toggle = (id: string) => {
     const next = checked.includes(id) ? checked.filter((item) => item !== id) : [...checked, id]
@@ -195,11 +197,11 @@ function SnackAtlas() {
     <section className="snack-atlas section-pad">
       <div className="page-shell">
         <SectionHeader eyebrow="TAIWAN BITE LIST" title="길거리 간식 도감" description="보이면 반갑고, 못 먹어도 아쉽지 않은 발견 목록입니다. 먹은 간식은 이 기기에서 체크해 둘 수 있어요." />
-        <div className="snack-grid">
-          {streetSnacks.map((snack) => {
+        <div id="snack-list" className={`snack-grid ${showAll ? 'snack-grid--expanded' : ''}`}>
+          {streetSnacks.map((snack, index) => {
             const eaten = checked.includes(snack.id)
             return (
-              <article className={eaten ? 'is-eaten' : ''} key={snack.id}>
+              <article className={`${eaten ? 'is-eaten ' : ''}${index >= 4 ? 'snack-grid__extra' : ''}`.trim()} key={snack.id}>
                 <img src={imagePath(snack.image)} alt={`${snack.name} 실제 음식 사진`} width="960" height="720" loading="lazy" decoding="async" />
                 <div>
                   <small>{snack.where}</small>
@@ -214,6 +216,16 @@ function SnackAtlas() {
             )
           })}
         </div>
+        <button
+          className="snack-grid-toggle"
+          type="button"
+          aria-controls="snack-list"
+          aria-expanded={showAll}
+          onClick={() => setShowAll((current) => !current)}
+        >
+          {showAll ? '간식 목록 접기' : `간식 ${streetSnacks.length - 4}개 더 보기`}
+          <ChevronDown size={18} aria-hidden="true" />
+        </button>
       </div>
     </section>
   )

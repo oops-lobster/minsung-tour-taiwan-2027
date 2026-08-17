@@ -3461,6 +3461,8 @@ button {
 .snack-grid > article {
   display: grid;
   min-width: 0;
+  min-height: 176px;
+  grid-template-columns: minmax(96px, .72fr) minmax(0, 1.28fr);
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -3471,7 +3473,8 @@ button {
 
 .snack-grid > article > img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
+  aspect-ratio: auto;
   object-fit: cover;
 }
 
@@ -3479,7 +3482,7 @@ button {
   display: flex;
   min-width: 0;
   flex-direction: column;
-  padding: 18px;
+  padding: 14px;
 }
 
 .snack-grid small {
@@ -3492,7 +3495,7 @@ button {
 .snack-grid h3 {
   margin: 5px 0 0;
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.12rem;
   font-weight: 500;
 }
 
@@ -3504,9 +3507,13 @@ button {
 }
 
 .snack-grid div > span {
+  display: -webkit-box;
+  overflow: hidden;
   color: var(--ink-soft);
   font-size: .72rem;
   line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .snack-grid button {
@@ -3515,7 +3522,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 7px;
-  margin-top: 18px;
+  margin-top: auto;
   padding: 0 14px;
   border: 1px solid var(--jade);
   border-radius: 3px;
@@ -3538,6 +3545,39 @@ button {
 .snack-grid > article.is-eaten button {
   background: var(--jade);
   color: white;
+}
+
+.snack-grid-toggle {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  border: 1px solid rgba(0, 72, 104, .28);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--jade-deep);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  touch-action: manipulation;
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.snack-grid-toggle svg {
+  transition: transform 180ms ease;
+}
+
+.snack-grid-toggle[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 639px) {
+  .snack-grid:not(.snack-grid--expanded) > .snack-grid__extra {
+    display: none;
+  }
 }
 
 /* Restaurant alternatives */
@@ -4376,6 +4416,10 @@ button {
   .phrase-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .snack-grid > article { grid-template-columns: minmax(150px, .8fr) minmax(0, 1.2fr); }
   .snack-grid > article > img { height: 100%; aspect-ratio: auto; }
+  .snack-grid > article > div { padding: 18px; }
+  .snack-grid h3 { font-size: 1.35rem; }
+  .snack-grid button { margin-top: 18px; }
+  .snack-grid-toggle { display: none; }
   .budget-shortcut > .page-shell { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; padding: 30px; }
   .budget-shortcut a { min-width: 150px; }
   .kakao-notice > div { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -4452,6 +4496,7 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .expense-ratio > i > b,
   .driver-reveal > summary > svg,
+  .snack-grid-toggle svg,
   .tool-card__heading > button {
     transition: none;
   }
