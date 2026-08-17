@@ -1,0 +1,10 @@
+{
+  "name": "민성투어 — Taiwan 2027",
+  "short_name": "민성투어",
+  "description": "부모님과 함께하는 3박 4일 타이베이 가족여행",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f1e8",
+  "theme_color": "#0d2f2a",
+  "lang": "ko-KR"
+}
