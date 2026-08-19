@@ -246,7 +246,6 @@ export const travelApps = [
   { id: 'line-go', name: 'LINE GO', use: 'LINE 기반 택시 호출 대안', ios: 'https://apps.apple.com/tw/search?term=LINE%20GO', android: 'https://play.google.com/store/search?q=LINE%20GO&c=apps' },
   { id: 'weather', name: 'Taiwan Weather', use: '대만 중앙기상서 공식 특보 확인', ios: 'https://www.cwa.gov.tw/V8/C/', android: 'https://www.cwa.gov.tw/V8/C/' },
   { id: 'flighty', name: 'Flighty', use: '항공편 지연과 게이트 변경 확인', ios: 'https://apps.apple.com/app/flighty-live-flight-tracker/id1358823008', android: 'https://www.flighty.com/' },
-  { id: 'easycard', name: 'EasyCard', use: '이지카드 사용처와 충전 정보', ios: 'https://www.easycard.com.tw/', android: 'https://www.easycard.com.tw/' },
 ] as const
 
 export const todayTaiwanCards = [

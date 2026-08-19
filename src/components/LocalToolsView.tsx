@@ -7,8 +7,8 @@ import {
   ChevronDown,
   CloudSun,
   Copy,
-  CreditCard,
   ExternalLink,
+  HeartHandshake,
   Languages,
   MapPinned,
   MessageCircle,
@@ -16,7 +16,6 @@ import {
   Plane,
   Smartphone,
   UtensilsCrossed,
-  WalletCards,
 } from 'lucide-react'
 import { imageSourceByFile } from '../data/imageSources'
 import {
@@ -29,8 +28,6 @@ import {
 } from '../data/localTools'
 import { googleTranslateUrl } from '../lib/paths'
 import { imagePath } from '../lib/paths'
-import { ExchangeRateCard, useExchangeRate } from './ExchangeRateCard'
-import { ExpenseManager } from './ExpenseManager'
 import { PlaceActions } from './PlaceActions'
 import { SectionHeader } from './SectionHeader'
 import { WeatherCard } from './WeatherCard'
@@ -54,7 +51,6 @@ const appIcons: Record<string, LucideIcon> = {
   'line-go': MessageCircle,
   weather: CloudSun,
   flighty: Plane,
-  easycard: CreditCard,
 }
 
 function ToolsHero() {
@@ -67,23 +63,16 @@ function ToolsHero() {
         <div>
           <span>LOCAL TRAVEL OS</span>
           <h1 id="tools-title">현지 도구</h1>
-          <p>지도, 택시, 번역, 환율, 날씨를 민성 폰 한 화면에서 바로 사용합니다.</p>
+          <p>지도, 택시, 번역, 날씨를 민성 폰 한 화면에서 바로 사용합니다.</p>
         </div>
       </div>
     </section>
   )
 }
 
-function QuickTools({ rate, updatedAt, status, refresh }: ReturnType<typeof useExchangeRate>) {
+function QuickTools() {
   return (
     <>
-      <section className="tools-section section-pad">
-        <div className="page-shell">
-          <SectionHeader eyebrow="MONEY & MOVE" title="도착하면 가장 먼저 쓰는 것" description="환율을 확인하고, 목적지를 고르면 지도·길찾기·Uber까지 바로 이어집니다." />
-          <ExchangeRateCard rate={rate} updatedAt={updatedAt} status={status} onRefresh={refresh} />
-        </div>
-      </section>
-
       <section className="tools-section tools-section--dark section-pad">
         <div className="page-shell">
           <SectionHeader eyebrow="ONE TAP DESTINATIONS" title="빠른 목적지" description="자주 쓰는 여섯 곳만 먼저 꺼냈습니다. 중국어 주소는 기사님께 크게 보여줄 수 있어요." inverse />
@@ -107,9 +96,9 @@ function QuickTools({ rate, updatedAt, status, refresh }: ReturnType<typeof useE
 
       <section className="budget-shortcut section-pad">
         <div className="page-shell">
-          <WalletCards size={31} aria-hidden="true" />
-          <div><small>FAMILY VIEW</small><h2>예산과 여행 원칙은 그대로</h2><p>부모님께 보여드리는 준비 현황과 민성투어 원칙을 확인하세요.</p></div>
-          <a href="#budget">예산 화면 열기</a>
+          <HeartHandshake size={31} aria-hidden="true" />
+          <div><small>FAMILY VIEW</small><h2>우리 여행 원칙</h2><p>셋이 함께 확인하고 바꿔가는 민성투어의 기준을 확인하세요.</p></div>
+          <a href="#budget">원칙 화면 열기</a>
         </div>
       </section>
     </>
@@ -333,8 +322,6 @@ function GuideTools() {
 }
 
 export function LocalToolsView({ tab }: { tab: ToolsTab }) {
-  const exchange = useExchangeRate()
-
   return (
     <div className="portal-view portal-view--tools">
       <ToolsHero />
@@ -345,8 +332,7 @@ export function LocalToolsView({ tab }: { tab: ToolsTab }) {
           ))}
         </div>
       </nav>
-      <div className="tools-private-access page-shell"><ExpenseManager exchangeRate={exchange.rate} /></div>
-      {tab === 'quick' && <QuickTools {...exchange} />}
+      {tab === 'quick' && <QuickTools />}
       {tab === 'language' && <LanguageTools />}
       {tab === 'weather' && <WeatherTools />}
       {tab === 'guide' && <GuideTools />}

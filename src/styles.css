@@ -720,6 +720,11 @@ button {
   text-wrap: balance;
 }
 
+.hero__slogan-line {
+  display: block;
+  white-space: nowrap;
+}
+
 .hero__lead {
   margin: 22px 0 0;
   color: rgba(255, 255, 255, 0.86);
@@ -993,9 +998,9 @@ button {
 }
 
 .status-list--compact .status-item {
-  grid-template-columns: 38px minmax(0, 1fr) auto;
+  grid-template-columns: 38px minmax(0, 1fr);
   gap: 9px;
-  align-items: center;
+  align-items: start;
   padding: 12px 0;
 }
 
@@ -1009,10 +1014,11 @@ button {
 }
 
 .status-list--compact .status-item .status-badge {
-  grid-column: 3;
-  grid-row: 1;
-  align-self: center;
-  justify-self: end;
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: start;
+  margin-top: 4px;
+  white-space: normal;
 }
 
 .overview--compact .section-link {
@@ -1949,6 +1955,9 @@ button {
 }
 
 .transport-grid article {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
   padding: 24px;
   border: 1px solid var(--white-line);
   background: rgba(255, 255, 255, 0.035);
@@ -1982,6 +1991,55 @@ button {
   margin: 0 0 18px;
   color: rgba(255, 255, 255, 0.65);
   font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.transport-grid .status-badge {
+  align-self: flex-start;
+  white-space: normal;
+}
+
+.mobility-detail {
+  margin-top: 18px;
+  border-top: 1px solid var(--white-line);
+}
+
+.mobility-detail summary {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: rgba(255, 255, 255, .86);
+  cursor: pointer;
+  font-size: .72rem;
+  font-weight: 700;
+  list-style: none;
+}
+
+.mobility-detail summary::-webkit-details-marker {
+  display: none;
+}
+
+.mobility-detail summary svg {
+  flex: 0 0 auto;
+  transition: transform 180ms ease;
+}
+
+.mobility-detail[open] summary svg {
+  transform: rotate(90deg);
+}
+
+.mobility-detail ul {
+  margin: 0;
+  padding: 2px 0 4px 18px;
+}
+
+.mobility-detail li {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, .64);
+  font-size: .72rem;
+  line-height: 1.65;
 }
 
 /* Meals */
@@ -2441,6 +2499,8 @@ button {
   .status-summary div:last-child { border-right: 0; }
   .status-item { grid-template-columns: 52px minmax(0, 1fr) auto; align-items: center; }
   .status-item .status-badge { grid-column: 3; grid-row: 1; align-self: center; }
+  .status-list--compact .status-item { grid-template-columns: 38px minmax(0, 1fr) auto; align-items: center; }
+  .status-list--compact .status-item .status-badge { grid-column: 3; grid-row: 1; align-self: center; justify-self: end; margin-top: 0; white-space: nowrap; }
   .day-card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .day-cover__content { grid-template-columns: 150px 1fr; align-items: end; }
   .day-quick-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }

@@ -13,7 +13,6 @@ import {
   Hotel,
   Info,
   Languages,
-  LockKeyhole,
   Luggage,
   Plane,
   Route,
@@ -22,7 +21,6 @@ import {
   Utensils,
   UtensilsCrossed,
   Users,
-  WalletCards,
 } from 'lucide-react'
 import { Brand } from './components/Brand'
 import { Countdown } from './components/Countdown'
@@ -37,7 +35,6 @@ import { StatusBadge } from './components/StatusBadge'
 import { imageSourceByFile, imageSources } from './data/imageSources'
 import { placeCatalog, todayTaiwanCards } from './data/localTools'
 import {
-  budget,
   days,
   driverPlaces,
   mealPlan,
@@ -68,7 +65,7 @@ const primaryNav: Array<{ id: ViewId; label: string; shortLabel: string; icon: L
   { id: 'schedule', label: '전체 일정', shortLabel: '일정', icon: CalendarDays, href: '#schedule/day-1' },
   { id: 'bookings', label: '예약·이동', shortLabel: '예약', icon: Plane, href: '#bookings/status' },
   { id: 'food', label: '식사', shortLabel: '식사', icon: Utensils, href: '#food' },
-  { id: 'budget', label: '예산', shortLabel: '예산', icon: WalletCards, href: '#budget' },
+  { id: 'budget', label: '원칙', shortLabel: '원칙', icon: HeartHandshake, href: '#budget' },
   { id: 'tools', label: '현지 도구', shortLabel: '현지 도구', icon: Languages, href: '#tools/quick' },
 ]
 
@@ -134,12 +131,6 @@ function StatusOverview({ compact = false }: { compact?: boolean }) {
             ? '예약된 것과 아직 비교하거나 기다리는 것을 짧게 확인하세요.'
             : '가족 모두가 지금 어디까지 준비됐는지 한눈에 볼 수 있어요. 예약번호나 개인정보는 담지 않았습니다.'}
         />
-        <div className="status-summary" aria-label="예약 상태 요약">
-          <div><strong>2</strong><span>예약 완료</span></div>
-          <div><strong>2</strong><span>비교·검토</span></div>
-          <div><strong>1</strong><span>예약 대기</span></div>
-          <div><strong>1</strong><span>현장 결정</span></div>
-        </div>
         <div className={`status-list ${compact ? 'status-list--compact' : ''}`}>
           {statuses.map((status) => {
             const Icon = statusIcons[status.icon]
@@ -188,8 +179,11 @@ function HomeView() {
             <span className="hero__eyebrow">PRIVATE FAMILY JOURNEY · TAIPEI</span>
             <div className="hero__brand-line"><Brand light /></div>
             <p className="hero__date">{tripMeta.dateLabel}</p>
-            <h1 id="hero-title">부모님과 함께,<br />타이베이 3박 4일</h1>
-            <p className="hero__lead">준비하는 순간부터 돌아오는 날까지.<br />세 사람만을 위해 만든 단 하나의 여행입니다.</p>
+            <h1 id="hero-title">
+              <span className="hero__slogan-line">가치 있는 사치.</span>
+              <span className="hero__slogan-line">같이 있는 우리.</span>
+            </h1>
+            <p className="hero__lead">세 사람이 함께 고르고 준비하는 타이베이 3박 4일.</p>
             <div className="hero__actions">
               <a className="button button--primary" href="#schedule/day-1">
                 일정 열기 <ArrowRight size={19} aria-hidden="true" />
@@ -272,9 +266,9 @@ function HomeView() {
         <div className="home-promise__scrim" />
         <div className="home-promise__copy page-shell">
           <HeartHandshake size={34} strokeWidth={1.5} aria-hidden="true" />
-          <p>민성투어의 약속</p>
-          <h2>많이 보는 것보다,<br />세 사람이 즐겁게 돌아오는 여행.</h2>
-          <a className="button button--ghost" href="#budget">예산과 원칙 보기</a>
+          <p>여행 전부터 같이</p>
+          <h2>궁금한 곳은 미리 찾아보고,<br />바꾸고 싶은 일정은 함께 이야기해요.</h2>
+          <a className="button button--ghost" href="#budget">우리 여행 원칙 보기</a>
         </div>
       </section>
     </div>
@@ -373,33 +367,64 @@ function MobilityView() {
         <div className="page-shell">
           <SectionHeader
             eyebrow="PRIVATE TRANSFER"
-            title="차량과 이동"
-            description="대중교통은 꼭 필요한 한 번만, 장거리 구간은 편안한 전용차를 우선합니다."
+            title="여행의 이동"
+            description="차급을 비교하는 목록이 아니라, 여행의 시작부터 귀가까지 서로 다른 네 장면입니다."
             inverse
           />
           <div className="transport-grid">
             <article>
               <span className="transport-grid__icon"><Route size={26} aria-hidden="true" /></span>
-              <small>DAY 1</small><h3>공항 MRT 한 번</h3>
-              <p>공항에서 타이베이역까지, 이번 여행에서 대중교통을 경험하는 구간입니다.</p>
+              <small>한국 출발 · 여행의 오프닝</small><h3>Stretch Limousine ?</h3>
+              <p>현재 1순위는 Chrysler 300C Stretch Limousine. 첫 이동부터 평소 쉽게 하지 못하는 경험으로 여행을 시작합니다.</p>
+              <StatusBadge tone="progress">검토 중</StatusBadge>
+              <details className="mobility-detail">
+                <summary>희망 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
+                <ul>
+                  <li>실제 긴 차체의 Stretch Limousine</li>
+                  <li>뒤쪽 L자형 또는 대면형 소파 라운지</li>
+                  <li>성인 3명 동시 이용과 여행가방 적재 가능</li>
+                  <li>2027년 1월 실제 차량과 배차 가능 여부 재확인</li>
+                  <li>조건이 다르면 프리미엄 택시 또는 일반 택시</li>
+                </ul>
+              </details>
             </article>
             <article>
               <span className="transport-grid__icon"><CarFront size={26} aria-hidden="true" /></span>
-              <small>DAY 2 · 후보 A</small><h3>Toyota Alphard 40系</h3>
-              <p>2023년 이후 모델. 2열 리클라이너·오토만·통풍·열선·마사지 기능과 부모님 승하차 편의성을 비교합니다.</p>
-              <StatusBadge tone="progress">확정 아님 · 최종 비교 중</StatusBadge>
+              <small>대만 도착 · 첫인상</small><h3>Tesla Model X</h3>
+              <p>대만에서의 첫 이동은 조금 특별하게. 다음날의 Alphard와 전혀 다른 Falcon Wing Door 경험을 위해 선택했습니다.</p>
+              <StatusBadge tone="waiting">차종 지정 · 예약 예정</StatusBadge>
+              <details className="mobility-detail">
+                <summary>탑승 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
+                <ul>
+                  <li>업체 好好禮車 · 5인승 Model X</li>
+                  <li>성인 3명 · 대형 캐리어 2개</li>
+                  <li>부모님은 2열, 한 명은 조수석</li>
+                  <li>Model X 지정 · 가능하면 최근 연식 우선 요청</li>
+                </ul>
+              </details>
             </article>
             <article>
               <span className="transport-grid__icon"><Sparkles size={26} aria-hidden="true" /></span>
-              <small>DAY 2 · 후보 B</small><h3>Lexus LM350h</h3>
-              <p>2023~2026년식 후보. 동일한 2열 리클라이너·오토만·통풍·열선·마사지 기능과 승차감을 비교합니다.</p>
-              <StatusBadge tone="progress">확정 아님 · 최종 비교 중</StatusBadge>
+              <small>DAY 2 · DAY 4 · 편안한 근교 이동</small><h3>Toyota Alphard 40系</h3>
+              <p>부모님이 가장 편하게 쉬면서 이동하는 시간. 鼎崧出行의 지정 차량으로 예약 절차를 진행 중입니다.</p>
+              <StatusBadge tone="progress">잠정 확정 · 예약 절차 진행 중</StatusBadge>
+              <details className="mobility-detail">
+                <summary>차량 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
+                <ul>
+                  <li>2025년식 · 2025년 11월 출고 차량</li>
+                  <li>임의로 오래된 연식 차량으로 변경하지 않도록 요청 완료</li>
+                  <li>2열 독립 좌석 · 전동 리클라이닝 · 전동 레그레스트</li>
+                  <li>통풍 · 열선 · 마사지</li>
+                  <li>기본 영어 의사소통 기사 요청</li>
+                  <li>합법 영업 차량과 승객보험 확인</li>
+                </ul>
+              </details>
             </article>
             <article>
               <span className="transport-grid__icon"><Luggage size={26} aria-hidden="true" /></span>
-              <small>DAY 4</small><h3>같은 업체 재이용 검토</h3>
-              <p>호텔에서 비전옥을 거쳐 공항까지. Day 2 선정 업체가 식사 중 대기하며 짐을 보관하는 방향입니다.</p>
-              <StatusBadge tone="progress">예약 미정</StatusBadge>
+              <small>귀국 · 여행의 마무리</small><h3>Taxi</h3>
+              <p>인천공항에 도착한 뒤에는 시간을 정하지 않고 현장에서 택시를 불러 편하게 집으로 돌아갑니다.</p>
+              <StatusBadge tone="flexible">현장 호출</StatusBadge>
             </article>
           </div>
         </div>
@@ -503,63 +528,27 @@ function FoodView() {
   )
 }
 
-function BudgetView() {
+function PrinciplesView() {
   return (
     <div className="portal-view">
       <ViewHero
         image="taipei-night.webp"
-        eyebrow="BUDGET & PROMISE"
-        title="예산과 원칙"
-        description="정산이 끝난 항공·숙소 금액은 숨기고, 앞으로 확인할 현지비와 우리 가족 여행의 기준만 적었습니다."
+        eyebrow="OUR FAMILY PLAN"
+        title="여행 원칙"
+        description="모든 일정을 미리 열어두고, 셋이 함께 보고 이야기하며 완성해 갑니다."
       />
-      <section className="budget section-pad">
-        <div className="page-shell budget__layout">
-          <SectionHeader
-            eyebrow="LOCAL BUDGET"
-            title="현지비 준비 현황"
-            description="이미 정산한 항공·숙소는 상태만 보여주고, 아직 필요한 비용은 확정되기 전까지 금액을 표시하지 않습니다."
-          />
-          <div className="budget-card">
-            <div className="budget-card__confirmed">
-              <span>예약·정산 완료</span>
-              {budget.settled.map((item) => (
-                <div key={item.label}>
-                  <p><strong>{item.label}</strong><small>{item.note}</small></p>
-                  <b>{item.status}</b>
-                </div>
-              ))}
-            </div>
-            <div className="budget-card__estimate">
-              <span className="estimate-badge">예약 대기 · 현지비</span>
-              <p>앞으로 확인할 항목</p>
-              <h3>확정된 비용만<br />나중에 공유할게요</h3>
-              <i />
-              <div className="budget-card__pending-list">
-                {budget.pending.map((item) => (
-                  <div key={item.label}>
-                    <p><strong>{item.label}</strong><small>{item.note}</small></p>
-                    <b>{item.status}</b>
-                  </div>
-                ))}
-              </div>
-              <small>업체별 견적과 협상 과정은 가족용 사이트에 표시하지 않습니다.</small>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="principles section-pad">
         <div className="page-shell principles__layout">
           <div className="principles__intro">
             <span className="section-header__eyebrow">OUR PROMISE</span>
-            <h2>민성투어<br />운영 원칙</h2>
+            <h2>같이 고르고<br />같이 바꾸는 여행</h2>
             <HeartHandshake size={54} strokeWidth={1.3} aria-hidden="true" />
           </div>
           <div className="principles__list">
             {principles.map((principle, index) => (
               <p key={principle}><span>{String(index + 1).padStart(2, '0')}</span>{principle}</p>
             ))}
-            <blockquote>여행에서 가장 중요한 것은<br /><strong>많이 보는 것보다 세 사람이 즐겁게 돌아오는 것.</strong></blockquote>
+            <blockquote>가치 있는 사치.<br /><strong>같이 있는 우리.</strong></blockquote>
           </div>
         </div>
       </section>
@@ -591,11 +580,8 @@ function SiteFooter() {
           </div>
         </details>
         <div className="site-footer__note">
-          <p><ShieldCheck size={17} aria-hidden="true" /> 예약번호, 여권번호, 결제정보 등 민감정보는 저장하지 않습니다.</p>
+          <p><ShieldCheck size={17} aria-hidden="true" /> 예약번호와 여권번호 등 민감정보는 저장하지 않습니다.</p>
           <div>
-            <a className="site-footer__private-link" href="#tools/quick" aria-label="민성 모드 위치">
-              <LockKeyhole size={15} aria-hidden="true" /> 민성 모드
-            </a>
             <button type="button" onClick={() => window.dispatchEvent(new Event('minsung-tour:replay-opening'))}>오프닝 다시 보기</button>
             <span>MADE WITH CARE FOR OUR FAMILY · 2027</span>
           </div>
@@ -629,7 +615,7 @@ function App() {
       schedule: '전체 일정',
       bookings: '예약과 이동',
       food: '식사 계획',
-      budget: '예산과 원칙',
+      budget: '여행 원칙',
       tools: '현지 도구',
     }
     document.title = `${labels[route.view]} | 민성투어 대만 2027`
@@ -673,7 +659,7 @@ function App() {
         {route.view === 'schedule' && <ScheduleView dayId={route.section ?? 'day-1'} />}
         {route.view === 'bookings' && <BookingsView tab={bookingTab} />}
         {route.view === 'food' && <FoodView />}
-        {route.view === 'budget' && <BudgetView />}
+        {route.view === 'budget' && <PrinciplesView />}
         {route.view === 'tools' && <LocalToolsView tab={toolsTab} />}
       </main>
 

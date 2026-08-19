@@ -52,6 +52,27 @@ export const tripMeta = {
 
 export const tripStatuses: TripStatus[] = [
   {
+    label: '한국 출발 차량',
+    detail: 'Chrysler 300C Stretch Limousine · 조건 재확인 예정',
+    status: '검토 중',
+    tone: 'progress',
+    icon: 'car',
+  },
+  {
+    label: 'Day 1 공항 픽업',
+    detail: '好好禮車 · Tesla Model X 차종 지정',
+    status: '예약 예정',
+    tone: 'waiting',
+    icon: 'car',
+  },
+  {
+    label: 'Day 2·4 전용차',
+    detail: '鼎崧出行 · Toyota Alphard 40系',
+    status: '잠정 확정 · 예약 절차 진행 중',
+    tone: 'progress',
+    icon: 'car',
+  },
+  {
     label: '아시아나 비즈니스',
     detail: '왕복 3인',
     status: '예약 완료',
@@ -66,32 +87,11 @@ export const tripStatuses: TripStatus[] = [
     icon: 'hotel',
   },
   {
-    label: 'Day 2 VIP 의전차량',
-    detail: '2열 편안함 · 의전 품질 우선',
-    status: '최종 비교 중',
-    tone: 'progress',
-    icon: 'car',
-  },
-  {
     label: '85TD',
     detail: 'Day 3 메인 디너',
     status: '예약 오픈 대기',
     tone: 'waiting',
     icon: 'meal',
-  },
-  {
-    label: 'Day 4 공항 이동',
-    detail: 'Day 2 선정 업체 재이용 방향',
-    status: '검토 중',
-    tone: 'progress',
-    icon: 'car',
-  },
-  {
-    label: '주요 식사',
-    detail: '후보와 예정 일정 반영',
-    status: '현장 결정 포함',
-    tone: 'flexible',
-    icon: 'utensils',
   },
 ]
 
@@ -106,11 +106,18 @@ export const days: TripDay[] = [
     lead: '도시에 천천히 들어가 바다의 노을을 보고, 오래된 골목과 네온의 밤으로 첫날을 마무리합니다.',
     intensity: '보통',
     walking: '약 6–8천 보 예상',
-    transport: '공항 MRT + 택시',
+    transport: '리무진 검토 · Model X · 택시',
     keyPlaces: '중정기념당 · 단수이 · 용산사',
     keyMeal: '춘수당 · 魚藏餐廳',
     cover: 'tamsui.webp',
     schedule: [
+      {
+        time: '출발 전',
+        title: '집 → 인천공항 T2',
+        description: '현재 1순위는 Chrysler 300C Stretch Limousine입니다. 2027년 1월 실제 운행 차량과 배차 가능 여부를 다시 확인하고, 조건이 맞지 않으면 프리미엄 택시 또는 일반 택시를 이용합니다.',
+        transport: 'Stretch Limousine ?',
+        tags: ['검토 중'],
+      },
       {
         time: '10:00',
         title: '인천 출발',
@@ -128,9 +135,11 @@ export const days: TripDay[] = [
       },
       {
         time: '12:40–13:30',
-        title: 'Airport MRT → 타이베이역',
-        description: '이번 여행에서 공항철도를 직접 경험하는 유일한 구간입니다.',
-        transport: 'Airport MRT',
+        title: 'Tesla Model X로 호텔 이동',
+        localName: '好好禮車',
+        description: '성인 3명과 대형 캐리어 2개가 5인승 Model X로 이동합니다. 부모님은 2열, 한 명은 조수석에 앉고 Falcon Wing Door로 대만의 첫 이동을 특별하게 시작합니다.',
+        transport: 'Tesla Model X · 好好禮車',
+        tags: ['차종 지정', '예약 예정'],
       },
       {
         time: '13:30–13:50',
@@ -241,7 +250,7 @@ export const days: TripDay[] = [
     lead: '여행 중 가장 많이 움직이는 날이지만, 장거리 구간은 전용차에서 충분히 쉬며 이어갑니다.',
     intensity: '높음',
     walking: '약 9천–1.2만 보 예상',
-    transport: 'VIP 의전차량 · 최종 비교 중',
+    transport: '鼎崧出行 · Toyota Alphard 40系',
     keyPlaces: '예류 · 스펀 · 지우펀',
     keyMeal: 'Qiao Yan · 지우펀 현지식',
     cover: 'jiufen.webp',
@@ -256,9 +265,9 @@ export const days: TripDay[] = [
       {
         time: '08:30',
         title: '호텔 로비 출발',
-        description: '부모님이 이동 중 충분히 쉴 수 있도록 독립 캡틴시트와 리클라이너·오토만·통풍·열선·마사지 기능을 갖춘 VIP 차량을 비교하고 있습니다.',
-        transport: 'Toyota Alphard 40 / Lexus LM350h 등',
-        tags: ['업체·차량 최종 비교 중'],
+        description: '鼎崧出行의 2025년식 Toyota Alphard 40系로 출발합니다. 2025년 11월 출고 조건과 지정 차량 배차를 사전에 확인하고 예약 절차를 진행 중입니다.',
+        transport: 'Toyota Alphard 40系',
+        tags: ['잠정 확정', '예약 절차 진행 중'],
       },
       {
         time: '09:20–10:50',
@@ -305,11 +314,11 @@ export const days: TripDay[] = [
         time: '15:20 이후',
         title: '지우펀 이동',
         description: '차량에서 쉬면서 지우펀으로 이동합니다. 도착 전 부모님 컨디션을 다시 확인합니다.',
-        transport: 'VIP 의전차량',
+        transport: 'Toyota Alphard 40系',
       },
       {
         time: '16:15 전후',
-        title: '지우펀 도착 · VIP 차량 서비스 종료',
+        title: '지우펀 도착 · 전용차 서비스 종료',
         localName: '九份老街',
         description: '지우펀 드롭에서 기사님과 작별합니다. 차량 서비스는 여기에서 종료하는 계획입니다.',
         transport: '전용차 종료',
@@ -327,9 +336,10 @@ export const days: TripDay[] = [
       },
       {
         time: '귀환',
-        title: '호텔로 바로 돌아가기',
-        description: '저녁을 충분히 즐긴 뒤 택시 또는 예약 차량으로 호텔에 돌아갑니다. 별도 야시장·시먼딩 일정은 없습니다.',
-        transport: '택시 / 예약 차량',
+        title: '원하는 순간, 호텔로 돌아가기',
+        description: '돌아가는 시간은 정하지 않습니다. 저녁 식사와 지우펀의 밤을 충분히 즐긴 뒤, 우리가 가고 싶을 때 현장에서 택시를 불러 호텔로 돌아갑니다.',
+        transport: '현장 호출 택시',
+        tags: ['사전 픽업 없음'],
       },
     ],
   },
@@ -343,7 +353,7 @@ export const days: TripDay[] = [
     lead: '오전에는 타이완의 보물을 만나고, 오후에 충분히 쉬었다가 여행의 메인 디너를 즐깁니다.',
     intensity: '여유',
     walking: '약 6–8천 보 예상',
-    transport: '택시 중심',
+    transport: '택시 · 그때그때',
     keyPlaces: '고궁 · 용캉제·칭톈제 · Taipei 101',
     keyMeal: '딘타이펑 신생점 · 85TD',
     cover: 'taipei-night.webp',
@@ -448,7 +458,7 @@ export const days: TripDay[] = [
     lead: '관광 욕심을 내려놓고 호텔 주변의 초록을 걷고, 따뜻한 장어덮밥으로 여행을 마무리합니다.',
     intensity: '낮음',
     walking: '약 3–5천 보 예상',
-    transport: 'VIP 의전차량 재이용 검토 중',
+    transport: '鼎崧出行 · Toyota Alphard 40系',
     keyPlaces: '식물원 · 비전옥 · 공항',
     keyMeal: '비전옥 장어덮밥',
     cover: 'botanical.webp',
@@ -481,10 +491,10 @@ export const days: TripDay[] = [
       },
       {
         time: '이후',
-        title: 'VIP 의전차량 재이용 검토',
-        description: 'Day 2에서 선정한 업체를 다시 이용해 호텔 → 비전옥 → 타오위안공항 T1으로 이동하는 방향을 검토 중입니다. 아직 최종 예약은 아닙니다.',
-        transport: 'VIP 의전차량 · 검토 중',
-        tags: ['예약 미정'],
+        title: 'Toyota Alphard 40系 다시 이용',
+        description: 'Day 2와 같은 鼎崧出行 지정 차량으로 호텔 → 비전옥 → 타오위안공항 T1을 이동합니다. 식사 중 차량이 대기하고 캐리어는 차에 보관합니다.',
+        transport: 'Toyota Alphard 40系',
+        tags: ['잠정 확정', '예약 절차 진행 중'],
       },
       {
         time: '점심',
@@ -511,31 +521,26 @@ export const days: TripDay[] = [
         transport: '아시아나항공',
         tags: ['예약 완료'],
       },
+      {
+        time: '입국 후',
+        title: '택시로 집까지',
+        description: '인천공항에서 집까지, 여행의 마지막 이동은 가장 단순하고 편안하게 마무리합니다.',
+        transport: 'Taxi',
+        tags: ['현장 호출'],
+      },
     ],
   },
 ]
 
-export const budget = {
-  settled: [
-    { label: '아시아나 비즈니스 왕복', status: '예약·정산 완료', note: '성인 3명' },
-    { label: 'Taipei Garden Hotel', status: '예약·정산 완료', note: '3박 · 무료취소' },
-  ],
-  pending: [
-    { label: 'VIP 의전차량', status: '최종 비교 중', note: 'Day 2 · Day 4 재이용 방향 검토' },
-    { label: '85TD', status: '예약 오픈 대기', note: 'Day 3 메인 기념 디너' },
-    { label: '현지 식사·택시', status: '현지비 정리 중', note: '일정과 컨디션에 따라 변동' },
-  ],
-}
-
 export const principles = [
-  '첫날 Airport MRT 한 번은 직접 타본다.',
-  '이후에는 이동 편의를 우선한다.',
-  '장거리 이동에는 VIP 차량을 적극 활용한다.',
+  '모든 일정은 여행 전에 셋이 함께 확인한다.',
+  '가보고 싶은 곳과 먹고 싶은 메뉴는 미리 이야기한다.',
+  '관심이 적은 일정은 편하게 빼거나 바꾼다.',
+  '편안한 이동과 오래 남을 경험을 중요하게 생각한다.',
   '관광을 위해 걷는 것은 좋지만, 이동 때문에 오래 걷지는 않는다.',
-  '야시장은 먹방보다 분위기를 즐긴다.',
-  '식사는 깔끔하고 편안한 곳을 우선한다.',
   '일정표보다 부모님 컨디션이 우선이다.',
   '피곤하면 선택 일정은 언제든 삭제한다.',
+  '결국 가장 중요한 것은 셋이 함께 있었다는 사실이다.',
 ]
 
 export const driverPlaces = [

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { imagePath } from '../lib/paths'
 
-const openingStorageKey = 'minsung-tour-opening-v2-seen'
+const openingStorageKey = 'minsung-tour-opening-v3-seen'
 
 export function OpeningSequence() {
   const [visible, setVisible] = useState(() => {
@@ -65,7 +65,7 @@ export function OpeningSequence() {
             <h2>민성투어</h2>
           </div>
           <div className="opening__signature" aria-hidden="true"><i /><span>EST. 2027</span><i /></div>
-          <p>부모님과 함께하는 타이베이 3박 4일</p>
+          <p>가치 있는 사치. 같이 있는 우리.</p>
         </div>
 
         <div className="opening__destination">
