@@ -1,0 +1,7 @@
+project_id = "omqhgtfgdamjjsbgkcri"
+
+[functions.budget-api]
+verify_jwt = false
+
+[functions.trip-tasks]
+verify_jwt = false

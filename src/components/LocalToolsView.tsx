@@ -114,7 +114,7 @@ function QuickTools() {
         <div className="page-shell">
           <HeartHandshake size={31} aria-hidden="true" />
           <div><small>FAMILY VIEW</small><h2>우리 여행 원칙</h2><p>셋이 함께 확인하고 바꿔가는 민성투어의 기준을 확인하세요.</p></div>
-          <a href="#budget">원칙 화면 열기</a>
+          <a href="#principles">원칙 화면 열기</a>
         </div>
       </section>
     </>

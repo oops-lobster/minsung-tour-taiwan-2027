@@ -9,7 +9,8 @@
 - 첫 진입 타이포그래피 오프닝과 민성투어 워드마크
 - 출발일까지 자동 계산되는 D-Day
 - 항공·호텔·차량·식사 예약 상태 대시보드
-- 홈·일정·예약·식사·예산으로 나뉜 앱형 화면 구조
+- 홈·일정·예약·식사·예산·현지 도구로 나뉜 앱형 화면 구조
+- PIN으로 보호되는 Supabase 예산 대시보드와 `민성` 여행 준비 TODO
 - URL 해시 기반 직접 링크와 브라우저 뒤로가기 지원
 - 모바일 5개 고정 하단 내비게이션
 - DAY 1–4 탭과 눌러서 펼치는 일정 상세
@@ -28,6 +29,7 @@
 - React
 - TypeScript
 - Lucide React icons
+- Supabase Postgres + Edge Functions
 - CSS custom properties + mobile-first responsive CSS
 - GitHub Pages / GitHub Actions
 
@@ -40,6 +42,13 @@ npm install
 npm run dev
 ```
 
+로컬의 private 관리 화면은 `.env.example`을 참고해 `.env.local`에 아래 두 공개 값을 설정합니다. service role/secret key는 프론트엔드에 넣지 않습니다.
+
+```bash
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_PUBLISHABLE_KEY=...
+```
+
 프로덕션 빌드 확인:
 
 ```bash
@@ -49,14 +58,13 @@ npm run preview
 
 ## 콘텐츠 수정 위치
 
-### 일정·예약 상태·예산
+### 일정·예약 상태
 
 `src/data/trip.ts`
 
 - `tripMeta`: 여행 이름, 날짜, 인원
 - `tripStatuses`: 준비·예약 상태
 - `days`: DAY 1–4 일정과 장소, 설명, 이동수단
-- `budget`: 확정 비용과 예상 비용
 - `principles`: 민성투어 운영 원칙
 - `driverPlaces`: 기사님께 보여주기 장소
 - `mealPlan`: 날짜별 식사 계획
@@ -102,6 +110,16 @@ npm run preview
 
 확정되지 않은 예약 시간이나 차량은 임의로 확정하지 말고 `예약 대기`, `견적 문의 중`, `협의 예정`, `현장 결정`으로 표시합니다.
 
+### Private 예산·TODO
+
+- `#budget`: 계획 예산, 실제 지출, 예약 분할 결제, 총예산·환율 설정
+- `#minsung`: 개인 여행 준비 TODO 추가·완료·삭제
+- `#principles`: 기존 가족여행 원칙
+- DB migration: `supabase/migrations/`
+- Edge Functions: `supabase/functions/budget-api/`, `supabase/functions/trip-tasks/`
+
+예산과 TODO 테이블은 RLS를 활성화하고 anon/authenticated 직접 권한을 회수했습니다. 브라우저는 PIN 검증으로 받은 임시 세션을 Edge Function에 전달하며, 원문 PIN과 service/secret key는 저장소에 두지 않습니다.
+
 ## 이미지 최적화
 
 현재 이미지는 Wikimedia Commons에서 확인한 실제 사진을 1600px 폭 WebP로 저장했습니다. macOS에서 `cwebp`가 설치되어 있다면 다음 형태로 새 사진을 최적화할 수 있습니다.
@@ -117,6 +135,8 @@ cwebp -q 78 -resize 1600 0 source.jpg -o public/images/place.webp
 1. GitHub에 새 repository를 만들고 프로젝트를 push합니다.
 2. repository의 **Settings → Pages → Build and deployment**에서 Source를 **GitHub Actions**로 선택합니다.
 3. `main` branch에 push하면 `.github/workflows/deploy.yml`이 빌드와 배포를 자동 실행합니다.
+
+Actions 빌드에는 repository variables `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`가 필요합니다.
 
 `vite.config.ts`의 `base: './'` 설정으로 `https://username.github.io/repository-name/` 같은 repository subpath에서도 이미지와 asset이 동작합니다.
 

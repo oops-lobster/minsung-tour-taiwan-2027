@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import {
   ArrowRight,
@@ -21,6 +21,7 @@ import {
   Utensils,
   UtensilsCrossed,
   Users,
+  WalletCards,
 } from 'lucide-react'
 import { Brand } from './components/Brand'
 import { Countdown } from './components/Countdown'
@@ -44,7 +45,9 @@ import {
 } from './data/trip'
 import { imagePath } from './lib/paths'
 
-type ViewId = 'home' | 'schedule' | 'bookings' | 'food' | 'budget' | 'tools'
+const BudgetDashboard = lazy(() => import('./components/BudgetDashboard').then((module) => ({ default: module.BudgetDashboard })))
+
+type ViewId = 'home' | 'schedule' | 'bookings' | 'food' | 'budget' | 'minsung' | 'principles' | 'tools'
 type BookingTab = 'status' | 'stay' | 'mobility'
 
 interface AppRoute {
@@ -65,11 +68,11 @@ const primaryNav: Array<{ id: ViewId; label: string; shortLabel: string; icon: L
   { id: 'schedule', label: '전체 일정', shortLabel: '일정', icon: CalendarDays, href: '#schedule/day-1' },
   { id: 'bookings', label: '예약·이동', shortLabel: '예약', icon: Plane, href: '#bookings/status' },
   { id: 'food', label: '식사', shortLabel: '식사', icon: Utensils, href: '#food' },
-  { id: 'budget', label: '원칙', shortLabel: '원칙', icon: HeartHandshake, href: '#budget' },
+  { id: 'budget', label: '예산', shortLabel: '예산', icon: WalletCards, href: '#budget' },
   { id: 'tools', label: '현지 도구', shortLabel: '현지 도구', icon: Languages, href: '#tools/quick' },
 ]
 
-const mobileNav = primaryNav.filter((item) => item.id !== 'budget')
+const mobileNav = primaryNav.filter((item) => item.id !== 'food')
 
 const bookingTabs: Array<{ id: BookingTab; label: string }> = [
   { id: 'status', label: '예약 현황' },
@@ -96,7 +99,7 @@ function readRoute(): AppRoute {
   if (view === 'tools') {
     return { view: 'tools', section: toolsTabs.includes(section as ToolsTab) ? section : 'quick' }
   }
-  if (view === 'food' || view === 'budget' || view === 'home') return { view }
+  if (view === 'food' || view === 'budget' || view === 'minsung' || view === 'principles' || view === 'home') return { view }
 
   return { view: 'home' }
 }
@@ -268,7 +271,7 @@ function HomeView() {
           <HeartHandshake size={34} strokeWidth={1.5} aria-hidden="true" />
           <p>여행 전부터 같이</p>
           <h2>궁금한 곳은 미리 찾아보고,<br />바꾸고 싶은 일정은 함께 이야기해요.</h2>
-          <a className="button button--ghost" href="#budget">우리 여행 원칙 보기</a>
+          <a className="button button--ghost" href="#principles">우리 여행 원칙 보기</a>
         </div>
       </section>
     </div>
@@ -390,17 +393,18 @@ function MobilityView() {
             </article>
             <article>
               <span className="transport-grid__icon"><CarFront size={26} aria-hidden="true" /></span>
-              <small>대만 도착 · 호텔 공식 픽업</small><h3>Mercedes-Benz S350</h3>
-              <p>Taipei Garden Hotel 공식 리무진으로 타오위안공항 T2에서 호텔까지 이동하는 방안을 문의 중입니다.</p>
-              <StatusBadge tone="waiting">예약 문의 중</StatusBadge>
+              <small>대만 도착 · 호텔 공식 픽업</small><h3>Mercedes-Benz Sedan</h3>
+              <p>Taipei Garden Hotel 공식 리무진을 선택했고, 타오위안공항 T2 픽업 예약 절차를 진행합니다.</p>
+              <StatusBadge tone="progress">차량 선택 확정 · 예약 진행 중</StatusBadge>
               <details className="mobility-detail">
                 <summary>탑승 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
                 <ul>
                   <li>Taipei Garden Hotel / 台北花園大酒店 공식 픽업</li>
                   <li>성인 3명 · 대형 캐리어 2개</li>
-                  <li>호텔 안내상 약 2013–2019년식 S350</li>
+                  <li>통상 S350 · 호텔 안내상 약 2013–2019년식</li>
                   <li>특정 연식·실제 차량 지정 불가 · 당일 배차에 따라 결정</li>
-                  <li>공식 안내 요금 NT$1,800 · 2027.02.20 가능 여부와 최종 가격 이메일 문의 중</li>
+                  <li>24시간 이용 · 예정 도착시각 기준 90분 무료 대기</li>
+                  <li>예약번호·항공편·도착시간 제출 후 카드 사전승인과 호텔 확인 필요</li>
                 </ul>
               </details>
             </article>
@@ -412,8 +416,8 @@ function MobilityView() {
               <details className="mobility-detail">
                 <summary>차량 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
                 <ul>
-                  <li>Day 2 8시간 · Day 4 약 4시간 · 총액 NT$15,000</li>
-                  <li>첫 계약금 NT$2,000 송금 승인 대기 · 2027년 1월 추가 계약금 NT$2,000 · 잔금 NT$11,000</li>
+                  <li>Day 2 8시간 · Day 4 약 4시간</li>
+                  <li>첫 예약금 해외송금은 한국 은행 승인 대기</li>
                   <li>2024–2026년식 차량 풀 · 신형 연식 우선 배차, 2026년식 지정 보장은 아님</li>
                   <li>합법 R 번호판 · 승객보험 1인당 NT$5,000,000</li>
                   <li>무연 차량 · 출차 전 내·외부 차량 정리</li>
@@ -619,7 +623,9 @@ function App() {
       schedule: '전체 일정',
       bookings: '예약과 이동',
       food: '식사 계획',
-      budget: '여행 원칙',
+      budget: '가족여행 예산',
+      minsung: '민성이 챙길 것',
+      principles: '여행 원칙',
       tools: '현지 도구',
     }
     document.title = `${labels[route.view]} | 민성투어 대만 2027`
@@ -649,7 +655,7 @@ function App() {
           </a>
           <nav className="desktop-nav" aria-label="주요 메뉴">
             {primaryNav.map((item) => (
-              <a className={route.view === item.id ? 'is-active' : ''} href={item.href} aria-current={route.view === item.id ? 'page' : undefined} key={item.id}>
+              <a className={route.view === item.id || (route.view === 'minsung' && item.id === 'budget') ? 'is-active' : ''} href={item.href} aria-current={route.view === item.id || (route.view === 'minsung' && item.id === 'budget') ? 'page' : undefined} key={item.id}>
                 {item.label}
               </a>
             ))}
@@ -663,7 +669,9 @@ function App() {
         {route.view === 'schedule' && <ScheduleView dayId={route.section ?? 'day-1'} />}
         {route.view === 'bookings' && <BookingsView tab={bookingTab} />}
         {route.view === 'food' && <FoodView />}
-        {route.view === 'budget' && <PrinciplesView />}
+        {route.view === 'budget' && <Suspense fallback={<div className="budget-loading">개인 예산 화면을 준비하는 중…</div>}><BudgetDashboard /></Suspense>}
+        {route.view === 'minsung' && <Suspense fallback={<div className="budget-loading">민성의 할 일을 준비하는 중…</div>}><BudgetDashboard mode="minsung" /></Suspense>}
+        {route.view === 'principles' && <PrinciplesView />}
         {route.view === 'tools' && <LocalToolsView tab={toolsTab} />}
       </main>
 
@@ -674,7 +682,7 @@ function App() {
       <nav className="mobile-primary-nav" aria-label="모바일 주요 메뉴">
         {mobileNav.map((item) => {
           const Icon = item.icon
-          const active = route.view === item.id
+          const active = route.view === item.id || (route.view === 'minsung' && item.id === 'budget')
           return (
             <a className={active ? 'is-active' : ''} href={item.href} aria-current={active ? 'page' : undefined} key={item.id}>
               <Icon size={21} aria-hidden="true" />

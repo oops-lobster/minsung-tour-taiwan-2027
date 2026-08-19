@@ -60,9 +60,9 @@ export const tripStatuses: TripStatus[] = [
   },
   {
     label: 'Day 1 공항 픽업',
-    detail: 'Taipei Garden Hotel · Mercedes-Benz S350',
-    status: '예약 문의 중',
-    tone: 'waiting',
+    detail: 'Taipei Garden Hotel · Mercedes-Benz Sedan',
+    status: '차량 선택 확정 · 예약 절차 진행 중',
+    tone: 'progress',
     icon: 'car',
   },
   {
@@ -106,7 +106,7 @@ export const days: TripDay[] = [
     lead: '도시에 천천히 들어가 바다의 노을을 보고, 오래된 골목과 네온의 밤으로 첫날을 마무리합니다.',
     intensity: '보통',
     walking: '약 6–8천 보 예상',
-    transport: '리무진 검토 · 호텔 S350 · 택시',
+    transport: '리무진 검토 · 호텔 Mercedes-Benz · 택시',
     keyPlaces: '중정기념당 · 단수이 · 용산사',
     keyMeal: '춘수당 · 魚藏餐廳',
     cover: 'tamsui.webp',
@@ -158,11 +158,11 @@ export const days: TripDay[] = [
       },
       {
         time: '픽업 시간 재확인',
-        title: '호텔 S350으로 이동',
+        title: '호텔 공식 리무진으로 이동',
         localName: 'Taipei Garden Hotel · 台北花園大酒店',
-        description: 'Taipei Garden Hotel 공식 리무진 서비스의 Mercedes-Benz S350으로 호텔까지 이동하는 방안을 예약 문의 중입니다. 성인 3명과 대형 캐리어 2개까지 이용 가능하며, 호텔 안내상 차량 연식은 약 2013–2019년 범위입니다. 특정 연식과 실제 차량은 지정할 수 없고 당일 배차에 따라 결정됩니다.',
-        transport: 'Mercedes-Benz S350 · 호텔 공식 리무진',
-        tags: ['호텔 공식 픽업', '예약 문의 중'],
+        description: 'Taipei Garden Hotel 공식 Mercedes-Benz 리무진으로 타오위안공항 T2에서 호텔까지 이동합니다. 통상 S350이 배차되며 약 2013–2019년식 범위지만, 실제 연식과 차량은 당일 호텔 배차 상황에 따라 결정됩니다. 성인 3명과 대형 캐리어 2개까지 이용 가능합니다.',
+        transport: 'Mercedes-Benz · 호텔 공식 리무진',
+        tags: ['호텔 공식 픽업', 'Mercedes-Benz', '예약 절차 진행 중'],
       },
       {
         time: '13:30–13:50',
