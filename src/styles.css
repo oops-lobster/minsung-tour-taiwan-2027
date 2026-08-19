@@ -1594,7 +1594,7 @@ button {
 }
 
 .day-route__water {
-  fill: #dcebed;
+  fill: #e8f1f1;
 }
 
 .day-route__grid-line {
@@ -1604,16 +1604,25 @@ button {
 }
 
 .day-route__land {
-  stroke: rgba(0, 72, 104, .13);
-  stroke-width: 1.2;
+  opacity: .58;
+  stroke: rgba(0, 72, 104, .11);
+  stroke-width: 1;
 }
 
 .day-route__land-start {
-  stop-color: #f4eedf;
+  stop-color: #f8f4e8;
 }
 
 .day-route__land-end {
-  stop-color: #d7ddcf;
+  stop-color: #dfe8dd;
+}
+
+.day-route__contour {
+  fill: none;
+  opacity: .42;
+  stroke: rgba(0, 72, 104, .2);
+  stroke-dasharray: 3 8;
+  stroke-width: 1;
 }
 
 .day-route__region-label {
@@ -1624,15 +1633,19 @@ button {
   letter-spacing: 2px;
 }
 
-.day-route__north path {
-  fill: var(--jade);
+.day-route__taiwan-mark path {
+  fill: rgba(0, 72, 104, .14);
+  stroke: rgba(0, 72, 104, .38);
+  stroke-width: 1;
 }
 
-.day-route__north text {
-  fill: var(--jade);
+.day-route__taiwan-mark text,
+.day-route__endpoint-label {
+  fill: rgba(0, 51, 73, .58);
   font-family: 'Libre Bodoni', Georgia, serif;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
+  letter-spacing: 1.3px;
 }
 
 .day-route__line-shadow,
@@ -1643,32 +1656,47 @@ button {
 }
 
 .day-route__line-shadow {
-  stroke: rgba(0, 27, 42, .16);
-  stroke-width: 10;
+  stroke: rgba(255, 253, 245, .92);
+  stroke-width: 13;
 }
 
 .day-route__line {
-  stroke: var(--brand-coral);
-  stroke-width: 4;
-  stroke-dasharray: 3 10;
+  stroke: var(--jade);
+  stroke-width: 5;
+}
+
+.day-route__arrow {
+  fill: var(--brand-coral);
 }
 
 .day-route__point circle {
-  fill: var(--jade-deep);
-  stroke: var(--paper);
-  stroke-width: 3;
+  fill: var(--paper);
+  stroke: var(--jade-deep);
+  stroke-width: 4;
 }
 
 .day-route__point text {
-  fill: white;
+  fill: var(--jade-deep);
   font-family: 'Libre Bodoni', Georgia, serif;
   font-size: 11px;
   font-weight: 600;
 }
 
-.day-route__point--start circle,
+.day-route__point--start circle {
+  fill: var(--jade-deep);
+  stroke: var(--paper);
+  stroke-width: 3;
+}
+
+.day-route__point--start text,
+.day-route__point--finish text {
+  fill: white;
+}
+
 .day-route__point--finish circle {
   fill: var(--brand-coral);
+  stroke: var(--paper);
+  stroke-width: 3;
 }
 
 .day-route__stops {

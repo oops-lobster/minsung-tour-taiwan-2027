@@ -1,6 +1,5 @@
 import { MapPinned } from 'lucide-react'
 import { dayRoutes } from '../data/dayRoutes'
-import { placeCatalog } from '../data/localTools'
 
 interface DayRouteMapProps {
   dayId: string
@@ -13,38 +12,20 @@ interface RoutePoint {
 }
 
 const mapWidth = 760
-const mapHeight = 360
-const mapPadding = 58
-const minimumLongitudeSpan = 0.11
-const minimumLatitudeSpan = 0.085
+const mapHeight = 286
+const horizontalPadding = 70
+const routeLanes = [174, 102, 194, 118, 188, 96, 176, 122, 186]
 
 function projectRoute(dayId: string): RoutePoint[] {
   const stops = dayRoutes[dayId].stops
-  const places = stops.map((stop) => placeCatalog[stop.placeId])
-  const longitudes = places.map((place) => place.longitude)
-  const latitudes = places.map((place) => place.latitude)
-  const rawLongitudeSpan = Math.max(...longitudes) - Math.min(...longitudes)
-  const rawLatitudeSpan = Math.max(...latitudes) - Math.min(...latitudes)
-  const longitudeSpan = Math.max(rawLongitudeSpan, minimumLongitudeSpan)
-  const latitudeSpan = Math.max(rawLatitudeSpan, minimumLatitudeSpan)
-  const longitudeCenter = (Math.max(...longitudes) + Math.min(...longitudes)) / 2
-  const latitudeCenter = (Math.max(...latitudes) + Math.min(...latitudes)) / 2
-  const minLongitude = longitudeCenter - longitudeSpan / 2
-  const maxLatitude = latitudeCenter + latitudeSpan / 2
+  const usableWidth = mapWidth - horizontalPadding * 2
 
-  const duplicateCounts = new Map<string, number>()
-
-  return places.map((place) => {
-    const key = `${place.latitude}:${place.longitude}`
-    const duplicateIndex = duplicateCounts.get(key) ?? 0
-    duplicateCounts.set(key, duplicateIndex + 1)
-    const duplicateOffset = duplicateIndex * 12
-
-    return {
-      x: mapPadding + ((place.longitude - minLongitude) / longitudeSpan) * (mapWidth - mapPadding * 2) + duplicateOffset,
-      y: mapPadding + ((maxLatitude - place.latitude) / latitudeSpan) * (mapHeight - mapPadding * 2) + duplicateOffset,
-    }
-  })
+  return stops.map((_, index) => ({
+    x: stops.length === 1
+      ? mapWidth / 2
+      : horizontalPadding + (index / (stops.length - 1)) * usableWidth,
+    y: routeLanes[index % routeLanes.length],
+  }))
 }
 
 export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
@@ -83,6 +64,9 @@ export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
               <stop offset="0%" className="day-route__land-start" />
               <stop offset="100%" className="day-route__land-end" />
             </linearGradient>
+            <marker id={`${dayId}-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 Z" className="day-route__arrow" />
+            </marker>
             <filter id={`${dayId}-shadow`} x="-40%" y="-40%" width="180%" height="180%">
               <feDropShadow dx="0" dy="4" stdDeviation="4" floodOpacity="0.2" />
             </filter>
@@ -91,17 +75,19 @@ export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
           <rect width={mapWidth} height={mapHeight} className="day-route__water" />
           <rect width={mapWidth} height={mapHeight} fill={`url(#${dayId}-grid)`} />
           <path
-            d="M 12 302 C 76 224 130 157 209 117 C 300 72 399 61 491 86 C 589 112 661 167 748 232 L 760 360 L 0 360 Z"
+            d="M -20 238 C 94 188 158 222 250 184 C 342 146 397 160 477 118 C 563 73 650 87 790 35 L 790 310 L -20 310 Z"
             fill={`url(#${dayId}-land)`}
             className="day-route__land"
           />
-          <text x="28" y="38" className="day-route__region-label">TAIPEI · NORTH TAIWAN</text>
-          <g className="day-route__north" transform="translate(706 28)">
-            <path d="M 10 24 L 18 5 L 26 24 L 18 20 Z" />
-            <text x="18" y="36" textAnchor="middle">N</text>
+          <path className="day-route__contour" d="M -10 78 C 128 34 210 92 331 61 C 463 27 552 60 770 8" />
+          <path className="day-route__contour" d="M -10 258 C 102 213 201 257 307 222 C 435 181 536 226 770 151" />
+          <text x="28" y="36" className="day-route__region-label">TAIWAN ROUTE · VISIT ORDER</text>
+          <g className="day-route__taiwan-mark" transform="translate(690 25)">
+            <path d="M 22 1 C 34 15 33 29 27 43 C 22 57 14 66 8 62 C 1 57 7 46 11 37 C 16 26 13 15 22 1 Z" />
+            <text x="20" y="78" textAnchor="middle">TAIWAN</text>
           </g>
           <path d={path} className="day-route__line-shadow" />
-          <path d={path} className="day-route__line" />
+          <path d={path} className="day-route__line" markerEnd={`url(#${dayId}-arrow)`} />
 
           {points.map((point, index) => (
             <g
@@ -110,10 +96,12 @@ export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
               key={`${route.stops[index].placeId}-${index}`}
               filter={`url(#${dayId}-shadow)`}
             >
-              <circle r="16" />
+              <circle r="17" />
               <text textAnchor="middle" dominantBaseline="central">{index + 1}</text>
             </g>
           ))}
+          <text x={points[0].x} y={points[0].y + 34} textAnchor="middle" className="day-route__endpoint-label">START</text>
+          <text x={points[points.length - 1].x} y={points[points.length - 1].y + 34} textAnchor="middle" className="day-route__endpoint-label">FINISH</text>
         </svg>
       </div>
 
@@ -128,7 +116,7 @@ export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
           </li>
         ))}
       </ol>
-      <p className="day-route__note">장소의 상대적인 방향과 방문 순서를 보여주는 간략 동선도입니다. 실제 도로 경로와는 다를 수 있어요.</p>
+      <p className="day-route__note">방문 순서를 한눈에 보기 위한 노선도형 동선 지도입니다. 실제 축척과 도로 경로는 아래 장소 버튼의 지도를 확인해 주세요.</p>
     </section>
   )
 }
