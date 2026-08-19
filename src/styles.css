@@ -602,22 +602,42 @@ button {
   font-size: .9rem;
 }
 
-.countdown__progress > i {
+.countdown__progress > .countdown__flag-meter {
+  position: relative;
   display: block;
-  height: 5px;
+  height: 20px;
   margin-top: 15px;
   overflow: hidden;
-  border-radius: 99px;
-  background: rgba(255, 255, 255, .14);
+  border: 1px solid rgba(255, 255, 255, .26);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .1);
 }
 
-.countdown__progress > i > b {
-  display: block;
+.countdown__flag-meter > img,
+.countdown__flag-meter > b,
+.countdown__flag-meter > b > img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--brand-coral), var(--coral-soft));
-  transform-origin: left center;
+}
+
+.countdown__flag-meter > img,
+.countdown__flag-meter > b > img {
+  object-fit: cover;
+}
+
+.countdown__flag-meter > img {
+  filter: grayscale(.55);
+  opacity: .18;
+}
+
+.countdown__flag-meter > b {
+  display: block;
+  overflow: hidden;
+  border-right: 2px solid white;
+  clip-path: inset(0 calc(100% - var(--travel-progress)) 0 0);
+  transition: clip-path 300ms ease-out;
 }
 
 .countdown__progress em {
@@ -2785,6 +2805,19 @@ button {
   color: white;
 }
 
+.tool-card__heading > button:disabled {
+  cursor: wait;
+  opacity: .65;
+}
+
+.tool-card__heading .is-spinning {
+  animation: exchange-spin 800ms linear infinite;
+}
+
+@keyframes exchange-spin {
+  to { transform: rotate(360deg); }
+}
+
 .tool-card > label,
 .expense-form label,
 .pin-form label {
@@ -2910,8 +2943,31 @@ button {
   vertical-align: 1px;
 }
 
+.data-status--cached::before {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--jade);
+  content: '';
+  vertical-align: 1px;
+}
+
 .data-status--fallback {
   color: #795c2e;
+}
+
+.exchange-provider {
+  margin: 7px 0 0;
+  color: var(--ink-soft);
+  font-size: .62rem;
+  line-height: 1.55;
+}
+
+.exchange-provider a {
+  color: var(--jade);
+  text-underline-offset: 2px;
 }
 
 /* Destination actions */

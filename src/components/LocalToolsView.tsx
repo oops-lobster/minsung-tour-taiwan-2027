@@ -28,6 +28,7 @@ import {
 } from '../data/localTools'
 import { googleTranslateUrl } from '../lib/paths'
 import { imagePath } from '../lib/paths'
+import { ExchangeRateCard, useExchangeRate } from './ExchangeRateCard'
 import { PlaceActions } from './PlaceActions'
 import { SectionHeader } from './SectionHeader'
 import { WeatherCard } from './WeatherCard'
@@ -63,7 +64,7 @@ function ToolsHero() {
         <div>
           <span>LOCAL TRAVEL OS</span>
           <h1 id="tools-title">현지 도구</h1>
-          <p>지도, 택시, 번역, 날씨를 민성 폰 한 화면에서 바로 사용합니다.</p>
+          <p>지도, 택시, 번역, 환율, 날씨를 민성 폰 한 화면에서 바로 사용합니다.</p>
         </div>
       </div>
     </section>
@@ -71,8 +72,23 @@ function ToolsHero() {
 }
 
 function QuickTools() {
+  const exchange = useExchangeRate()
+
   return (
     <>
+      <section className="tools-section section-pad">
+        <div className="page-shell">
+          <SectionHeader eyebrow="DAILY EXCHANGE" title="오늘의 대만달러 계산" description="하루 한 번 갱신되는 참고 환율로 대만달러를 원화로 빠르게 가늠합니다." />
+          <ExchangeRateCard
+            rate={exchange.rate}
+            updatedAt={exchange.updatedAt}
+            status={exchange.status}
+            isRefreshing={exchange.isRefreshing}
+            onRefresh={exchange.refresh}
+          />
+        </div>
+      </section>
+
       <section className="tools-section tools-section--dark section-pad">
         <div className="page-shell">
           <SectionHeader eyebrow="ONE TAP DESTINATIONS" title="빠른 목적지" description="자주 쓰는 여섯 곳만 먼저 꺼냈습니다. 중국어 주소는 기사님께 크게 보여줄 수 있어요." inverse />

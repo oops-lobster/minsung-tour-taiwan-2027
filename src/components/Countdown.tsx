@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import type { CSSProperties } from 'react'
+import { imagePath } from '../lib/paths'
 
 const targetDate = new Date(2027, 1, 20)
 const progressStart = new Date('2026-08-17T00:00:00+09:00').getTime()
@@ -35,6 +37,7 @@ export function Countdown({ compact = false }: CountdownProps) {
   const [progress, setProgress] = useState(getProgress)
   const [showDetails, setShowDetails] = useState(false)
   const milestone = getMilestone(progress.completed)
+  const flagProgressStyle = { '--travel-progress': `${progress.completed}%` } as CSSProperties
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -69,7 +72,10 @@ export function Countdown({ compact = false }: CountdownProps) {
           <small>TRAVEL METER · 2026.08.17 → 2027.02.20</small>
           <strong>{progress.completed.toFixed(4)}%</strong>
           <span className="countdown__milestone"><b aria-hidden="true">{milestone.emoji}</b> {milestone.message}</span>
-          <i aria-hidden="true"><b style={{ transform: `scaleX(${progress.completed / 100})` }} /></i>
+          <i className="countdown__flag-meter" style={flagProgressStyle} aria-hidden="true">
+            <img src={imagePath('taiwan-flag.svg')} alt="" />
+            <b><img src={imagePath('taiwan-flag.svg')} alt="" /></b>
+          </i>
           <em>{progress.remaining.toFixed(2)}% 뒤면 출국!</em>
         </span>
       )}
