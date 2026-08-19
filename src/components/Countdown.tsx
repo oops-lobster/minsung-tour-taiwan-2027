@@ -4,7 +4,7 @@ import { imagePath } from '../lib/paths'
 
 const targetDate = new Date(2027, 1, 20)
 const progressStart = new Date('2026-08-17T00:00:00+09:00').getTime()
-const departureTime = new Date('2027-02-20T10:00:00+09:00').getTime()
+const departureTime = new Date('2027-02-20T08:00:00+09:00').getTime()
 
 function getCountdown() {
   const now = new Date()

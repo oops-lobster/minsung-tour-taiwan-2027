@@ -1517,6 +1517,224 @@ button {
   min-height: 108px;
 }
 
+.day-route {
+  max-width: 1040px;
+  margin: 58px auto 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.day-route__heading {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  padding: 22px 20px 19px;
+  border-bottom: 1px solid var(--line);
+}
+
+.day-route__icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(0, 72, 104, .2);
+  border-radius: 50%;
+  background: var(--jade-light);
+  color: var(--jade);
+}
+
+.day-route__heading small {
+  display: block;
+  color: var(--vermilion);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .13em;
+}
+
+.day-route__heading h3,
+.day-route__heading p,
+.day-route__stops p,
+.day-route__note {
+  margin: 0;
+}
+
+.day-route__heading h3 {
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 4vw, 1.65rem);
+  font-weight: 600;
+  letter-spacing: -.04em;
+  line-height: 1.35;
+}
+
+.day-route__heading p {
+  max-width: 720px;
+  margin-top: 7px;
+  color: var(--ink-soft);
+  font-size: .78rem;
+  line-height: 1.65;
+}
+
+.day-route__map {
+  width: 100%;
+  overflow: hidden;
+  background: #dcebed;
+}
+
+.day-route__map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 460px;
+}
+
+.day-route__water {
+  fill: #dcebed;
+}
+
+.day-route__grid-line {
+  fill: none;
+  stroke: rgba(0, 72, 104, .08);
+  stroke-width: 1;
+}
+
+.day-route__land {
+  stroke: rgba(0, 72, 104, .13);
+  stroke-width: 1.2;
+}
+
+.day-route__land-start {
+  stop-color: #f4eedf;
+}
+
+.day-route__land-end {
+  stop-color: #d7ddcf;
+}
+
+.day-route__region-label {
+  fill: rgba(0, 51, 73, .54);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.day-route__north path {
+  fill: var(--jade);
+}
+
+.day-route__north text {
+  fill: var(--jade);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.day-route__line-shadow,
+.day-route__line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.day-route__line-shadow {
+  stroke: rgba(0, 27, 42, .16);
+  stroke-width: 10;
+}
+
+.day-route__line {
+  stroke: var(--brand-coral);
+  stroke-width: 4;
+  stroke-dasharray: 3 10;
+}
+
+.day-route__point circle {
+  fill: var(--jade-deep);
+  stroke: var(--paper);
+  stroke-width: 3;
+}
+
+.day-route__point text {
+  fill: white;
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.day-route__point--start circle,
+.day-route__point--finish circle {
+  fill: var(--brand-coral);
+}
+
+.day-route__stops {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.day-route__stops li {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  padding: 12px 14px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.day-route__stops li:nth-child(2n) {
+  border-right: 0;
+}
+
+.day-route__stops li > span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid rgba(0, 72, 104, .24);
+  border-radius: 50%;
+  color: var(--jade);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: .68rem;
+  font-weight: 600;
+}
+
+.day-route__stops strong,
+.day-route__stops small {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.day-route__stops strong {
+  font-size: .74rem;
+  line-height: 1.35;
+}
+
+.day-route__stops small {
+  margin-top: 2px;
+  color: var(--ink-soft);
+  font-size: .63rem;
+  line-height: 1.35;
+}
+
+.day-route__note {
+  padding: 12px 16px 14px;
+  color: var(--ink-soft);
+  font-size: .65rem;
+  line-height: 1.5;
+}
+
 .timeline {
   max-width: 880px;
   margin: 58px auto 0;
@@ -2525,6 +2743,11 @@ button {
   .day-cover__content { grid-template-columns: 150px 1fr; align-items: end; }
   .day-quick-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .day-quick--wide { grid-column: auto; min-height: 128px; }
+  .day-route__heading { grid-template-columns: 52px minmax(0, 1fr); gap: 18px; padding: 28px 30px 24px; }
+  .day-route__icon { width: 52px; height: 52px; }
+  .day-route__stops { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .day-route__stops li:nth-child(2n) { border-right: 1px solid var(--line); }
+  .day-route__stops li:nth-child(3n) { border-right: 0; }
   .timeline-item__summary { grid-template-columns: 44px minmax(0, 1fr) 36px; gap: 18px; padding-inline: 12px; }
   .timeline-item__details { padding-left: 74px; padding-right: 58px; }
   .weather-plan__body { grid-template-columns: repeat(2, 1fr); }
@@ -2593,6 +2816,12 @@ button {
   .day-cover__content { bottom: 66px; grid-template-columns: 190px 1fr; }
   .day-section__body { padding-block: 62px 130px; }
   .day-quick { padding: 24px; }
+  .day-route { margin-top: 72px; }
+  .day-route__heading { padding: 34px 38px 28px; }
+  .day-route__stops { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .day-route__stops li:nth-child(3n) { border-right: 1px solid var(--line); }
+  .day-route__stops li:nth-child(4n) { border-right: 0; }
+  .day-route__stops li { padding: 15px 16px; }
   .timeline { margin-top: 84px; }
   .timeline-item__summary { min-height: 96px; padding-block: 18px; }
   .timeline-item h3 { font-size: 1.12rem; }

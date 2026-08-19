@@ -7,12 +7,12 @@ export interface PlaceInfo {
 }
 
 export const placeCatalog = {
-  'taoyuan-t1': {
-    name: '타오위안공항 T1',
-    localName: '桃園國際機場 第一航廈',
-    address: '桃園市大園區航站南路15號',
-    latitude: 25.0811,
-    longitude: 121.2375,
+  'taoyuan-t2': {
+    name: '타오위안공항 T2',
+    localName: '桃園國際機場 第二航廈',
+    address: '桃園市大園區航站南路9號',
+    latitude: 25.07702,
+    longitude: 121.23198,
   },
   hotel: {
     name: 'Taipei Garden Hotel',

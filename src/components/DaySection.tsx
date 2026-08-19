@@ -5,6 +5,7 @@ import { placeCatalog, rainPlans } from '../data/localTools'
 import { imagePath } from '../lib/paths'
 import { MapLinkButton } from './MapLinkButton'
 import { PlaceActions } from './PlaceActions'
+import { DayRouteMap } from './DayRouteMap'
 
 interface DaySectionProps {
   day: TripDay
@@ -67,6 +68,8 @@ export function DaySection({ day, index }: DaySectionProps) {
             <strong>{day.transport}</strong>
           </div>
         </div>
+
+        <DayRouteMap dayId={day.id} dayLabel={day.day} />
 
         <div className="timeline" aria-label={`${day.day} 상세 일정`}>
           {day.schedule.map((item, itemIndex) => {

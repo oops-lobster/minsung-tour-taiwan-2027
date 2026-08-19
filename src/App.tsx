@@ -195,9 +195,9 @@ function HomeView() {
           <aside className="hero-ticket" aria-label="여행 핵심 정보">
             <div className="hero-ticket__top"><span>DEPARTURE</span><Countdown /></div>
             <div className="hero-ticket__route">
-              <div><strong>ICN</strong><small>10:00</small></div>
+              <div><strong>ICN</strong><small>08:00</small></div>
               <span><Plane size={20} aria-hidden="true" /><i /></span>
-              <div><strong>TPE</strong><small>11:30</small></div>
+              <div><strong>TPE</strong><small>재확인</small></div>
             </div>
             <div className="hero-ticket__facts">
               <span><CalendarDays size={18} aria-hidden="true" /> 3박 4일</span>
@@ -346,7 +346,7 @@ function StayView() {
             <div className="flight-leg">
               <span>가는 날 · 02.20 SAT</span>
               <div><strong>ICN</strong><i /><strong>TPE</strong></div>
-              <p><time>10:00</time><small>약 2시간 30분</small><time>11:30</time></p>
+              <p><time>08:00</time><small>도착 시각 확인 중</small><time>재확인</time></p>
             </div>
             <div className="flight-leg">
               <span>오는 날 · 02.23 TUE</span>
@@ -390,33 +390,37 @@ function MobilityView() {
             </article>
             <article>
               <span className="transport-grid__icon"><CarFront size={26} aria-hidden="true" /></span>
-              <small>대만 도착 · 첫인상</small><h3>Tesla Model X</h3>
-              <p>대만에서의 첫 이동은 조금 특별하게. 다음날의 Alphard와 전혀 다른 Falcon Wing Door 경험을 위해 선택했습니다.</p>
-              <StatusBadge tone="waiting">차종 지정 · 예약 예정</StatusBadge>
+              <small>대만 도착 · 호텔 공식 픽업</small><h3>Mercedes-Benz S350</h3>
+              <p>Taipei Garden Hotel 공식 리무진으로 타오위안공항 T2에서 호텔까지 이동하는 방안을 문의 중입니다.</p>
+              <StatusBadge tone="waiting">예약 문의 중</StatusBadge>
               <details className="mobility-detail">
                 <summary>탑승 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
                 <ul>
-                  <li>업체 好好禮車 · 5인승 Model X</li>
+                  <li>Taipei Garden Hotel / 台北花園大酒店 공식 픽업</li>
                   <li>성인 3명 · 대형 캐리어 2개</li>
-                  <li>부모님은 2열, 한 명은 조수석</li>
-                  <li>Model X 지정 · 가능하면 최근 연식 우선 요청</li>
+                  <li>호텔 안내상 약 2013–2019년식 S350</li>
+                  <li>특정 연식·실제 차량 지정 불가 · 당일 배차에 따라 결정</li>
+                  <li>공식 안내 요금 NT$1,800 · 2027.02.20 가능 여부와 최종 가격 이메일 문의 중</li>
                 </ul>
               </details>
             </article>
             <article>
               <span className="transport-grid__icon"><Sparkles size={26} aria-hidden="true" /></span>
-              <small>DAY 2 · DAY 4 · 편안한 근교 이동</small><h3>Toyota Alphard 40系</h3>
-              <p>부모님이 가장 편하게 쉬면서 이동하는 시간. 鼎崧出行의 지정 차량으로 예약 절차를 진행 중입니다.</p>
-              <StatusBadge tone="progress">잠정 확정 · 예약 절차 진행 중</StatusBadge>
+              <small>DAY 2 · DAY 4 · 편안한 근교 이동</small><h3>Toyota New Alphard 40系</h3>
+              <p>LUMI DRIVE 璐米租車의 합법 R 번호판 차량으로 예약을 진행하며, 첫 계약금 송금은 한국 은행 승인 대기 중입니다.</p>
+              <StatusBadge tone="progress">예약금 송금 승인 대기</StatusBadge>
               <details className="mobility-detail">
                 <summary>차량 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
                 <ul>
-                  <li>2025년식 · 2025년 11월 출고 차량</li>
-                  <li>임의로 오래된 연식 차량으로 변경하지 않도록 요청 완료</li>
+                  <li>Day 2 8시간 · Day 4 약 4시간 · 총액 NT$15,000</li>
+                  <li>첫 계약금 NT$2,000 송금 승인 대기 · 2027년 1월 추가 계약금 NT$2,000 · 잔금 NT$11,000</li>
+                  <li>2024–2026년식 차량 풀 · 신형 연식 우선 배차, 2026년식 지정 보장은 아님</li>
+                  <li>합법 R 번호판 · 승객보험 1인당 NT$5,000,000</li>
+                  <li>무연 차량 · 출차 전 내·외부 차량 정리</li>
                   <li>2열 독립 좌석 · 전동 리클라이닝 · 전동 레그레스트</li>
                   <li>통풍 · 열선 · 마사지</li>
-                  <li>기본 영어 의사소통 기사 요청</li>
-                  <li>합법 영업 차량과 승객보험 확인</li>
+                  <li>실제 기사·차량 정보는 늦어도 운행 24시간 전 제공</li>
+                  <li>초과시간 발생 시 추가요금 별도</li>
                 </ul>
               </details>
             </article>
