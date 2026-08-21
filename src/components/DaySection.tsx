@@ -1,20 +1,86 @@
+import { useState } from 'react'
 import { CarFront, ChevronDown, Footprints, Gauge, Map, UtensilsCrossed } from 'lucide-react'
-import type { TripDay } from '../data/trip'
+import type { TimelineItem, TripDay } from '../data/trip'
+import { getDayPlans, dayWeatherConfigs, type DayPlan } from '../data/weatherPlans'
 import { imageSourceByFile } from '../data/imageSources'
-import { placeCatalog, rainPlans } from '../data/localTools'
+import { placeCatalog } from '../data/localTools'
 import { imagePath } from '../lib/paths'
+import {
+  getWeatherPlanRecommendation,
+  readWeatherTestMode,
+  type WeatherPlanId,
+} from '../lib/weather'
 import { MapLinkButton } from './MapLinkButton'
 import { PlaceActions } from './PlaceActions'
 import { DayRouteMap } from './DayRouteMap'
+import { WeatherPlanSelector } from './WeatherPlanSelector'
+import { useWeather } from './WeatherProvider'
 
 interface DaySectionProps {
   day: TripDay
   index: number
 }
 
+interface PlanTimelineProps {
+  day: TripDay
+  plan: DayPlan
+}
+
 const detailIcons = [Gauge, Footprints, Map, UtensilsCrossed]
 
+function PlanTimeline({ day, plan }: PlanTimelineProps) {
+  return (
+    <div className="timeline" aria-label={`${day.day} ${plan.label} 상세 일정`}>
+      {plan.schedule.map((item: TimelineItem, itemIndex) => {
+        const imageSource = item.image ? imageSourceByFile[item.image] : undefined
+        return (
+          <details className={`timeline-item ${item.optional ? 'timeline-item--optional' : ''}`} key={`${item.time}-${item.title}`}>
+            <summary className="timeline-item__summary">
+              <span className="timeline-item__index" aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</span>
+              <span className="timeline-item__summary-copy">
+                <time>{item.time}</time>
+                <h3>{item.title}</h3>
+                {item.localName && <span className="timeline-item__local">{item.localName}</span>}
+              </span>
+              <span className="timeline-item__expand" aria-hidden="true"><ChevronDown size={20} /></span>
+            </summary>
+            <div className="timeline-item__details">
+              {item.transport && <span className="transport-label">{item.transport}</span>}
+              <p className="timeline-item__description">{item.description}</p>
+              {item.tags && (
+                <div className="tag-row" aria-label="일정 상태">
+                  {item.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                </div>
+              )}
+              {imageSource && item.image && (
+                <figure className="timeline-photo">
+                  <img
+                    src={imagePath(item.image)}
+                    alt={imageSource.alt}
+                    width="1600"
+                    height="1067"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption>{imageSource.place}</figcaption>
+                </figure>
+              )}
+              {item.placeId ? (
+                <PlaceActions place={placeCatalog[item.placeId]} compact />
+              ) : (
+                item.mapQuery && <MapLinkButton query={item.mapQuery} compact />
+              )}
+            </div>
+          </details>
+        )
+      })}
+    </div>
+  )
+}
+
 export function DaySection({ day, index }: DaySectionProps) {
+  const { dataset, status } = useWeather()
+  const [manualPlanId, setManualPlanId] = useState<WeatherPlanId | null>(null)
   const summaryDetails = [
     { label: '이동 강도', value: day.intensity },
     { label: '예상 도보', value: day.walking },
@@ -22,7 +88,13 @@ export function DaySection({ day, index }: DaySectionProps) {
     { label: '주요 식사', value: day.keyMeal },
   ]
   const coverSource = imageSourceByFile[day.cover]
-  const rainPlan = rainPlans.find((plan) => plan.day === day.day)
+  const plans = getDayPlans(day)
+  const weatherConfig = dayWeatherConfigs[day.id]
+  const testMode = readWeatherTestMode(import.meta.env.DEV, window.location.search)
+  const recommendation = getWeatherPlanRecommendation({ dataset, status, config: weatherConfig, testMode })
+  const selectedPlanId = manualPlanId ?? recommendation.recommendedPlanId
+  const selectedPlan = plans.find((plan) => plan.id === selectedPlanId) ?? plans[0]
+  const planPanelId = `${day.id}-weather-plan-panel`
 
   return (
     <section className={`day-section day-section--${index + 1}`} id={day.id} data-day-section={day.id}>
@@ -69,74 +141,38 @@ export function DaySection({ day, index }: DaySectionProps) {
           </div>
         </div>
 
-        <DayRouteMap dayId={day.id} dayLabel={day.day} />
+        <WeatherPlanSelector
+          config={weatherConfig}
+          plans={plans}
+          recommendation={recommendation}
+          selectedPlanId={selectedPlan.id}
+          panelId={planPanelId}
+          loading={status === 'loading' && testMode === null}
+          onSelect={setManualPlanId}
+        />
 
-        <div className="timeline" aria-label={`${day.day} 상세 일정`}>
-          {day.schedule.map((item, itemIndex) => {
-            const imageSource = item.image ? imageSourceByFile[item.image] : undefined
-            return (
-              <details className={`timeline-item ${item.optional ? 'timeline-item--optional' : ''}`} key={`${item.time}-${item.title}`}>
-                <summary className="timeline-item__summary">
-                  <span className="timeline-item__index" aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</span>
-                  <span className="timeline-item__summary-copy">
-                    <time>{item.time}</time>
-                    <h3>{item.title}</h3>
-                    {item.localName && <span className="timeline-item__local">{item.localName}</span>}
-                  </span>
-                  <span className="timeline-item__expand" aria-hidden="true"><ChevronDown size={20} /></span>
-                </summary>
-                <div className="timeline-item__details">
-                  {item.transport && <span className="transport-label">{item.transport}</span>}
-                  <p className="timeline-item__description">{item.description}</p>
-                  {item.tags && (
-                    <div className="tag-row" aria-label="일정 상태">
-                      {item.tags.map((tag) => <span key={tag}>{tag}</span>)}
-                    </div>
-                  )}
-                  {imageSource && item.image && (
-                    <figure className="timeline-photo">
-                      <img
-                        src={imagePath(item.image)}
-                        alt={imageSource.alt}
-                        width="1600"
-                        height="1067"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <figcaption>{imageSource.place}</figcaption>
-                    </figure>
-                  )}
-                  {item.placeId ? (
-                    <PlaceActions place={placeCatalog[item.placeId]} compact />
-                  ) : (
-                    item.mapQuery && <MapLinkButton query={item.mapQuery} compact />
-                  )}
-                </div>
-              </details>
-            )
-          })}
-        </div>
-
-        {rainPlan && (
-          <details className="weather-plan">
-            <summary>
-              <span>
-                <small>WEATHER PLAN B</small>
-                <strong>{rainPlan.title}</strong>
-              </span>
-              <span className="weather-plan__toggle">대안 보기</span>
-            </summary>
-            <div className="weather-plan__body">
-              {rainPlan.options.map((option) => (
-                <div key={option.condition}>
-                  <strong>{option.condition}</strong>
-                  <p>{option.action}</p>
-                </div>
-              ))}
+        <section
+          className={`day-plan-detail day-plan-detail--${selectedPlan.id}`}
+          id={planPanelId}
+          aria-labelledby={`${day.id}-${selectedPlan.id}-title`}
+        >
+          <header className="day-plan-detail__heading">
+            <div>
+              <small>{selectedPlan.label} · {selectedPlan.weatherType === 'rain' ? '비 오는 날' : '비가 적은 날'}</small>
+              <h3 id={`${day.id}-${selectedPlan.id}-title`}>{selectedPlan.theme}</h3>
+              <p>{selectedPlan.summary}</p>
             </div>
-            <p className="weather-plan__note">이 카드는 확정 일정이 아닌 비상 대안입니다. 여행 직전 예보와 부모님 컨디션을 기준으로 결정합니다.</p>
-          </details>
-        )}
+            {selectedPlan.status === 'draft' && <span>완전 대체 일정 준비 중</span>}
+          </header>
+
+          <DayRouteMap
+            dayId={day.id}
+            dayLabel={`${day.day} · ${selectedPlan.label}`}
+            route={selectedPlan.route}
+            routeId={`${day.id}-${selectedPlan.id}`}
+          />
+          <PlanTimeline day={day} plan={selectedPlan} />
+        </section>
       </div>
     </section>
   )

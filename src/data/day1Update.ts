@@ -1,7 +1,6 @@
 import { dayRoutes } from './dayRoutes'
 import {
   placeCatalog,
-  rainPlans,
   restaurantFallbacks,
   type PlaceId,
   type PlaceInfo,
@@ -139,9 +138,9 @@ const dayOne: TripDay = {
       time: '입국·수하물 후',
       title: '공항 픽업으로 호텔 이동',
       localName: '台北花園大酒店',
-      description: '성인 3명과 짐을 싣고 Taipei Garden Hotel로 이동합니다. 첫날 공항 픽업 확정 예산은 NT$1,800입니다.',
+      description: '성인 3명과 짐을 싣고 Taipei Garden Hotel로 이동합니다. 실제 차량은 호텔의 당일 배차 상황에 따라 결정됩니다.',
       transport: '공항 픽업',
-      tags: ['NT$1,800', '3인'],
+      tags: ['호텔 공식 픽업', '3인'],
       mapQuery: 'Taipei Garden Hotel',
       placeId: asPlaceId('hotel'),
     },
@@ -164,7 +163,7 @@ const dayOne: TripDay = {
       title: 'My灶 점심',
       localName: 'My灶',
       description: '예약 메뉴는 水果雞 半隻(과일닭 반 마리)와 麻油雞飯(참기름 닭밥). 현장에서 金沙白蝦, 水耕空心菜, 滷肉飯 1개를 우선 추가하고 菜脯蛋·白飯은 배 상태를 보고 정합니다.',
-      tags: ['점심', '예약 메뉴 2종', '3인 예산 NT$3,500'],
+      tags: ['점심', '예약 메뉴 2종'],
       mapQuery: 'My灶 Taipei',
       placeId: asPlaceId('my-zao'),
     },
@@ -173,7 +172,7 @@ const dayOne: TripDay = {
       title: '弄宅咖啡',
       localName: '弄宅咖啡 Alleyhouse Coffee',
       description: '점심이 빨리 끝나면 느긋하게, 늦어지면 30분 안팎으로 줄이는 시간 조절용 카페입니다. 당일 방문은 예약 시스템 주의사항을 확인하고 워크인하며, 입장할 때 신발을 벗으므로 양말을 준비합니다.',
-      tags: ['완충 구간', '3인 예산 NT$900'],
+      tags: ['완충 구간'],
       mapQuery: '弄宅咖啡 Alleyhouse Coffee Taipei',
       placeId: asPlaceId('alleyhouse'),
     },
@@ -181,8 +180,8 @@ const dayOne: TripDay = {
       time: '14:20–15:20',
       title: '수진박물관',
       localName: '袖珍博物館',
-      description: '정교한 미니어처 하우스와 장면을 한 시간 정도 둘러봅니다. 성인 3명 입장 예산은 NT$750입니다.',
-      tags: ['실내 관광', 'NT$750'],
+      description: '정교한 미니어처 하우스와 장면을 한 시간 정도 둘러봅니다.',
+      tags: ['실내 관광'],
       mapQuery: 'Miniatures Museum of Taiwan',
       placeId: asPlaceId('miniatures'),
     },
@@ -225,11 +224,11 @@ const dayOne: TripDay = {
       transport: '택시',
     },
     {
-      time: '18:50–20:15',
+      time: '19:00–20:15',
       title: '小統一牛排 저녁',
       localName: '小統一牛排館',
-      description: '좋은 소고기를 뜨거운 철판과 옛 대만식 양식 코스로 즐깁니다. 세 사람의 상위 스테이크 코스 예산 NT$7,000에 첫날 와인 한 병 예산 NT$2,200–2,300을 더합니다.',
-      tags: ['저녁 확정', '고기 맛 우선', '와인 1병'],
+      description: '2027년 2월 20일 토요일 19:00, 성인 3명 예약이 완료된 저녁입니다. 좋은 소고기를 뜨거운 철판과 옛 대만식 양식 코스로 즐깁니다.',
+      tags: ['19:00 고정', '3인 예약 완료', '와인 1병'],
       mapQuery: '小統一牛排 Taipei',
       placeId: asPlaceId('xiao-tong-yi'),
     },
@@ -285,8 +284,8 @@ if (dayOneIndex >= 0) days.splice(dayOneIndex, 1, dayOne)
 
 const pickupStatus = tripStatuses.find((status) => status.label === 'Day 1 공항 픽업')
 if (pickupStatus) {
-  pickupStatus.detail = '타오위안공항 → Taipei Garden Hotel · NT$1,800'
-  pickupStatus.status = '금액 확정 · 예약 상태 재확인'
+  pickupStatus.detail = 'Taipei Garden Hotel · Mercedes-Benz Sedan'
+  pickupStatus.status = '차량 선택 확정 · 예약 절차 진행 중'
   pickupStatus.tone = 'progress'
 }
 
@@ -308,21 +307,6 @@ dayRoutes['day-1'] = {
     { placeId: asPlaceId('sanwei'), label: '삼미식당', note: '가능할 때 포장' },
     { placeId: asPlaceId('carrefour-guilin'), label: '까르푸 구이린점', note: '밤 산책' },
     { placeId: asPlaceId('hotel'), label: '호텔', note: '야식으로 마무리' },
-  ],
-}
-
-const mutableRainPlans = rainPlans as Array<{
-  day: string
-  title: string
-  options: Array<{ condition: string; action: string }>
-}>
-mutableRainPlans[0] = {
-  day: 'DAY 1',
-  title: '비가 강하면 백석호를 줄이고 실내에서 쉬기',
-  options: [
-    { condition: '약한 비', action: '백석호 산책을 짧게 하고 벽산암 전망을 확인합니다.' },
-    { condition: '강한 비', action: '백석호·벽산암을 생략하고 카페와 수진박물관에서 여유 있게 머문 뒤 저녁으로 이동합니다.' },
-    { condition: '밤', action: '용산사와 야시장은 비의 세기와 부모님 컨디션에 따라 짧게 줄입니다.' },
   ],
 }
 
