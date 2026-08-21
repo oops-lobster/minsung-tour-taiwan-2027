@@ -39,7 +39,7 @@ const toolTabs: Array<{ id: ToolsTab; label: string }> = [
   { id: 'quick', label: '빠른 도구' },
   { id: 'language', label: '번역' },
   { id: 'weather', label: '날씨' },
-  { id: 'guide', label: '첫날 예산·간식' },
+  { id: 'guide', label: '간식·설치' },
 ]
 
 const quickPlaceIds = ['hotel', 'longshan', 'palace', 'din-tai-fung-xinsheng', 'taipei-101', 'hizenya'] as const
@@ -53,39 +53,6 @@ const appIcons: Record<string, LucideIcon> = {
   weather: CloudSun,
   flighty: Plane,
 }
-
-const dayOneBudgetItems = [
-  {
-    label: '이동',
-    amount: 'NT$2,750–3,000',
-    detail: '공항 픽업 NT$1,800 + 호텔→My灶 MRT + 백석호·벽산암·용산사 택시',
-  },
-  {
-    label: '점심 · My灶',
-    amount: 'NT$3,500',
-    detail: '과일닭 반 마리·참기름 닭밥 예약 + 새우·공심채·루러우판 현장 추가 기준',
-  },
-  {
-    label: '카페·박물관',
-    amount: 'NT$1,650',
-    detail: '弄宅咖啡 3인 NT$900 + 袖珍博物館 성인 3명 NT$750',
-  },
-  {
-    label: '저녁 · 小統一',
-    amount: 'NT$9,200–9,300',
-    detail: '상위 스테이크 코스 3인 NT$7,000 + 첫날 와인 한 병 NT$2,200–2,300',
-  },
-  {
-    label: '밤 산책·야식',
-    amount: 'NT$1,500–2,000',
-    detail: '화시제·광저우제 간식, 삼미 연어초밥 가능 시 포장, 까르푸 음료·과일',
-  },
-  {
-    label: 'DAY 1 총예산',
-    amount: 'NT$20,000',
-    detail: '예상 지출 NT$18,600–19,450. 3인 가족 기준 상한을 2만 대만달러로 고정합니다.',
-  },
-] as const
 
 function ToolsHero() {
   const source = imageSourceByFile['taipei-night.webp']
@@ -216,30 +183,6 @@ function WeatherTools() {
         </div>
       </section>
     </>
-  )
-}
-
-function DayOneBudgetGuide() {
-  return (
-    <section className="tools-section tools-section--dark section-pad" id="day-one-budget">
-      <div className="page-shell">
-        <SectionHeader
-          eyebrow="DAY 1 · THREE ADULTS"
-          title="첫날 예산, NT$20,000 안에서"
-          description="공항 픽업부터 My灶, 카페·박물관, 백석호·벽산암, 小統一 스테이크와 와인, 밤 야식까지 모두 포함한 3인 계획입니다."
-          inverse
-        />
-        <div className="quick-place-grid">
-          {dayOneBudgetItems.map((item) => (
-            <article className="quick-place-card" key={item.label}>
-              <small>{item.label}</small>
-              <h3>{item.amount}</h3>
-              <p>{item.detail}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
   )
 }
 
@@ -391,7 +334,7 @@ function AppHub() {
 }
 
 function GuideTools() {
-  return <><DayOneBudgetGuide /><SnackAtlas /><RestaurantPlanB /><InstallGuide /></>
+  return <><SnackAtlas /><RestaurantPlanB /><InstallGuide /></>
 }
 
 export function LocalToolsView({ tab }: { tab: ToolsTab }) {
