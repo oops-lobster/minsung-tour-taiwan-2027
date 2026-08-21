@@ -1,4 +1,4 @@
-import type { PlaceId } from './localTools'
+import { rainPlans, type PlaceId } from './localTools'
 import { days, tripStatuses } from './trip'
 import { getDayPlans } from './weatherPlans'
 
@@ -8,7 +8,7 @@ const dayOne = days.find((day) => day.id === 'day-1')
 if (dayOne) {
   const alleyhouse = dayOne.schedule.find((item) => item.title === '弄宅咖啡')
   if (alleyhouse) {
-    alleyhouse.description = '2027년 2월 20일 13:30, 성인 3명 좌석을 DM으로 예약 확정했습니다. My灶 점심 뒤 들르는 공통 일정으로, 비가 와도 유지합니다. 점심이 늦어지면 카페 체류만 조금 줄여 다음 일정에 맞춥니다.'
+    alleyhouse.description = '2027년 2월 20일 13:30, 성인 3명 좌석을 DM으로 예약 확정했습니다. My灶 점심 뒤 들르는 공통 일정으로, 비가 와도 유지합니다. 점심이 일찍 끝나면 30분 정도 조기 방문 가능 여부를 카페에 확인하고, 늦어지면 카페 체류만 조금 줄여 다음 일정에 맞춥니다.'
     alleyhouse.tags = ['13:30 예약 확정', '3인', 'Plan A/B 공통']
   }
 
@@ -21,6 +21,16 @@ if (dayOne) {
       tone: 'confirmed',
       icon: 'meal',
     })
+  }
+
+  const dayOneRainGuide = rainPlans.find((plan) => plan.day === 'DAY 1')
+  if (dayOneRainGuide) {
+    dayOneRainGuide.title = '비 오는 타이베이 · 카페, 현대미술과 대만차'
+    dayOneRainGuide.options = [
+      { condition: '오후', action: 'My灶 점심 뒤 예약된 弄宅咖啡에 들른 후 타이베이 시립미술관과 小隱茶庵으로 이어갑니다.' },
+      { condition: '찻집 만석', action: '小隱茶庵 대신 回留에서 대만차를 즐깁니다.' },
+      { condition: '저녁 이후', action: '비가 약해지면 용산사·야시장, 계속 강하면 까르푸만 짧게 들릅니다.' },
+    ]
   }
 
   const planB = getDayPlans(dayOne).find((plan) => plan.id === 'plan-b')
