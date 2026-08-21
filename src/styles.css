@@ -1582,8 +1582,11 @@ button {
 
 .day-route__map {
   width: 100%;
-  overflow: hidden;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
   background: #dcebed;
+  scrollbar-color: rgba(0, 72, 104, .3) transparent;
+  scrollbar-width: thin;
 }
 
 .day-route__map svg {
@@ -1591,6 +1594,7 @@ button {
   width: 100%;
   height: auto;
   max-height: 460px;
+  min-width: 660px;
 }
 
 .day-route__water {
@@ -1669,10 +1673,45 @@ button {
   fill: var(--brand-coral);
 }
 
-.day-route__point circle {
+.day-route__point-link {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.day-route__point-hit {
+  fill: transparent;
+  pointer-events: all;
+}
+
+.day-route__point-disc {
   fill: var(--paper);
   stroke: var(--jade-deep);
   stroke-width: 4;
+  transition: fill 180ms ease, stroke 180ms ease, stroke-width 180ms ease;
+}
+
+.day-route__point-focus {
+  fill: none;
+  opacity: 0;
+  stroke: var(--brand-coral);
+  stroke-width: 2;
+  transition: opacity 180ms ease;
+}
+
+.day-route__point-link:focus {
+  outline: none;
+}
+
+.day-route__point-link:focus-visible .day-route__point-focus,
+.day-route__point-link.is-active .day-route__point-focus {
+  opacity: 1;
+}
+
+.day-route__point-link:focus-visible .day-route__point-disc,
+.day-route__point-link.is-active .day-route__point-disc {
+  fill: var(--jade-light);
+  stroke: var(--brand-coral);
+  stroke-width: 5;
 }
 
 .day-route__point text {
@@ -1682,7 +1721,7 @@ button {
   font-weight: 600;
 }
 
-.day-route__point--start circle {
+.day-route__point--start .day-route__point-disc {
   fill: var(--jade-deep);
   stroke: var(--paper);
   stroke-width: 3;
@@ -1693,10 +1732,32 @@ button {
   fill: white;
 }
 
-.day-route__point--finish circle {
+.day-route__point--finish .day-route__point-disc {
   fill: var(--brand-coral);
   stroke: var(--paper);
   stroke-width: 3;
+}
+
+.day-route__point-link:focus-visible .day-route__point--start .day-route__point-disc,
+.day-route__point-link.is-active .day-route__point--start .day-route__point-disc,
+.day-route__point-link:focus-visible .day-route__point--finish .day-route__point-disc,
+.day-route__point-link.is-active .day-route__point--finish .day-route__point-disc {
+  stroke: var(--brand-coral);
+  stroke-width: 5;
+}
+
+.day-route__hint {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  padding: 8px 14px;
+  border-top: 1px solid rgba(0, 72, 104, .12);
+  background: var(--jade-light);
+  color: var(--jade-deep);
+  font-size: .68rem;
+  font-weight: 600;
 }
 
 .day-route__stops {
@@ -1714,17 +1775,25 @@ button {
   min-width: 0;
   grid-template-columns: 28px minmax(0, 1fr);
   gap: 9px;
-  align-items: center;
+  align-items: start;
   padding: 12px 14px;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  scroll-margin-top: calc(var(--header-height) + var(--day-nav-height) + 24px);
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.day-route__stops li.is-active,
+.day-route__stops li:focus-within {
+  background: rgba(217, 237, 239, .62);
+  box-shadow: inset 0 0 0 2px rgba(228, 70, 55, .72);
 }
 
 .day-route__stops li:nth-child(2n) {
   border-right: 0;
 }
 
-.day-route__stops li > span {
+.day-route__stops .day-route__stop-number {
   display: grid;
   width: 28px;
   height: 28px;
@@ -1735,6 +1804,10 @@ button {
   font-family: 'Libre Bodoni', Georgia, serif;
   font-size: .68rem;
   font-weight: 600;
+}
+
+.day-route__stop-copy {
+  min-width: 0;
 }
 
 .day-route__stops strong,
@@ -1754,6 +1827,42 @@ button {
   color: var(--ink-soft);
   font-size: .63rem;
   line-height: 1.35;
+}
+
+.day-route__stop-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+  padding: 0 9px;
+  border: 1px solid rgba(0, 72, 104, .2);
+  border-radius: 999px;
+  background: rgba(255, 253, 245, .76);
+  color: var(--jade-deep);
+  font-size: .63rem;
+  font-weight: 700;
+  line-height: 1;
+  touch-action: manipulation;
+  transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.day-route__stop-link:focus-visible {
+  outline: 3px solid rgba(228, 70, 55, .34);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .day-route__point-link:hover .day-route__point-disc {
+    fill: var(--jade-light);
+    stroke: var(--brand-coral);
+  }
+
+  .day-route__stop-link:hover {
+    border-color: var(--brand-coral);
+    background: var(--paper);
+    color: var(--vermilion);
+  }
 }
 
 .day-route__note {
@@ -2773,6 +2882,7 @@ button {
   .day-quick--wide { grid-column: auto; min-height: 128px; }
   .day-route__heading { grid-template-columns: 52px minmax(0, 1fr); gap: 18px; padding: 28px 30px 24px; }
   .day-route__icon { width: 52px; height: 52px; }
+  .day-route__map svg { min-width: 0; }
   .day-route__stops { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .day-route__stops li:nth-child(2n) { border-right: 1px solid var(--line); }
   .day-route__stops li:nth-child(3n) { border-right: 0; }
