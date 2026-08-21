@@ -1,6 +1,8 @@
+import type { PlaceId } from './localTools'
 import { days, tripStatuses } from './trip'
 import { getDayPlans } from './weatherPlans'
 
+const asPlaceId = (id: string) => id as PlaceId
 const dayOne = days.find((day) => day.id === 'day-1')
 
 if (dayOne) {
@@ -33,7 +35,7 @@ if (dayOne) {
         localName: '弄宅咖啡 Alleyhouse Coffee',
         description: '2027년 2월 20일 13:30, 성인 3명 예약 확정. 우천 Plan B에서도 그대로 들릅니다. 비 오는 오후의 작은 주택 카페에서 잠깐 쉬고 시립미술관으로 이동합니다.',
         tags: ['13:30 예약 확정', 'Plan A/B 공통'],
-        placeId: 'alleyhouse',
+        placeId: asPlaceId('alleyhouse'),
       })
     }
 
@@ -59,10 +61,10 @@ if (dayOne) {
     planB.route.summary = '공항과 호텔을 거쳐 My灶에서 점심을 먹고, 예약된 弄宅咖啡에서 잠시 쉰 뒤 타이베이 시립미술관과 小隱茶庵으로 이어집니다. 19:00 小統一牛排 저녁은 날씨와 관계없이 고정입니다.'
 
     const routeStops = planB.route.stops
-    const myZaoStopIndex = routeStops.findIndex((stop) => stop.placeId === 'my-zao')
-    if (myZaoStopIndex >= 0 && !routeStops.some((stop) => stop.placeId === 'alleyhouse')) {
+    const myZaoStopIndex = routeStops.findIndex((stop) => stop.placeId === asPlaceId('my-zao'))
+    if (myZaoStopIndex >= 0 && !routeStops.some((stop) => stop.placeId === asPlaceId('alleyhouse'))) {
       routeStops.splice(myZaoStopIndex + 1, 0, {
-        placeId: 'alleyhouse',
+        placeId: asPlaceId('alleyhouse'),
         label: '弄宅咖啡',
         note: '13:30 · 3인 예약 확정',
       })
