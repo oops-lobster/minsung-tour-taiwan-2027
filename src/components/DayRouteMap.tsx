@@ -1,12 +1,14 @@
 import { useRef, useState } from 'react'
 import { ExternalLink, MapPin, MapPinned } from 'lucide-react'
-import { dayRoutes } from '../data/dayRoutes'
+import { dayRoutes, type DayRoute } from '../data/dayRoutes'
 import { placeCatalog } from '../data/localTools'
 import { googleMapsPlaceUrl } from '../lib/paths'
 
 interface DayRouteMapProps {
   dayId: string
   dayLabel: string
+  route?: DayRoute
+  routeId?: string
 }
 
 interface RoutePoint {
@@ -19,8 +21,8 @@ const mapHeight = 286
 const horizontalPadding = 70
 const routeLanes = [174, 102, 194, 118, 188, 96, 176, 122, 186]
 
-function projectRoute(dayId: string): RoutePoint[] {
-  const stops = dayRoutes[dayId].stops
+function projectRoute(route: DayRoute): RoutePoint[] {
+  const stops = route.stops
   const usableWidth = mapWidth - horizontalPadding * 2
 
   return stops.map((_, index) => ({
@@ -31,19 +33,20 @@ function projectRoute(dayId: string): RoutePoint[] {
   }))
 }
 
-export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
-  const route = dayRoutes[dayId]
+export function DayRouteMap({ dayId, dayLabel, route: suppliedRoute, routeId }: DayRouteMapProps) {
+  const route = suppliedRoute ?? dayRoutes[dayId]
   const [activeStop, setActiveStop] = useState<number | null>(null)
   const stopLinks = useRef<Array<HTMLAnchorElement | null>>([])
 
   if (!route) return null
 
+  const mapId = routeId ?? dayId
   const denseRoute = route.stops.length > 10
-  const points = projectRoute(dayId)
+  const points = projectRoute(route)
   const path = points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(' ')
-  const titleId = `${dayId}-route-title`
-  const descriptionId = `${dayId}-route-description`
-  const stopId = (index: number) => `${dayId}-route-stop-${index + 1}`
+  const titleId = `${mapId}-route-title`
+  const descriptionId = `${mapId}-route-description`
+  const stopId = (index: number) => `${mapId}-route-stop-${index + 1}`
 
   const jumpToStop = (index: number) => {
     const target = stopLinks.current[index]
@@ -74,26 +77,26 @@ export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
           preserveAspectRatio="xMidYMid meet"
         >
           <defs>
-            <pattern id={`${dayId}-grid`} width="38" height="38" patternUnits="userSpaceOnUse">
+            <pattern id={`${mapId}-grid`} width="38" height="38" patternUnits="userSpaceOnUse">
               <path d="M 38 0 L 0 0 0 38" className="day-route__grid-line" />
             </pattern>
-            <linearGradient id={`${dayId}-land`} x1="0" y1="0" x2="1" y2="1">
+            <linearGradient id={`${mapId}-land`} x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" className="day-route__land-start" />
               <stop offset="100%" className="day-route__land-end" />
             </linearGradient>
-            <marker id={`${dayId}-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <marker id={`${mapId}-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M 0 0 L 10 5 L 0 10 Z" className="day-route__arrow" />
             </marker>
-            <filter id={`${dayId}-shadow`} x="-40%" y="-40%" width="180%" height="180%">
+            <filter id={`${mapId}-shadow`} x="-40%" y="-40%" width="180%" height="180%">
               <feDropShadow dx="0" dy="4" stdDeviation="4" floodOpacity="0.2" />
             </filter>
           </defs>
 
           <rect width={mapWidth} height={mapHeight} className="day-route__water" />
-          <rect width={mapWidth} height={mapHeight} fill={`url(#${dayId}-grid)`} />
+          <rect width={mapWidth} height={mapHeight} fill={`url(#${mapId}-grid)`} />
           <path
             d="M -20 238 C 94 188 158 222 250 184 C 342 146 397 160 477 118 C 563 73 650 87 790 35 L 790 310 L -20 310 Z"
-            fill={`url(#${dayId}-land)`}
+            fill={`url(#${mapId}-land)`}
             className="day-route__land"
           />
           <path className="day-route__contour" d="M -10 78 C 128 34 210 92 331 61 C 463 27 552 60 770 8" />
@@ -104,7 +107,7 @@ export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
             <text x="20" y="78" textAnchor="middle">TAIWAN</text>
           </g>
           <path d={path} className="day-route__line-shadow" />
-          <path d={path} className="day-route__line" markerEnd={`url(#${dayId}-arrow)`} />
+          <path d={path} className="day-route__line" markerEnd={`url(#${mapId}-arrow)`} />
 
           {points.map((point, index) => (
             <a
@@ -121,7 +124,7 @@ export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
               <g
                 className={`day-route__point ${index === 0 ? 'day-route__point--start' : ''} ${index === points.length - 1 ? 'day-route__point--finish' : ''}`}
                 transform={`translate(${point.x} ${point.y})`}
-                filter={`url(#${dayId}-shadow)`}
+                filter={`url(#${mapId}-shadow)`}
               >
                 <circle className="day-route__point-focus" r="23" />
                 <circle className="day-route__point-disc" r="17" />

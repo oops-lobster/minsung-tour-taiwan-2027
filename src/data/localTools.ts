@@ -119,6 +119,27 @@ export const placeCatalog = {
     latitude: 25.1024,
     longitude: 121.5485,
   },
+  'taipei-fine-arts': {
+    name: '타이베이 시립미술관',
+    localName: '臺北市立美術館',
+    address: '台北市中山區中山北路三段181號',
+    latitude: 25.07203,
+    longitude: 121.52466,
+  },
+  'xiaoyin-dongmen': {
+    name: '샤오인차안 동먼점',
+    localName: '小隱茶庵 東門店',
+    address: '台北市中正區杭州南路一段143巷12-1號',
+    latitude: 25.03592,
+    longitude: 121.52578,
+  },
+  huiliu: {
+    name: '후이리우',
+    localName: '回留',
+    address: '台北市大安區永康街31巷9號',
+    latitude: 25.0314,
+    longitude: 121.5297,
+  },
   'din-tai-fung-xinsheng': {
     name: '딘타이펑 신생점',
     localName: '鼎泰豐 新生店',
@@ -168,10 +189,11 @@ export type PlaceId = keyof typeof placeCatalog
 export const rainPlans = [
   {
     day: 'DAY 1',
-    title: '단수이는 짧게, 밤 일정은 유연하게',
+    title: '비 오는 타이베이 · 현대미술과 대만차',
     options: [
-      { condition: '비', action: '단수이 야외 일정을 줄이고 실내 카페에서 충분히 쉽니다.' },
-      { condition: '대안', action: '용산사와 시먼딩은 비의 세기에 따라 유지할 수 있습니다.' },
+      { condition: '오후', action: 'My灶 뒤 타이베이 시립미술관과 小隱茶庵으로 이어갑니다.' },
+      { condition: '찻집 만석', action: '小隱茶庵 대신 回留에서 대만차를 즐깁니다.' },
+      { condition: '저녁 이후', action: '비가 약해지면 용산사·야시장, 계속 강하면 까르푸만 짧게 들릅니다.' },
     ],
   },
   {

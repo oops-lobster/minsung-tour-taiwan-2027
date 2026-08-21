@@ -304,7 +304,7 @@ function ScheduleView({ dayId }: { dayId: string }) {
           ))}
         </div>
       </nav>
-      <DaySection day={activeDay} index={days.indexOf(activeDay)} />
+      <DaySection day={activeDay} index={days.indexOf(activeDay)} key={activeDay.id} />
     </div>
   )
 }
