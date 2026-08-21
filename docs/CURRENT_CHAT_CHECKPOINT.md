@@ -1,6 +1,6 @@
 # CURRENT CHAT CHECKPOINT
 
-Last updated: 2026-08-21 19:24 KST
+Last updated: 2026-08-22 06:23 KST
 
 > Canonical handoff for continuing this trip-planning chat. In a new conversation, read this file first before answering so context does not reset.
 
@@ -17,7 +17,8 @@ Last updated: 2026-08-21 19:24 KST
 - Taipei/Taiwan family trip, 3 adults.
 - Dates: 2027-02-20 to 2027-02-23.
 - Hotel: Taipei Garden Hotel.
-- Day 1 flight: Asiana OZ711, ICN 08:00 → TPE T2 08:50 local time.
+- Day 1 flight source of truth: Asiana OZ711, ICN 08:00 → TPE T2 08:50 local time.
+- IMPORTANT: During vendor outreach, 08:50 / 09:50 / 11:30 were accidentally mixed in some messages. Before any booking is finalized, correct the vendor to the source-of-truth flight time above and T2.
 - Day 2 & Day 4 vehicle: LUMI DRIVE New Toyota Alphard 40系.
 - Food priority: taste > price > transport convenience.
 - Parents’ comfort matters. Mother is a painter; user likes contemporary art.
@@ -57,100 +58,155 @@ Last updated: 2026-08-21 19:24 KST
 
 ---
 
-# DAY 1 airport pickup — FINALIST BOARD
+# DAY 1 airport pickup — LIVE BOARD
 
-## Decision rule
-- Taipei Garden Hotel official pickup is the benchmark: S-Class, approx. 2013–2019 random, NT$1,800.
-- Any external vendor should beat the hotel clearly on price, vehicle certainty/condition, or experience.
-- Current user priority: rear-seat comfort/space > vehicle certainty/condition > price > badge/prestige.
-- For ES300h vendors, explicit guarantee/指定 matters. “盡量安排” is not enough.
-- Vendor response quality also matters because day-of-trip communication must work.
+## Current decision rule
+- Taipei Garden Hotel official pickup remains the S-Class benchmark: S-Class, approx. 2013–2019 random, NT$1,800.
+- New hard rule from user: **take an S-Class only if a genuinely acceptable S-Class deal is under NT$2,000; otherwise book a Lexus ES300h around NT$1,300–1,500.**
+- For ES300h, the step up from a random NT$1,000 airport sedan is considered worthwhile because the extra NT$300–500 buys clear gains in quietness/rear-seat comfort plus vehicle certainty.
+- Rear-seat comfort/space > vehicle certainty/condition > price > badge/prestige.
+- Explicit guarantee/指定 matters. “盡量安排” alone is weaker.
+- Vendor response quality matters because day-of-trip communication must work.
+- Do not chase vendors aggressively over the weekend. There is no urgency; allow roughly through Monday unless a vendor’s published support hours suggest weekend replies are normal.
 
-## FINAL 4 currently fighting
+## CURRENT LEADER — 奇立租賃
+- Re-entered the race after the LINE account finally replied overnight; previous “dead channel” assessment is obsolete.
+- Lexus ES300h designated pickup: **NT$1,300**.
+- Vehicle age: **within 5 years**.
+- A full confirmation message was sent listing: ES300h designation, <=5 years, ES300h guarantee, TPE T2 → Taipei Garden Hotel, NT$1,300 total, 90-min free wait after actual landing, airport parking, tolls, and no other pickup surcharges. Vendor replied **“正確”**; treat the package as confirmed unless later contradicted.
+- Exterior/rear-seat/interior real-car photos have now been requested; waiting.
+- Cash / early-booking negotiation has NOT yet been used. Plan: first inspect real-car photos, then negotiate softly using early booking + cash + student/part-time-job filial-trip story; acceptable alternative to discount is a newer/better-condition ES priority note.
+- Vendor also quoted S-Class: W222 NT$2,000; W223 NT$3,500.
+- W222 described as roughly “10 years old”, so the W222 offer is not attractive versus hotel S-Class 1,800 and fails the user’s under-2,000 rule.
+- If photos look clean, 奇立 ES300h 1,300 becomes practical #1.
 
-### 1) 宇航富豪 — CURRENT VALUE LEADER
+## 2) 宇航富豪 — STRONG VALUE BACKUP
 - Lexus ES300h can be explicitly designated.
-- NT$1,400 total, all fees included.
-- Vendor says all vehicles guaranteed within 3 years; explicitly confirmed this applies to the ES300h request.
+- **NT$1,400 total, all fees included.**
+- Vendor says all vehicles guaranteed within 3 years; explicitly confirmed this applies to ES300h request.
 - Exterior photo sent; same model type promised.
-- Vendor said the photographed/same-type ES was purchased last April.
-- Rear-seat/interior photos requested; still waiting.
+- Vendor said the photographed/same-type ES was purchased last April (2025-04 from current 2026-08 context).
+- Rear-seat/interior photos requested; still waiting. Vendor had warned its LINE official account sometimes buries messages.
 - +NT$100 aviation-seat vehicle upgrade exists, but Day 1 preference is sedan because Days 2/4 already use Alphard.
-- If rear-seat/interior photos look clean, this is current practical #1.
+- If 奇立 photos/communication disappoint, 宇航 is the cleanest value fallback.
 
-### 2) 王牌機場接送 — STRONG BACKUP
-- Lexus ES300h designated pickup.
-- NT$1,500, all fees included.
+## 3) 王牌機場接送 — STRONG, CLEAR ES BACKUP
+- Lexus ES300h designated pickup: **NT$1,500**, all fees included.
 - Vehicle within 6 years.
-- Can note preference for newer/facelift car, but cannot guarantee a newer one.
+- Can note preference for a newer/facelift car, but cannot guarantee a newer year.
 - No cash discount; NT$1,500 is fixed.
-- Offered Toyota Alphard at NT$2,200; user declined because wants sedan on Day 1.
-- Conversation ended politely: “好的哦~謝謝”.
+- Important clarification received: the **actual booked vehicle type can be guaranteed**; if an exceptional dispatch problem requires a different model, they will negotiate with the user first rather than silently substitute.
+- W222 S-Class: **NT$2,200**, within 8 years; S350/S450 trim not guaranteed, dispatch details determined near service date. This fails the new S-Class-under-2,000 rule.
+- Offered Alphard at NT$2,200; user declined because wants sedan on Day 1.
 
-### 3) 亞立山大車隊 — TRUSTWORTHY / REAL-CAR BACKUP
-- Lexus ES300h, 2019/2020 seventh-generation vehicles.
-- NT$1,600.
-- Vendor was transparent that they do not have newer ES and initially said it may not fit the user’s needs.
-- Driver supplied many real exterior/interior/rear-seat photos; the same black ES appears across multiple real locations and looks well maintained.
-- Cash/early-booking discount refused; vendor explained designated-car airport pickup has low margin.
-- Random general-car airport transfer is NT$1,000: Toyota Camry/RAV4/Corolla Cross, Mazda, Hyundai, random dispatch.
-- Vendor response quality / honesty is currently one of the best.
-- Conversation ended positively: vendor said there is still plenty of time and user should compare slowly.
-
-### 4) Taipei Garden Hotel official pickup — BENCHMARK / SAFETY NET
-- S-Class.
-- NT$1,800.
-- Approx. 2013–2019 random year/model from hotel pool.
-- Not as certain as a recent ES, but S-Class is a higher class and official hotel pickup is operationally easy.
-- Any external deal that is unclear at ~NT$1,700–1,800 should be compared against this.
-
-## PREMIUM WILDCARD — Heycar
-- Currently says they only provide Mercedes-Benz S-Class W223 in their own service pool.
-- Vehicle within 6 years.
-- Real-looking W223 exterior/front/rear photos sent.
-- Rear features described: electric rear seats, heat, electric blinds, double-glazing, 4-zone climate, ambient lighting, charging.
-- Boss-seat function is not useful for this trip because user sits front passenger and parents sit rear.
-- They prioritize W223 but cannot 100% guarantee it in exceptional dispatch/repair situations; if unavailable they say they would still provide another S-Class, not another class.
-- Price has NOT yet been received.
-- User decided to judge the price first before pushing further on W223 fallback/advance-confirmation mechanics.
-- Pricing frame: <=2,000 very strong / 2,100–2,500 worth considering for experience / >3,000 hard to justify against ES300h 1,400.
-
-## Secondary backups / no longer main fight
-
-### 小黑貓
-- ES300h designated.
-- NT$1,500 fixed.
-- Basically within 8 years / 2018–2025 7th-gen pool; 2026 full-change car cannot be guaranteed.
-- They try to dispatch the newest available car first, but it is only best-effort, not guarantee.
-- No discount.
-- Weaker than 王牌 at same price because age guarantee is looser.
-
-### 昕樂
-- 2025 ES300h.
-- Vendor says they have two and can hold one if reservation is confirmed.
-- NT$2,000.
+## 4) 昕樂 — BEST VEHICLE-CERTAINTY ES, PRICE TOO HIGH FOR NOW
+- **2025 Lexus ES300h**.
+- Vendor explicitly says they have **two cars** and, if the user confirms a booking, they will **hold one of the two** for the user.
+- This is currently the strongest vehicle-certainty promise among ES vendors.
+- Price: **NT$2,000**.
 - 90 min free airport waiting; then +NT$500/hour.
-- Cash discount question was asked but not clearly answered.
-- Vehicle certainty is excellent, but NT$2,000 is now hard to justify versus 宇航 1,400 unless they offer a large discount.
+- User sent a cash/early-booking negotiation message noting another 1,400 ES offer and asking for the best final cash price; message was read, no answer yet.
+- Rear-seat photo was promised later / by next day.
+- If discounted to ~1,600–1,700, it becomes a real finalist; at 2,000 it is too far above 奇立/宇航.
 
-## Cut / effectively cut
-- 長勝: W222 at NT$2,000, exact year not guaranteed; W223 = 3,000. Worse than hotel and trust fell after inconsistent year explanation.
-- TTS: ES300h NT$3,500 — cut.
-- 走到飛: ES300h only “盡量安排”, not guaranteed — cut.
-- 阿黃: same, no guaranteed ES300h — cut.
-- 明星: W221 S350 around NT$1,300 and poor response; only NT$100 cheaper than recent ES300h 1,400 — explicitly discarded.
-- 錢比 CBI: ES300h airport pickup NT$1,800 — no advantage versus hotel / 宇航 — effectively cut.
-- 肯驛國際 / 叫車吧: car model cannot be specified — cut.
-- Htcar: no meaningful response; effectively cut.
-- 奇立: only auto-welcome; LINE channel appears dead. User explicitly decided to ignore/cut because day-of-trip communication risk outweighs cheap web pricing.
-- 嘉欣/林俊良 old S350 lead: reply stalled after “driving, will reply later”; not worth chasing given stronger ES offers.
+## 5) 小黑貓 — MARKET-PRICE DATA / BACKUP
+- ES300h designated: **NT$1,500 fixed**, generally within 8 years; no discount.
+- They try to dispatch the newest available car first, but year is not guaranteed.
+- S-Class quotes: **W222 NT$2,000 / W223 NT$3,000**.
+- They guarantee the requested generation (W222 stays W222; W223 stays W223), but **do not guarantee year**.
+- When asked for their actual fleet-year range, they refused to narrow it beyond the generation’s possible years and said dispatch considers mileage, maintenance and condition; therefore W222 could be any corresponding W222-year car.
+- Result: W222 2,000 is market-low-ish but not a “late W222 bargain”; it does not beat hotel 1,800 strongly enough under the user’s current rule.
+- They repeatedly recommended LM300h for comfort; user declined because Day 2 already includes Alphard and Day 1 is intentionally a sedan experience.
+
+## 6) 亞立山大車隊 — TRUSTWORTHY REAL-CAR BACKUP
+- Lexus ES300h, 2019/2020 seventh-generation vehicles.
+- **NT$1,600**.
+- Vendor was transparent that they do not have newer ES and initially said it may not fit the user’s needs.
+- Driver supplied real exterior/interior/rear-seat photos; same black ES appears across multiple real locations and looks well maintained.
+- Cash/early-booking discount refused; designated-car airport pickup has low margin because it breaks normal paired dispatch economics.
+- Random general-car airport transfer is NT$1,000: Toyota Camry/RAV4/Corolla Cross, Mazda, Hyundai, random dispatch.
+- S-Class follow-up: vendor said they probably cannot provide it.
+- Vendor response quality / honesty is one of the best, but the ES offer is now beaten on age + price.
+
+## 7) 錢比 CBI — WAITING ON DISCOUNT + S-CLASS CHECK
+- ES300h airport pickup: **NT$1,800**; send-off 1,600.
+- Vendor says their cars are basically within 3 years.
+- User asked for early-booking + cash discount; vendor said they would confirm the price.
+- User also asked for S-Class generation/year/guarantee/price and photos; vendor replied they would check.
+- Published support hours: Mon–Thu 09:00–18:00; Fri–Sun 09:00–20:00, so weekend reply is plausible.
+- At 1,800 ES is not competitive; ~1,500–1,600 would put it back in the fight.
+
+## PREMIUM WILDCARDS / QUOTES PENDING
+
+### Heycar
+- Their normal premium service pool is Mercedes-Benz S-Class W223.
+- Vehicle within 6 years.
+- Real-looking W223 photos sent.
+- Rear features described: electric rear seats, heat, electric blinds, double-glazing, 4-zone climate, ambient lighting, charging.
+- They prioritize W223 but **cannot 100% guarantee W223** in exceptional dispatch/repair situations; if unavailable they say they would still provide another S-Class, not another class.
+- Price still NOT received.
+- Their human service hours are weekdays 09:00–18:00; the price request was sent after service hours, so no response penalty yet.
+- Under current user rule, only a sub-2,000 result is likely to beat ES.
+
+### JHC尊榮國際
+- User originally asked for W223 around/below 2,000; vendor said Benz price could not meet that level.
+- W222 quote: **NT$2,200**.
+- LM300h quote: **NT$2,700**, but user does not want LM because Day 2 already uses Alphard.
+- JHC repeatedly seemed to misunderstand the desired comparison; a clarification was sent explicitly requesting:
+  1. Lexus ES300h
+  2. Mercedes-Benz W222
+  3. Mercedes-Benz W223
+  plus price/year/generation guarantee.
+- W223 and ES300h answers are still pending.
+- W222 2,200 already fails the under-2,000 S-Class rule.
+
+### 江南小客車租賃有限公司
+- Asked for S350/S-Class; vendor said it is a special vehicle and needs internal confirmation.
+- Date/time provided; vendor said they would confirm and reply ASAP.
+- No price/year/guarantee yet.
+- Still alive as a possible S-Class wildcard.
+
+### 浩銅租車 Htcar
+- Asked for both Mercedes-Benz S350/S-Class and Lexus ES price/availability.
+- Date/time recorded in vendor’s notes.
+- User asked when quotes could be confirmed; message was read.
+- No price/year/guarantee yet.
+
+### 全國機場接送_包車自由行
+- Their “尊榮進口五座” allows separate designated-model quoting.
+- User asked for Lexus ES, Volvo S90, Audi A6, Mercedes-Benz S-Class, including guarantee and real-car photos.
+- Message read; no quote yet.
+
+### 林俊良 / old S350 lead
+- Said they were driving and would reply later.
+- Follow-up requesting S350 guarantee/year/price remained unread at last check.
+- Low priority; allow time rather than chase.
+
+## CUT / EFFECTIVELY CUT
+- **海山林東部包車**: W222 S350 **NT$3,000**; LM seven-seat 3,800; detailed legal/insurance quote but far above target — cut.
+- **永保租車**: 2014 W222 initially quoted **4,500**, then after challenge said the price was mis-entered and corrected to **2,800**; refused 1,700 cash proposal — cut. The 4,500 episode hurt trust.
+- **ASAP 富豪租車**: S90 exists but they do not provide the needed airport pickup — cut.
+- **宏濱租車**: premium, own-fleet legal operator. Prior Alphard 40 negotiation showed 2025–2026 own cars but a firm premium price philosophy; not currently worth chasing for Day 1 S-Class.
+- **TTS**: ES300h NT$3,500 — cut.
+- **走到飛 / 阿黃**: ES300h only best-effort, not guaranteed — cut.
+- **明星**: old W221 S350 around NT$1,300 with poor response; discarded earlier.
+- **肯驛國際 / 叫車吧**: model cannot be specified — cut.
+
+## Current price picture
+- Random general sedan: about **NT$1,000**.
+- Strong ES300h market: **NT$1,300–1,500** with designation possible.
+- Hotel S-Class: **NT$1,800**, 2013–2019 random — currently the best known S-Class value/safety benchmark.
+- External designated W222 market observed: roughly **NT$2,000–2,200**, usually with year uncertainty.
+- W223 observed: roughly **NT$3,000–3,500** so far.
+- Therefore, current practical strategy is: **if no acceptable S-Class <2,000 appears, book ES300h at 1,300–1,500.**
 
 ## Bottom line if choosing right now
-1. 宇航 ES300h / 3-year guarantee / 1,400 — best value and current leader.
-2. 王牌 ES300h / 6-year guarantee / 1,500 — best easy backup.
-3. 亞立山大 2019/2020 ES300h / real-car photos / 1,600 — strongest trust / real-car verification backup.
-4. Hotel S-Class / 1,800 — higher class, official-service safety net.
-5. Heycar W223 can jump into the fight only after price arrives.
+1. **奇立 ES300h / <=5 years / 1,300 / package reconfirmed** — new value leader, pending real interior/rear-seat photos.
+2. **宇航 ES300h / <=3 years / 1,400 / all-in** — strongest clean backup, pending rear-seat/interior photos.
+3. **王牌 ES300h / <=6 years / 1,500 / model guaranteed, exceptions negotiated** — strongest easy backup.
+4. **Taipei Garden Hotel S-Class / 1,800 / 2013–2019 random** — still the best known S-Class option if user insists on S-Class and no sub-2,000 external deal appears.
+5. **昕樂 2025 ES300h / car physically held from two-car pool** can jump into the final if its cash price falls dramatically.
+6. Heycar / 江南 / Htcar / 全國 remain quote-pending wildcards.
 
 ---
 
@@ -202,7 +258,7 @@ Checkpoint path:
 5. Build a true rainy Plan B, not degraded Plan A.
 6. Then update site + deploy.
 
-User wants to finish Day 2 today if possible; if not, by tomorrow, then return focus to study.
+Airport-vehicle outreach temporarily consumed the chat; after quote collection settles, resume Day 2 optimization.
 
 ---
 
@@ -212,6 +268,8 @@ User wants to finish Day 2 today if possible; if not, by tomorrow, then return f
 - Do not change 小統一 19:00 reservation.
 - Do not remove 弄宅咖啡 from rainy Day 1.
 - Do not expose private budget data publicly.
-- For airport-car comparison, hotel S-Class 1,800 is benchmark and 宇航 ES300h 1,400 is current value leader.
+- Source-of-truth OZ711 arrival is **08:50 at TPE T2**; correct any vendor that received 09:50 or 11:30 before booking.
+- For airport-car comparison, **奇立 ES300h 1,300 is current value leader**, 宇航 1,400 is strongest clean backup, and hotel S-Class 1,800 is S-Class benchmark.
+- New decision rule: **S-Class under 2,000 or choose ES300h 1,300–1,500.**
 - Distinguish explicit guarantee/指定 from “盡量安排”.
 - Vendor response quality matters because day-of-trip communication matters.
