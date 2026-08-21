@@ -1597,6 +1597,10 @@ button {
   min-width: 660px;
 }
 
+.day-route__map.day-route__map--dense svg {
+  min-width: 760px;
+}
+
 .day-route__water {
   fill: #e8f1f1;
 }

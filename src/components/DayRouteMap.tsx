@@ -38,6 +38,7 @@ export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
 
   if (!route) return null
 
+  const denseRoute = route.stops.length > 10
   const points = projectRoute(dayId)
   const path = points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(' ')
   const titleId = `${dayId}-route-title`
@@ -65,7 +66,7 @@ export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
         </div>
       </div>
 
-      <div className="day-route__map">
+      <div className={`day-route__map ${denseRoute ? 'day-route__map--dense' : ''}`}>
         <svg
           viewBox={`0 0 ${mapWidth} ${mapHeight}`}
           role="group"
@@ -116,7 +117,7 @@ export function DayRouteMap({ dayId, dayLabel }: DayRouteMapProps) {
               }}
               key={`${route.stops[index].placeId}-${index}`}
             >
-              <circle className="day-route__point-hit" cx={point.x} cy={point.y} r="27" />
+              <circle className="day-route__point-hit" cx={point.x} cy={point.y} r={denseRoute ? 22 : 27} />
               <g
                 className={`day-route__point ${index === 0 ? 'day-route__point--start' : ''} ${index === points.length - 1 ? 'day-route__point--finish' : ''}`}
                 transform={`translate(${point.x} ${point.y})`}
