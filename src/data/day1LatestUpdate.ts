@@ -20,6 +20,7 @@ if (dayOne) {
       status: '예약 확정',
       tone: 'confirmed',
       icon: 'meal',
+      placeId: asPlaceId('alleyhouse'),
     })
   }
 

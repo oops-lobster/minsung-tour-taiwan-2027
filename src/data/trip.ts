@@ -8,6 +8,7 @@ export interface TripStatus {
   status: string
   tone: StatusTone
   icon: 'plane' | 'hotel' | 'car' | 'meal' | 'utensils'
+  placeId?: PlaceId
 }
 
 export interface TimelineItem {
@@ -36,6 +37,7 @@ export interface TripDay {
   transport: string
   keyPlaces: string
   keyMeal: string
+  keyMealPlaceIds?: PlaceId[]
   cover: string
   schedule: TimelineItem[]
 }
@@ -60,9 +62,9 @@ export const tripStatuses: TripStatus[] = [
   },
   {
     label: 'Day 1 공항 픽업',
-    detail: 'Taipei Garden Hotel · Mercedes-Benz Sedan',
-    status: '차량 선택 확정 · 예약 절차 진행 중',
-    tone: 'progress',
+    detail: '奇立租賃 · Lexus ES300h 지정 픽업',
+    status: '예약 요청 · 확인 대기',
+    tone: 'waiting',
     icon: 'car',
   },
   {
@@ -92,6 +94,7 @@ export const tripStatuses: TripStatus[] = [
     status: '예약 오픈 대기',
     tone: 'waiting',
     icon: 'meal',
+    placeId: '85td',
   },
 ]
 
@@ -106,9 +109,10 @@ export const days: TripDay[] = [
     lead: '도시에 천천히 들어가 바다의 노을을 보고, 오래된 골목과 네온의 밤으로 첫날을 마무리합니다.',
     intensity: '보통',
     walking: '약 6–8천 보 예상',
-    transport: '리무진 검토 · 호텔 Mercedes-Benz · 택시',
+    transport: '奇立 Lexus ES300h · MRT · 택시',
     keyPlaces: '중정기념당 · 단수이 · 용산사',
     keyMeal: '춘수당 · 魚藏餐廳',
+    keyMealPlaceIds: ['chun-shui-tang', 'yuzang'],
     cover: 'tamsui.webp',
     schedule: [
       {
@@ -149,20 +153,24 @@ export const days: TripDay[] = [
         tags: ['예약 완료'],
       },
       {
-        time: '도착 시간 재확인',
+        time: '09:50',
         title: '타오위안공항 도착',
         localName: '桃園國際機場 第二航廈',
-        description: '입국과 수하물 수령을 마친 뒤 서두르지 않고 이동합니다.',
+        description: '아시아나항공 OZ711으로 타오위안공항 T2에 도착합니다. 입국과 수하물 수령을 마친 뒤 피켓을 든 기사님을 만납니다.',
+        transport: '아시아나항공 OZ711',
         mapQuery: 'Taoyuan International Airport Terminal 2',
         placeId: 'taoyuan-t2',
       },
       {
-        time: '픽업 시간 재확인',
-        title: '호텔 공식 리무진으로 이동',
-        localName: 'Taipei Garden Hotel · 台北花園大酒店',
-        description: 'Taipei Garden Hotel 공식 Mercedes-Benz 리무진으로 타오위안공항 T2에서 호텔까지 이동합니다. 통상 S350이 배차되며 약 2013–2019년식 범위지만, 실제 연식과 차량은 당일 호텔 배차 상황에 따라 결정됩니다. 성인 3명과 대형 캐리어 2개까지 이용 가능합니다.',
-        transport: 'Mercedes-Benz · 호텔 공식 리무진',
-        tags: ['호텔 공식 픽업', 'Mercedes-Benz', '예약 절차 진행 중'],
+        time: '입국·수하물 후',
+        title: 'ES300h 픽업으로 호텔 이동',
+        localName: '奇立租賃 · Lexus ES300h',
+        description: '5년 이내 Lexus ES300h 지정 픽업과 피켓 미팅을 예약 요청했습니다. 차종은 다른 모델로 바뀌지 않으며, 실제 차량과 기사 정보는 이용 2–3일 전에 안내받습니다.',
+        transport: '奇立租賃 · Lexus ES300h',
+        tags: ['차종 지정', '피켓 미팅', '확인 대기'],
+        image: 'lexus-es300h.webp',
+        mapQuery: 'Taipei Garden Hotel',
+        placeId: 'hotel',
       },
       {
         time: '13:30–13:50',
@@ -276,6 +284,7 @@ export const days: TripDay[] = [
     transport: 'LUMI DRIVE · Toyota New Alphard 40系',
     keyPlaces: '예류 · 스펀 · 지우펀',
     keyMeal: 'Qiao Yan · 지우펀 현지식',
+    keyMealPlaceIds: ['qiao-yan', 'jiufen'],
     cover: 'jiufen.webp',
     schedule: [
       {
@@ -379,6 +388,7 @@ export const days: TripDay[] = [
     transport: '택시 · 그때그때',
     keyPlaces: '고궁 · 용캉제·칭톈제 · Taipei 101',
     keyMeal: '딘타이펑 신생점 · 85TD',
+    keyMealPlaceIds: ['din-tai-fung-xinsheng', '85td'],
     cover: 'taipei-night.webp',
     schedule: [
       {
@@ -484,6 +494,7 @@ export const days: TripDay[] = [
     transport: 'LUMI DRIVE · Toyota New Alphard 40系',
     keyPlaces: '식물원 · 비전옥 · 공항',
     keyMeal: '비전옥 장어덮밥',
+    keyMealPlaceIds: ['hizenya'],
     cover: 'botanical.webp',
     schedule: [
       {
@@ -566,25 +577,44 @@ export const principles = [
   '결국 가장 중요한 것은 셋이 함께 있었다는 사실이다.',
 ]
 
-export const driverPlaces = [
-  { korean: 'Taipei Garden Hotel', local: '台北花園大酒店', query: 'Taipei Garden Hotel' },
-  { korean: '중정기념당', local: '中正紀念堂', query: 'Chiang Kai-shek Memorial Hall' },
-  { korean: '단수이 위런마터우', local: '淡水漁人碼頭', query: "Tamsui Fisherman's Wharf" },
-  { korean: '용산사', local: '艋舺龍山寺', query: 'Longshan Temple Taipei' },
-  { korean: '예류지질공원', local: '野柳地質公園', query: 'Yehliu Geopark' },
-  { korean: '스펀 옛거리', local: '十分老街', query: 'Shifen Old Street' },
-  { korean: '지우펀 옛거리', local: '九份老街', query: 'Jiufen Old Street' },
-  { korean: '국립고궁박물원', local: '國立故宮博物院', query: 'National Palace Museum Taipei' },
-  { korean: '딘타이펑 신생점', local: '鼎泰豐 新生店', query: 'Din Tai Fung Xinsheng Branch Taipei' },
-  { korean: '용캉제·칭톈제', local: '永康街 · 青田街', query: 'Yongkang Street and Qingtian Street Taipei' },
-  { korean: '타이베이 101', local: '台北101', query: 'Taipei 101' },
-  { korean: '비전옥', local: '肥前屋', query: '肥前屋 Taipei' },
-  { korean: '타오위안공항 T2', local: '桃園國際機場 第二航廈', query: 'Taoyuan International Airport Terminal 2' },
+export interface DriverPlace {
+  korean: string
+  local: string
+  query: string
+  placeId?: PlaceId
+}
+
+export const driverPlaces: DriverPlace[] = [
+  { korean: 'Taipei Garden Hotel', local: '台北花園大酒店', query: 'Taipei Garden Hotel', placeId: 'hotel' },
+  { korean: '중정기념당', local: '中正紀念堂', query: 'Chiang Kai-shek Memorial Hall', placeId: 'chiang-kai-shek' },
+  { korean: '단수이 위런마터우', local: '淡水漁人碼頭', query: "Tamsui Fisherman's Wharf", placeId: 'tamsui-wharf' },
+  { korean: '용산사', local: '艋舺龍山寺', query: 'Longshan Temple Taipei', placeId: 'longshan' },
+  { korean: '예류지질공원', local: '野柳地質公園', query: 'Yehliu Geopark', placeId: 'yehliu' },
+  { korean: '스펀 옛거리', local: '十分老街', query: 'Shifen Old Street', placeId: 'shifen-old-street' },
+  { korean: '지우펀 옛거리', local: '九份老街', query: 'Jiufen Old Street', placeId: 'jiufen' },
+  { korean: '국립고궁박물원', local: '國立故宮博物院', query: 'National Palace Museum Taipei', placeId: 'palace' },
+  { korean: '딘타이펑 신생점', local: '鼎泰豐 新生店', query: 'Din Tai Fung Xinsheng Branch Taipei', placeId: 'din-tai-fung-xinsheng' },
+  { korean: '용캉제·칭톈제', local: '永康街 · 青田街', query: 'Yongkang Street and Qingtian Street Taipei', placeId: 'yongkang-qingtian' },
+  { korean: '타이베이 101', local: '台北101', query: 'Taipei 101', placeId: 'taipei-101' },
+  { korean: '비전옥', local: '肥前屋', query: '肥前屋 Taipei', placeId: 'hizenya' },
+  { korean: '타오위안공항 T2', local: '桃園國際機場 第二航廈', query: 'Taoyuan International Airport Terminal 2', placeId: 'taoyuan-t2' },
 ]
 
-export const mealPlan = [
-  { day: 'DAY 1', breakfast: '기내식', lunch: '춘수당 · 공푸면과 버블티', dinner: '魚藏餐廳 · 대만식 해산물', extra: '18일 타이완 생맥주' },
-  { day: 'DAY 2', breakfast: 'Taipei Garden Hotel 조식', lunch: 'Qiao Yan Seafood / 俏宴', dinner: '지우펀 현지식 + 고량주', extra: '지우펀에서 하루 마무리' },
-  { day: 'DAY 3', breakfast: '가벼운 맥모닝', lunch: '딘타이펑 신생점', dinner: '85TD 메인 디너', extra: '시먼딩 또는 신이구 이자카야 · 현장 결정' },
-  { day: 'DAY 4', breakfast: '현지식 또는 패스 가능', lunch: '肥前屋 / 비전옥 · 장어덮밥', dinner: '기내식', extra: '라운지에서 휴식' },
+export interface MealPlanDay {
+  day: string
+  breakfast: string
+  breakfastPlaceId?: PlaceId
+  lunch: string
+  lunchPlaceId?: PlaceId
+  dinner: string
+  dinnerPlaceId?: PlaceId
+  extra: string
+  extraPlaceId?: PlaceId
+}
+
+export const mealPlan: MealPlanDay[] = [
+  { day: 'DAY 1', breakfast: '기내식', lunch: '춘수당 · 공푸면과 버블티', lunchPlaceId: 'chun-shui-tang', dinner: '魚藏餐廳 · 대만식 해산물', dinnerPlaceId: 'yuzang', extra: '18일 타이완 생맥주' },
+  { day: 'DAY 2', breakfast: 'Taipei Garden Hotel 조식', lunch: 'Qiao Yan Seafood / 俏宴', lunchPlaceId: 'qiao-yan', dinner: '지우펀 현지식 + 고량주', dinnerPlaceId: 'jiufen', extra: '지우펀에서 하루 마무리' },
+  { day: 'DAY 3', breakfast: '가벼운 맥모닝', lunch: '딘타이펑 신생점', lunchPlaceId: 'din-tai-fung-xinsheng', dinner: '85TD 메인 디너', dinnerPlaceId: '85td', extra: '시먼딩 또는 신이구 이자카야 · 현장 결정' },
+  { day: 'DAY 4', breakfast: '현지식 또는 패스 가능', lunch: '肥前屋 / 비전옥 · 장어덮밥', lunchPlaceId: 'hizenya', dinner: '기내식', extra: '라운지에서 휴식' },
 ]

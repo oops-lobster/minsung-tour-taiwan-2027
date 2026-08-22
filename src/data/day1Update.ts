@@ -23,6 +23,9 @@ Object.assign(mutablePlaces, {
     address: '台北市中山區松江路100巷9-1號',
     latitude: 25.0511,
     longitude: 121.5319,
+    categoryKo: '대만 가정식',
+    specialtyKo: '과일닭·참기름 닭밥',
+    displayHintKo: '대만 가정식 · 닭요리',
   },
   alleyhouse: {
     name: '弄宅咖啡 Alleyhouse Coffee',
@@ -30,6 +33,9 @@ Object.assign(mutablePlaces, {
     address: '台北市中山區松江路150巷18-1號',
     latitude: 25.0537,
     longitude: 121.5327,
+    categoryKo: '골목 주택 카페',
+    specialtyKo: '커피·디저트',
+    displayHintKo: '골목 주택 카페 · 커피·디저트',
   },
   miniatures: {
     name: '수진박물관',
@@ -65,6 +71,9 @@ Object.assign(mutablePlaces, {
     address: '台北市松山區健康路174號',
     latitude: 25.0543,
     longitude: 121.5579,
+    categoryKo: '대만식 스테이크',
+    specialtyKo: '철판 스테이크 코스',
+    displayHintKo: '대만식 스테이크 · 철판 코스',
   },
   'carrefour-guilin': {
     name: '까르푸 구이린점',
@@ -72,6 +81,9 @@ Object.assign(mutablePlaces, {
     address: '台北市萬華區桂林路1號',
     latitude: 25.0372,
     longitude: 121.5062,
+    categoryKo: '대형 마트',
+    specialtyKo: '야식·기념품 장보기',
+    displayHintKo: '대형 마트 · 야식 장보기',
   },
 })
 
@@ -85,9 +97,10 @@ const dayOne: TripDay = {
   lead: '좋은 점심과 작은 박물관으로 도시에 들어가, 산 위의 일몰과 오래된 타이베이의 밤으로 첫날을 마무리합니다.',
   intensity: '보통',
   walking: '약 7–9천 보 예상',
-  transport: '공항 픽업 · MRT · 택시',
+  transport: '奇立 Lexus ES300h · MRT · 택시',
   keyPlaces: '수진박물관 · 백석호 · 벽산암 · 용산사',
   keyMeal: 'My灶 · 小統一牛排',
+  keyMealPlaceIds: [asPlaceId('my-zao'), asPlaceId('xiao-tong-yi')],
   cover: 'longshan.webp',
   schedule: [
     {
@@ -127,20 +140,22 @@ const dayOne: TripDay = {
       tags: ['예약 완료'],
     },
     {
-      time: '도착 시간 재확인',
+      time: '09:50',
       title: '타오위안공항 도착',
       localName: '桃園國際機場 第二航廈',
-      description: '입국과 수하물 수령을 마친 뒤 서두르지 않고 픽업 기사님을 만납니다.',
+      description: '아시아나항공 OZ711으로 타오위안공항 T2에 도착합니다. 입국과 수하물 수령을 마친 뒤 피켓을 든 기사님을 만납니다.',
+      transport: '아시아나항공 OZ711',
       mapQuery: 'Taoyuan International Airport Terminal 2',
       placeId: asPlaceId('taoyuan-t2'),
     },
     {
       time: '입국·수하물 후',
-      title: '공항 픽업으로 호텔 이동',
-      localName: '台北花園大酒店',
-      description: '성인 3명과 짐을 싣고 Taipei Garden Hotel로 이동합니다. 실제 차량은 호텔의 당일 배차 상황에 따라 결정됩니다.',
-      transport: '공항 픽업',
-      tags: ['호텔 공식 픽업', '3인'],
+      title: 'ES300h 픽업으로 호텔 이동',
+      localName: '奇立租賃 · Lexus ES300h',
+      description: '5년 이내 Lexus ES300h 지정 픽업과 피켓 미팅을 예약 요청했습니다. 차종은 다른 모델로 바뀌지 않으며, 실제 차량과 기사 정보는 이용 2–3일 전에 안내받습니다. 실제 착륙 뒤 90분 대기가 포함됩니다.',
+      transport: '奇立租賃 · Lexus ES300h',
+      tags: ['차종 지정', '피켓 미팅', '확인 대기'],
+      image: 'lexus-es300h.webp',
       mapQuery: 'Taipei Garden Hotel',
       placeId: asPlaceId('hotel'),
     },
@@ -284,9 +299,9 @@ if (dayOneIndex >= 0) days.splice(dayOneIndex, 1, dayOne)
 
 const pickupStatus = tripStatuses.find((status) => status.label === 'Day 1 공항 픽업')
 if (pickupStatus) {
-  pickupStatus.detail = 'Taipei Garden Hotel · Mercedes-Benz Sedan'
-  pickupStatus.status = '차량 선택 확정 · 예약 절차 진행 중'
-  pickupStatus.tone = 'progress'
+  pickupStatus.detail = '奇立租賃 · Lexus ES300h 지정 픽업'
+  pickupStatus.status = '예약 요청 · 확인 대기'
+  pickupStatus.tone = 'waiting'
 }
 
 dayRoutes['day-1'] = {
@@ -310,24 +325,21 @@ dayRoutes['day-1'] = {
   ],
 }
 
-const mutableFallbacks = restaurantFallbacks as unknown as Array<{
-  day: string
-  planA: string
-  planB: string
-  reason: string
-}>
+const mutableFallbacks = restaurantFallbacks
 mutableFallbacks.splice(
   0,
   2,
   {
     day: 'DAY 1 · 점심',
     planA: 'My灶',
+    planAPlaceId: asPlaceId('my-zao'),
     planB: '송장난징역 인근의 깔끔한 대만식 식당',
     reason: '항공·입국 지연 또는 예약 문제',
   },
   {
     day: 'DAY 1 · 저녁',
     planA: '小統一牛排',
+    planAPlaceId: asPlaceId('xiao-tong-yi'),
     planB: '호텔·완화권의 예약 가능한 고급 고기 식당',
     reason: '예약 불가 또는 벽산암 일정 지연',
   },
@@ -336,24 +348,24 @@ mutableFallbacks.splice(
 driverPlaces.splice(
   0,
   driverPlaces.length,
-  { korean: 'Taipei Garden Hotel', local: '台北花園大酒店', query: 'Taipei Garden Hotel' },
-  { korean: 'My灶', local: 'My灶', query: 'My灶 Taipei' },
-  { korean: '弄宅咖啡', local: '弄宅咖啡', query: '弄宅咖啡 Alleyhouse Coffee Taipei' },
-  { korean: '수진박물관', local: '袖珍博物館', query: 'Miniatures Museum of Taiwan' },
-  { korean: '백석호 출렁다리', local: '白石湖吊橋', query: 'Baishihu Suspension Bridge Taipei' },
-  { korean: '벽산암', local: '碧山巖開漳聖王廟', query: 'Bishanyan Kaizhang Shengwang Temple Taipei' },
-  { korean: '小統一牛排', local: '小統一牛排館', query: '小統一牛排 Taipei' },
-  { korean: '용산사', local: '艋舺龍山寺', query: 'Longshan Temple Taipei' },
-  { korean: '까르푸 구이린점', local: '家樂福桂林店', query: 'Carrefour Guilin Store Taipei' },
-  { korean: '예류지질공원', local: '野柳地質公園', query: 'Yehliu Geopark' },
-  { korean: '스펀 옛거리', local: '十分老街', query: 'Shifen Old Street' },
-  { korean: '지우펀 옛거리', local: '九份老街', query: 'Jiufen Old Street' },
-  { korean: '국립고궁박물원', local: '國立故宮博物院', query: 'National Palace Museum Taipei' },
-  { korean: '딘타이펑 신생점', local: '鼎泰豐 新生店', query: 'Din Tai Fung Xinsheng Branch Taipei' },
-  { korean: '용캉제·칭톈제', local: '永康街 · 青田街', query: 'Yongkang Street and Qingtian Street Taipei' },
-  { korean: '타이베이 101', local: '台北101', query: 'Taipei 101' },
-  { korean: '비전옥', local: '肥前屋', query: '肥前屋 Taipei' },
-  { korean: '타오위안공항 T2', local: '桃園國際機場 第二航廈', query: 'Taoyuan International Airport Terminal 2' },
+  { korean: 'Taipei Garden Hotel', local: '台北花園大酒店', query: 'Taipei Garden Hotel', placeId: asPlaceId('hotel') },
+  { korean: 'My灶', local: 'My灶', query: 'My灶 Taipei', placeId: asPlaceId('my-zao') },
+  { korean: '弄宅咖啡', local: '弄宅咖啡', query: '弄宅咖啡 Alleyhouse Coffee Taipei', placeId: asPlaceId('alleyhouse') },
+  { korean: '수진박물관', local: '袖珍博物館', query: 'Miniatures Museum of Taiwan', placeId: asPlaceId('miniatures') },
+  { korean: '백석호 출렁다리', local: '白石湖吊橋', query: 'Baishihu Suspension Bridge Taipei', placeId: asPlaceId('baishihu') },
+  { korean: '벽산암', local: '碧山巖開漳聖王廟', query: 'Bishanyan Kaizhang Shengwang Temple Taipei', placeId: asPlaceId('bishanyan') },
+  { korean: '小統一牛排', local: '小統一牛排館', query: '小統一牛排 Taipei', placeId: asPlaceId('xiao-tong-yi') },
+  { korean: '용산사', local: '艋舺龍山寺', query: 'Longshan Temple Taipei', placeId: asPlaceId('longshan') },
+  { korean: '까르푸 구이린점', local: '家樂福桂林店', query: 'Carrefour Guilin Store Taipei', placeId: asPlaceId('carrefour-guilin') },
+  { korean: '예류지질공원', local: '野柳地質公園', query: 'Yehliu Geopark', placeId: asPlaceId('yehliu') },
+  { korean: '스펀 옛거리', local: '十分老街', query: 'Shifen Old Street', placeId: asPlaceId('shifen-old-street') },
+  { korean: '지우펀 옛거리', local: '九份老街', query: 'Jiufen Old Street', placeId: asPlaceId('jiufen') },
+  { korean: '국립고궁박물원', local: '國立故宮博物院', query: 'National Palace Museum Taipei', placeId: asPlaceId('palace') },
+  { korean: '딘타이펑 신생점', local: '鼎泰豐 新生店', query: 'Din Tai Fung Xinsheng Branch Taipei', placeId: asPlaceId('din-tai-fung-xinsheng') },
+  { korean: '용캉제·칭톈제', local: '永康街 · 青田街', query: 'Yongkang Street and Qingtian Street Taipei', placeId: asPlaceId('yongkang-qingtian') },
+  { korean: '타이베이 101', local: '台北101', query: 'Taipei 101', placeId: asPlaceId('taipei-101') },
+  { korean: '비전옥', local: '肥前屋', query: '肥前屋 Taipei', placeId: asPlaceId('hizenya') },
+  { korean: '타오위안공항 T2', local: '桃園國際機場 第二航廈', query: 'Taoyuan International Airport Terminal 2', placeId: asPlaceId('taoyuan-t2') },
 )
 
 const mealPlanIndex = mealPlan.findIndex((meal) => meal.day === 'DAY 1')
@@ -362,7 +374,10 @@ if (mealPlanIndex >= 0) {
     day: 'DAY 1',
     breakfast: '라운지·기내식',
     lunch: 'My灶 · 과일닭·참기름 닭밥·새우·공심채',
+    lunchPlaceId: asPlaceId('my-zao'),
     dinner: '小統一牛排 · 고급 대만식 스테이크 + 와인',
+    dinnerPlaceId: asPlaceId('xiao-tong-yi'),
     extra: '용산사·야시장·삼미·까르푸 야식',
+    extraPlaceId: asPlaceId('huaxi'),
   }
 }
