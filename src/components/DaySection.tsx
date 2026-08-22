@@ -3,7 +3,7 @@ import { CarFront, ChevronDown, Footprints, Gauge, Map, UtensilsCrossed } from '
 import type { TimelineItem, TripDay } from '../data/trip'
 import { getDayPlans, dayWeatherConfigs, type DayPlan } from '../data/weatherPlans'
 import { imageSourceByFile } from '../data/imageSources'
-import { placeCatalog } from '../data/localTools'
+import { getPlaceDisplayHint, placeCatalog } from '../data/localTools'
 import { imagePath } from '../lib/paths'
 import {
   getWeatherPlanRecommendation,
@@ -33,6 +33,8 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
     <div className="timeline" aria-label={`${day.day} ${plan.label} 상세 일정`}>
       {plan.schedule.map((item: TimelineItem, itemIndex) => {
         const imageSource = item.image ? imageSourceByFile[item.image] : undefined
+        const place = item.placeId ? placeCatalog[item.placeId] : undefined
+        const placeHint = getPlaceDisplayHint(place)
         return (
           <details className={`timeline-item ${item.optional ? 'timeline-item--optional' : ''}`} key={`${item.time}-${item.title}`}>
             <summary className="timeline-item__summary">
@@ -40,7 +42,8 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
               <span className="timeline-item__summary-copy">
                 <time>{item.time}</time>
                 <h3>{item.title}</h3>
-                {item.localName && <span className="timeline-item__local">{item.localName}</span>}
+                {item.localName && <span className="timeline-item__local" lang="zh-Hant">{item.localName}</span>}
+                {placeHint && <span className="timeline-item__place-hint">{placeHint}</span>}
               </span>
               <span className="timeline-item__expand" aria-hidden="true"><ChevronDown size={20} /></span>
             </summary>
@@ -81,11 +84,15 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
 export function DaySection({ day, index }: DaySectionProps) {
   const { dataset, status } = useWeather()
   const [manualPlanId, setManualPlanId] = useState<WeatherPlanId | null>(null)
+  const keyMealHint = day.keyMealPlaceIds
+    ?.map((placeId) => getPlaceDisplayHint(placeCatalog[placeId]))
+    .filter(Boolean)
+    .join(' / ')
   const summaryDetails = [
-    { label: '이동 강도', value: day.intensity },
-    { label: '예상 도보', value: day.walking },
-    { label: '핵심 장소', value: day.keyPlaces },
-    { label: '주요 식사', value: day.keyMeal },
+    { label: '이동 강도', value: day.intensity, hint: undefined },
+    { label: '예상 도보', value: day.walking, hint: undefined },
+    { label: '핵심 장소', value: day.keyPlaces, hint: undefined },
+    { label: '주요 식사', value: day.keyMeal, hint: keyMealHint },
   ]
   const coverSource = imageSourceByFile[day.cover]
   const plans = getDayPlans(day)
@@ -131,6 +138,7 @@ export function DaySection({ day, index }: DaySectionProps) {
                 <Icon size={21} aria-hidden="true" />
                 <span>{detail.label}</span>
                 <strong>{detail.value}</strong>
+                {detail.hint && <small className="day-quick__hint">{detail.hint}</small>}
               </div>
             )
           })}

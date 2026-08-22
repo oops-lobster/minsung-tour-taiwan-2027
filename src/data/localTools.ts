@@ -4,6 +4,9 @@ export interface PlaceInfo {
   address: string
   latitude: number
   longitude: number
+  categoryKo?: string
+  specialtyKo?: string
+  displayHintKo?: string
 }
 
 export const placeCatalog = {
@@ -27,6 +30,8 @@ export const placeCatalog = {
     address: '台北市中正區中山南路21-1號',
     latitude: 25.0361,
     longitude: 121.5187,
+    categoryKo: '대만식 식당',
+    specialtyKo: '공푸면·버블티',
   },
   'chiang-kai-shek': {
     name: '중정기념당',
@@ -48,6 +53,8 @@ export const placeCatalog = {
     address: '新北市淡水區中正路附近',
     latitude: 25.1678,
     longitude: 121.445,
+    categoryKo: '대만식 해산물 식당',
+    specialtyKo: '해산물 요리',
   },
   longshan: {
     name: '용산사',
@@ -62,6 +69,9 @@ export const placeCatalog = {
     address: '台北市萬華區華西街',
     latitude: 25.0388,
     longitude: 121.4982,
+    categoryKo: '야시장',
+    specialtyKo: '길거리 음식·밤 산책',
+    displayHintKo: '야시장 · 길거리 음식',
   },
   sanwei: {
     name: '삼미식당',
@@ -69,6 +79,9 @@ export const placeCatalog = {
     address: '台北市萬華區貴陽街二段116號',
     latitude: 25.0399,
     longitude: 121.5027,
+    categoryKo: '일식 포장',
+    specialtyKo: '대형 연어초밥',
+    displayHintKo: '포장 일식 · 대형 연어초밥',
   },
   ximending: {
     name: '시먼딩',
@@ -90,6 +103,9 @@ export const placeCatalog = {
     address: '新北市萬里區野柳里港東路附近',
     latitude: 25.203,
     longitude: 121.688,
+    categoryKo: '해산물 식당',
+    specialtyKo: '스시·사시미',
+    displayHintKo: '해산물 · 스시·사시미',
   },
   'shifen-waterfall': {
     name: '스펀폭포',
@@ -111,6 +127,8 @@ export const placeCatalog = {
     address: '新北市瑞芳區基山街',
     latitude: 25.1099,
     longitude: 121.8452,
+    categoryKo: '산골 옛거리',
+    specialtyKo: '찻집·야시장 먹거리',
   },
   palace: {
     name: '국립고궁박물원',
@@ -132,6 +150,8 @@ export const placeCatalog = {
     address: '台北市中正區杭州南路一段143巷12-1號',
     latitude: 25.03592,
     longitude: 121.52578,
+    categoryKo: '대만차 전문 찻집',
+    specialtyKo: '차와 다과',
   },
   huiliu: {
     name: '후이리우',
@@ -139,6 +159,8 @@ export const placeCatalog = {
     address: '台北市大安區永康街31巷9號',
     latitude: 25.0314,
     longitude: 121.5297,
+    categoryKo: '전통 찻집',
+    specialtyKo: '대만차',
   },
   'din-tai-fung-xinsheng': {
     name: '딘타이펑 신생점',
@@ -146,6 +168,9 @@ export const placeCatalog = {
     address: '台北市中正區信義路二段277號',
     latitude: 25.0331,
     longitude: 121.5317,
+    categoryKo: '딤섬 식당',
+    specialtyKo: '샤오롱바오',
+    displayHintKo: '딤섬 · 샤오롱바오',
   },
   'yongkang-qingtian': {
     name: '용캉제·칭톈제',
@@ -153,6 +178,8 @@ export const placeCatalog = {
     address: '台北市大安區永康街、青田街周邊',
     latitude: 25.0332,
     longitude: 121.5295,
+    categoryKo: '산책·카페 거리',
+    specialtyKo: '골목 카페와 디저트',
   },
   'taipei-101': {
     name: 'Taipei 101',
@@ -167,6 +194,9 @@ export const placeCatalog = {
     address: '台北市信義區信義路五段7號 台北101 85樓',
     latitude: 25.034,
     longitude: 121.5645,
+    categoryKo: '현대 광둥요리',
+    specialtyKo: '전망 기념 디너',
+    displayHintKo: '현대 광둥요리 · 전망 디너',
   },
   botanical: {
     name: '타이베이 식물원',
@@ -181,10 +211,19 @@ export const placeCatalog = {
     address: '台北市中山區中山北路一段121巷13-2號',
     latitude: 25.0518,
     longitude: 121.5233,
+    categoryKo: '일식',
+    specialtyKo: '장어덮밥',
+    displayHintKo: '일식 · 장어덮밥',
   },
 } satisfies Record<string, PlaceInfo>
 
 export type PlaceId = keyof typeof placeCatalog
+
+export function getPlaceDisplayHint(place?: PlaceInfo): string | undefined {
+  if (!place) return undefined
+  const generatedHint = [place.categoryKo, place.specialtyKo].filter(Boolean).join(' · ')
+  return (place.displayHintKo ?? generatedHint) || undefined
+}
 
 export const rainPlans = [
   {
@@ -238,15 +277,23 @@ export const translationPhrases = [
   { category: '식당', korean: '계산해주세요.', chinese: '麻煩買單，謝謝。' },
 ] as const
 
-export const restaurantFallbacks = [
-  { day: 'DAY 1 · 점심', planA: '춘수당 중정기념당점', planB: '호텔·중정기념당 인근의 가벼운 실내식', reason: '웨이팅 또는 도착 지연' },
-  { day: 'DAY 1 · 저녁', planA: '魚藏餐廳', planB: '단수이 라오제의 깔끔한 대만식 식당', reason: '휴무 또는 부모님 컨디션' },
-  { day: 'DAY 2 · 점심', planA: 'Qiao Yan Seafood / 俏宴', planB: '예류 인근 실내식 또는 기사님 추천 식당', reason: '현장 영업 상태' },
-  { day: 'DAY 2 · 저녁', planA: '지우펀 현지식', planB: '지우펀 찻집의 간단한 식사', reason: '골목 혼잡 또는 피로' },
-  { day: 'DAY 3 · 점심', planA: '딘타이펑 신생점', planB: '용캉제의 깔끔한 대만식 식당', reason: '대기시간 과다' },
-  { day: 'DAY 3 · 저녁', planA: '85TD', planB: '신이구 호텔 다이닝', reason: '예약 불가 또는 일정 변경' },
-  { day: 'DAY 4 · 점심', planA: '肥前屋 비전옥', planB: '중산역 인근 실내 일식', reason: '휴무 또는 웨이팅' },
-] as const
+export interface RestaurantFallback {
+  day: string
+  planA: string
+  planAPlaceId?: PlaceId
+  planB: string
+  reason: string
+}
+
+export const restaurantFallbacks: RestaurantFallback[] = [
+  { day: 'DAY 1 · 점심', planA: '춘수당 중정기념당점', planAPlaceId: 'chun-shui-tang', planB: '호텔·중정기념당 인근의 가벼운 실내식', reason: '웨이팅 또는 도착 지연' },
+  { day: 'DAY 1 · 저녁', planA: '魚藏餐廳', planAPlaceId: 'yuzang', planB: '단수이 라오제의 깔끔한 대만식 식당', reason: '휴무 또는 부모님 컨디션' },
+  { day: 'DAY 2 · 점심', planA: 'Qiao Yan Seafood / 俏宴', planAPlaceId: 'qiao-yan', planB: '예류 인근 실내식 또는 기사님 추천 식당', reason: '현장 영업 상태' },
+  { day: 'DAY 2 · 저녁', planA: '지우펀 현지식', planAPlaceId: 'jiufen', planB: '지우펀 찻집의 간단한 식사', reason: '골목 혼잡 또는 피로' },
+  { day: 'DAY 3 · 점심', planA: '딘타이펑 신생점', planAPlaceId: 'din-tai-fung-xinsheng', planB: '용캉제의 깔끔한 대만식 식당', reason: '대기시간 과다' },
+  { day: 'DAY 3 · 저녁', planA: '85TD', planAPlaceId: '85td', planB: '신이구 호텔 다이닝', reason: '예약 불가 또는 일정 변경' },
+  { day: 'DAY 4 · 점심', planA: '肥前屋 비전옥', planAPlaceId: 'hizenya', planB: '중산역 인근 실내 일식', reason: '휴무 또는 웨이팅' },
+]
 
 export const streetSnacks = [
   { id: 'pepper-bun', name: '후추빵', localName: '胡椒餅', image: 'snack-pepper-bun.webp', where: '라오허제·야시장', situation: '갓 구운 빵을 발견했을 때 반씩 나눠 먹기' },

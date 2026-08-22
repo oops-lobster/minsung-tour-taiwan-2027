@@ -1033,6 +1033,10 @@ button {
   display: none;
 }
 
+.status-list--compact .status-item__hint {
+  display: none;
+}
+
 .status-list--compact .status-item .status-badge {
   grid-column: 2;
   grid-row: 2;
@@ -1236,6 +1240,15 @@ button {
   margin-top: 4px;
   color: var(--ink-soft);
   font-size: 0.77rem;
+  line-height: 1.5;
+}
+
+.status-item__hint {
+  display: block;
+  margin-top: 5px;
+  color: #51646a;
+  font-size: .76rem;
+  font-weight: 650;
   line-height: 1.5;
 }
 
@@ -1509,6 +1522,17 @@ button {
   margin-top: 4px;
   font-size: 0.82rem;
   line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.day-quick__hint {
+  display: block;
+  margin-top: 7px;
+  color: #51646a;
+  font-size: .76rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.55;
   overflow-wrap: anywhere;
 }
 
@@ -2235,9 +2259,19 @@ button {
   display: block;
   margin-top: 2px;
   color: var(--jade);
-  font-size: 0.69rem;
+  font-size: 0.72rem;
   font-weight: 600;
   line-height: 1.5;
+}
+
+.timeline-item__place-hint {
+  display: block;
+  margin-top: 5px;
+  color: #51646a;
+  font-size: .78rem;
+  font-weight: 650;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .timeline-item__expand {
@@ -2631,6 +2665,73 @@ button {
   background: rgba(255, 255, 255, 0.035);
 }
 
+.transport-card__media {
+  position: relative;
+  height: 210px;
+  margin: -24px -24px 22px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--white-line);
+  background: #162d36;
+}
+
+.transport-card__media::after {
+  position: absolute;
+  inset: 38% 0 0;
+  background: linear-gradient(transparent, rgba(0, 27, 42, .9));
+  content: '';
+}
+
+.transport-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.transport-card__media figcaption {
+  position: absolute;
+  z-index: 1;
+  right: 14px;
+  bottom: 13px;
+  left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: white;
+  line-height: 1.45;
+}
+
+.transport-card__media figcaption strong {
+  font-size: .78rem;
+}
+
+.transport-card__media figcaption span {
+  color: rgba(255, 255, 255, .72);
+  font-size: .74rem;
+}
+
+.transport-card--featured .transport-grid__icon {
+  margin-bottom: 18px;
+}
+
+.transport-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: -4px 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.transport-facts li {
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 255, 255, .17);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, .055);
+  color: rgba(255, 255, 255, .82);
+  font-size: .65rem;
+  font-weight: 700;
+}
+
 .transport-grid__icon {
   display: grid;
   width: 50px;
@@ -2794,6 +2895,22 @@ button {
   color: var(--ink-soft);
   font-size: 0.69rem;
   font-weight: 600;
+}
+
+.meal-row__copy {
+  min-width: 0;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.meal-row__copy em {
+  display: block;
+  margin-top: 5px;
+  color: #51646a;
+  font-size: .76rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 /* Budget */
@@ -3016,6 +3133,16 @@ button {
   margin: 0;
   font-size: clamp(1rem, 4.3vw, 1.32rem);
   line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.driver-card__hint {
+  display: block;
+  margin-top: 7px;
+  color: rgba(255, 255, 255, .76);
+  font-size: .76rem;
+  font-weight: 650;
+  line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
@@ -3267,6 +3394,7 @@ button {
   .flight-card { margin-top: 30px; }
   .transport-grid { margin-top: 30px; }
   .transport-grid article { padding: 32px; }
+  .transport-card__media { height: 190px; margin: -32px -32px 26px; }
   .meal-table { margin-top: 52px; }
   .meal-row { grid-template-columns: 100px repeat(4, 1fr); gap: 18px; align-items: start; }
   .meal-row > span { display: flex; flex-direction: column; gap: 4px; }
@@ -3796,6 +3924,15 @@ button {
   font-weight: 500;
   line-height: 1.25;
   overflow-wrap: anywhere;
+}
+
+.quick-place-card__hint {
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, .84);
+  font-size: .76rem;
+  font-weight: 650;
+  line-height: 1.5;
 }
 
 .quick-place-card > p {
@@ -4444,6 +4581,15 @@ button {
   font-size: .78rem;
   line-height: 1.45;
   overflow-wrap: anywhere;
+}
+
+.restaurant-plan-grid article > div em {
+  margin-top: 4px;
+  color: #51646a;
+  font-size: .76rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 .restaurant-plan-grid footer {

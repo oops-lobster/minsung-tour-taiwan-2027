@@ -1,6 +1,6 @@
 # CURRENT CHAT CHECKPOINT
 
-Last updated: 2026-08-23 05:40 KST
+Last updated: 2026-08-23 KST
 
 > Canonical handoff for continuing this Taiwan trip-planning chat. In a new conversation, read this file first before answering so context does not reset.
 
@@ -57,8 +57,8 @@ Last updated: 2026-08-23 05:40 KST
 - Treat as Plan A/B common stop.
 
 ## Next Day 1 task
-- Airport-pickup search is effectively settling.
-- **After 奇立 booking/signboard details are finalized, update the public trip website/prompt with the final pickup.**
+- Airport-pickup search is effectively settled on 奇立 ES300h; the booking request includes signboard service and is waiting for the vendor's final confirmation.
+- The public trip website and protected budget now use 奇立 ES300h + signboard as the current pending plan. Do not label it reservation-complete until the vendor explicitly confirms.
 - Then **re-optimize Day 1 itinerary from the beginning**, rather than blindly preserving the current timings.
 - Do not alter the fixed 19:00 小統一 reservation without user approval.
 
@@ -75,7 +75,7 @@ Last updated: 2026-08-23 05:40 KST
 - Explicit guarantee/指定 matters. “盡量安排” is weaker.
 - Vendor response quality matters because day-of-trip communication must work.
 
-## CURRENT LEADER / INTENDED BOOKING — 奇立租賃
+## CURRENT REQUEST / CONFIRMATION PENDING — 奇立租賃
 - **Lexus ES300h designated pickup: NT$1,300.**
 - Vehicle age: **within 5 years**.
 - Model guarantee explicitly confirmed: **“不會換成其他車型唷”** — booked ES300h will not be replaced with another model.
@@ -91,12 +91,12 @@ Last updated: 2026-08-23 05:40 KST
 - Vendor said actual individual vehicle is assigned only **2–3 days before service**, so exact-unit photos cannot be confirmed this far in advance.
 - User accepts this because the pool is <=5 years and model-guaranteed.
 - Cash discount request to 1,200 was politely rejected/deflected: vendor explained **2027-02-20 is around Lantern Festival / Lunar New Year pricing**, and they are already **not charging the holiday surcharge**; user agrees this is reasonable. **Do not push price again.**
-- **Signboard/meet-and-greet service: +NT$200.** User considers this acceptable (~small convenience premium) and is inclined to include it.
+- **Signboard/meet-and-greet service: +NT$200.** The user included it in the booking request.
 - Practical total with signboard: **NT$1,500**.
 - S-Class from same vendor: W222 2,000 (about 10-year-old cars), W223 3,500 — not attractive.
 - Basic legitimacy check from public sources looked acceptable: real Taiwanese rental company/legal entity, not an obvious anonymous scam; still keep reservation evidence in LINE.
-- **Booking intent: user wants to book 奇立.** Preferred payment condition: full amount paid cash on service day if vendor allows; if deposit is mandatory, ask amount/method.
-- Reservation confirmation message should lock in: OZ711 **09:50** T2, 3 adults, 1 medium + 1 cabin suitcase, ES300h, <=5 years, model guarantee, total price, all inclusions, signboard if selected.
+- **Booking status: request sent / vendor final confirmation pending.** Preferred payment condition: full amount paid cash on service day if vendor allows; if deposit is mandatory, ask amount/method.
+- Reservation confirmation should lock in: OZ711 **09:50** T2, 3 adults, 1 medium + 1 cabin suitcase, ES300h, <=5 years, model guarantee, total price, all inclusions, and the selected signboard service.
 - Ask vendor to provide, once assigned 2–3 days before service: actual ES300h year, plate number, driver name/phone, exterior + rear-seat/interior photos.
 
 ## 2) 宇航富豪 — STRONG VALUE BACKUP
@@ -220,7 +220,7 @@ Last updated: 2026-08-23 05:40 KST
 - Therefore current best-value decision is **奇立 ES300h**, unless a genuinely good S-Class <2,000 unexpectedly appears.
 
 ## Bottom line if choosing now
-1. **奇立 ES300h / <=5 years / 1,300 all-in / model guaranteed**; +200 signboard optional/likely accepted. **Intended booking.**
+1. **奇立 ES300h / <=5 years / 1,300 all-in / model guaranteed**; +200 signboard included in the request. **Final vendor confirmation pending.**
 2. 宇航 ES300h / <=3 years / 1,400 all-in — fallback.
 3. 王牌 ES300h / <=6 years / 1,500 all-in — clean backup.
 4. Taipei Garden Hotel S-Class / 1,800 random 2013–2019 — S benchmark.
@@ -245,11 +245,12 @@ Already on main before this correction:
 - Weather-aware Plan A/B system.
 - Day 1 rain Plan B includes 弄宅咖啡 before TFAM.
 - 弄宅咖啡 shown confirmed, 13:30, 3 adults.
-- Day 1 arrival time had been **incorrectly patched to 08:50**; correction patch changes it to **09:50**.
+- Day 1 arrival time had been **incorrectly patched to 08:50**; the current source of truth and website are **09:50**.
 - Public budget leak fixed; private budget protected.
 
 ## Website next action
-- Once 奇立 booking details (including signboard decision and payment/booking confirmation) are final, **write/update the website-edit prompt and patch the site accordingly**.
+- The site now shows 奇立 Lexus ES300h + signboard as `예약 요청 · 확인 대기`, with no public price. The protected budget records the NT$1,500 breakdown and planned cash payment.
+- When the vendor explicitly confirms, change the status to reservation-complete and record any newly requested deposit.
 - Then rework the Day 1 itinerary with the finalized airport transfer as the new starting condition.
 
 ---

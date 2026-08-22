@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 import { imageSourceByFile } from '../data/imageSources'
 import {
+  getPlaceDisplayHint,
   placeCatalog,
   rainPlans,
   restaurantFallbacks,
@@ -95,10 +96,12 @@ function QuickTools() {
           <div className="quick-place-grid">
             {quickPlaceIds.map((id) => {
               const place = placeCatalog[id]
+              const placeHint = getPlaceDisplayHint(place)
               return (
                 <article className="quick-place-card" key={id}>
                   <small>{place.name}</small>
                   <h3 lang="zh-Hant">{place.localName}</h3>
+                  {placeHint && <strong className="quick-place-card__hint">{placeHint}</strong>}
                   <p lang="zh-Hant">{place.address}</p>
                   <PlaceActions place={place} compact />
                 </article>
@@ -300,7 +303,7 @@ export function RestaurantPlanB() {
           {restaurantFallbacks.map((meal) => (
             <article key={meal.day}>
               <header><small>{meal.day}</small><span>대체 가능</span></header>
-              <div><b>A</b><p><small>PLAN A</small><strong>{meal.planA}</strong></p></div>
+              <div><b>A</b><p><small>PLAN A</small><strong>{meal.planA}</strong>{meal.planAPlaceId && <em>{getPlaceDisplayHint(placeCatalog[meal.planAPlaceId])}</em>}</p></div>
               <div><b>B</b><p><small>PLAN B</small><strong>{meal.planB}</strong></p></div>
               <footer>{meal.reason}</footer>
             </article>

@@ -84,7 +84,7 @@ const dayOneRainSchedule: TimelineItem[] = [
     time: '도착 후–12:05',
     title: '공항 → 호텔 → My灶',
     description: '입국, 호텔 이동과 짐 맡기기, MRT 이동까지는 Plan A와 동일하게 진행합니다.',
-    transport: '공항 픽업 · MRT',
+    transport: '奇立 Lexus ES300h · MRT',
     tags: ['Plan A/B 공통'],
     placeId: asPlaceId('hotel'),
   },

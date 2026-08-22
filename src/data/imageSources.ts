@@ -31,6 +31,16 @@ export const imageSources: ImageSource[] = [
     retrievedAt: '2026-08-17',
   },
   {
+    file: 'lexus-es300h.webp',
+    place: 'Lexus ES300h 대표 이미지',
+    alt: '주차된 은색 Lexus ES300h를 앞쪽 측면에서 본 대표 차량 이미지',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:0Lexus_ES_300h.jpg',
+    author: 'Benespit',
+    license: 'CC BY-SA 4.0',
+    attributionRequired: true,
+    retrievedAt: '2026-08-23',
+  },
+  {
     file: 'chiang-kai-shek.webp',
     place: '중정기념당',
     alt: '푸른 기와 지붕과 흰 계단이 보이는 중정기념당 전경',

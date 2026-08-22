@@ -34,7 +34,7 @@ import { HotelReturnButton } from './components/PlaceActions'
 import { SectionHeader } from './components/SectionHeader'
 import { StatusBadge } from './components/StatusBadge'
 import { imageSourceByFile, imageSources } from './data/imageSources'
-import { placeCatalog, todayTaiwanCards } from './data/localTools'
+import { getPlaceDisplayHint, placeCatalog, todayTaiwanCards, type PlaceId } from './data/localTools'
 import {
   days,
   driverPlaces,
@@ -137,12 +137,14 @@ function StatusOverview({ compact = false }: { compact?: boolean }) {
         <div className={`status-list ${compact ? 'status-list--compact' : ''}`}>
           {statuses.map((status) => {
             const Icon = statusIcons[status.icon]
+            const placeHint = status.placeId ? getPlaceDisplayHint(placeCatalog[status.placeId]) : undefined
             return (
               <article className="status-item" key={status.label}>
                 <span className="status-item__icon"><Icon size={23} aria-hidden="true" /></span>
                 <div className="status-item__copy">
                   <h3>{status.label}</h3>
                   <p>{status.detail}</p>
+                  {placeHint && <small className="status-item__hint">{placeHint}</small>}
                 </div>
                 <StatusBadge tone={status.tone}>{status.status}</StatusBadge>
               </article>
@@ -200,7 +202,7 @@ function HomeView() {
             <div className="hero-ticket__route">
               <div><strong>ICN</strong><small>08:00</small></div>
               <span><Plane size={20} aria-hidden="true" /><i /></span>
-              <div><strong>TPE</strong><small>재확인</small></div>
+              <div><strong>TPE</strong><small>09:50</small></div>
             </div>
             <div className="hero-ticket__facts">
               <span><CalendarDays size={18} aria-hidden="true" /> 3박 4일</span>
@@ -349,7 +351,7 @@ function StayView() {
             <div className="flight-leg">
               <span>가는 날 · 02.20 SAT</span>
               <div><strong>ICN</strong><i /><strong>TPE</strong></div>
-              <p><time>08:00</time><small>도착 시각 확인 중</small><time>재확인</time></p>
+              <p><time>08:00</time><small>OZ711 · T2</small><time>09:50</time></p>
             </div>
             <div className="flight-leg">
               <span>오는 날 · 02.23 TUE</span>
@@ -391,20 +393,35 @@ function MobilityView() {
                 </ul>
               </details>
             </article>
-            <article>
+            <article className="transport-card--featured">
+              <figure className="transport-card__media">
+                <img
+                  src={imagePath('lexus-es300h.webp')}
+                  alt={imageSourceByFile['lexus-es300h.webp'].alt}
+                  width="1280"
+                  height="830"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption><strong>Lexus ES300h 대표 이미지</strong><span>실제 배차 차량은 이용 2–3일 전 확정</span></figcaption>
+              </figure>
               <span className="transport-grid__icon"><CarFront size={26} aria-hidden="true" /></span>
-              <small>대만 도착 · 호텔 공식 픽업</small><h3>Mercedes-Benz Sedan</h3>
-              <p>Taipei Garden Hotel 공식 리무진을 선택했고, 타오위안공항 T2 픽업 예약 절차를 진행합니다.</p>
-              <StatusBadge tone="progress">차량 선택 확정 · 예약 진행 중</StatusBadge>
+              <small>DAY 1 · AIRPORT ARRIVAL</small><h3>Lexus ES300h</h3>
+              <p>奇立租賃에 차종 지정 픽업과 피켓 미팅을 요청했습니다. OZ711 도착 뒤 부모님과 함께 대만의 첫 이동을 편안하게 시작합니다.</p>
+              <ul className="transport-facts" aria-label="Lexus ES300h 픽업 핵심 조건">
+                <li>5년 이내</li><li>차종 지정</li><li>성인 3명</li><li>피켓 미팅</li>
+              </ul>
+              <StatusBadge tone="waiting">예약 요청 · 확인 대기</StatusBadge>
               <details className="mobility-detail">
                 <summary>탑승 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
                 <ul>
-                  <li>Taipei Garden Hotel / 台北花園大酒店 공식 픽업</li>
-                  <li>성인 3명 · 대형 캐리어 2개</li>
-                  <li>통상 S350 · 호텔 안내상 약 2013–2019년식</li>
-                  <li>특정 연식·실제 차량 지정 불가 · 당일 배차에 따라 결정</li>
-                  <li>24시간 이용 · 예정 도착시각 기준 90분 무료 대기</li>
-                  <li>예약번호·항공편·도착시간 제출 후 카드 사전승인과 호텔 확인 필요</li>
+                  <li>奇立租賃 · 타오위안공항 T2 → Taipei Garden Hotel</li>
+                  <li>성인 3명 · 중형 캐리어 1개 · 기내용 캐리어 1개</li>
+                  <li>5년 이내 Lexus ES300h 지정 · 다른 차종으로 변경 없음</li>
+                  <li>실제 차량과 기사 정보는 이용 2–3일 전 안내</li>
+                  <li>OZ711 실제 착륙 뒤 90분 무료 대기</li>
+                  <li>피켓 미팅 · 주차비 · 통행료 · 일반 픽업 비용 포함</li>
+                  <li>춘절·원소절 추가요금 없음 · 현금 결제 예정</li>
                 </ul>
               </details>
             </article>
@@ -452,6 +469,7 @@ function MobilityView() {
                 <span>{String(index + 1).padStart(2, '0')}</span>
                 <p>{place.korean}</p>
                 <h3 lang="zh-Hant">{place.local}</h3>
+                {place.placeId && getPlaceDisplayHint(placeCatalog[place.placeId]) && <small className="driver-card__hint">{getPlaceDisplayHint(placeCatalog[place.placeId])}</small>}
                 <MapLinkButton query={place.query} label="지도 열기" compact />
               </article>
             ))}
@@ -492,6 +510,17 @@ function BookingsView({ tab }: { tab: BookingTab }) {
   )
 }
 
+function MealPlanCell({ label, value, placeId }: { label: string; value: string; placeId?: PlaceId }) {
+  const hint = placeId ? getPlaceDisplayHint(placeCatalog[placeId]) : undefined
+
+  return (
+    <span role="cell" className="meal-row__cell">
+      <small>{label}</small>
+      <span className="meal-row__copy">{value}{hint && <em>{hint}</em>}</span>
+    </span>
+  )
+}
+
 function FoodView() {
   return (
     <div className="portal-view">
@@ -522,10 +551,10 @@ function FoodView() {
             {mealPlan.map((meal) => (
               <div className="meal-row" role="row" key={meal.day}>
                 <strong role="rowheader">{meal.day}</strong>
-                <span role="cell"><small>아침</small>{meal.breakfast}</span>
-                <span role="cell"><small>점심</small>{meal.lunch}</span>
-                <span role="cell"><small>저녁</small>{meal.dinner}</span>
-                <span role="cell"><small>한 잔 / 휴식</small>{meal.extra}</span>
+                <MealPlanCell label="아침" value={meal.breakfast} placeId={meal.breakfastPlaceId} />
+                <MealPlanCell label="점심" value={meal.lunch} placeId={meal.lunchPlaceId} />
+                <MealPlanCell label="저녁" value={meal.dinner} placeId={meal.dinnerPlaceId} />
+                <MealPlanCell label="한 잔 / 휴식" value={meal.extra} placeId={meal.extraPlaceId} />
               </div>
             ))}
           </div>
