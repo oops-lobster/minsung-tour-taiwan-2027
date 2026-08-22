@@ -1,6 +1,6 @@
 import type { DayRoute } from './dayRoutes'
 import { dayRoutes } from './dayRoutes'
-import { rainPlans, type PlaceId } from './localTools'
+import { rainPlans } from './localTools'
 import type { TimelineItem, TripDay } from './trip'
 import { RAIN_PLAN_THRESHOLD, type DayWeatherConfig, type WeatherPlanId } from '../lib/weather'
 
@@ -21,9 +21,8 @@ interface DayPlanMeta {
   planATheme: string
   planASummary: string
   planB: Omit<DayPlan, 'id' | 'label' | 'weatherType'>
+  planB2?: Omit<DayPlan, 'id' | 'label' | 'weatherType'>
 }
-
-const asPlaceId = (id: string) => id as PlaceId
 
 export const dayWeatherConfigs: Record<string, DayWeatherConfig> = {
   'day-1': {
@@ -65,67 +64,99 @@ export const dayWeatherConfigs: Record<string, DayWeatherConfig> = {
 }
 
 const dayOneRainRoute: DayRoute = {
-  title: '현대미술과 대만차로 이어지는 비 오는 타이베이',
-  summary: '공항과 호텔을 거쳐 My灶에서 점심을 먹고, 타이베이 시립미술관과 小隱茶庵에서 머문 뒤 예약된 스테이크 저녁으로 이동합니다.',
+  title: 'B1 · 현대미술과 대만차로 이어지는 비 오는 타이베이',
+  summary: 'TFAM의 2027년 2월 전시가 가족 취향에 맞을 때 선택합니다. My灶와 弄宅咖啡 뒤 미술관과 小隱茶庵을 거쳐 예약된 저녁으로 이동합니다.',
   stops: [
-    { placeId: asPlaceId('taoyuan-t2'), label: '타오위안공항 T2', note: '대만 도착' },
-    { placeId: asPlaceId('hotel'), label: 'Taipei Garden Hotel', note: '짐 맡기기' },
-    { placeId: asPlaceId('my-zao'), label: 'My灶', note: '12:10 점심' },
+    { placeId: 'taoyuan-t2', label: '타오위안공항 T2', note: '대만 도착 · 피켓 미팅' },
+    { placeId: 'hotel', label: 'Taipei Garden Hotel', note: '짐 맡기기' },
+    { placeId: 'my-zao', label: 'My灶', note: '대만 가정식 · 닭요리' },
+    { placeId: 'alleyhouse', label: '弄宅咖啡', note: '골목 주택 카페 · 휴식' },
     { placeId: 'taipei-fine-arts', label: '타이베이 시립미술관', note: '현대미술' },
-    { placeId: 'xiaoyin-dongmen', label: '小隱茶庵', note: '17:00 · 당일 자리 확인' },
-    { placeId: asPlaceId('xiao-tong-yi'), label: '小統一牛排', note: '19:00 · 3인 예약' },
-    { placeId: asPlaceId('carrefour-guilin'), label: '까르푸 구이린점', note: '비가 강하면 짧게' },
-    { placeId: asPlaceId('hotel'), label: '호텔', note: '마무리' },
+    { placeId: 'xiaoyin-dongmen', label: '小隱茶庵', note: '대만차 · 조용한 찻집' },
+    { placeId: 'xiao-tong-yi', label: '小統一牛排', note: '19:00 · 3인 예약' },
+    { placeId: 'longshan', label: '용산사', note: '비가 약해지면' },
+    { placeId: 'carrefour-guilin', label: '까르푸 → 호텔', note: '비가 강하면 바로' },
   ],
 }
 
 const dayOneRainSchedule: TimelineItem[] = [
   {
-    time: '도착 후–12:05',
-    title: '공항 → 호텔 → My灶',
-    description: '입국, 호텔 이동과 짐 맡기기, MRT 이동까지는 Plan A와 동일하게 진행합니다.',
-    transport: '奇立 Lexus ES300h · MRT',
+    time: '09:50',
+    title: '타오위안공항 T2 도착',
+    localName: '桃園國際機場 第二航廈',
+    description: '아시아나항공 OZ711 도착 뒤 입국심사와 수하물 수령을 마치고 피켓 기사님을 만납니다.',
+    transport: '아시아나항공 OZ711',
     tags: ['Plan A/B 공통'],
-    placeId: asPlaceId('hotel'),
+    placeId: 'taoyuan-t2',
   },
   {
-    time: '12:10–13:20',
+    time: '입국·수하물 후',
+    title: '奇立 ES300h 픽업 → 호텔',
+    localName: '奇立租賃 · Lexus ES300h',
+    description: '피켓 미팅 뒤 Taipei Garden Hotel로 이동합니다. 미팅과 호텔 도착 시각은 입국 및 도로 상황에 따라 유연하게 봅니다.',
+    transport: '奇立租賃 · Lexus ES300h',
+    tags: ['차종 지정', '확인 대기'],
+    placeId: 'hotel',
+  },
+  {
+    time: '약 11:20–11:40',
+    title: '호텔에 짐 맡기기',
+    localName: '台北花園大酒店',
+    description: '체크인 전이면 짐만 맡기고 바로 첫 점심으로 이동합니다.',
+    placeId: 'hotel',
+  },
+  {
+    time: '11:50 전후',
+    title: '택시로 My灶 이동',
+    description: '12:10 점심 시간을 안정적으로 맞추기 위해 택시를 이용합니다.',
+    transport: '택시',
+  },
+  {
+    time: '12:10–13:15',
     title: 'My灶 점심',
     localName: 'My灶',
     description: '날씨와 관계없이 예약한 메뉴로 첫 점심을 즐깁니다. 이 시간은 Plan A와 Plan B 모두 고정입니다.',
     tags: ['시간 고정', '점심'],
-    placeId: asPlaceId('my-zao'),
+    placeId: 'my-zao',
   },
   {
-    time: '13:20–13:40',
+    time: '13:30–14:10',
+    title: '弄宅咖啡',
+    localName: '弄宅咖啡 · Alleyhouse Coffee',
+    description: '13:30 성인 3명 예약이 확정된 골목 주택 카페에서 약 40분 쉬어 갑니다. Plan A·B1·B2에서 모두 그대로 유지합니다.',
+    tags: ['13:30 예약 확정', 'Plan A/B 공통'],
+    placeId: 'alleyhouse',
+  },
+  {
+    time: '14:10–14:25',
     title: '타이베이 시립미술관 이동',
-    description: 'My灶에서 미술관까지 택시로 바로 이동합니다.',
+    description: '弄宅咖啡에서 타이베이 시립미술관까지 택시로 이동합니다.',
     transport: '택시',
   },
   {
-    time: '13:40–16:20',
+    time: '14:25–16:35',
     title: '타이베이 시립미술관',
     localName: '臺北市立美術館',
-    description: '비 오는 오후에는 백석호 대신 타이베이 현대미술을 천천히 봅니다. 전시가 좋으면 16:30까지 여유 있게 관람합니다.',
-    tags: ['실내 일정', '16:30까지 조절 가능'],
+    description: '2027년 2월 실제 전시가 가족 취향에 맞을 때만 선택합니다. 설치·영상·개념 중심이거나 휴관·전시 공백이 있으면 B2 수진박물관으로 전환합니다.',
+    tags: ['실내 일정', '전시 확인 후 최종 선택'],
     placeId: 'taipei-fine-arts',
   },
   {
-    time: '16:20–17:00',
+    time: '16:35–17:00',
     title: '동먼 찻집으로 이동',
     description: '미술관 관람을 마치고 동먼의 작은 대만차 찻집으로 이동합니다.',
     transport: '택시',
   },
   {
-    time: '17:00–18:30',
+    time: '17:00–18:15',
     title: '대만차 1순위 · 小隱茶庵',
     localName: '小隱茶庵 東門店',
-    description: 'Plan B를 선택한 날 오전에 17:00 자리 가능 여부를 확인하고, 가능하면 당일 예약해 대만차를 천천히 즐깁니다.',
+    description: 'Plan B를 선택한 날 오전에 자리 가능 여부를 확인하고, 가능하면 당일 예약해 대만차를 천천히 즐깁니다.',
     tags: ['당일 아침 자리 확인', '1순위'],
     placeId: 'xiaoyin-dongmen',
   },
   {
-    time: '17:00–18:30 · 만석이면',
+    time: '같은 시간 · 만석이면',
     title: '찻집 백업 · 回留',
     localName: '回留',
     description: '小隱茶庵이 만석이면 용캉제의 回留로 바로 전환합니다. 두 찻집을 모두 예약하는 일정은 아닙니다.',
@@ -134,7 +165,7 @@ const dayOneRainSchedule: TimelineItem[] = [
     optional: true,
   },
   {
-    time: '18:30–18:50',
+    time: '18:15–18:40',
     title: '小統一牛排로 이동',
     description: '찻집에서 나와 예약 시간에 맞춰 스테이크 레스토랑으로 이동합니다.',
     transport: '택시',
@@ -145,14 +176,14 @@ const dayOneRainSchedule: TimelineItem[] = [
     localName: '小統一牛排館',
     description: '2027년 2월 20일 토요일 19:00, 성인 3명 예약이 완료된 저녁입니다. 날씨와 관계없이 시간을 바꾸지 않습니다.',
     tags: ['19:00 고정', '3인 예약 완료'],
-    placeId: asPlaceId('xiao-tong-yi'),
+    placeId: 'xiao-tong-yi',
   },
   {
     time: '저녁 이후 · 비가 약해지면',
     title: '용산사와 완화의 밤',
-    description: '용산사와 화시제·광저우제 야시장을 짧게 걷고, 가능하면 삼미식당 포장과 까르푸를 거쳐 호텔로 돌아갑니다.',
+    description: '용산사와 화시제·광저우제 야시장을 짧게 걷고, 까르푸를 거쳐 호텔로 돌아갑니다.',
     tags: ['날씨 기준 추천', '현장 선택'],
-    placeId: asPlaceId('longshan'),
+    placeId: 'longshan',
     optional: true,
   },
   {
@@ -160,23 +191,88 @@ const dayOneRainSchedule: TimelineItem[] = [
     title: '까르푸만 짧게 → 호텔',
     description: '야외 밤 일정은 미련 없이 줄이고 호텔 가까운 까르푸만 짧게 들른 뒤 숙소로 돌아갑니다.',
     tags: ['날씨 기준 추천', '축소안'],
-    placeId: asPlaceId('carrefour-guilin'),
+    placeId: 'carrefour-guilin',
     optional: true,
   },
+]
+
+const dayOneIndoorBackupRoute: DayRoute = {
+  title: 'B2 · 미니어처 전시와 대만차로 쉬어 가는 날',
+  summary: 'TFAM 전시가 가족 취향에 맞지 않을 때만 선택합니다. 예약된 점심과 카페 뒤 수진박물관, 小隱茶庵과 19:00 저녁으로 이어집니다.',
+  stops: [
+    { placeId: 'taoyuan-t2', label: '타오위안공항 T2', note: '대만 도착 · 피켓 미팅' },
+    { placeId: 'hotel', label: 'Taipei Garden Hotel', note: '짐 맡기기' },
+    { placeId: 'my-zao', label: 'My灶', note: '대만 가정식 · 닭요리' },
+    { placeId: 'alleyhouse', label: '弄宅咖啡', note: '골목 주택 카페 · 휴식' },
+    { placeId: 'miniatures', label: '수진박물관', note: '미니어처 상설 전시' },
+    { placeId: 'xiaoyin-dongmen', label: '小隱茶庵', note: '대만차 · 조용한 찻집' },
+    { placeId: 'xiao-tong-yi', label: '小統一牛排', note: '19:00 · 3인 예약' },
+    { placeId: 'longshan', label: '용산사', note: '비가 약해지면' },
+    { placeId: 'carrefour-guilin', label: '까르푸 → 호텔', note: '비가 강하면 바로' },
+  ],
+}
+
+const dayOneIndoorBackupSchedule: TimelineItem[] = [
+  ...dayOneRainSchedule.slice(0, 6),
+  {
+    time: '14:10–14:20',
+    title: '수진박물관 이동',
+    description: '弄宅咖啡에서 가까운 수진박물관으로 짧게 이동합니다.',
+    transport: '택시 · 짧은 이동',
+  },
+  {
+    time: '14:20–15:40',
+    title: 'B2 실내 백업 · 수진박물관',
+    localName: '袖珍博物館',
+    description: 'TFAM 실제 전시가 가족 취향에 맞지 않을 때만 선택합니다. 미니어처 상설 전시를 약 1시간 20분 둘러봅니다.',
+    tags: ['우천 실내 백업', 'TFAM 대신 선택'],
+    placeId: 'miniatures',
+  },
+  {
+    time: '15:40–16:10',
+    title: '동먼 찻집으로 이동',
+    description: '수진박물관에서 小隱茶庵이 있는 동먼으로 택시 이동합니다.',
+    transport: '택시',
+  },
+  {
+    time: '16:10–18:15',
+    title: '대만차 1순위 · 小隱茶庵',
+    localName: '小隱茶庵 東門店',
+    description: '저녁 예약 전까지 여유 있게 대만차와 다과를 즐깁니다. 당일 오전에 자리 가능 여부를 확인합니다.',
+    tags: ['당일 아침 자리 확인', '1순위'],
+    placeId: 'xiaoyin-dongmen',
+  },
+  {
+    time: '같은 시간 · 만석이면',
+    title: '찻집 백업 · 回留',
+    localName: '回留',
+    description: '小隱茶庵이 만석일 때만 回留로 전환합니다. 두 곳을 동시에 예약하지 않습니다.',
+    tags: ['만석일 때만', '백업'],
+    placeId: 'huiliu',
+    optional: true,
+  },
+  ...dayOneRainSchedule.slice(11),
 ]
 
 const rainOptionsFor = (day: string) => rainPlans.find((plan) => plan.day === day)?.options ?? []
 
 const dayPlanMeta: Record<string, DayPlanMeta> = {
   'day-1': {
-    planATheme: '백석호와 벽산암',
-    planASummary: '산 위의 일몰과 오래된 타이베이의 밤',
+    planATheme: '린안타이 고택 · 백석호 · 벽산암',
+    planASummary: '전통가옥과 산 위의 일몰을 지나 완화의 밤으로',
     planB: {
-      theme: '현대미술과 대만차',
-      summary: '비 오는 타이베이 · 현대미술, 차 그리고 스테이크',
+      theme: 'B1 · TFAM과 대만차',
+      summary: '※ TFAM은 2027년 2월 실제 전시 확인 후 최종 선택',
       status: 'ready',
       schedule: dayOneRainSchedule,
       route: dayOneRainRoute,
+    },
+    planB2: {
+      theme: 'B2 · 미니어처 실내 백업',
+      summary: 'TFAM 전시가 취향에 맞지 않을 때만 여는 안전한 실내 대안',
+      status: 'ready',
+      schedule: dayOneIndoorBackupSchedule,
+      route: dayOneIndoorBackupRoute,
     },
   },
   'day-2': {
@@ -251,7 +347,7 @@ export const getDayPlans = (day: TripDay): DayPlan[] => {
   const meta = dayPlanMeta[day.id]
   if (!meta) return []
 
-  return [
+  const plans: DayPlan[] = [
     {
       id: 'plan-a',
       label: 'PLAN A',
@@ -264,9 +360,20 @@ export const getDayPlans = (day: TripDay): DayPlan[] => {
     },
     {
       id: 'plan-b',
-      label: 'PLAN B',
+      label: day.id === 'day-1' ? 'PLAN B1' : 'PLAN B',
       weatherType: 'rain',
       ...meta.planB,
     },
   ]
+
+  if (meta.planB2) {
+    plans.push({
+      id: 'plan-b2',
+      label: 'PLAN B2',
+      weatherType: 'rain',
+      ...meta.planB2,
+    })
+  }
+
+  return plans
 }

@@ -14,18 +14,20 @@ export interface DayRoute {
 
 export const dayRoutes: Record<string, DayRoute> = {
   'day-1': {
-    title: '공항에서 노을과 올드 타이베이까지',
-    summary: '타오위안공항 T2에서 시작해 중정기념당과 단수이의 노을을 거쳐 타이베이의 밤으로 돌아옵니다.',
+    title: '전통가옥에서 산 위의 일몰과 완화의 밤까지',
+    summary: '공항 픽업과 좋은 점심으로 시작해 린안타이 고택, 백석호와 벽산암을 잇고 완화의 밤을 즐긴 뒤 호텔로 돌아옵니다.',
     stops: [
-      { placeId: 'taoyuan-t2', label: '타오위안공항 T2', note: '대만 도착' },
+      { placeId: 'taoyuan-t2', label: '타오위안공항 T2', note: '대만 도착 · 피켓 미팅' },
       { placeId: 'hotel', label: 'Taipei Garden Hotel', note: '짐 맡기기' },
-      { placeId: 'chun-shui-tang', label: '춘수당', note: '점심' },
-      { placeId: 'chiang-kai-shek', label: '중정기념당' },
-      { placeId: 'tamsui-wharf', label: '단수이 위런마터우', note: '일몰' },
-      { placeId: 'yuzang', label: '魚藏餐廳', note: '저녁' },
-      { placeId: 'longshan', label: '용산사' },
-      { placeId: 'huaxi', label: '화시제 야시장', note: '선택' },
-      { placeId: 'ximending', label: '시먼딩', note: '마무리' },
+      { placeId: 'my-zao', label: 'My灶', note: '대만 가정식 · 닭요리' },
+      { placeId: 'alleyhouse', label: '弄宅咖啡', note: '골목 주택 카페 · 휴식' },
+      { placeId: 'lin-an-tai', label: '린안타이 고택', note: '전통가옥 · 정원' },
+      { placeId: 'baishihu', label: '백석호', note: '출렁다리 · 하트연못' },
+      { placeId: 'bishanyan', label: '벽산암', note: '사원 · 전망 · 일몰' },
+      { placeId: 'xiao-tong-yi', label: '小統一牛排', note: '대만식 클래식 스테이크' },
+      { placeId: 'longshan', label: '용산사', note: '야간 사찰' },
+      { placeId: 'huaxi', label: '화시제·광저우제', note: '야시장 · 밤 골목' },
+      { placeId: 'carrefour-guilin', label: '까르푸 → 호텔', note: '간식 쇼핑 후 숙소' },
     ],
   },
   'day-2': {
