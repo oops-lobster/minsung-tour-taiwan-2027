@@ -1,12 +1,14 @@
 export interface PlaceInfo {
   name: string
   localName: string
+  englishName?: string
   address: string
   latitude: number
   longitude: number
   categoryKo?: string
   specialtyKo?: string
   displayHintKo?: string
+  descriptionKo?: string
 }
 
 export const placeCatalog = {
@@ -16,6 +18,7 @@ export const placeCatalog = {
     address: '桃園市大園區航站南路9號',
     latitude: 25.07702,
     longitude: 121.23198,
+    descriptionKo: '아시아나 OZ711로 도착해 입국 수속과 피켓 기사 미팅을 시작하는 공항입니다.',
   },
   hotel: {
     name: 'Taipei Garden Hotel',
@@ -23,6 +26,98 @@ export const placeCatalog = {
     address: '台北市中正區中華路二段1號',
     latitude: 25.035,
     longitude: 121.5061,
+    descriptionKo: '첫날 짐을 맡기고 매일 일정의 출발점이 되는 가족 여행 숙소입니다.',
+  },
+  'my-zao': {
+    name: 'My灶',
+    localName: 'My灶',
+    address: '台北市中山區松江路100巷9-1號',
+    latitude: 25.0511,
+    longitude: 121.5319,
+    categoryKo: '대만 가정식',
+    specialtyKo: '닭요리',
+    displayHintKo: '대만 가정식 · 닭요리',
+    descriptionKo: '과일닭과 참기름 닭밥을 중심으로 첫 점심을 편안하게 즐기는 예약 식당입니다.',
+  },
+  alleyhouse: {
+    name: '弄宅咖啡 Alleyhouse Coffee',
+    localName: '弄宅咖啡',
+    englishName: 'Alleyhouse Coffee',
+    address: '台北市中山區松江路150巷18-1號',
+    latitude: 25.0537,
+    longitude: 121.5327,
+    categoryKo: '골목 주택 감성 카페',
+    specialtyKo: '커피·디저트와 휴식',
+    displayHintKo: '골목 주택 감성 카페 · 휴식',
+    descriptionKo: 'My灶 점심 뒤 쉬어 가는 작은 주택 카페로, 13:30 성인 3명 예약이 확정되었습니다.',
+  },
+  'lin-an-tai': {
+    name: '린안타이 고택',
+    localName: '林安泰古厝民俗文物館',
+    englishName: 'Lin An Tai Historical House and Museum',
+    address: '台北市中山區濱江街5號',
+    latitude: 25.071749,
+    longitude: 121.53035,
+    categoryKo: '청대 민남식 전통가옥',
+    specialtyKo: '정원',
+    displayHintKo: '청대 민남식 전통가옥 · 정원',
+    descriptionKo: '타이베이에 보존된 전통 민남식 고택과 정원을 천천히 둘러보는 문화 방문지입니다.',
+  },
+  miniatures: {
+    name: '수진박물관',
+    localName: '袖珍博物館',
+    englishName: 'Miniatures Museum of Taiwan',
+    address: '台北市中山區建國北路一段96號B1',
+    latitude: 25.05029,
+    longitude: 121.53617,
+    categoryKo: '미니어처 상설 전시',
+    specialtyKo: '우천 실내 백업',
+    displayHintKo: '미니어처 상설 전시 · 우천 실내 백업',
+    descriptionKo: 'TFAM 전시가 가족 취향에 맞지 않을 때만 선택하는 비 오는 날 B2 실내 백업입니다.',
+  },
+  baishihu: {
+    name: '백석호 출렁다리·하트연못',
+    localName: '白石湖吊橋 · 同心池',
+    address: '台北市內湖區碧山路24號周邊',
+    latitude: 25.099171,
+    longitude: 121.587109,
+    categoryKo: '산책',
+    specialtyKo: '출렁다리·하트연못',
+    displayHintKo: '산책 · 출렁다리 · 하트연못',
+    descriptionKo: '산 위의 출렁다리와 하트연못을 한 시간 안쪽으로 가볍게 걷는 구간입니다.',
+  },
+  bishanyan: {
+    name: '벽산암',
+    localName: '碧山巖開漳聖王廟',
+    address: '台北市內湖區碧山路24號',
+    latitude: 25.0986,
+    longitude: 121.5877,
+    categoryKo: '사원',
+    specialtyKo: '타이베이 전망·일몰',
+    displayHintKo: '사원 · 타이베이 전망 · 일몰',
+    descriptionKo: '타이베이 시내를 내려다보며 일몰과 블루아워를 보는 첫날의 핵심 전망 장소입니다.',
+  },
+  'xiao-tong-yi': {
+    name: '小統一牛排',
+    localName: '小統一牛排館',
+    address: '台北市松山區健康路174號',
+    latitude: 25.0543,
+    longitude: 121.5579,
+    categoryKo: '대만식 클래식 스테이크',
+    specialtyKo: '소고기',
+    displayHintKo: '대만식 클래식 스테이크 · 소고기',
+    descriptionKo: '뜨거운 철판과 옛 대만식 양식 코스로 즐기는 19:00 예약 저녁 식당입니다.',
+  },
+  'carrefour-guilin': {
+    name: '까르푸 구이린점',
+    localName: '家樂福桂林店',
+    address: '台北市萬華區桂林路1號',
+    latitude: 25.0372,
+    longitude: 121.5062,
+    categoryKo: '24시간 대형마트',
+    specialtyKo: '간식·과일',
+    displayHintKo: '24시간 대형마트 · 간식·과일',
+    descriptionKo: '호텔 맞은편에서 과일과 간단한 야식을 사고 걸어서 숙소로 돌아가는 마지막 정류장입니다.',
   },
   'chun-shui-tang': {
     name: '춘수당 중정기념당점',
@@ -32,6 +127,7 @@ export const placeCatalog = {
     longitude: 121.5187,
     categoryKo: '대만식 식당',
     specialtyKo: '공푸면·버블티',
+    descriptionKo: '공푸면과 버블티로 가볍게 식사할 수 있는 대만식 찻집 겸 식당입니다.',
   },
   'chiang-kai-shek': {
     name: '중정기념당',
@@ -39,6 +135,7 @@ export const placeCatalog = {
     address: '台北市中正區中山南路21號',
     latitude: 25.0347,
     longitude: 121.5219,
+    descriptionKo: '넓은 광장과 기념관의 핵심 구역을 천천히 둘러보는 타이베이 대표 명소입니다.',
   },
   'tamsui-wharf': {
     name: '단수이 위런마터우',
@@ -46,6 +143,7 @@ export const placeCatalog = {
     address: '新北市淡水區觀海路199號',
     latitude: 25.1838,
     longitude: 121.4106,
+    descriptionKo: '강 하구와 연인의 다리 주변에서 바람과 일몰을 즐기는 산책 장소입니다.',
   },
   yuzang: {
     name: '魚藏餐廳',
@@ -55,6 +153,7 @@ export const placeCatalog = {
     longitude: 121.445,
     categoryKo: '대만식 해산물 식당',
     specialtyKo: '해산물 요리',
+    descriptionKo: '단수이에서 대만식 해산물 요리를 여유 있게 먹는 식당입니다.',
   },
   longshan: {
     name: '용산사',
@@ -62,6 +161,10 @@ export const placeCatalog = {
     address: '台北市萬華區廣州街211號',
     latitude: 25.0372,
     longitude: 121.4999,
+    categoryKo: '야간 사찰',
+    specialtyKo: '완화 올드타운',
+    displayHintKo: '야간 사찰 · 완화 올드타운',
+    descriptionKo: '조명이 켜진 사찰을 보고 완화의 오래된 밤거리로 이어지는 야간 방문지입니다.',
   },
   huaxi: {
     name: '화시제·광저우제 야시장',
@@ -72,6 +175,7 @@ export const placeCatalog = {
     categoryKo: '야시장',
     specialtyKo: '길거리 음식·밤 산책',
     displayHintKo: '야시장 · 길거리 음식',
+    descriptionKo: '배를 채우기보다 오래된 시장 골목의 밤 분위기를 짧게 즐기는 산책 구간입니다.',
   },
   sanwei: {
     name: '삼미식당',
@@ -82,6 +186,7 @@ export const placeCatalog = {
     categoryKo: '일식 포장',
     specialtyKo: '대형 연어초밥',
     displayHintKo: '포장 일식 · 대형 연어초밥',
+    descriptionKo: '대형 연어초밥으로 유명하지만 이번 Day 1 일정에서는 제외한 독립 후보입니다.',
   },
   ximending: {
     name: '시먼딩',
@@ -89,6 +194,7 @@ export const placeCatalog = {
     address: '台北市萬華區漢中街周邊',
     latitude: 25.0421,
     longitude: 121.5077,
+    descriptionKo: '네온과 상점이 이어지는 젊은 거리로, 체력이 남을 때만 들르는 선택 지역입니다.',
   },
   yehliu: {
     name: '예류지질공원',
@@ -96,6 +202,7 @@ export const placeCatalog = {
     address: '新北市萬里區港東路167-1號',
     latitude: 25.2053,
     longitude: 121.6905,
+    descriptionKo: '바닷바람을 맞으며 독특한 해식 지형과 핵심 바위 구역을 걷는 북해안 명소입니다.',
   },
   'qiao-yan': {
     name: 'Qiao Yan Seafood',
@@ -106,6 +213,7 @@ export const placeCatalog = {
     categoryKo: '해산물 식당',
     specialtyKo: '스시·사시미',
     displayHintKo: '해산물 · 스시·사시미',
+    descriptionKo: '예류 일정 중 실내에서 해산물과 스시·사시미를 먹는 점심 후보입니다.',
   },
   'shifen-waterfall': {
     name: '스펀폭포',
@@ -113,6 +221,7 @@ export const placeCatalog = {
     address: '新北市平溪區乾坑10號',
     latitude: 25.0497,
     longitude: 121.7871,
+    descriptionKo: '숲길 끝에서 넓게 떨어지는 폭포를 보는 스펀의 대표 자연 명소입니다.',
   },
   'shifen-old-street': {
     name: '스펀 옛거리',
@@ -120,6 +229,7 @@ export const placeCatalog = {
     address: '新北市平溪區十分街',
     latitude: 25.0434,
     longitude: 121.775,
+    descriptionKo: '철길 양옆의 옛거리에서 풍등을 날리고 간단한 간식을 즐기는 곳입니다.',
   },
   jiufen: {
     name: '지우펀 옛거리',
@@ -129,6 +239,7 @@ export const placeCatalog = {
     longitude: 121.8452,
     categoryKo: '산골 옛거리',
     specialtyKo: '찻집·야시장 먹거리',
+    descriptionKo: '붉은 등불과 계단 골목을 천천히 걸으며 저녁과 야경을 즐기는 산골 마을입니다.',
   },
   palace: {
     name: '국립고궁박물원',
@@ -136,6 +247,7 @@ export const placeCatalog = {
     address: '台北市士林區至善路二段221號',
     latitude: 25.1024,
     longitude: 121.5485,
+    descriptionKo: '중국 역대 왕실 보물과 공예품의 핵심 전시를 골라 보는 박물관입니다.',
   },
   'taipei-fine-arts': {
     name: '타이베이 시립미술관',
@@ -143,6 +255,10 @@ export const placeCatalog = {
     address: '台北市中山區中山北路三段181號',
     latitude: 25.07203,
     longitude: 121.52466,
+    categoryKo: '현대미술관',
+    specialtyKo: '우천 실내 관람',
+    displayHintKo: '현대미술관 · 우천 실내 관람',
+    descriptionKo: '2027년 2월 실제 전시가 가족 취향에 맞을 때 선택하는 비 오는 날 B1 장소입니다.',
   },
   'xiaoyin-dongmen': {
     name: '샤오인차안 동먼점',
@@ -152,6 +268,8 @@ export const placeCatalog = {
     longitude: 121.52578,
     categoryKo: '대만차 전문 찻집',
     specialtyKo: '차와 다과',
+    displayHintKo: '대만차 · 조용한 찻집',
+    descriptionKo: '비 오는 오후에 조용히 대만차와 다과를 즐기는 Plan B의 1순위 찻집입니다.',
   },
   huiliu: {
     name: '후이리우',
@@ -161,6 +279,8 @@ export const placeCatalog = {
     longitude: 121.5297,
     categoryKo: '전통 찻집',
     specialtyKo: '대만차',
+    displayHintKo: '대만차 · 용캉제 찻집',
+    descriptionKo: '小隱茶庵에 자리가 없을 때만 전환하는 용캉제의 대만차 찻집입니다.',
   },
   'din-tai-fung-xinsheng': {
     name: '딘타이펑 신생점',
@@ -171,6 +291,7 @@ export const placeCatalog = {
     categoryKo: '딤섬 식당',
     specialtyKo: '샤오롱바오',
     displayHintKo: '딤섬 · 샤오롱바오',
+    descriptionKo: '샤오롱바오와 딤섬을 가족과 나눠 먹는 Day 3 점심 식당입니다.',
   },
   'yongkang-qingtian': {
     name: '용캉제·칭톈제',
@@ -180,6 +301,7 @@ export const placeCatalog = {
     longitude: 121.5295,
     categoryKo: '산책·카페 거리',
     specialtyKo: '골목 카페와 디저트',
+    descriptionKo: '식사 뒤 골목과 나무가 많은 거리를 걸으며 카페에서 쉬는 동네입니다.',
   },
   'taipei-101': {
     name: 'Taipei 101',
@@ -187,6 +309,7 @@ export const placeCatalog = {
     address: '台北市信義區市府路45號',
     latitude: 25.034,
     longitude: 121.5645,
+    descriptionKo: '전망대와 신이구 야경을 함께 즐기는 타이베이의 대표 랜드마크입니다.',
   },
   '85td': {
     name: '85TD',
@@ -197,6 +320,7 @@ export const placeCatalog = {
     categoryKo: '현대 광둥요리',
     specialtyKo: '전망 기념 디너',
     displayHintKo: '현대 광둥요리 · 전망 디너',
+    descriptionKo: 'Taipei 101 85층 전망과 현대식 광둥요리를 즐기는 가족 기념 저녁입니다.',
   },
   botanical: {
     name: '타이베이 식물원',
@@ -204,6 +328,7 @@ export const placeCatalog = {
     address: '台北市中正區南海路53號',
     latitude: 25.0317,
     longitude: 121.51,
+    descriptionKo: '출국일 아침 호텔 가까이에서 가볍게 걷는 초록 산책 공간입니다.',
   },
   hizenya: {
     name: '비전옥',
@@ -214,6 +339,7 @@ export const placeCatalog = {
     categoryKo: '일식',
     specialtyKo: '장어덮밥',
     displayHintKo: '일식 · 장어덮밥',
+    descriptionKo: '귀국 전 마지막 점심으로 장어덮밥을 먹는 오래된 일식 식당입니다.',
   },
 } satisfies Record<string, PlaceInfo>
 
@@ -228,9 +354,10 @@ export function getPlaceDisplayHint(place?: PlaceInfo): string | undefined {
 export const rainPlans = [
   {
     day: 'DAY 1',
-    title: '비 오는 타이베이 · 현대미술과 대만차',
+    title: '비 오는 타이베이 · 카페, 전시와 대만차',
     options: [
-      { condition: '오후', action: 'My灶 뒤 타이베이 시립미술관과 小隱茶庵으로 이어갑니다.' },
+      { condition: 'B1', action: 'My灶·弄宅咖啡 뒤 2027년 2월 전시를 확인한 타이베이 시립미술관과 小隱茶庵으로 이어갑니다.' },
+      { condition: 'B2', action: '미술관 전시가 가족 취향에 맞지 않으면 수진박물관의 미니어처 상설 전시로 바꿉니다.' },
       { condition: '찻집 만석', action: '小隱茶庵 대신 回留에서 대만차를 즐깁니다.' },
       { condition: '저녁 이후', action: '비가 약해지면 용산사·야시장, 계속 강하면 까르푸만 짧게 들릅니다.' },
     ],

@@ -9,7 +9,7 @@ const WEATHER_CACHE_KEY = 'minsung-tour-taipei-weather-v1'
 const WEATHER_CACHE_TTL = 30 * 60 * 1000
 
 export type WeatherLoadStatus = 'loading' | 'ready' | 'error'
-export type WeatherPlanId = 'plan-a' | 'plan-b'
+export type WeatherPlanId = 'plan-a' | 'plan-b' | 'plan-b2'
 export type WeatherRecommendationMode = 'today-preview' | 'trip-forecast' | 'trip-day-live' | 'fallback'
 export type WeatherRecommendationStrength = 'default' | 'recommended' | 'strong'
 export type WeatherTestMode = 'sun' | 'rain' | 'error' | 'forecast'

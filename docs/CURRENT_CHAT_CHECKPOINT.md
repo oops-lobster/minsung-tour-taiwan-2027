@@ -17,8 +17,8 @@ Last updated: 2026-08-23 KST
 - Taipei/Taiwan family trip, 3 adults.
 - Dates: 2027-02-20 to 2027-02-23.
 - Hotel: Taipei Garden Hotel.
-- Day 1 flight source of truth: **Asiana OZ711, ICN 08:00 departure → TPE T2 09:50 local arrival**. The earlier 08:50 arrival was an assistant error: Korea is UTC+9, Taiwan UTC+8, and an ~2h50 flight departing 08:00 KST corresponds to ~09:50 TPE local.
-- IMPORTANT: During vendor outreach, 08:50 / 09:50 / 11:30 were accidentally mixed in some messages. Before booking is finalized, correct the chosen vendor to **09:50, T2**, unless the airline booking/schedule later changes. Recheck the actual airline itinerary before the trip because 2027 schedules can change.
+- Day 1 flight source of truth: **Asiana OZ711, ICN 08:00 departure → TPE T2 09:50 local arrival**.
+- Before booking is finalized, keep the chosen vendor aligned to **09:50, T2**, unless the airline booking/schedule later changes. Recheck the actual airline itinerary before the trip because 2027 schedules can change.
 - Day 2 & Day 4 vehicle: LUMI DRIVE New Toyota Alphard 40系.
 - Food priority: taste > price > transport convenience.
 - Parents’ comfort matters. Mother is a painter; user likes contemporary art.
@@ -27,39 +27,45 @@ Last updated: 2026-08-23 KST
 
 ---
 
-# DAY 1 — baseline before re-optimization
+# DAY 1 — finalized route
 
 ## Plan A · sunny
-- Airport pickup → Taipei Garden Hotel.
-- Hotel → My灶 by MRT intentionally.
-- 12:10–13:20 My灶.
+- Airport pickup → Taipei Garden Hotel, then taxi to My灶.
+- 12:10–13:15 My灶.
 - 13:30 弄宅咖啡 Alleyhouse Coffee, 3 adults, reservation confirmed.
-- Miniatures Museum → short Yitong/Siping stroll if time.
-- Taxi → Baishihu suspension bridge + heart pond.
-- Bishanyan for sunset / blue hour.
+- 14:25–15:20 林安泰古厝民俗文物館 (Lin An Tai Historical House and Museum).
+- Taxi → Baishihu suspension bridge + heart pond → Bishanyan.
+- 18:05 call the return taxi before leaving Bishanyan; aim to board around 18:15.
 - 19:00 小統一牛排館, 3 adults, reservation confirmed and fixed.
-- Longshan Temple → Huaxi/Guangzhou night market → 三味食堂 takeaway if feasible → Carrefour Guilin → hotel.
+- Longshan Temple → Huaxi/Guangzhou night market → Carrefour Guilin → hotel.
+- Miniatures Museum, Yitong/Siping, and 三味食堂 are not part of the current Plan A.
 
-## Plan B · rain
-- 12:10–13:20 My灶.
+## Plan B1 · rain, TFAM exhibition suitable
+- 12:10–13:15 My灶.
 - 13:30–14:10 弄宅咖啡.
 - 14:10–14:25 taxi to Taipei Fine Arts Museum.
 - 14:25–16:35 Taipei Fine Arts Museum.
+- Only use B1 after checking the actual February 2027 exhibition program and confirming it suits the family.
 - 16:35–17:00 taxi to 小隱茶庵.
-- 17:00–18:30 小隱茶庵; 回留 if full.
+- 17:00–18:15 小隱茶庵; 回留 only if full.
 - 19:00 小統一 fixed.
 - After dinner: Longshan/market if rain eases; shorten to Carrefour/hotel if heavy rain continues.
+
+## Plan B2 · rain, indoor exhibition backup
+- Keep My灶 and 弄宅咖啡 fixed.
+- Use the Miniatures Museum of Taiwan instead of TFAM when the actual TFAM exhibition does not suit the family.
+- Continue to 小隱茶庵, then the fixed 19:00 小統一 dinner.
 
 ## 弄宅咖啡
 - 2027-02-20 13:30, 3 adults, DM reservation confirmed.
 - Owner said early arrival is okay; remind them next year.
 - User asked for a nice seat because it is a filial trip for parents; owner replied “沒問題，可以再提醒我們♥️”.
-- Treat as Plan A/B common stop.
+- Treat as a Plan A/B1/B2 common stop.
 
 ## Next Day 1 task
 - Airport-pickup search is effectively settled on 奇立 ES300h; the booking request includes signboard service and is waiting for the vendor's final confirmation.
 - The public trip website and protected budget now use 奇立 ES300h + signboard as the current pending plan. Do not label it reservation-complete until the vendor explicitly confirms.
-- Then **re-optimize Day 1 itinerary from the beginning**, rather than blindly preserving the current timings.
+- Recheck TFAM's February 2027 exhibitions before choosing Plan B1 versus B2.
 - Do not alter the fixed 19:00 小統一 reservation without user approval.
 
 ---
@@ -230,7 +236,7 @@ Last updated: 2026-08-23 KST
 
 # Day 1 transport after pickup
 - Airport → hotel: prebooked premium sedan.
-- Hotel → My灶: MRT intentionally in current baseline.
+- Hotel → My灶: taxi to protect the 12:10 reservation.
 - Rest of day: walking + taxi/Uber/55688.
 - No all-day chauffeur planned on Day 1.
 
@@ -243,15 +249,15 @@ Checkpoint: `docs/CURRENT_CHAT_CHECKPOINT.md`
 
 Already on main before this correction:
 - Weather-aware Plan A/B system.
-- Day 1 rain Plan B includes 弄宅咖啡 before TFAM.
+- Day 1 weather system now has Plan A, B1 (TFAM conditional), and B2 (Miniatures Museum indoor backup).
 - 弄宅咖啡 shown confirmed, 13:30, 3 adults.
-- Day 1 arrival time had been **incorrectly patched to 08:50**; the current source of truth and website are **09:50**.
+- Day 1 source of truth and website use **09:50** at TPE T2.
 - Public budget leak fixed; private budget protected.
 
 ## Website next action
 - The site now shows 奇立 Lexus ES300h + signboard as `예약 요청 · 확인 대기`, with no public price. The protected budget records the NT$1,500 breakdown and planned cash payment.
+- The public route graphic uses the supplied watercolor background. Every route node jumps to a Korean place card with local name, category, concise description, and Google Maps link.
 - When the vendor explicitly confirms, change the status to reservation-complete and record any newly requested deposit.
-- Then rework the Day 1 itinerary with the finalized airport transfer as the new starting condition.
 
 ---
 

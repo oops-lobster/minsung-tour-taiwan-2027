@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react'
 import { ExternalLink, MapPin, MapPinned } from 'lucide-react'
 import { dayRoutes, type DayRoute } from '../data/dayRoutes'
-import { placeCatalog } from '../data/localTools'
-import { googleMapsPlaceUrl } from '../lib/paths'
+import { getPlaceDisplayHint, placeCatalog } from '../data/localTools'
+import { googleMapsPlaceUrl, imagePath } from '../lib/paths'
 
 interface DayRouteMapProps {
   dayId: string
@@ -11,45 +11,21 @@ interface DayRouteMapProps {
   routeId?: string
 }
 
-interface RoutePoint {
-  x: number
-  y: number
-}
-
-const mapWidth = 760
-const mapHeight = 286
-const horizontalPadding = 70
-const routeLanes = [174, 102, 194, 118, 188, 96, 176, 122, 186]
-
-function projectRoute(route: DayRoute): RoutePoint[] {
-  const stops = route.stops
-  const usableWidth = mapWidth - horizontalPadding * 2
-
-  return stops.map((_, index) => ({
-    x: stops.length === 1
-      ? mapWidth / 2
-      : horizontalPadding + (index / (stops.length - 1)) * usableWidth,
-    y: routeLanes[index % routeLanes.length],
-  }))
-}
-
 export function DayRouteMap({ dayId, dayLabel, route: suppliedRoute, routeId }: DayRouteMapProps) {
   const route = suppliedRoute ?? dayRoutes[dayId]
   const [activeStop, setActiveStop] = useState<number | null>(null)
-  const stopLinks = useRef<Array<HTMLAnchorElement | null>>([])
+  const stopCards = useRef<Array<HTMLLIElement | null>>([])
 
   if (!route) return null
 
   const mapId = routeId ?? dayId
-  const denseRoute = route.stops.length > 10
-  const points = projectRoute(route)
-  const path = points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(' ')
   const titleId = `${mapId}-route-title`
   const descriptionId = `${mapId}-route-description`
   const stopId = (index: number) => `${mapId}-route-stop-${index + 1}`
+  const trackWidth = Math.max(760, route.stops.length * 164)
 
   const jumpToStop = (index: number) => {
-    const target = stopLinks.current[index]
+    const target = stopCards.current[index]
     if (!target) return
 
     setActiveStop(index)
@@ -69,98 +45,85 @@ export function DayRouteMap({ dayId, dayLabel, route: suppliedRoute, routeId }: 
         </div>
       </div>
 
-      <div className={`day-route__map ${denseRoute ? 'day-route__map--dense' : ''}`}>
-        <svg
-          viewBox={`0 0 ${mapWidth} ${mapHeight}`}
-          role="group"
-          aria-labelledby={`${titleId} ${descriptionId}`}
-          preserveAspectRatio="xMidYMid meet"
-        >
-          <defs>
-            <pattern id={`${mapId}-grid`} width="38" height="38" patternUnits="userSpaceOnUse">
-              <path d="M 38 0 L 0 0 0 38" className="day-route__grid-line" />
-            </pattern>
-            <linearGradient id={`${mapId}-land`} x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" className="day-route__land-start" />
-              <stop offset="100%" className="day-route__land-end" />
-            </linearGradient>
-            <marker id={`${mapId}-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 Z" className="day-route__arrow" />
-            </marker>
-            <filter id={`${mapId}-shadow`} x="-40%" y="-40%" width="180%" height="180%">
-              <feDropShadow dx="0" dy="4" stdDeviation="4" floodOpacity="0.2" />
-            </filter>
-          </defs>
+      <div
+        className={`day-route__map ${dayId === 'day-1' ? 'day-route__map--scenic' : ''}`}
+        role="group"
+        aria-labelledby={`${titleId} ${descriptionId}`}
+      >
+        <div className="day-route__scene" style={{ width: `${trackWidth}px` }}>
+          {dayId === 'day-1' && (
+            <img
+              className="day-route__backdrop"
+              src={imagePath('day1-route-background.png')}
+              alt=""
+              width="1774"
+              height="887"
+              loading="lazy"
+              decoding="async"
+              aria-hidden="true"
+            />
+          )}
+          <span className="day-route__wash" aria-hidden="true" />
+          <span className="day-route__region-label" aria-hidden="true">TAIWAN ROUTE · VISIT ORDER</span>
 
-          <rect width={mapWidth} height={mapHeight} className="day-route__water" />
-          <rect width={mapWidth} height={mapHeight} fill={`url(#${mapId}-grid)`} />
-          <path
-            d="M -20 238 C 94 188 158 222 250 184 C 342 146 397 160 477 118 C 563 73 650 87 790 35 L 790 310 L -20 310 Z"
-            fill={`url(#${mapId}-land)`}
-            className="day-route__land"
-          />
-          <path className="day-route__contour" d="M -10 78 C 128 34 210 92 331 61 C 463 27 552 60 770 8" />
-          <path className="day-route__contour" d="M -10 258 C 102 213 201 257 307 222 C 435 181 536 226 770 151" />
-          <text x="28" y="36" className="day-route__region-label">TAIWAN ROUTE · VISIT ORDER</text>
-          <g className="day-route__taiwan-mark" transform="translate(690 25)">
-            <path d="M 22 1 C 34 15 33 29 27 43 C 22 57 14 66 8 62 C 1 57 7 46 11 37 C 16 26 13 15 22 1 Z" />
-            <text x="20" y="78" textAnchor="middle">TAIWAN</text>
-          </g>
-          <path d={path} className="day-route__line-shadow" />
-          <path d={path} className="day-route__line" markerEnd={`url(#${mapId}-arrow)`} />
+          <ol className="day-route__track" aria-label={`${dayLabel} 장소 바로가기`}>
+            {route.stops.map((stop, index) => {
+              const place = placeCatalog[stop.placeId]
+              const hint = getPlaceDisplayHint(place)
+              const isEndpoint = index === 0 || index === route.stops.length - 1
 
-          {points.map((point, index) => (
-            <a
-              className={`day-route__point-link ${activeStop === index ? 'is-active' : ''}`}
-              href={`#${stopId(index)}`}
-              aria-label={`${index + 1}번 ${route.stops[index].label} 장소 카드로 이동`}
-              onClick={(event) => {
-                event.preventDefault()
-                jumpToStop(index)
-              }}
-              key={`${route.stops[index].placeId}-${index}`}
-            >
-              <circle className="day-route__point-hit" cx={point.x} cy={point.y} r={denseRoute ? 22 : 27} />
-              <g
-                className={`day-route__point ${index === 0 ? 'day-route__point--start' : ''} ${index === points.length - 1 ? 'day-route__point--finish' : ''}`}
-                transform={`translate(${point.x} ${point.y})`}
-                filter={`url(#${mapId}-shadow)`}
-              >
-                <circle className="day-route__point-focus" r="23" />
-                <circle className="day-route__point-disc" r="17" />
-                <text textAnchor="middle" dominantBaseline="central">{index + 1}</text>
-              </g>
-            </a>
-          ))}
-          <text x={points[0].x} y={points[0].y + 34} textAnchor="middle" className="day-route__endpoint-label">START</text>
-          <text x={points[points.length - 1].x} y={points[points.length - 1].y + 34} textAnchor="middle" className="day-route__endpoint-label">FINISH</text>
-        </svg>
+              return (
+                <li key={`${stop.placeId}-${index}`}>
+                  <button
+                    className={`day-route__node ${isEndpoint ? 'day-route__node--endpoint' : ''} ${index === route.stops.length - 1 ? 'day-route__node--finish' : ''} ${activeStop === index ? 'is-active' : ''}`}
+                    type="button"
+                    aria-controls={stopId(index)}
+                    aria-pressed={activeStop === index}
+                    onClick={() => jumpToStop(index)}
+                  >
+                    <span className="day-route__node-number" aria-hidden="true">{index + 1}</span>
+                    <span className="day-route__node-copy">
+                      <strong>{stop.label}</strong>
+                      <span lang="zh-Hant">{place.localName}</span>
+                      <small>{hint ?? stop.note}</small>
+                    </span>
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
+        </div>
       </div>
 
-      <p className="day-route__hint"><MapPin size={16} aria-hidden="true" /> 숫자를 누르면 아래 장소로 이동합니다.</p>
+      <p className="day-route__hint"><MapPin size={16} aria-hidden="true" /> 장소를 누르면 아래 설명으로 이동합니다. 좌우로 밀어 전체 동선을 볼 수 있어요.</p>
 
-      <ol className="day-route__stops" aria-label={`${dayLabel} 이동 순서`}>
+      <ol className="day-route__stops" aria-label={`${dayLabel} 이동 순서와 장소 설명`}>
         {route.stops.map((stop, index) => {
           const place = placeCatalog[stop.placeId]
+          const hint = getPlaceDisplayHint(place)
 
           return (
             <li
               className={activeStop === index ? 'is-active' : ''}
               id={stopId(index)}
               key={`${stop.placeId}-${index}`}
+              ref={(node) => { stopCards.current[index] = node }}
+              tabIndex={-1}
             >
               <span className="day-route__stop-number" aria-hidden="true">{index + 1}</span>
               <div className="day-route__stop-copy">
                 <p>
                   <strong>{stop.label}</strong>
-                  {stop.note && <small>{stop.note}</small>}
+                  <span className="day-route__stop-local" lang="zh-Hant">{place.localName}</span>
+                  {hint && <span className="day-route__stop-hint">{hint}</span>}
+                  {stop.note && stop.note !== hint && <small>{stop.note}</small>}
                 </p>
+                {place.descriptionKo && <p className="day-route__stop-description">{place.descriptionKo}</p>}
                 <a
                   className="day-route__stop-link"
                   href={googleMapsPlaceUrl(place.latitude, place.longitude, place.localName)}
                   target="_blank"
                   rel="noreferrer"
-                  ref={(node) => { stopLinks.current[index] = node }}
                   onFocus={() => setActiveStop(index)}
                   onClick={() => setActiveStop(index)}
                   aria-label={`${stop.label} 위치를 Google 지도에서 새 탭으로 열기`}
@@ -174,7 +137,7 @@ export function DayRouteMap({ dayId, dayLabel, route: suppliedRoute, routeId }: 
           )
         })}
       </ol>
-      <p className="day-route__note">방문 순서를 한눈에 보기 위한 노선도형 동선 지도입니다. 실제 축척과 도로 경로는 각 장소의 Google 지도를 확인해 주세요.</p>
+      <p className="day-route__note">방문 순서와 장소 성격을 빠르게 보는 노선도입니다. 배경은 여행 분위기를 위한 장식이며, 실제 위치와 도로 경로는 각 장소의 Google 지도를 확인해 주세요.</p>
     </section>
   )
 }

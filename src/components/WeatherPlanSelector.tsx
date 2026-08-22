@@ -17,10 +17,12 @@ const forecastLabel = (date: string) => {
   return `${Number(month)}월 ${Number(day)}일`
 }
 
+const recommendedPlanLabel = (planId: WeatherPlanId) => planId === 'plan-a' ? 'PLAN A' : 'PLAN B1'
+
 const recommendationTitle = (recommendation: WeatherPlanRecommendation, date: string) => {
-  if (recommendation.mode === 'today-preview') return `오늘 같은 날씨라면 ${recommendation.recommendedPlanId === 'plan-a' ? 'PLAN A' : 'PLAN B'}`
-  if (recommendation.mode === 'trip-forecast') return `${forecastLabel(date)} 추천 · ${recommendation.recommendedPlanId === 'plan-a' ? 'PLAN A' : 'PLAN B'}`
-  if (recommendation.mode === 'trip-day-live') return `오늘 추천 · ${recommendation.recommendedPlanId === 'plan-a' ? 'PLAN A' : 'PLAN B'}`
+  if (recommendation.mode === 'today-preview') return `오늘 같은 날씨라면 ${recommendedPlanLabel(recommendation.recommendedPlanId)}`
+  if (recommendation.mode === 'trip-forecast') return `${forecastLabel(date)} 추천 · ${recommendedPlanLabel(recommendation.recommendedPlanId)}`
+  if (recommendation.mode === 'trip-day-live') return `오늘 추천 · ${recommendedPlanLabel(recommendation.recommendedPlanId)}`
   return '기본 순서 · PLAN A'
 }
 
@@ -28,7 +30,7 @@ const modeCopy = (recommendation: WeatherPlanRecommendation, date: string) => {
   if (recommendation.mode === 'today-preview') {
     return {
       eyebrow: 'TODAY IN TAIWAN',
-      note: '아직 여행일의 상세 예보 기간이 아니어서 오늘 현지 날씨를 기준으로 두 일정을 미리 보여드리고 있어요.',
+      note: '아직 여행일의 상세 예보 기간이 아니어서 오늘 현지 날씨를 기준으로 준비된 일정을 미리 보여드리고 있어요.',
     }
   }
   if (recommendation.mode === 'trip-forecast') {
@@ -49,7 +51,7 @@ const modeCopy = (recommendation: WeatherPlanRecommendation, date: string) => {
   }
   return {
     eyebrow: 'WEATHER CHECK',
-    note: '날씨는 추천만 합니다. Plan A와 Plan B는 언제든 직접 선택할 수 있어요.',
+    note: '날씨는 추천만 합니다. Plan A, B1, B2는 언제든 직접 선택할 수 있어요.',
   }
 }
 
@@ -92,11 +94,11 @@ export function WeatherPlanSelector({
         </div>
       </div>
 
-      <div className="weather-selector__plans" aria-label="날씨 플랜 선택">
+      <div className={`weather-selector__plans weather-selector__plans--${Math.min(plans.length, 3)}`} aria-label="날씨 플랜 선택">
         {orderedPlans.map((plan) => {
           const selected = selectedPlanId === plan.id
           const recommended = recommendation.recommendedPlanId === plan.id
-          const PlanIcon = plan.weatherType === 'rain' ? CloudRain : SunMedium
+          const PlanIcon = plan.id === 'plan-b2' ? CloudOff : plan.weatherType === 'rain' ? CloudRain : SunMedium
           return (
             <button
               className={`weather-plan-choice ${selected ? 'is-selected' : ''} ${recommended ? 'is-recommended' : ''}`}
@@ -110,6 +112,7 @@ export function WeatherPlanSelector({
                 <span><PlanIcon size={19} aria-hidden="true" /> {plan.label}</span>
                 <span className="weather-plan-choice__badges">
                   {recommended && <strong>{recommendation.mode === 'fallback' ? '기본 순서' : '날씨 기준 추천'}</strong>}
+                  {plan.id === 'plan-b2' && <em>전시 취향 백업</em>}
                   {plan.status === 'draft' && <em>준비 중</em>}
                 </span>
               </span>
