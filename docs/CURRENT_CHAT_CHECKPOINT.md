@@ -1,6 +1,6 @@
 # CURRENT CHAT CHECKPOINT
 
-Last updated: 2026-08-23 05:36 KST
+Last updated: 2026-08-23 05:40 KST
 
 > Canonical handoff for continuing this Taiwan trip-planning chat. In a new conversation, read this file first before answering so context does not reset.
 
@@ -17,8 +17,8 @@ Last updated: 2026-08-23 05:36 KST
 - Taipei/Taiwan family trip, 3 adults.
 - Dates: 2027-02-20 to 2027-02-23.
 - Hotel: Taipei Garden Hotel.
-- Day 1 flight source of truth: **Asiana OZ711, ICN 08:00 → TPE T2 08:50 local time**.
-- IMPORTANT: During vendor outreach, 08:50 / 09:50 / 11:30 were accidentally mixed in some messages. Before any booking is finalized, correct the vendor to **08:50, T2**.
+- Day 1 flight source of truth: **Asiana OZ711, ICN 08:00 departure → TPE T2 09:50 local arrival**. The earlier 08:50 arrival was an assistant error: Korea is UTC+9, Taiwan UTC+8, and an ~2h50 flight departing 08:00 KST corresponds to ~09:50 TPE local.
+- IMPORTANT: During vendor outreach, 08:50 / 09:50 / 11:30 were accidentally mixed in some messages. Before booking is finalized, correct the chosen vendor to **09:50, T2**, unless the airline booking/schedule later changes. Recheck the actual airline itinerary before the trip because 2027 schedules can change.
 - Day 2 & Day 4 vehicle: LUMI DRIVE New Toyota Alphard 40系.
 - Food priority: taste > price > transport convenience.
 - Parents’ comfort matters. Mother is a painter; user likes contemporary art.
@@ -96,7 +96,7 @@ Last updated: 2026-08-23 05:36 KST
 - S-Class from same vendor: W222 2,000 (about 10-year-old cars), W223 3,500 — not attractive.
 - Basic legitimacy check from public sources looked acceptable: real Taiwanese rental company/legal entity, not an obvious anonymous scam; still keep reservation evidence in LINE.
 - **Booking intent: user wants to book 奇立.** Preferred payment condition: full amount paid cash on service day if vendor allows; if deposit is mandatory, ask amount/method.
-- Reservation confirmation message should lock in: OZ711 08:50 T2, 3 adults, 1 medium + 1 cabin suitcase, ES300h, <=5 years, model guarantee, total price, all inclusions, signboard if selected.
+- Reservation confirmation message should lock in: OZ711 **09:50** T2, 3 adults, 1 medium + 1 cabin suitcase, ES300h, <=5 years, model guarantee, total price, all inclusions, signboard if selected.
 - Ask vendor to provide, once assigned 2–3 days before service: actual ES300h year, plate number, driver name/phone, exterior + rear-seat/interior photos.
 
 ## 2) 宇航富豪 — STRONG VALUE BACKUP
@@ -241,11 +241,11 @@ Repo: `oops-lobster/minsung-tour-taiwan-2027`
 Public site: `https://oops-lobster.github.io/minsung-tour-taiwan-2027/`
 Checkpoint: `docs/CURRENT_CHAT_CHECKPOINT.md`
 
-Already on main:
+Already on main before this correction:
 - Weather-aware Plan A/B system.
 - Day 1 rain Plan B includes 弄宅咖啡 before TFAM.
 - 弄宅咖啡 shown confirmed, 13:30, 3 adults.
-- Day 1 arrival time patched to 08:50.
+- Day 1 arrival time had been **incorrectly patched to 08:50**; correction patch changes it to **09:50**.
 - Public budget leak fixed; private budget protected.
 
 ## Website next action
@@ -283,7 +283,7 @@ Already on main:
 - Do not change 小統一 19:00 reservation.
 - Do not remove 弄宅咖啡 from rainy Day 1.
 - Do not expose private budget data publicly.
-- Source-of-truth OZ711 arrival is **08:50 at TPE T2**.
+- Source-of-truth OZ711 arrival is **09:50 at TPE T2**, based on the user-confirmed 08:00 ICN departure; recheck the actual airline itinerary before final booking/travel in case the 2027 schedule changes.
 - 奇立 ES300h 1,300 is current value leader; +200 signboard is acceptable.
 - No more price pushing with 奇立: holiday surcharge already waived.
 - No more price pushing with 昕樂 unless they initiate.
