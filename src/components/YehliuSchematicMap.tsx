@@ -1,30 +1,44 @@
 import type { KeyboardEvent } from 'react'
-import { yehliuRouteModes, yehliuStops, type YehliuRouteId } from '../data/yehliuGuide'
+import { yehliuRouteDefinitions, yehliuGpsFacilities, type GeoPoint } from '../data/yehliuGpsRoute'
+import { yehliuStops, type YehliuRouteId, type YehliuStopId } from '../data/yehliuGuide'
 
 interface YehliuSchematicMapProps {
   routeId: YehliuRouteId
-  selectedStop: number
-  visited: number[]
-  onSelectStop: (stopId: number) => void
+  selectedStop: YehliuStopId
+  visited: YehliuStopId[]
+  skipped?: YehliuStopId[]
+  onSelectStop: (stopId: YehliuStopId) => void
 }
 
-const markerPositions: Record<number, [number, number]> = {
-  0: [76, 286],
-  1: [164, 246],
-  2: [236, 188],
-  3: [324, 222],
-  4: [412, 158],
-  5: [494, 186],
-  6: [584, 112],
-  7: [656, 202],
-  8: [708, 300],
-}
+const WIDTH = 780
+const HEIGHT = 380
+const PAD_X = 64
+const PAD_Y = 54
+const deepPath = yehliuRouteDefinitions.deep.path
+const bounds = deepPath.reduce((result, point) => ({
+  minLat: Math.min(result.minLat, point.lat),
+  maxLat: Math.max(result.maxLat, point.lat),
+  minLng: Math.min(result.minLng, point.lng),
+  maxLng: Math.max(result.maxLng, point.lng),
+}), { minLat: Infinity, maxLat: -Infinity, minLng: Infinity, maxLng: -Infinity })
 
-export function YehliuSchematicMap({ routeId, selectedStop, visited, onSelectStop }: YehliuSchematicMapProps) {
-  const route = yehliuRouteModes.find((item) => item.id === routeId) ?? yehliuRouteModes[1]
-  const points = route.stopIds.map((stopId) => markerPositions[stopId].join(',')).join(' ')
+const plot = (point: GeoPoint) => ({
+  x: PAD_X + (point.lng - bounds.minLng) / (bounds.maxLng - bounds.minLng) * (WIDTH - PAD_X * 2),
+  y: HEIGHT - PAD_Y - (point.lat - bounds.minLat) / (bounds.maxLat - bounds.minLat) * (HEIGHT - PAD_Y * 2),
+})
 
-  const handleKeyDown = (event: KeyboardEvent<SVGGElement>, stopId: number) => {
+const polyline = (points: GeoPoint[]) => points.map((point) => {
+  const plotted = plot(point)
+  return `${plotted.x.toFixed(1)},${plotted.y.toFixed(1)}`
+}).join(' ')
+
+export function YehliuSchematicMap({ routeId, selectedStop, visited, skipped = [], onSelectStop }: YehliuSchematicMapProps) {
+  const definition = yehliuRouteDefinitions[routeId]
+  const activeStops = definition.stopIds.map((id) => yehliuStops.find((stop) => stop.id === id)!).filter(Boolean)
+  const outbound = definition.path.slice(0, definition.returnPathStartIndex + 1)
+  const returning = definition.path.slice(definition.returnPathStartIndex)
+
+  const handleKeyDown = (event: KeyboardEvent<SVGGElement>, stopId: YehliuStopId) => {
     if (event.key !== 'Enter' && event.key !== ' ') return
     event.preventDefault()
     onSelectStop(stopId)
@@ -32,12 +46,7 @@ export function YehliuSchematicMap({ routeId, selectedStop, visited, onSelectSto
 
   return (
     <div className="yehliu-map-shell">
-      <svg
-        className="yehliu-map"
-        viewBox="0 0 780 380"
-        role="group"
-        aria-label={`예류 제1·2구역 ${route.label} 개략 동선. 번호를 누르면 해당 해설로 이동합니다.`}
-      >
+      <svg className="yehliu-map" viewBox={`0 0 ${WIDTH} ${HEIGHT}`} role="group" aria-label={`예류 ${routeId} 코스 실좌표 기반 개략 동선. 번호를 누르면 해당 해설로 이동합니다.`}>
         <defs>
           <linearGradient id="yehliu-sea" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#dceef0" />
@@ -52,69 +61,51 @@ export function YehliuSchematicMap({ routeId, selectedStop, visited, onSelectSto
           </filter>
         </defs>
 
-        <rect width="780" height="380" rx="28" fill="url(#yehliu-sea)" />
+        <rect width={WIDTH} height={HEIGHT} rx="28" fill="url(#yehliu-sea)" />
         <path className="yehliu-map__grid" d="M0 76H780M0 152H780M0 228H780M0 304H780M130 0V380M260 0V380M390 0V380M520 0V380M650 0V380" />
-        <path
-          className="yehliu-map__peninsula"
-          d="M18 362C84 322 94 278 149 247c72-41 104-104 181-110 62-5 108 47 160 27 54-20 84-93 151-98 62-5 88 45 120 100 25 44 36 94 39 146-153 31-306 39-458 41-105 1-217 1-324 9Z"
-          fill="url(#yehliu-land)"
-        />
-        <path className="yehliu-map__shore" d="M18 362C84 322 94 278 149 247c72-41 104-104 181-110 62-5 108 47 160 27 54-20 84-93 151-98 62-5 88 45 120 100" />
-        <text className="yehliu-map__water-label" x="38" y="48">EAST CHINA SEA</text>
-        <text className="yehliu-map__zone-label" x="185" y="332">제1구역</text>
-        <text className="yehliu-map__zone-label" x="532" y="316">제2구역</text>
+        <path className="yehliu-map__peninsula" d="M35 352C70 304 104 282 148 250c74-54 86-132 170-153 76-20 124 45 185 6 68-44 102-68 168-47 64 20 91 85 74 154-19 76-93 124-172 143Z" fill="url(#yehliu-land)" />
+        <text className="yehliu-map__water-label" x="34" y="42">YEHLIU · REAL ROUTE SHAPE</text>
 
-        <polyline className="yehliu-map__route-shadow" points={points} />
-        <polyline className={`yehliu-map__route yehliu-map__route--${routeId}`} points={points} />
+        <polyline className="yehliu-map__route-shadow" points={polyline(definition.path)} />
+        <polyline className={`yehliu-map__route yehliu-map__route--${routeId}`} points={polyline(outbound)} />
+        <polyline className="yehliu-map__route yehliu-map__route--return" points={polyline(returning)} />
+        <text className="yehliu-map__return-label" x="116" y="318">복귀 동선</text>
 
-        <g className="yehliu-map__facility" aria-label="방문자센터 1층 화장실">
-          <rect x="42" y="322" width="48" height="25" rx="12" />
-          <text x="66" y="339">WC</text>
-        </g>
-        <g className="yehliu-map__facility" aria-label="여왕의 서점 화장실">
-          <rect x="632" y="231" width="48" height="25" rx="12" />
-          <text x="656" y="248">WC</text>
-        </g>
-        <g className="yehliu-map__facility yehliu-map__facility--outside" aria-label="매표소 옆 화장실, 지도 시작점 바깥">
-          <rect x="13" y="286" width="48" height="25" rx="12" />
-          <text x="37" y="303">WC</text>
-        </g>
-        <g className="yehliu-map__caution" aria-label="해안 안전 주의">
-          <path d="M505 78 519 104h-28Z" />
-          <text x="505" y="99">!</text>
-        </g>
+        {yehliuGpsFacilities.map((facility) => {
+          const point = plot(facility)
+          return <g className="yehliu-map__facility" transform={`translate(${point.x} ${point.y})`} aria-label={facility.nameKo} key={facility.id}><rect x="-23" y="-12" width="46" height="24" rx="12" /><text y="5">WC</text></g>
+        })}
 
-        {yehliuStops.map((stop) => {
-          const [x, y] = markerPositions[stop.id]
-          const isActive = route.stopIds.includes(stop.id)
+        {activeStops.map((stop, index) => {
+          const point = plot(stop)
           const isSelected = selectedStop === stop.id
           const isVisited = visited.includes(stop.id)
+          const isSkipped = skipped.includes(stop.id)
           return (
             <g
-              className={`yehliu-map__marker ${isActive ? 'is-route-stop' : 'is-skipped'} ${isSelected ? 'is-selected' : ''} ${isVisited ? 'is-visited' : ''}`}
+              className={`yehliu-map__marker is-route-stop ${isSelected ? 'is-selected' : ''} ${isVisited ? 'is-visited' : ''} ${isSkipped ? 'is-skipped' : ''}`}
               key={stop.id}
               role="button"
               tabIndex={0}
-              aria-label={`${stop.id + 1}번 ${stop.title}${isVisited ? ', 방문 완료' : ''}`}
+              aria-label={`${index + 1}번 ${stop.title}${isVisited ? ', 관찰 완료' : ''}${isSkipped ? ', 건너뜀' : ''}`}
               aria-pressed={isSelected}
               onClick={() => onSelectStop(stop.id)}
               onKeyDown={(event) => handleKeyDown(event, stop.id)}
-              transform={`translate(${x} ${y})`}
+              transform={`translate(${point.x} ${point.y})`}
             >
               <circle r={isSelected ? 23 : 19} filter="url(#yehliu-shadow)" />
-              {isVisited && <path className="yehliu-map__marker-check" d="m-8 0 5 5 11-13" />}
-              {!isVisited && <text y="6">{stop.id + 1}</text>}
+              {isVisited ? <path className="yehliu-map__marker-check" d="m-8 0 5 5 11-13" /> : <text y="6">{index + 1}</text>}
             </g>
           )
         })}
       </svg>
       <div className="yehliu-map-legend" aria-label="지도 범례">
-        <span><i className="is-route" />선택 코스</span>
+        <span><i className="is-route" />관찰 동선</span>
+        <span><i className="is-return" />차량 복귀</span>
         <span><i className="is-selected" />현재 해설</span>
         <span><i className="is-toilet">WC</i>화장실</span>
-        <span><i className="is-caution">!</i>해안 주의</span>
       </div>
-      <p className="yehliu-map-note">동선 이해를 위한 자체 제작 개략도입니다. 정밀 위치·통제구역은 현장 공식 지도와 직원 안내를 따르세요.</p>
+      <p className="yehliu-map-note">실좌표 관계를 단순화한 자체 제작 개략도입니다. 해안선·통제구역·보행 판단은 현장 공식 지도와 직원 안내가 우선입니다.</p>
     </div>
   )
 }

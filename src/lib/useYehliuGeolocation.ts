@@ -74,6 +74,7 @@ export function useYehliuGeolocation(mockEnabled: boolean) {
   }, [clearWatch, mockEnabled])
 
   const start = useCallback(() => startWatch(highAccuracy), [highAccuracy, startWatch])
+  const refresh = useCallback(() => startWatch(highAccuracy), [highAccuracy, startWatch])
 
   const stop = useCallback(() => {
     clearWatch()
@@ -110,6 +111,7 @@ export function useYehliuGeolocation(mockEnabled: boolean) {
     highAccuracy,
     active: status === 'active',
     start,
+    refresh,
     stop,
     changeAccuracyMode,
     setMockPosition,
