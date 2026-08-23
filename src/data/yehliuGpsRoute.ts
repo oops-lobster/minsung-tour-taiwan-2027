@@ -1,31 +1,34 @@
-import type { YehliuRouteId } from './yehliuGuide'
+import {
+  yehliuRouteModes,
+  yehliuStops,
+  type CoordinateConfidence,
+  type YehliuRouteId,
+  type YehliuStop,
+  type YehliuStopId,
+} from './yehliuGuide.ts'
 
 export interface GeoPoint {
   lat: number
   lng: number
 }
 
-export interface YehliuGpsStop extends GeoPoint {
-  id: string
-  order: number
-  nameKo: string
-  nameZh: string
-  nameEn: string
-  guideStopId: number
-  routePointIndex: number
-  arrivalRadiusMeters: number
-  routeIds: YehliuRouteId[]
-  approximate?: boolean
-  restroom?: boolean
-  exit?: boolean
-  sourceId: string
+export type YehliuGpsStop = YehliuStop
+
+export interface YehliuRouteDefinition {
+  id: YehliuRouteId
+  stopIds: YehliuStopId[]
+  path: GeoPoint[]
+  targetDurationMinutes: [number, number]
+  recommendedToday: boolean
+  returnPathStartIndex: number
 }
 
 export interface YehliuGpsFacility extends GeoPoint {
   id: string
   nameKo: string
   nameZh: string
-  approximate?: boolean
+  coordinateConfidence: CoordinateConfidence
+  coordinateNote: string
   sourceId: string
 }
 
@@ -37,9 +40,6 @@ export interface YehliuGpsSource {
   checked: string
   note: string
 }
-
-const allRoutes: YehliuRouteId[] = ['compact', 'standard', 'deep']
-const standardAndDeep: YehliuRouteId[] = ['standard', 'deep']
 
 /**
  * 실제 지리관계를 유지하는 현장용 보행선입니다.
@@ -171,58 +171,26 @@ export const yehliuGpsRoute: GeoPoint[] = [
   { lat: 25.2056713, lng: 121.6904145 },
 ]
 
-export const yehliuGpsStops: YehliuGpsStop[] = [
-  {
-    id: 'visitor-center', order: 0, nameKo: '방문자센터', nameZh: '野柳遊客中心', nameEn: 'Visitor Center',
-    guideStopId: 0, lat: 25.2053871, lng: 121.6901077, routePointIndex: 0, arrivalRadiusMeters: 25,
-    routeIds: allRoutes, restroom: true, sourceId: 'GPS-S2',
-  },
-  {
-    id: 'entrance', order: 1, nameKo: '공원 입구', nameZh: '野柳地質公園入口', nameEn: 'Geopark Entrance',
-    guideStopId: 0, lat: 25.2056713, lng: 121.6904145, routePointIndex: 2, arrivalRadiusMeters: 22,
-    routeIds: allRoutes, sourceId: 'GPS-S2',
-  },
-  {
-    id: 'candle-rocks', order: 2, nameKo: '촛대바위·항아리구멍', nameZh: '燭臺石・壺穴', nameEn: 'Candle Rocks · Potholes',
-    guideStopId: 2, lat: 25.2077330, lng: 121.6908520, routePointIndex: 19, arrivalRadiusMeters: 28,
-    routeIds: allRoutes, approximate: true, sourceId: 'GPS-S1',
-  },
-  {
-    id: 'mushroom-rocks', order: 3, nameKo: '버섯바위·귀여운 공주', nameZh: '蕈狀岩群・俏皮公主', nameEn: 'Mushroom Rocks · Cute Princess',
-    guideStopId: 3, lat: 25.2079437, lng: 121.6919598, routePointIndex: 22, arrivalRadiusMeters: 28,
-    routeIds: allRoutes, sourceId: 'GPS-S2',
-  },
-  {
-    id: 'fossil-zone', order: 4, nameKo: '성게·생흔화석 구간', nameZh: '海膽化石・生痕化石', nameEn: 'Sea Urchin · Trace Fossils',
-    guideStopId: 4, lat: 25.2082456, lng: 121.6934581, routePointIndex: 34, arrivalRadiusMeters: 30,
-    routeIds: standardAndDeep, approximate: true, sourceId: 'GPS-S1',
-  },
-  {
-    id: 'queens-head', order: 5, nameKo: '여왕머리', nameZh: '女王頭', nameEn: "Queen's Head",
-    guideStopId: 6, lat: 25.2088020, lng: 121.6931000, routePointIndex: 50, arrivalRadiusMeters: 25,
-    routeIds: allRoutes, sourceId: 'GPS-S3',
-  },
-  {
-    id: 'shape-rocks', order: 6, nameKo: '선녀신발·지구바위·대만바위', nameZh: '仙女鞋・地球石・臺灣石', nameEn: "Fairy's Shoe · Earth · Taiwan Rocks",
-    guideStopId: 5, lat: 25.2094273, lng: 121.6933791, routePointIndex: 59, arrivalRadiusMeters: 30,
-    routeIds: standardAndDeep, approximate: true, sourceId: 'GPS-S1',
-  },
-  {
-    id: 'queens-bookstore', order: 7, nameKo: 'Queen’s Bookstore', nameZh: '女王的書店', nameEn: "Queen's Head Bookstore",
-    guideStopId: 7, lat: 25.2095367, lng: 121.6946279, routePointIndex: 74, arrivalRadiusMeters: 25,
-    routeIds: allRoutes, restroom: true, sourceId: 'GPS-S2',
-  },
-  {
-    id: 'exit', order: 8, nameKo: '출구·차량 복귀 방향', nameZh: '出口・停車場方向', nameEn: 'Exit · Vehicle Return',
-    guideStopId: 8, lat: 25.2056713, lng: 121.6904145, routePointIndex: 121, arrivalRadiusMeters: 28,
-    routeIds: allRoutes, exit: true, sourceId: 'GPS-S1',
-  },
-]
+const routeWithoutShapeDetour = yehliuGpsRoute.filter((_, index) => index !== 59)
+
+export const yehliuRouteDefinitions: Record<YehliuRouteId, YehliuRouteDefinition> = Object.fromEntries(
+  yehliuRouteModes.map((mode) => [mode.id, {
+    id: mode.id,
+    stopIds: mode.stopIds,
+    path: mode.id === 'deep' ? yehliuGpsRoute : routeWithoutShapeDetour,
+    targetDurationMinutes: mode.targetDurationMinutes,
+    recommendedToday: mode.recommendedToday,
+    returnPathStartIndex: mode.id === 'deep' ? 74 : 73,
+  }]),
+) as Record<YehliuRouteId, YehliuRouteDefinition>
+
+/** Guide and GPS use this same canonical array. */
+export const yehliuGpsStops = yehliuStops
 
 export const yehliuGpsFacilities: YehliuGpsFacility[] = [
-  { id: 'ticket-toilet', nameKo: '매표소·입구 화장실', nameZh: '售票處・入口廁所', lat: 25.2055831, lng: 121.6905325, sourceId: 'GPS-S2' },
-  { id: 'visitor-toilet', nameKo: '방문자센터 1층 화장실', nameZh: '遊客中心一樓廁所', lat: 25.2053871, lng: 121.6901077, approximate: true, sourceId: 'GPS-S1' },
-  { id: 'bookstore-toilet', nameKo: 'Queen’s Bookstore 옆 화장실', nameZh: '女王的書店旁廁所', lat: 25.2095841, lng: 121.6947121, sourceId: 'GPS-S2' },
+  { id: 'ticket-toilet', nameKo: '매표소·입구 화장실', nameZh: '售票處・入口廁所', lat: 25.2055831, lng: 121.6905325, coordinateConfidence: 'osm-exact', coordinateNote: 'OSM node 6961391735', sourceId: 'GPS-S2' },
+  { id: 'visitor-toilet', nameKo: '방문자센터 1층 화장실', nameZh: '遊客中心一樓廁所', lat: 25.2053871, lng: 121.6901077, coordinateConfidence: 'official-map-approx', coordinateNote: '공식 접근성 안내의 건물 내부 시설 · Visitor Center 대표점', sourceId: 'GPS-S1' },
+  { id: 'bookstore-toilet', nameKo: 'Queen’s Bookstore 옆 화장실', nameZh: '女王的書店旁廁所', lat: 25.2095841, lng: 121.6947121, coordinateConfidence: 'osm-exact', coordinateNote: 'OSM node 4199792024', sourceId: 'GPS-S2' },
 ]
 
 export const yehliuGpsSources: YehliuGpsSource[] = [
@@ -232,17 +200,22 @@ export const yehliuGpsSources: YehliuGpsSource[] = [
     checked: '2026-08-23', note: '구역·관람 순서·출입구·화장실 위치 교차 확인. 정밀 POI가 없는 지점은 위치 근사로 표시.',
   },
   {
-    id: 'GPS-S2', title: 'OpenStreetMap 보행로·시설·POI 데이터', organization: 'OpenStreetMap contributors · ODbL',
-    url: 'https://www.openstreetmap.org/copyright', checked: '2026-08-23',
-    note: 'Visitor Center, entrance, Cute Princess, Fairy’s Shoe, Queen’s Bookstore, toilets와 footway/boardwalk geometry.',
+    id: 'GPS-S2', title: 'OpenStreetMap 시설·POI 객체', organization: 'OpenStreetMap contributors · ODbL',
+    url: 'https://www.openstreetmap.org/node/13890668395', checked: '2026-08-23',
+    note: 'Visitor Center 13890668395 · entrance 861099512 · Cute Princess 13890675029 · Fairy’s Shoe 4199791989 · Bookstore 4199791996 · toilets 6961391735/4199792024.',
   },
   {
-    id: 'GPS-S3', title: 'Queen’s Head 공식 관광 POI', organization: 'Taiwan Tourism Administration',
+    id: 'GPS-S3', title: 'OpenStreetMap 보행로 객체', organization: 'OpenStreetMap contributors · ODbL',
+    url: 'https://www.openstreetmap.org/way/72538299', checked: '2026-08-23',
+    note: '주요 footway way 72538299, 72538301, 72538304, 207948073, 207948077, 207948084, 368743164, 368743166, 368743167을 2026-08-23 재확인.',
+  },
+  {
+    id: 'GPS-S4', title: 'Queen’s Head 공식 관광 POI', organization: 'Taiwan Tourism Administration',
     url: 'https://eng.taiwan.net.tw/m1.aspx?id=a12-00174&sno=0002016', checked: '2026-08-23',
     note: '공식 표기 좌표 121.69310 / 25.208802 사용.',
   },
   {
-    id: 'GPS-S4', title: 'OpenStreetMap Tile Usage Policy', organization: 'OpenStreetMap Foundation',
+    id: 'GPS-S5', title: 'OpenStreetMap Tile Usage Policy', organization: 'OpenStreetMap Foundation',
     url: 'https://operations.osmfoundation.org/policies/tiles/', checked: '2026-08-23',
     note: '온라인 선택 시 현재 화면에 필요한 표준 타일만 로드하고 오프라인 저장·선행 다운로드는 하지 않음.',
   },

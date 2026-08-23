@@ -56,6 +56,7 @@ const SHELL_CACHE = \`\${CACHE_PREFIX}shell-\${VERSION}\`
 const GUIDE_CACHE = \`\${CACHE_PREFIX}yehliu-\${VERSION}\`
 const STAGING_CACHE = \`\${GUIDE_CACHE}-staging\`
 const SHELL_ASSETS = ${JSON.stringify(shellAssets)}
+const GUIDE_CORE_ASSETS = ${JSON.stringify(shellAssets)}
 const FULL_ASSETS = ${JSON.stringify(fullAssets)}
 const FULL_SIZE = ${totalSize}
 
@@ -111,9 +112,12 @@ async function cacheGuide() {
 async function guideStatus() {
   const cache = await caches.open(GUIDE_CACHE)
   const urls = assetUrls(FULL_ASSETS)
+  const coreUrls = assetUrls(GUIDE_CORE_ASSETS)
   const matches = await Promise.all(urls.map((url) => cache.match(url)))
+  const coreMatches = await Promise.all(coreUrls.map((url) => cache.match(url)))
   const count = matches.filter(Boolean).length
-  return { ok: true, ready: count === urls.length, version: VERSION, count, total: urls.length, size: FULL_SIZE }
+  const coreCount = coreMatches.filter(Boolean).length
+  return { ok: true, ready: count === urls.length, coreReady: coreCount === coreUrls.length, version: VERSION, count, total: urls.length, coreCount, coreTotal: coreUrls.length, size: FULL_SIZE }
 }
 
 self.addEventListener('install', (event) => {
