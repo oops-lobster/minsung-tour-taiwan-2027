@@ -1,265 +1,298 @@
 # CURRENT CHAT CHECKPOINT
 
-Last updated: 2026-08-23 21:49 KST
+Last updated: 2026-08-23 22:28 KST
 
-> Canonical handoff for continuing this Taiwan trip-planning chat. In a new conversation, read this file first before answering so context does not reset.
+> Canonical handoff for continuing this Taiwan trip-planning chat.
 >
-> **Freshness rule:** when this checkpoint and the repository disagree, inspect the latest `main` commits/files first and treat `main` as the current product state. This checkpoint is a handoff summary, not a substitute for checking recent code changes.
+> **Freshness rule:** if this checkpoint and the repository disagree, inspect the latest `main` commits/files first and treat `main` as product source of truth. Protected budget/Supabase is the operational budget source of truth.
 
-## Conversation mode
+---
+
+# Conversation mode
 - User: 민성.
-- Tone: persona 4 / 새라 모드 — 친근한 반말, 장난스럽게 대화 가능. 정확한 정보는 엄밀하게.
-- User frequently pastes Taiwan vendor LINE logs and expects: translation → evaluation → whether to keep/remind/close → Chinese reply drafting.
-- Before saying something is unknown, check this checkpoint **and current repo/main** first.
-- For vendor cleanup, classify each LINE room as: **keep / one reminder / close & leave**.
-- Airport sedan search is effectively over. If remaining vendors reply, do not restart price negotiation.
+- Tone: persona 4 / 새라 모드 — 친근한 반말, 장난스럽게 가능. 정확한 정보는 엄밀하게.
+- Food priority: **taste > price > transport convenience**.
+- Parents’ comfort matters.
+- Rain alternatives should be genuinely good alternate days, not degraded backups.
+- Public budget exposure is forbidden; budget remains protected.
 
 ---
 
 # CURRENT CONVERSATION POSITION
 
-## Travel walkthrough position
-- The chat has now progressed through **Day 2 to Jiufen arrival**.
-- Current simulated/on-itinerary time: **around 16:15 on Day 2 (2027-02-21)**.
-- The family has arrived at **Jiufen (九份)**.
-- The **LUMI 8-hour Alphard charter has ended**, and the user has just said goodbye to the driver.
-- Therefore the next conversation should continue from: **“We are now on foot in Jiufen after the driver left — what do we do next?”**
-- Do **not** restart from Yehliu, Guihou, Shifen Waterfall, or Shifen Old Street unless the user explicitly wants to revisit them.
-- After Jiufen, the plan is flexible: alleys / night view / dinner / kaoliang, then call a taxi on site back to Taipei when the family wants.
+## What has just been completed
+- **Day 2 sunny / no-rain Plan A is now considered closed/finalized.**
+- The chat simulated the entire Day 2 through Jiufen and then completed the evening.
+- Jiufen late-day flow was selected as:
+  - Jiufen lantern-photo walk
+  - **阿理廚坊 / A Li Kitchen** for proper Taiwanese dinner + kaoliang
+  - **逸茶酒室 Golden Bar** for a large amount of Taiwanese craft beer
+  - taxi back to Taipei Garden Hotel around 21:00
+  - optional hidden-stage third round at **銀河洞 韓式pocha** near the hotel
+- User specifically prefers:
+  - **1st round = kaoliang + real Taiwanese food**
+  - **2nd round = craft beer**
+  - **3rd round optional = Korean pocha + soju**
+
+## What we are doing next
+- The user has now moved on to **Day 2 rainy alternatives**.
+- Important decision already made:
+  - **Jiufen remains the fixed final destination even on a rainy Day 2.**
+  - Light/moderate rain, mist and wet stone stairs are considered part of Jiufen’s charm, not a reason to cancel it.
+  - The Jiufen ending should remain the emotional payoff of the day.
+- Next task is to design:
+  - **Plan B = normal rain / manageable rain**
+  - **Plan C = more persistent or heavier rain, but NOT torrential rain / typhoon / dangerous conditions**
+- **Extreme downpour is explicitly excluded from this Plan B/C design.** Do not spend time designing a torrential-rain itinerary unless the user later asks.
+- Existing `weatherPlans.ts` Day 2 rain logic is still only a draft/placeholder and should eventually be replaced by the newly designed Plan B/C.
 
 ---
 
 # Trip core
-- Taipei/Taiwan family trip, 3 adults.
+- Taiwan family trip, 3 adults.
 - Dates: **2027-02-20 to 2027-02-23**.
 - Hotel: **Taipei Garden Hotel**.
-- Day 1 flight source of truth: **Asiana OZ711, ICN 08:00 departure → TPE T2 09:50 local arrival**.
-- Recheck the actual 2027 airline itinerary before the trip because schedules can change.
+- Day 1 flight source of truth: **Asiana OZ711, ICN 08:00 → TPE T2 09:50 local**.
+- Recheck actual 2027 airline itinerary before travel.
 - Day 2 & Day 4 vehicle: **LUMI DRIVE New Toyota Alphard 40系**.
-- Food priority: **taste > price > transport convenience**.
-- Parents’ comfort matters. Mother is a painter; user likes contemporary art.
-- Rain plans should be equally good alternate days, not degraded backups.
-- Budget data is private and must stay in protected budget/Supabase UI.
 
 ---
 
-# DAY 1 — structurally finalized
+# Day 1 — structurally finalized
 
-## Plan A · sunny
-- Airport pickup → Taipei Garden Hotel → taxi to My灶.
+## Sunny Plan A
+- Airport pickup → Taipei Garden Hotel → My灶.
 - 12:10–13:15 My灶.
-- 13:30 弄宅咖啡 Alleyhouse Coffee, 3 adults, reservation confirmed.
+- 13:30 弄宅咖啡, 3 adults, reservation confirmed.
 - 14:25–15:20 林安泰古厝民俗文物館.
-- Taxi → Baishihu suspension bridge + heart pond → Bishanyan.
-- 18:05 call return taxi; aim to board around 18:15.
-- 19:00 小統一牛排館, 3 adults, reservation confirmed and fixed.
+- Baishihu → Bishanyan sunset.
+- 19:00 小統一牛排館, 3 adults, fixed reservation.
 - Longshan Temple → Huaxi/Guangzhou night market → Carrefour Guilin → hotel.
 
-## Rain plans
-- B1: My灶 + 弄宅 fixed → TFAM if February 2027 exhibition is suitable → 小隱茶庵 → 19:00 小統一.
-- B2: if TFAM unsuitable, use Miniatures Museum only as stable indoor fallback → 小隱茶庵 → 19:00 小統一.
-- Do not alter fixed 19:00 小統一 without user approval.
-
-## 弄宅咖啡
-- 2027-02-20 13:30, 3 adults, DM reservation confirmed.
-- Owner said early arrival is okay.
-- Nice-seat request for the parents’ trip was accepted; remind them next year.
+## Rain Day 1
+- B1: My灶 + 弄宅 fixed → TFAM if February 2027 exhibition fits family → 小隱茶庵 → 19:00 小統一.
+- B2: if TFAM unsuitable, Miniatures Museum only as stable indoor fallback → 小隱茶庵 → 19:00 小統一.
+- Do not change 小統一 19:00 without approval.
 
 ---
 
-# DAY 1 airport pickup — LIVE BOARD
-
-## Intended vendor: 奇立租賃
-- **Lexus ES300h designated pickup: NT$1,300.**
-- Vehicle age: **within 5 years**.
-- Model guarantee explicitly confirmed: **“不會換成其他車型唷”**.
-- Includes 90-min wait after actual landing, airport parking, tolls, and no other normal pickup surcharge.
+# Day 1 airport pickup — intended setup
+- Vendor: 奇立租賃.
+- Lexus ES300h designated pickup: **NT$1,300**.
+- Vehicle <=5 years.
+- Model explicitly guaranteed not to change.
 - Signboard/meet-and-greet: **+NT$200**.
 - Intended total: **NT$1,500**.
-- Cash discount request is closed. **Do not push price again.**
-- Final vendor confirmation/payment condition still pending.
-- Preferred: full cash payment on service day if allowed; if deposit mandatory, ask amount/method.
-- Reservation details: OZ711 **09:50 T2**, 3 adults, 1 medium + 1 cabin suitcase.
-- 2–3 days before service, once assigned, ask actual year, plate number, driver name/phone, exterior + rear-seat/interior photos.
-
-## Backups
-1. 宇航富豪 — ES300h designated, <=3 years, NT$1,400 all-in.
-2. 王牌機場接送 — ES300h designated, <=6 years, NT$1,500 all-in.
-3. 昕樂 — exact 2025 company-owned ES300h, NT$2,000 fixed.
-
-Decision principle: rear-seat comfort/space > vehicle certainty/condition > price > badge/prestige.
+- Includes 90-min wait after actual landing, parking, tolls, normal pickup fees.
+- Do not push price again.
+- Final booking/payment condition still needs vendor closure.
+- Reservation details: OZ711 09:50 T2, 3 adults, 1 medium + 1 cabin suitcase.
 
 ---
 
-# LUMI DRIVE — Day 2 / Day 4 charter state
-
-## Exact booking structure
-- Driver-included charter service (包車), not self-drive rental.
-- 2027-02-21: **8-hour New Alphard 40系**, 08:30 Taipei Garden Hotel → Yehliu → Guihou → Shifen Waterfall → Shifen Old Street → Jiufen. End at Jiufen.
-- 2027-02-23: **4-hour New Alphard 40系**, Taipei Garden Hotel → 肥前屋 → TPE T2. Driver waits about 2 hours during lunch and keeps luggage.
+# LUMI DRIVE — Day 2 / Day 4 contract
+- Driver-included charter service, not self-drive.
+- 2027-02-21: 8-hour New Alphard 40系, **08:30–16:30 max**.
+- 2027-02-23: approx. 4-hour New Alphard 40系, hotel → 肥前屋 → TPE T2.
 - Package total: **NT$15,000**.
 - Includes driver, fuel, tolls, parking, passenger insurance; overtime extra.
-- Day 2 standard reference: NT$10,000 / 8h, overtime NT$1,000/h.
-- 5% tax only if invoice needed, per vendor wording.
-
-## Deposit/payment
-- Total deposit: **NT$4,000**.
-  - first NT$2,000 in Aug 2026
-  - second NT$2,000 in Jan 2027
-- Balance: **NT$11,000**.
-- First NT$2,000 sent from Korea; user’s bank shows transfer complete, but vendor receipt remains pending.
-- **Do not send another NT$2,000 unless the first transfer is formally returned/failed.**
-- Once first deposit receipt is confirmed, get one final written clarification on balance payment timing/method.
-
-## Vehicle conditions
-- Specified model: **New Alphard 40系**.
-- Dispatch pool: 2024–2026, mostly 2025/2026; 2026 cannot be guaranteed.
-- Second row: independent captain seats, electric recline, electric legrest, ventilation, heating, massage.
-- Actual driver/vehicle info no later than 24h before service.
-- Basic English driver is sufficient; translation software can cover difficult communication.
+- Day 2 reference rate: NT$10,000 / 8h; overtime NT$1,000/h.
+- Total deposit: NT$4,000 split into Aug 2026 NT$2,000 + Jan 2027 NT$2,000.
+- First NT$2,000 has been sent from Korea but vendor receipt confirmation is still pending.
+- **Do not resend unless the first transfer is formally returned/failed.**
+- Balance: NT$11,000; later get one final written confirmation of timing/method.
+- Vehicle pool: 2024–2026, mostly 2025/2026; 2026 not guaranteed.
+- Second-row features previously confirmed: captain seats, recline, legrest, ventilation, heating, massage.
 
 ---
 
-# DAY 2 — latest main schedule and operational state
+# DAY 2 SUNNY PLAN A — FINALIZED
 
-## Morning
-- Day 2 only: Taipei Garden Hotel breakfast for 3 adults.
-- Protected budget reference: NT$2,000.
-- Target start **06:30** → finish around 07:20 → room/restroom/final prep → 08:15 lobby → **08:30 LUMI departure**.
+## Morning / charter
+- 06:30–07:30 Taipei Garden Hotel breakfast.
+- 08:15 lobby.
+- 08:30 LUMI Alphard departure.
+- 09:20–10:45 Yehliu Geopark.
+  - self-guided Zones 1 + 2 only.
+  - 10:45 vehicle return target; 10:50 absolute departure ceiling.
+- 10:55–12:10 **Guihou Fishermen’s Market / 龜吼漁夫市集** lunch.
+- 12:10–13:00 drive/rest to Shifen.
+- 13:00–14:00 Shifen Waterfall schedule block.
+  - actual core viewing 40–50 min.
+  - remaining time = exit + Visitor Center restroom.
+- 14:10–15:20 Shifen Old Street.
+  - one 4-color lantern shared by all 3.
+  - snacks only as tasting.
+  - coffee max ~15–20 min if desired.
+  - leave ~15:20 to protect Jiufen arrival.
+- 15:20 onward drive to Jiufen.
+- ~16:15 Jiufen arrival / LUMI 8-hour service ends.
 
-## Charter rule
-- Hard window: **08:30–16:30 maximum 8 hours**.
-- Target finish: **16:00–16:15**, leaving buffer.
+## Jiufen late afternoon / night — finalized emotional arc
+### 16:15–17:20 Jiufen lantern-photo walk
+- Jishan Street / 基山街.
+- Shengping Theater / 昇平戲院.
+- Shuqi Road lantern stairs / 豎崎路.
+- A-Mei Teahouse exterior and nearby views.
+- Optional narrow house-passage / alley morphology if convenient.
+- Sunny = mountain/sea views.
+- Light rain/mist = wet stone + red lantern reflections as the photo theme.
+- Heavy but still manageable rain = compress the walk; keep Jiufen.
 
-## Current main schedule
-- ~09:20 Yehliu arrival.
-- Yehliu self-guided Zones 1 + 2; Zone 3 excluded.
-- **10:45 vehicle return / 10:50 departure max**.
-- **10:55–12:10 Guihou Fishermen’s Market (龜吼漁夫市集) lunch.**
-- **12:10–13:00 drive/rest to Shifen.**
-- **13:00–14:00 Shifen Waterfall schedule block.**
-  - Separate explainer says 40–50 min of actual viewing is enough; the 60-min schedule block therefore includes operational slack.
-- **14:10–15:20 Shifen Old Street.**
-- **15:20 onward drive to Jiufen.**
-- **~16:15 Jiufen arrival / LUMI service end.**
-- Current chat has now reached this exact point.
+### 17:30–18:45 1st round — 阿理廚坊 / A Li Kitchen
+- This is the **proper dinner**.
+- Food quality is prioritized over merely being a tourist-view restaurant.
+- Intended dishes: Taiwanese shared dishes such as chicken, three-cup squid, fish, shrimp, fried rice, etc.
+- Alcohol role: **kaoliang**.
+- Before reservation, confirm:
+  1. 3-person window/night-view seat availability.
+  2. whether 金門高粱 is sold.
+  3. if not, whether outside kaoliang is allowed.
+  4. corkage fee if applicable.
+- Reservation inquiry pending.
 
----
+### 18:45–19:05 night lantern walk
+- Short walk after dinner once Jiufen is fully dark.
+- Red lanterns / wet stone / hillside lights.
+- Walk toward Golden Bar.
 
-# Yehliu Geopark — built operating concept
-- No official/group guide.
-- Self-guided family geology walk at own pace.
-- Science-rich, parent-friendly, user can explain geology to parents.
-- Offline-first PWA; GPS assistance later/currently integrated directionally.
-- Zones 1 + 2 only, Zone 3 excluded for this family schedule.
-- Original schematic/coordinate maps, not copied official copyrighted map.
-- Science themes include Daliao Formation, sandstone, diagenesis, calcareous concretions, differential erosion, salt weathering, joints, bedding, marine abrasion, potholes, trace fossils, echinoid fossils, tilted strata, mushroom-rock development, Queen’s Head monitoring.
-- GPS position must remain local on-device; no server/Supabase logging.
+### 19:05–20:15 2nd round — 逸茶酒室 Golden Bar
+- Role: **Taiwanese craft beer bar**, not dinner.
+- User expects to drink a lot of craft beer, not just one token drink.
+- Light snacks only.
+- Prefer 1F window or 2F scenic seating.
+- Reservation inquiry pending.
 
----
+### 20:15–21:00 return taxi
+- Call taxi on site (55688 or similar).
+- Jiufen → Taipei Garden Hotel.
+- Target hotel arrival ~21:00.
+- Normal Taipei/New Taipei night surcharge begins later (23:00), so planned pickup avoids it.
 
-# Guihou Fishermen’s Market — NOW FIXED, not a candidate search
+### 21:00–21:30 hotel
+- Shower and condition check.
+- **Official Day 2 main itinerary ends here.**
 
-## Day 2 lunch
-- **Guihou Fishermen’s Market (龜吼漁夫市集) is the fixed Day 2 lunch.**
-- Old Qiao Yan / 俏宴 plan is no longer active.
-- Main schedule: **10:55–12:10**.
-- Basic approach: 1F survey → check unit price/weight/material subtotal → confirm 2F cooking fee and total → eat upstairs with sea view if possible.
-
-## Intended menu direction
-- Seasonal sashimi, excluding salmon as default.
-- Nigiri 6–10 pieces if available/good.
-- 花蟹 1 crab steamed if condition and price are good.
-- Good whole white fish steamed or salt-grilled.
-- Small squid / spear squid or wild shrimp.
-- Vegetable + soup.
-- Lobster/high-end crustaceans are intentionally saved for Day 3 premium dinner.
-
-## Dedicated Guihou field guide on main
-- Route: `#guide/guihou`.
-- Tabs/features:
-  - operation sequence
-  - choose on 1F
-  - eat on 2F
-  - seafood quality coach
-  - price calculator
-  - field Chinese
-  - sources/recheck
-- Dedicated 2F conceptual map with cooking stalls, dining space, WC, elevators, stairs, sea-view platform.
-- Price calculator supports NT$/台斤, NT$/kg, fixed price, weight, cooking method/fee, total.
-- Critical phrase flow before cutting: unit price → weight → seafood subtotal → cooking fee → total → wait before cutting.
-- Dedicated offline Chinese phrasebook and TTS.
-
----
-
-# Shifen Waterfall — latest website state
-- Dedicated explainer page exists and is linked from Day 2.
-- Key idea: “Taiwan’s Niagara” because of broad curtain-like panorama and water volume, not extreme height.
-- Approx. 40 m wide / 20 m drop reference in the explainer.
-- Compared with Cheonjeyeon: Cheonjeyeon = valley experience; Shifen = one broad, powerful waterfall scene.
-- February is acceptable; actual water volume depends on recent rain.
-- Operational recommendation: **40–50 min viewing is enough**.
-- Current main schedule still allocates **13:00–14:00**.
+### 21:30–23:00 optional hidden stage — 銀河洞 韓式pocha
+- Korean-style pocha near hotel / Ximending.
+- Approx. 8–12 min walk from hotel.
+- Light Korean dishes + soju.
+- User wants this only as an optional third round.
+- If tired, delete without regret.
 
 ---
 
-# Shifen Old Street — latest website state
-- Dedicated mini guide exists and is linked from Day 2.
-- Current main schedule: **14:10–15:20**.
-- Default play:
-  - one 4-color lantern shared by all 3 adults
-  - each person writes on a side; remaining side for family wish
-  - one or two snacks maximum because lunch at Guihou is substantial
-  - optional short coffee / takeout, around 15–20 min
-- Reference prices in mini guide are 2026 values and must be rechecked in 2027.
-- Restroom strategy: use Shifen Visitor Center after waterfall before Old Street when practical.
-- Leave around **15:20** to protect Jiufen arrival.
+# DAY 2 SUNNY BUDGET — PROTECTED SUPABASE SOURCE OF TRUTH
+
+## Current operational values
+- Taipei Garden Hotel breakfast 3p: **NT$2,000**.
+- LUMI Day 2 budget attribution: **NT$10,000**.
+- Yehliu admission 3p: **NT$360**.
+- Guihou lunch: **NT$3,000**.
+- Shifen lantern: **NT$300**.
+- Shifen snack/coffee: **NT$800**.
+- 阿理廚坊 + kaoliang: **NT$2,800**.
+- Golden Bar craft beer: **NT$2,200**.
+- Jiufen → hotel taxi: **NT$1,000**.
+- 銀河洞 third round: **NT$1,200 optional**.
+
+Detailed planned amount = **NT$23,660**.
+User-facing planning target = roughly **NT$23,500**.
+Day 2 sunny hard budget ceiling = **NT$26,000**.
+Budget buffer item = **NT$2,340**.
+
+Important accounting note:
+- LUMI actual reservation remains **NT$15,000 total for Day 2 + Day 4**.
+- Budget attribution is Day 2 = NT$10,000 / Day 4 = NT$5,000 only for planning.
+- Do not alter the reservation contract total.
+
+## Previous budget context
+Before finalizing the detailed sunny itinerary, Day 2 appeared as **NT$24,600** in the old DB layout, but that number incorrectly carried the full NT$15,000 LUMI Day2+Day4 contract inside Day 2.
+Normalized old Day 2 effective amount was therefore roughly **NT$19,600** before the richer Jiufen evening was added.
 
 ---
 
-# Jiufen — CURRENT NEXT STEP
-- The chat is now at **Jiufen arrival around 16:15** with LUMI finished.
-- Driver has left; from here onward there is no charter time pressure.
-- Family can explore alleys / tea / viewpoint / dinner / kaoliang at their own pace.
-- Return to Taipei by on-site called taxi when ready.
-- Next planning priority should be **Jiufen on-foot sequence and dinner/night-view rhythm**, unless user changes topic.
+# Built Day 2 field tools on website
+
+## Yehliu
+- Self-guided science-rich geology guide.
+- Offline-first PWA.
+- Original schematic/coordinate maps, no copied official map.
+- GPS assistance designed to remain local on-device; no location logging to Supabase/server.
+
+## Guihou
+- Fixed Day 2 lunch; old Qiao Yan plan is retired.
+- Dedicated `#guide/guihou`.
+- 1F selection, 2F eating, seafood-quality coach, price calculator, field Chinese, sources/recheck.
+- Unit-price / weight / cooking-fee / total workflow.
+- Offline Chinese phrasebook + TTS.
+
+## Shifen Waterfall
+- Dedicated explainer linked from Day 2.
+- Operational recommendation: 40–50 min core viewing.
+
+## Shifen Old Street
+- Dedicated mini guide linked from Day 2.
+- One 4-color lantern shared by family.
+- Snack + short coffee guidance.
+
+## Taiwan language AI
+- outbound speaking mode.
+- incoming listening mode.
+- field cheat sheet.
+- Traditional Chinese, pinyin, tone numbers, Korean pronunciation, TTS, large-screen show mode, audio flow.
 
 ---
 
-# Website / GitHub — latest main state checked before checkpoint
+# WEATHER PLAN STATUS — IMPORTANT
+
+## Current code state
+- `src/data/weatherPlans.ts` Day 2 rain plan is still an old placeholder/draft.
+- It says the complete replacement is being prepared and roughly suggests reducing outdoor sections depending on rain intensity.
+- **Do not treat that placeholder as the newly agreed Plan B/C.**
+
+## Newly agreed planning rules
+- **Plan A = sunny / fair weather — finalized.**
+- **Plan B = normal rain / manageable rain — to design next.**
+- **Plan C = more persistent or heavier rain, but still safe/manageable — to design next.**
+- Torrential rain, typhoon, dangerous wind, landslide-type conditions are **out of scope for the current B/C design**.
+- Jiufen remains the **fixed ending** for both B and C unless safety conditions make travel itself inappropriate.
+- The point of Plan B/C is not simply “delete outdoor attractions.” Each should be a satisfying day in its own right.
+
+---
+
+# GitHub / website
 Repo: `oops-lobster/minsung-tour-taiwan-2027`
 Public site: `https://oops-lobster.github.io/minsung-tour-taiwan-2027/`
 Checkpoint: `docs/CURRENT_CHAT_CHECKPOINT.md`
 
-Recent main updates already present:
-1. Taiwan language AI tools added.
-   - outbound “what I want to say”
-   - incoming “listen to them”
-   - field cheat sheet
-   - Traditional Chinese, pinyin, tone numbers, Korean pronunciation, TTS, large-screen show mode, audio flow
-2. Day 2 lunch changed to Guihou market.
-3. PWA update handling fixed so new service worker activates immediately and controlled pages reload once into the latest version.
-4. Shifen Waterfall explainer added and linked.
-5. Shifen Old Street field notes + mini guide added and linked.
-6. Guihou fish market field guide added with price calculator, Chinese phrases, 1F/2F operation, seafood coach, and offline support.
-
-Latest commit observed before this checkpoint refresh:
-- `062bd6ad0e4522e815f2132e948d01723acedfb9` — **feat: add Guihou fish market field guide**.
+Recent relevant main work:
+- Taiwan language AI tools.
+- Guihou lunch + field guide.
+- PWA immediate update fix.
+- Shifen Waterfall explainer.
+- Shifen Old Street mini guide.
+- Day 2 Jiufen evening finalized in `src/data/day2GuihouUpdate.ts`:
+  - Jiufen photo walk
+  - 阿理廚坊
+  - Golden Bar
+  - taxi to hotel
+  - optional 銀河洞
+- Codex prompt stored at `docs/codex_day2_sunny_final_schedule_budget.md`.
 
 ---
 
 # Continuity rules
-- **Always inspect recent `main` commits before relying only on this checkpoint if the user asks what is currently on the website.**
+- Always inspect recent `main` commits before claiming what is currently on the website.
 - Do not resurrect old Day 1 Tamsui/CKS/Chun Shui Tang plan.
 - CKS Memorial Hall is currently unassigned, not on Day 3.
 - Do not change 小統一 19:00 reservation.
 - Do not remove 弄宅咖啡 from rainy Day 1.
 - Do not expose private budget data publicly.
-- Source-of-truth OZ711 arrival is **09:50 at TPE T2**; recheck actual airline itinerary before final travel.
-- 奇立 ES300h 1,300 + signboard 200 is intended Day 1 pickup; no more price pushing.
-- LUMI Day 2 is 08:30–16:30 max; current schedule ends ~16:15 at Jiufen.
-- LUMI first NT$2,000 deposit sent but vendor receipt still pending; do not resend unless failed/returned.
-- Day 2 breakfast target 06:30, lobby 08:15, depart 08:30.
-- Yehliu should stay self-guided, science-rich, offline-capable, no group-guide approach.
-- Guihou lunch is fixed; do not reopen the old lunch search unless user asks.
-- Current conversation position is **Jiufen after saying goodbye to the driver**.
+- OZ711 source of truth remains 09:50 TPE T2 unless airline schedule changes.
+- 奇立 ES300h intended total = NT$1,500 including signboard; no more price pushing.
+- LUMI Day 2 = 08:30–16:30 max; sunny Plan A ends charter around 16:15 Jiufen.
+- LUMI first NT$2,000 deposit receipt remains pending; do not resend unless failed/returned.
+- Guihou lunch is fixed.
+- Day 2 sunny Plan A is closed.
+- **Current conversation task: design rainy Day 2 Plan B and Plan C, with Jiufen ending fixed and torrential-rain scenario excluded.**
