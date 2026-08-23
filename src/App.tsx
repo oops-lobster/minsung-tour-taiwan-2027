@@ -46,8 +46,9 @@ import {
 import { imagePath } from './lib/paths'
 
 const BudgetDashboard = lazy(() => import('./components/BudgetDashboard').then((module) => ({ default: module.BudgetDashboard })))
+const YehliuGuideView = lazy(() => import('./components/YehliuGuideView').then((module) => ({ default: module.YehliuGuideView })))
 
-type ViewId = 'home' | 'schedule' | 'bookings' | 'food' | 'budget' | 'minsung' | 'principles' | 'tools'
+type ViewId = 'home' | 'schedule' | 'bookings' | 'food' | 'budget' | 'minsung' | 'principles' | 'tools' | 'guide'
 type BookingTab = 'status' | 'stay' | 'mobility'
 
 interface AppRoute {
@@ -89,7 +90,7 @@ function readRoute(): AppRoute {
   if (days.some((day) => day.id === raw)) return { view: 'schedule', section: raw }
   if (raw === 'top' || raw === 'overview' || raw === '') return { view: 'home' }
 
-  const [view, section] = raw.split('/')
+  const [view, section, detail] = raw.split('/')
   if (view === 'schedule') {
     return { view: 'schedule', section: days.some((day) => day.id === section) ? section : 'day-1' }
   }
@@ -98,6 +99,9 @@ function readRoute(): AppRoute {
   }
   if (view === 'tools') {
     return { view: 'tools', section: toolsTabs.includes(section as ToolsTab) ? section : 'quick' }
+  }
+  if (view === 'guide' && section === 'yehliu') {
+    return { view: 'guide', section: detail === 'offline' ? 'offline' : 'yehliu' }
   }
   if (view === 'food' || view === 'budget' || view === 'minsung' || view === 'principles' || view === 'home') return { view }
 
@@ -651,6 +655,7 @@ function App() {
       minsung: '민성이 챙길 것',
       principles: '여행 원칙',
       tools: '현지 도구',
+      guide: '민성의 예류 지질 가이드',
     }
     document.title = `${labels[route.view]} | 민성투어 대만 2027`
 
@@ -669,7 +674,7 @@ function App() {
 
   return (
     <>
-      <OpeningSequence />
+      {route.view !== 'guide' && <OpeningSequence />}
       <a className="skip-link" href="#main">본문으로 바로가기</a>
 
       <header className="site-header">
@@ -688,7 +693,7 @@ function App() {
         </div>
       </header>
 
-      <main className="portal-main" id="main" tabIndex={-1}>
+      <main className={`portal-main ${route.view === 'guide' ? 'portal-main--guide' : ''}`} id="main" tabIndex={-1}>
         {route.view === 'home' && <HomeView />}
         {route.view === 'schedule' && <ScheduleView dayId={route.section ?? 'day-1'} />}
         {route.view === 'bookings' && <BookingsView tab={bookingTab} />}
@@ -697,13 +702,14 @@ function App() {
         {route.view === 'minsung' && <Suspense fallback={<div className="budget-loading">민성의 할 일을 준비하는 중…</div>}><BudgetDashboard mode="minsung" /></Suspense>}
         {route.view === 'principles' && <PrinciplesView />}
         {route.view === 'tools' && <LocalToolsView tab={toolsTab} />}
+        {route.view === 'guide' && <Suspense fallback={<div className="yehliu-guide-loading">예류 오프라인 가이드를 펼치는 중…</div>}><YehliuGuideView initialSection={route.section} /></Suspense>}
       </main>
 
       {(route.view === 'schedule' || route.view === 'tools') && <HotelReturnButton hotel={placeCatalog.hotel} />}
 
-      <SiteFooter />
+      {route.view !== 'guide' && <SiteFooter />}
 
-      <nav className="mobile-primary-nav" aria-label="모바일 주요 메뉴">
+      {route.view !== 'guide' && <nav className="mobile-primary-nav" aria-label="모바일 주요 메뉴">
         {mobileNav.map((item) => {
           const Icon = item.icon
           const active = route.view === item.id || (route.view === 'minsung' && item.id === 'budget')
@@ -714,7 +720,7 @@ function App() {
             </a>
           )
         })}
-      </nav>
+      </nav>}
     </>
   )
 }

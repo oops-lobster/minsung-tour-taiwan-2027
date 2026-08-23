@@ -50,6 +50,12 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
             <div className="timeline-item__details">
               {item.transport && <span className="transport-label">{item.transport}</span>}
               <p className="timeline-item__description">{item.description}</p>
+              {item.placeId === 'yehliu' && (
+                <div className="yehliu-timeline-actions" aria-label="예류 셀프 가이드">
+                  <a className="is-primary" href="#guide/yehliu">민성 해설 열기</a>
+                  <a href="#guide/yehliu/offline">오프라인 가이드 준비</a>
+                </div>
+              )}
               {item.tags && (
                 <div className="tag-row" aria-label="일정 상태">
                   {item.tags.map((tag) => <span key={tag}>{tag}</span>)}
