@@ -29,6 +29,26 @@ if (day2) {
       transport: 'Toyota New Alphard 40系',
     }
   }
+
+  const waterfallIndex = day2.schedule.findIndex((item) => item.placeId === 'shifen-waterfall')
+  if (waterfallIndex >= 0) {
+    const waterfall = day2.schedule[waterfallIndex]
+    day2.schedule[waterfallIndex] = {
+      ...waterfall,
+      description: '날씨가 괜찮다면 폭포 전망 구간을 보고 사진을 찍습니다. 관람을 마치고 스펀 옛거리로 이동하기 전에 十分遊客中心(스펀 Visitor Center) 화장실을 부모님까지 함께 이용하는 것을 기본 동선으로 둡니다. 옛거리 안쪽 화장실보다 이곳을 우선합니다.',
+      tags: Array.from(new Set([...(waterfall.tags ?? []), '폭포 후 Visitor Center 화장실', '옛거리 가기 전 WC'])),
+    }
+  }
+
+  const oldStreetIndex = day2.schedule.findIndex((item) => item.placeId === 'shifen-old-street')
+  if (oldStreetIndex >= 0) {
+    const oldStreet = day2.schedule[oldStreetIndex]
+    day2.schedule[oldStreetIndex] = {
+      ...oldStreet,
+      description: '철길 마을을 천천히 보고 세 사람이 풍등 한 개를 함께 띄웁니다. 2026 현장 참고가는 단색 약 NT$200, 인기 있는 4색 풍등은 약 NT$250–300입니다. 귀후어항에서 식사를 충분히 했으므로 간식은 맛보기만: 땅콩 아이스크림롤 약 NT$50, 닭날개 볶음밥 약 NT$75 수준을 참고합니다. 커피가 당기면 Tag Cafe 또는 十分柑ma店에서 15–20분 쉬거나 테이크아웃합니다. 기념품은 十分街 84號의 Shifen Tourist Gift Shop, 풍등 체험과 사진 서비스는 十分街 80號 YANGS를 현장 후보로 둡니다. 가격과 영업은 2027 방문 당일 다시 확인합니다.',
+      tags: Array.from(new Set([...(oldStreet.tags ?? []), '4색 풍등 1개 추천', '간식은 맛보기', '커피 15–20분 가능', '기념품 구경'])),
+    }
+  }
 }
 
 const day2Meal = mealPlan.find((meal) => meal.day === 'DAY 2')
