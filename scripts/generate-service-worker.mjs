@@ -8,8 +8,8 @@ const offlineFile = join(distDir, 'offline.html')
 const offlineHtml = `<!doctype html>
 <html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#315f63"><title>민성투어 · 오프라인</title>
-<style>body{margin:0;background:#f4f0e2;color:#173946;font-family:system-ui,-apple-system,sans-serif;display:grid;min-height:100vh;place-items:center}.card{width:min(32rem,calc(100% - 2rem));box-sizing:border-box;padding:2rem;border:1px solid #a8c9c4;border-radius:1.5rem;background:#fffdf5;box-shadow:0 18px 50px #1739461a}h1{font-family:Georgia,serif;font-size:2rem;margin:.5rem 0}p{line-height:1.7}a{display:inline-flex;min-height:44px;align-items:center;margin-top:1rem;padding:0 1.1rem;border-radius:999px;background:#315f63;color:white;text-decoration:none;font-weight:700}</style></head>
-<body><main class="card"><small>MINSUNG TOUR · OFFLINE</small><h1>연결이 잠시 끊겼어요</h1><p>이미 저장한 예류 가이드는 계속 사용할 수 있습니다. 아래 버튼으로 가이드를 다시 열어 주세요.</p><a href="./#guide/yehliu">예류 가이드 열기</a></main></body></html>`
+<style>body{margin:0;background:#f4f0e2;color:#173946;font-family:system-ui,-apple-system,sans-serif;display:grid;min-height:100vh;place-items:center}.card{width:min(32rem,calc(100% - 2rem));box-sizing:border-box;padding:2rem;border:1px solid #a8c9c4;border-radius:1.5rem;background:#fffdf5;box-shadow:0 18px 50px #1739461a}h1{font-family:Georgia,serif;font-size:2rem;margin:.5rem 0}p{line-height:1.7}.actions{display:flex;flex-wrap:wrap;gap:.65rem}a{display:inline-flex;min-height:44px;align-items:center;margin-top:1rem;padding:0 1.1rem;border-radius:999px;background:#315f63;color:white;text-decoration:none;font-weight:700}</style></head>
+<body><main class="card"><small>MINSUNG TOUR · OFFLINE</small><h1>연결이 잠시 끊겼어요</h1><p>이미 저장한 현장 가이드는 계속 사용할 수 있습니다. 필요한 가이드를 다시 열어 주세요.</p><div class="actions"><a href="./#guide/yehliu">예류 가이드</a><a href="./#guide/guihou">귀후어항 가이드</a></div></main></body></html>`
 
 await writeFile(offlineFile, offlineHtml)
 
@@ -45,7 +45,7 @@ const version = hash.digest('hex').slice(0, 10)
 const fullAssets = ['./', ...records.map((record) => record.path)]
 const indexHtml = await readFile(join(distDir, 'index.html'), 'utf8')
 const entryAssets = [...indexHtml.matchAll(/(?:src|href)="(\.\/[^"#?]+)"/g)].map((match) => match[1])
-const guideEntryAssets = records.map((record) => record.path).filter((path) => /\/YehliuGuideView-[^/]+\.js$/.test(path))
+const guideEntryAssets = records.map((record) => record.path).filter((path) => /\/(?:Yehliu|Guihou)GuideView-[^/]+\.js$/.test(path))
 const shellAssets = [...new Set(['./', './index.html', './offline.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', ...entryAssets, ...guideEntryAssets])]
 const totalSize = records.reduce((sum, record) => sum + record.size, 0)
 

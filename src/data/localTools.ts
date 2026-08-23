@@ -204,6 +204,18 @@ export const placeCatalog = {
     longitude: 121.6905,
     descriptionKo: '바닷바람을 맞으며 독특한 해식 지형과 핵심 바위 구역을 걷는 북해안 명소입니다.',
   },
+  guihou: {
+    name: '귀후어항 어시장',
+    localName: '龜吼漁夫市集',
+    englishName: 'Guihou Fishermen Market',
+    address: '新北市萬里區漁澳16號前方',
+    latitude: 25.1946958,
+    longitude: 121.6874832,
+    categoryKo: '2층형 수산시장',
+    specialtyKo: '제철 해산물·바다 전망 식사',
+    displayHintKo: '수산시장 · 제철 해산물 · 바다 전망 식사',
+    descriptionKo: '1층에서 당일 좋은 해산물을 고르고 가격과 조리비를 확인한 뒤, 2층에서 바다를 보며 식사하는 현장 선택형 점심 장소입니다.',
+  },
   'qiao-yan': {
     name: 'Qiao Yan Seafood',
     localName: '俏宴',
@@ -415,7 +427,7 @@ export interface RestaurantFallback {
 export const restaurantFallbacks: RestaurantFallback[] = [
   { day: 'DAY 1 · 점심', planA: '춘수당 중정기념당점', planAPlaceId: 'chun-shui-tang', planB: '호텔·중정기념당 인근의 가벼운 실내식', reason: '웨이팅 또는 도착 지연' },
   { day: 'DAY 1 · 저녁', planA: '魚藏餐廳', planAPlaceId: 'yuzang', planB: '단수이 라오제의 깔끔한 대만식 식당', reason: '휴무 또는 부모님 컨디션' },
-  { day: 'DAY 2 · 점심', planA: 'Qiao Yan Seafood / 俏宴', planAPlaceId: 'qiao-yan', planB: '예류 인근 실내식 또는 기사님 추천 식당', reason: '현장 영업 상태' },
+  { day: 'DAY 2 · 점심', planA: '龜吼漁夫市集 · 현장 선택형', planAPlaceId: 'guihou', planB: '예류 인근 실내식 또는 기사님 추천 식당', reason: '시장 영업·어획·바람 상태' },
   { day: 'DAY 2 · 저녁', planA: '지우펀 현지식', planAPlaceId: 'jiufen', planB: '지우펀 찻집의 간단한 식사', reason: '골목 혼잡 또는 피로' },
   { day: 'DAY 3 · 점심', planA: '딘타이펑 신생점', planAPlaceId: 'din-tai-fung-xinsheng', planB: '용캉제의 깔끔한 대만식 식당', reason: '대기시간 과다' },
   { day: 'DAY 3 · 저녁', planA: '85TD', planAPlaceId: '85td', planB: '신이구 호텔 다이닝', reason: '예약 불가 또는 일정 변경' },

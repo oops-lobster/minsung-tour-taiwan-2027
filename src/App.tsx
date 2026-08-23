@@ -47,6 +47,7 @@ import { imagePath } from './lib/paths'
 
 const BudgetDashboard = lazy(() => import('./components/BudgetDashboard').then((module) => ({ default: module.BudgetDashboard })))
 const YehliuGuideView = lazy(() => import('./components/YehliuGuideView').then((module) => ({ default: module.YehliuGuideView })))
+const GuihouGuideView = lazy(() => import('./components/GuihouGuideView').then((module) => ({ default: module.GuihouGuideView })))
 
 type ViewId = 'home' | 'schedule' | 'bookings' | 'food' | 'budget' | 'minsung' | 'principles' | 'tools' | 'guide'
 type BookingTab = 'status' | 'stay' | 'mobility'
@@ -54,6 +55,7 @@ type BookingTab = 'status' | 'stay' | 'mobility'
 interface AppRoute {
   view: ViewId
   section?: string
+  guide?: 'yehliu' | 'guihou'
 }
 
 const statusIcons: Record<string, LucideIcon> = {
@@ -101,7 +103,10 @@ function readRoute(): AppRoute {
     return { view: 'tools', section: toolsTabs.includes(section as ToolsTab) ? section : 'quick' }
   }
   if (view === 'guide' && section === 'yehliu') {
-    return { view: 'guide', section: detail === 'offline' ? 'offline' : detail === 'gps' ? 'gps' : 'yehliu' }
+    return { view: 'guide', guide: 'yehliu', section: detail === 'offline' ? 'offline' : detail === 'gps' ? 'gps' : 'yehliu' }
+  }
+  if (view === 'guide' && section === 'guihou') {
+    return { view: 'guide', guide: 'guihou', section: detail ?? 'operation' }
   }
   if (view === 'food' || view === 'budget' || view === 'minsung' || view === 'principles' || view === 'home') return { view }
 
@@ -655,7 +660,7 @@ function App() {
       minsung: '민성이 챙길 것',
       principles: '여행 원칙',
       tools: '현지 도구',
-      guide: '민성의 예류 지질 가이드',
+      guide: route.guide === 'guihou' ? '민성의 귀후어항 해산물 가이드' : '민성의 예류 지질 가이드',
     }
     document.title = `${labels[route.view]} | 민성투어 대만 2027`
 
@@ -702,7 +707,8 @@ function App() {
         {route.view === 'minsung' && <Suspense fallback={<div className="budget-loading">민성의 할 일을 준비하는 중…</div>}><BudgetDashboard mode="minsung" /></Suspense>}
         {route.view === 'principles' && <PrinciplesView />}
         {route.view === 'tools' && <LocalToolsView tab={toolsTab} />}
-        {route.view === 'guide' && <Suspense fallback={<div className="yehliu-guide-loading">예류 오프라인 가이드를 펼치는 중…</div>}><YehliuGuideView initialSection={route.section} /></Suspense>}
+        {route.view === 'guide' && route.guide === 'guihou' && <Suspense fallback={<div className="yehliu-guide-loading">귀후어항 현장 가이드를 펼치는 중…</div>}><GuihouGuideView initialSection={route.section} /></Suspense>}
+        {route.view === 'guide' && route.guide !== 'guihou' && <Suspense fallback={<div className="yehliu-guide-loading">예류 오프라인 가이드를 펼치는 중…</div>}><YehliuGuideView initialSection={route.section} /></Suspense>}
       </main>
 
       {(route.view === 'schedule' || route.view === 'tools') && <HotelReturnButton hotel={placeCatalog.hotel} />}

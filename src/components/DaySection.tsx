@@ -66,6 +66,12 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
                   <a className="is-primary" href={`${import.meta.env.BASE_URL}shifen-old-street.html`}>풍등·간식·카페 가이드</a>
                 </div>
               )}
+              {item.placeId === 'guihou' && (
+                <div className="yehliu-timeline-actions" aria-label="귀후어항 현장 가이드">
+                  <a className="is-primary" href="#guide/guihou">해산물 가이드 열기</a>
+                  <a href="#guide/guihou/price">가격 계산 바로가기</a>
+                </div>
+              )}
               {item.tags && (
                 <div className="tag-row" aria-label="일정 상태">
                   {item.tags.map((tag) => <span key={tag}>{tag}</span>)}
@@ -164,6 +170,21 @@ export function DaySection({ day, index }: DaySectionProps) {
             <strong>{day.transport}</strong>
           </div>
         </div>
+
+        {day.id === 'day-2' && (
+          <aside className="guihou-day-entry" aria-labelledby="guihou-day-entry-title">
+            <UtensilsCrossed aria-hidden="true" />
+            <div>
+              <small>DAY 2 · FIELD GUIDE</small>
+              <h3 id="guihou-day-entry-title">귀후어항 해산물 가이드</h3>
+              <p>1층에서 한 바퀴 보고 가격을 확인한 뒤, 2층에서 바다 보며 먹는 현장 작전.</p>
+            </div>
+            <div>
+              <a className="is-primary" href="#guide/guihou">가이드 열기</a>
+              <a href="#guide/guihou/price">가격 계산</a>
+            </div>
+          </aside>
+        )}
 
         <WeatherPlanSelector
           config={weatherConfig}

@@ -36,7 +36,7 @@ export const dayRoutes: Record<string, DayRoute> = {
     stops: [
       { placeId: 'hotel', label: 'Taipei Garden Hotel', note: '08:30 출발' },
       { placeId: 'yehliu', label: '예류지질공원' },
-      { placeId: 'qiao-yan', label: 'Qiao Yan', note: '점심' },
+      { placeId: 'guihou', label: '귀후어항 어시장', note: '현장 선택형 점심' },
       { placeId: 'shifen-waterfall', label: '스펀폭포' },
       { placeId: 'shifen-old-street', label: '스펀 옛거리' },
       { placeId: 'jiufen', label: '지우펀', note: '전용차 종료' },

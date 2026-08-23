@@ -89,11 +89,11 @@ export const taiwanPhrases: TaiwanPhrase[] = [
   },
   {
     id: 'harbor-three-budget', category: '귀후어항',
-    korean: '저희 세 명이고 예산은 대략 2천 대만달러 정도예요. 이 정도로 맞춰주실 수 있어요?',
-    traditionalChinese: '我們三個人，預算抓兩千塊左右，可以幫我們配嗎？',
-    pinyin: 'Wǒmen sān ge rén, yùsuàn zhuā liǎngqiān kuài zuǒyòu, kěyǐ bāng wǒmen pèi ma?',
-    toneNumbers: 'wo3 men5 san1 ge5 ren2, yu4 suan4 zhua1 liang3 qian1 kuai4 zuo3 you4, ke3 yi3 bang1 wo3 men5 pei4 ma5?', koreanPronunciation: '워먼 산거 런, 위쉬안 좌 량쳘 콰이 좌우, 커이 방 워먼 페이 마?',
-    usage: '3인 주문 범위를 먼저 맞출 때',
+    korean: '저희 세 명이 먹기 적당한 양으로 추천해주실 수 있어요?',
+    traditionalChinese: '我們三個人，可以幫我們配合適的份量嗎？',
+    pinyin: 'Wǒmen sān ge rén, kěyǐ bāng wǒmen pèi héshì de fènliàng ma?',
+    toneNumbers: 'wo3 men5 san1 ge5 ren2, ke3 yi3 bang1 wo3 men5 pei4 he2 shi4 de5 fen4 liang4 ma5?', koreanPronunciation: '워먼 산거 런, 커이 방 워먼 페이 허스더 펀량 마?',
+    usage: '개인 예산 숫자를 공개하지 않고 3인 분량을 맞출 때',
   },
   {
     id: 'harbor-price', category: '가격 확인', korean: '이거 얼마예요?', traditionalChinese: '這個怎麼賣？',
@@ -128,7 +128,7 @@ export const taiwanPhrases: TaiwanPhrase[] = [
     pinyin: 'Kěyǐ dǎ zài jìsuànjī shàng gěi wǒ kàn ma?', toneNumbers: 'ke3 yi3 da3 zai4 ji4 suan4 ji1 shang4 gei3 wo3 kan4 ma5?', koreanPronunciation: '커이 다 재이 지쉬안지 상 게이 워 칸 마?', usage: '숫자를 잘못 들을 수 있을 때',
   },
   {
-    id: 'harbor-no-expensive', category: '귀후어항', korean: '랍스터, 게나 너무 비싼 건 필요 없고 오늘 신선하고 가격 괜찮은 걸로 주세요.', traditionalChinese: '不用龍蝦、蟹蛹或太貴的，今天新鮮、價格合理的就好。',
+    id: 'harbor-no-expensive', category: '귀후어항', korean: '랍스터, 게나 너무 비싼 건 필요 없고 오늘 신선하고 가격 괜찮은 걸로 주세요.', traditionalChinese: '不用龍蝦、螃蟹或太貴的，今天新鮮、價格合理的就好。',
     pinyin: 'Búyòng lóngxiā, pàngxiè huò tài guì de, jīntiān xīnxiān, jiàgé hélǐ de jiù hǎo.', toneNumbers: 'bu2 yong4 long2 xia1, pang2 xie4 huo4 tai4 gui4 de5, jin1 tian1 xin1 xian1, jia4 ge2 he2 li3 de5 jiu4 hao3.', koreanPronunciation: '부용 롱샤, 팡셰 혹 타이 귀이더, 진폐 신션, 짜거 허리더 지우 하오.', usage: '북해안의 신선도를 가볍게 즐길 때',
   },
   { id: 'restaurant-three', category: '식당', korean: '세 명이에요.', traditionalChinese: '我們三位。', pinyin: 'Wǒmen sān wèi.', toneNumbers: 'wo3 men5 san1 wei4.', koreanPronunciation: '워먼 산 웨이.', usage: '식당에 들어갈 때' },

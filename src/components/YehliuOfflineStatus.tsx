@@ -44,7 +44,7 @@ async function askWorker(type: string, timeout = 50000): Promise<WorkerReply> {
   })
 }
 
-export function YehliuOfflineStatus({ focusOnMount = false }: { focusOnMount?: boolean }) {
+export function YehliuOfflineStatus({ focusOnMount = false, guideName = '예류', returnHref = '#guide/yehliu' }: { focusOnMount?: boolean; guideName?: string; returnHref?: string }) {
   const [state, setState] = useState<OfflineState>('checking')
   const [status, setStatus] = useState<CacheStatus | null>(null)
   const [online, setOnline] = useState(navigator.onLine)
@@ -75,7 +75,7 @@ export function YehliuOfflineStatus({ focusOnMount = false }: { focusOnMount?: b
       setStatus(nextStatus)
       setState(nextStatus.ready ? 'ready' : 'not-saved')
       setMessage(nextStatus.ready
-        ? '예류 가이드가 이 기기에 저장되어 있습니다. 비행기 모드에서도 열 수 있어요.'
+        ? `${guideName} 가이드가 이 기기에 저장되어 있습니다. 비행기 모드에서도 열 수 있어요.`
         : '출발 전에 온라인 상태에서 한 번 저장해 주세요.')
     } catch (error) {
       setState('error')
@@ -183,13 +183,13 @@ export function YehliuOfflineStatus({ focusOnMount = false }: { focusOnMount?: b
   }
 
   return (
-    <section className={`yehliu-offline yehliu-offline--${state}`} id="yehliu-offline" tabIndex={focusOnMount ? -1 : undefined} aria-labelledby="yehliu-offline-title">
+    <section className={`yehliu-offline yehliu-offline--${state}`} id="yehliu-offline" data-return-href={returnHref} tabIndex={focusOnMount ? -1 : undefined} aria-labelledby="yehliu-offline-title">
       <div className="yehliu-offline__icon" aria-hidden="true">
         {state === 'ready' ? <CheckCircle2 /> : state === 'saving' ? <CloudDownload /> : <Database />}
       </div>
       <div className="yehliu-offline__copy">
         <span className="yehliu-offline__network"><Icon size={16} aria-hidden="true" /> {online ? '현재 온라인' : '현재 오프라인'}</span>
-        <h2 id="yehliu-offline-title">출발 전, 가이드 한 번 저장</h2>
+        <h2 id="yehliu-offline-title">출발 전, {guideName} 가이드 한 번 저장</h2>
         <p aria-live="polite">{message}</p>
         {status && (
           <dl className="yehliu-offline__meta">
