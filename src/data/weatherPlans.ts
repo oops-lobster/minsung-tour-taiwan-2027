@@ -277,7 +277,7 @@ const dayPlanMeta: Record<string, DayPlanMeta> = {
   },
   'day-2': {
     planATheme: '예류 → 스펀 → 지우펀',
-    planASummary: '전용차로 북해안과 산골 마을을 잇는 하루',
+    planASummary: '북해안과 지우펀의 밤을 잇고 21:00 호텔 복귀로 끝나는 맑은 날 확정안',
     planB: {
       theme: '북해안 날씨 대응 버전',
       summary: '완전 대체 일정은 준비 중이며, 비의 세기에 따라 야외 구간을 줄입니다.',

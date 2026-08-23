@@ -1,6 +1,6 @@
 # CURRENT CHAT CHECKPOINT
 
-Last updated: 2026-08-23 22:28 KST
+Last updated: 2026-08-23 23:25 KST
 
 > Canonical handoff for continuing this Taiwan trip-planning chat.
 >
@@ -205,6 +205,8 @@ Important accounting note:
 - LUMI actual reservation remains **NT$15,000 total for Day 2 + Day 4**.
 - Budget attribution is Day 2 = NT$10,000 / Day 4 = NT$5,000 only for planning.
 - Do not alter the reservation contract total.
+- Production rechecked after migration: 11 Day 2 rows total **NT$26,000**, contingency **NT$2,340**, and the 3 LUMI payment rows still total **NT$15,000**.
+- Production/Git migration history now includes `20260823141544_finalize_day2_sunny_budget`.
 
 ## Previous budget context
 Before finalizing the detailed sunny itinerary, Day 2 appeared as **NT$24,600** in the old DB layout, but that number incorrectly carried the full NT$15,000 LUMI Day2+Day4 contract inside Day 2.
