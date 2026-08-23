@@ -45,7 +45,7 @@ export function OpeningSequence() {
 
   return (
     <div className="opening" role="dialog" aria-modal="true" aria-label="민성투어 오프닝">
-      <img className="opening__backdrop" src={imagePath('hero.webp')} alt="" width="1600" height="1069" />
+      <img className="opening__backdrop" src={imagePath('day1-route-background.png')} alt="" width="1774" height="887" />
       <div className="opening__shade" />
       <div className="opening__curtain opening__curtain--left" />
       <div className="opening__curtain opening__curtain--right" />

@@ -11,6 +11,10 @@ interface DayRouteMapProps {
   routeId?: string
 }
 
+const routeNodeWidth = 154
+const routeNodeGap = 20
+const routeEdgePadding = 56
+
 export function DayRouteMap({ dayId, dayLabel, route: suppliedRoute, routeId }: DayRouteMapProps) {
   const route = suppliedRoute ?? dayRoutes[dayId]
   const [activeStop, setActiveStop] = useState<number | null>(null)
@@ -22,7 +26,12 @@ export function DayRouteMap({ dayId, dayLabel, route: suppliedRoute, routeId }: 
   const titleId = `${mapId}-route-title`
   const descriptionId = `${mapId}-route-description`
   const stopId = (index: number) => `${mapId}-route-stop-${index + 1}`
-  const trackWidth = Math.max(760, route.stops.length * 164)
+  const trackWidth = Math.max(
+    760,
+    route.stops.length * routeNodeWidth
+      + Math.max(0, route.stops.length - 1) * routeNodeGap
+      + routeEdgePadding * 2,
+  )
 
   const jumpToStop = (index: number) => {
     const target = stopCards.current[index]

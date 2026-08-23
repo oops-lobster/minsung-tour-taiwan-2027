@@ -162,7 +162,6 @@ function StatusOverview({ compact = false }: { compact?: boolean }) {
 }
 
 function HomeView() {
-  const heroSource = imageSourceByFile['hero.webp']
   const today = new Date()
   const localDayIndex = Math.floor(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) / 86_400_000)
   const todayCard = todayTaiwanCards[localDayIndex % todayTaiwanCards.length]
@@ -172,17 +171,17 @@ function HomeView() {
       <section className="hero hero--portal" aria-labelledby="hero-title">
         <img
           className="hero__image"
-          src={imagePath('hero.webp')}
-          alt={heroSource.alt}
-          width="1600"
-          height="1069"
+          src={imagePath('day1-route-background.png')}
+          alt="타이베이 도심과 산, 다리와 사원이 어우러진 따뜻한 수채화 풍경"
+          width="1774"
+          height="887"
           fetchPriority="high"
         />
         <div className="hero__overlay" />
         <div className="hero__content page-shell">
           <div className="hero__copy">
             <span className="hero__eyebrow">PRIVATE FAMILY JOURNEY · TAIPEI</span>
-            <div className="hero__brand-line"><Brand light /></div>
+            <div className="hero__brand-line"><Brand /></div>
             <p className="hero__date">{tripMeta.dateLabel}</p>
             <h1 id="hero-title">
               <span className="hero__slogan-line">가치 있는 사치.</span>
@@ -211,10 +210,6 @@ function HomeView() {
             </div>
             <p>Asiana Airlines · Taipei Garden Hotel</p>
           </aside>
-        </div>
-        <div className="hero__photo-credit">
-          <span>{heroSource.place}</span>
-          <a href={heroSource.sourceUrl} target="_blank" rel="noreferrer">Photo · {heroSource.author}</a>
         </div>
       </section>
 
