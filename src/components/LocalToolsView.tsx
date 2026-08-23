@@ -8,7 +8,6 @@ import {
   ChevronRight,
   CloudSun,
   Copy,
-  ExternalLink,
   HeartHandshake,
   Languages,
   MapPinned,
@@ -26,15 +25,14 @@ import {
   rainPlans,
   restaurantFallbacks,
   streetSnacks,
-  translationPhrases,
   travelApps,
 } from '../data/localTools'
-import { googleTranslateUrl } from '../lib/paths'
 import { imagePath } from '../lib/paths'
 import { ExchangeRateCard, useExchangeRate } from './ExchangeRateCard'
 import { PlaceActions } from './PlaceActions'
 import { SectionHeader } from './SectionHeader'
 import { WeatherCard } from './WeatherCard'
+import { TaiwanLanguageTools } from './TaiwanLanguageTools'
 
 export type ToolsTab = 'quick' | 'language' | 'weather' | 'guide'
 
@@ -93,6 +91,20 @@ function QuickTools() {
         </div>
       </section>
 
+      <section className="language-tool-entry" aria-label="대만 회화 AI 바로가기">
+        <div className="page-shell">
+          <a href="#tools/language">
+            <span className="language-tool-entry__icon" aria-hidden="true"><Languages size={24} /></span>
+            <span className="language-tool-entry__copy">
+              <small>TAIWAN LANGUAGE COPILOT</small>
+              <strong>대만 회화 AI</strong>
+              <span>직접 말할 문장 · 상대 말 듣기 · 오프라인 현장 문장</span>
+            </span>
+            <span className="language-tool-entry__action">회화 도구 열기 <ChevronRight size={18} aria-hidden="true" /></span>
+          </a>
+        </div>
+      </section>
+
       <section className="tools-section section-pad">
         <div className="page-shell">
           <SectionHeader eyebrow="DAILY EXCHANGE" title="오늘의 대만달러 계산" description="하루 한 번 갱신되는 참고 환율로 대만달러를 원화로 빠르게 가늠합니다." />
@@ -137,45 +149,6 @@ function QuickTools() {
         </div>
       </section>
     </>
-  )
-}
-
-function LanguageTools() {
-  const [activePhrase, setActivePhrase] = useState<(typeof translationPhrases)[number] | null>(translationPhrases[0])
-  const categories = ['기사님', '식당'] as const
-
-  return (
-    <section className="tools-section section-pad">
-      <div className="page-shell language-layout">
-        <SectionHeader eyebrow="SAY IT IN TAIWAN" title="번체 중국어 한 장" description="필요한 문장을 누르면 부모님도 함께 보기 쉬운 큰 글자로 표시합니다." />
-        <div className="phrase-display" aria-live="polite">
-          <small>{activePhrase?.category ?? '문장을 선택하세요'}</small>
-          <p>{activePhrase?.korean}</p>
-          <strong lang="zh-Hant">{activePhrase?.chinese}</strong>
-          <a href={googleTranslateUrl(activePhrase?.korean)} target="_blank" rel="noreferrer">
-            Google Translate에서 열기 <ExternalLink size={15} aria-hidden="true" />
-          </a>
-        </div>
-        <div className="phrase-groups">
-          {categories.map((category) => (
-            <section key={category}>
-              <h2>{category}</h2>
-              <div>
-                {translationPhrases.filter((phrase) => phrase.category === category).map((phrase) => (
-                  <button type="button" onClick={() => setActivePhrase(phrase)} className={activePhrase?.korean === phrase.korean ? 'is-active' : ''} key={phrase.korean}>
-                    <span>{phrase.korean}</span>
-                    <small lang="zh-Hant">{phrase.chinese}</small>
-                  </button>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-        <a className="translate-launch" href={googleTranslateUrl()} target="_blank" rel="noreferrer">
-          <Languages size={20} aria-hidden="true" /> 자유 문장 번역하기 <ExternalLink size={15} aria-hidden="true" />
-        </a>
-      </div>
-    </section>
   )
 }
 
@@ -368,7 +341,7 @@ export function LocalToolsView({ tab }: { tab: ToolsTab }) {
         </div>
       </nav>
       {tab === 'quick' && <QuickTools />}
-      {tab === 'language' && <LanguageTools />}
+      {tab === 'language' && <TaiwanLanguageTools />}
       {tab === 'weather' && <WeatherTools />}
       {tab === 'guide' && <GuideTools />}
     </div>
