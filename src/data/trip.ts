@@ -343,10 +343,11 @@ export const days: TripDay[] = [
         time: '09:20–10:50',
         title: '예류지질공원',
         localName: '野柳地質公園',
-        description: '바닷바람을 맞으며 핵심 바위 구역 중심으로 천천히 둘러봅니다.',
+        description: '09:20 전후 도착해 방문자센터 화장실을 먼저 이용합니다. 민성의 셀프 지질 가이드로 제1·2구역을 걷고 Queen’s Bookstore 화장실을 거쳐 10:45~10:50 전후 차량 복귀를 목표로 합니다. 바람·파도·부모님 컨디션에 따라 현장에서 유연하게 줄입니다.',
         image: 'yehliu.webp',
         mapQuery: 'Yehliu Geopark',
         placeId: 'yehliu',
+        tags: ['민성 셀프 지질 가이드', '제1·2구역', '상황 따라 단축'],
       },
       {
         time: '11:00–12:00',
