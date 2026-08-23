@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#eef5f2" />
+  <title>스펀폭포 설명 | 민성투어 대만 2027</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #16312d;
+      --muted: #60736f;
+      --paper: #f7faf8;
+      --card: rgba(255,255,255,.92);
+      --line: #dbe6e2;
+      --accent: #26796d;
+      --accent-soft: #e8f3ef;
+      --deep: #102b28;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.72;
+    }
+    a { color: inherit; }
+    .shell { width: min(760px, calc(100% - 32px)); margin: 0 auto; }
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(247,250,248,.9);
+      border-bottom: 1px solid rgba(219,230,226,.85);
+    }
+    .topbar .shell { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .back { text-decoration: none; font-weight: 760; font-size: .93rem; }
+    .brand { color: var(--muted); font-size: .78rem; font-weight: 800; letter-spacing: .12em; }
+    .hero { position: relative; min-height: 420px; display: grid; align-items: end; overflow: hidden; background: var(--deep); }
+    .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,24,23,.05) 20%, rgba(5,24,23,.78) 100%); }
+    .hero-copy { position: relative; z-index: 1; color: white; padding: 96px 0 38px; }
+    .eyebrow { margin: 0 0 8px; font-size: .76rem; font-weight: 850; letter-spacing: .16em; opacity: .85; }
+    h1 { margin: 0; font-size: clamp(2.35rem, 10vw, 4.6rem); line-height: 1.04; letter-spacing: -.045em; }
+    .hero-copy > p:last-child { margin: 14px 0 0; max-width: 620px; font-size: 1.05rem; color: rgba(255,255,255,.9); }
+    main { padding: 34px 0 72px; }
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 34px; }
+    .fact { padding: 16px 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); }
+    .fact span { display: block; color: var(--muted); font-size: .72rem; font-weight: 800; letter-spacing: .04em; }
+    .fact strong { display: block; margin-top: 5px; font-size: 1rem; }
+    article { padding: 28px 0; border-top: 1px solid var(--line); }
+    article:first-of-type { border-top: 0; }
+    h2 { margin: 0 0 11px; font-size: 1.46rem; line-height: 1.28; letter-spacing: -.025em; }
+    p { margin: 0 0 12px; }
+    .lead { font-size: 1.08rem; }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .compare section { padding: 18px; background: white; border: 1px solid var(--line); border-radius: 18px; }
+    .compare small { color: var(--muted); font-weight: 800; }
+    .compare h3 { margin: 3px 0 7px; font-size: 1.05rem; }
+    .note { margin-top: 16px; padding: 16px 18px; border-radius: 16px; background: var(--accent-soft); }
+    .note strong { color: var(--accent); }
+    .watch { display: grid; gap: 11px; counter-reset: watch; margin-top: 14px; }
+    .watch div { position: relative; padding: 14px 16px 14px 52px; background: white; border: 1px solid var(--line); border-radius: 16px; }
+    .watch div::before { counter-increment: watch; content: counter(watch); position: absolute; left: 15px; top: 14px; width: 25px; height: 25px; display: grid; place-items: center; border-radius: 50%; color: white; background: var(--accent); font-size: .78rem; font-weight: 850; }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .links a { text-decoration: none; border: 1px solid var(--line); background: white; border-radius: 999px; padding: 9px 13px; font-weight: 760; font-size: .9rem; }
+    .credit { margin-top: 24px; color: var(--muted); font-size: .76rem; }
+    .credit a { text-underline-offset: 3px; }
+    .bottom-back { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; margin-top: 28px; padding: 0 18px; border-radius: 14px; background: var(--deep); color: white; text-decoration: none; font-weight: 820; }
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 24px, 760px); }
+      .hero { min-height: 360px; }
+      .hero-copy { padding-bottom: 28px; }
+      .facts { grid-template-columns: 1fr 1fr; }
+      .compare { grid-template-columns: 1fr; }
+      main { padding-top: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell">
+      <a class="back" href="./#schedule/day-2">← Day 2 일정</a>
+      <span class="brand">MINSUNG TOUR · DAY 2</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="./images/shifen-waterfall.webp" alt="초록 숲 사이로 넓고 힘차게 떨어지는 스펀폭포" />
+    <div class="hero-copy shell">
+      <p class="eyebrow">十分瀑布 · SHIFEN WATERFALL</p>
+      <h1>대만의 나이아가라</h1>
+      <p>높이보다 폭과 물량으로 보는 폭포. 복잡하게 공부하기보다, 왜 이 장면이 특별한지만 알고 가면 충분합니다.</p>
+    </div>
+  </section>
+
+  <main class="shell">
+    <section class="facts" aria-label="스펀폭포 핵심 정보">
+      <div class="fact"><span>폭</span><strong>약 40 m</strong></div>
+      <div class="fact"><span>낙차</span><strong>약 20 m</strong></div>
+      <div class="fact"><span>형태</span><strong>커튼형 폭포</strong></div>
+      <div class="fact"><span>우리 일정</span><strong>13:00 전후</strong></div>
+    </section>
+
+    <article>
+      <h2>뭐가 특별한데?</h2>
+      <p class="lead">스펀폭포는 기륭강 본류가 넓은 암반 턱을 한꺼번에 넘어가며 떨어집니다. 그래서 높은 한 줄기 폭포보다 <strong>가로로 넓게 펼쳐지는 흰 물의 벽</strong>이 핵심입니다.</p>
+      <p>폭포 아래 깊은 소에서 물안개가 크게 올라오고, 햇빛 방향이 맞으면 그 안에 무지개가 생깁니다. 신베이시 관광청이 이곳을 ‘Taiwan's Niagara Falls’라고 부르는 이유도 이 넓은 파노라마와 물량 때문입니다.</p>
+    </article>
+
+    <article>
+      <h2>천제연폭포랑은 뭐가 달라?</h2>
+      <div class="compare">
+        <section>
+          <small>JEJU · 천제연</small>
+          <h3>계곡을 따라 만나는 폭포</h3>
+          <p>여러 폭포와 깊은 계곡, 숲을 걸으며 경관 전체를 보는 쪽에 가깝습니다.</p>
+        </section>
+        <section>
+          <small>TAIWAN · 스펀</small>
+          <h3>한 장면의 폭과 힘</h3>
+          <p>큰 강물이 넓게 떨어지는 정면 파노라마와 물소리, 물안개를 한 번에 느끼는 폭포입니다.</p>
+        </section>
+      </div>
+      <div class="note"><strong>한마디로:</strong> 천제연이 ‘계곡 여행’이라면, 스펀은 ‘큰 폭포 한 방’에 가깝습니다.</div>
+    </article>
+
+    <article>
+      <h2>2월에 봐도 괜찮아?</h2>
+      <p>괜찮습니다. 북부 대만의 겨울은 완전한 건기가 아니고, 스펀은 작은 계류가 아니라 기륭강 본류의 폭포라 2월 방문 자체가 나쁜 선택은 아닙니다.</p>
+      <p>다만 <strong>그날 실제 수량은 직전 며칠의 비</strong>에 따라 달라집니다. 가장 좋은 그림은 ‘며칠 비가 온 뒤 당일 맑음’. 햇빛이 나면 물안개 속 무지개도 기대할 수 있습니다.</p>
+      <div class="note"><strong>여행 당일:</strong> 아침에 신베이시 실시간 카메라로 수량만 한 번 보고 가면 됩니다.</div>
+    </article>
+
+    <article>
+      <h2>현장에서는 이것만 보자</h2>
+      <div class="watch">
+        <div><strong>정면 전망</strong><br />폭 40m의 물벽이 한 화면에 들어오는 지점을 먼저 봅니다.</div>
+        <div><strong>물안개와 무지개</strong><br />날이 맑으면 폭포 아래쪽과 물안개 쪽을 한 번 살펴봅니다.</div>
+        <div><strong>소리와 폭</strong><br />사진만 찍기보다 잠깐 멈춰 물소리와 강 전체가 떨어지는 느낌을 봅니다.</div>
+      </div>
+      <p style="margin-top:16px">우리 일정에서는 <strong>40–50분 정도면 충분</strong>합니다. 오래 공부할 곳이라기보다, 제대로 한 번 보고 스펀 옛거리로 넘어가는 곳입니다.</p>
+    </article>
+
+    <article>
+      <h2>공식 정보</h2>
+      <p>신베이시 공식 안내 기준 스펀폭포공원은 10월–5월 09:00–17:00 운영, 마지막 입장은 16:30입니다. 우리 13시 전후 방문에는 시간 여유가 충분합니다.</p>
+      <div class="links">
+        <a href="https://newtaipei.travel/en/attractions/detail/111592" target="_blank" rel="noreferrer">신베이시 스펀폭포</a>
+        <a href="https://eng.taiwan.net.tw/m1.aspx?id=R11&sNo=0000208" target="_blank" rel="noreferrer">대만 관광청 스펀</a>
+        <a href="https://newtaipei.travel/en/live-camera" target="_blank" rel="noreferrer">실시간 카메라</a>
+      </div>
+      <p class="credit">사진: Yue gowua YT · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Shifen_Waterfall_left_view_20190812a.jpg" target="_blank" rel="noreferrer">Wikimedia Commons</a><br />정보 확인: 2026-08-23</p>
+    </article>
+
+    <a class="bottom-back" href="./#schedule/day-2">← Day 2 일정으로 돌아가기</a>
+  </main>
+</body>
+</html>
