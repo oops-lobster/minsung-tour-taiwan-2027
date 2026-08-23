@@ -56,6 +56,11 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
                   <a href="#guide/yehliu/offline">오프라인 가이드 준비</a>
                 </div>
               )}
+              {item.placeId === 'shifen-waterfall' && (
+                <div className="yehliu-timeline-actions" aria-label="스펀폭포 설명">
+                  <a className="is-primary" href={`${import.meta.env.BASE_URL}shifen-waterfall.html`}>폭포 설명 더보기</a>
+                </div>
+              )}
               {item.tags && (
                 <div className="tag-row" aria-label="일정 상태">
                   {item.tags.map((tag) => <span key={tag}>{tag}</span>)}
