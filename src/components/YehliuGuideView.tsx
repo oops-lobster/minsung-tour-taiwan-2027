@@ -34,13 +34,15 @@ import {
   type YehliuRouteId,
 } from '../data/yehliuGuide'
 import { YehliuOfflineStatus } from './YehliuOfflineStatus'
+import { YehliuGpsNavigator } from './YehliuGpsNavigator'
 import { YehliuSchematicMap } from './YehliuSchematicMap'
 import { imagePath } from '../lib/paths'
 
-type GuideTab = 'route' | 'family' | 'science' | 'map' | 'safety'
+type GuideTab = 'route' | 'gps' | 'family' | 'science' | 'map' | 'safety'
 
 const tabs: Array<{ id: GuideTab; label: string }> = [
   { id: 'route', label: '길 따라보기' },
+  { id: 'gps', label: 'GPS 내비' },
   { id: 'family', label: '민성 해설' },
   { id: 'science', label: '과학 깊게' },
   { id: 'map', label: '지도·화장실' },
@@ -59,7 +61,7 @@ interface NavigatorWithWakeLock {
 }
 
 export function YehliuGuideView({ initialSection }: { initialSection?: string }) {
-  const [tab, setTab] = useState<GuideTab>('route')
+  const [tab, setTab] = useState<GuideTab>(initialSection === 'gps' ? 'gps' : 'route')
   const [routeId, setRouteId] = useState<YehliuRouteId>(() => {
     const saved = window.localStorage.getItem(routeKey)
     return yehliuRouteModes.some((route) => route.id === saved) ? saved as YehliuRouteId : 'standard'
@@ -105,12 +107,24 @@ export function YehliuGuideView({ initialSection }: { initialSection?: string })
     window.requestAnimationFrame(() => document.getElementById('yehliu-offline')?.scrollIntoView({ block: 'start' }))
   }, [initialSection])
 
+  useEffect(() => {
+    if (initialSection === 'gps') setTab('gps')
+  }, [initialSection])
+
   useEffect(() => () => {
     void wakeLockRef.current?.release()
   }, [])
 
+  const chooseTab = (nextTab: GuideTab) => {
+    setTab(nextTab)
+    const nextHash = nextTab === 'gps' ? '#guide/yehliu/gps' : '#guide/yehliu'
+    if (window.location.hash !== nextHash) window.history.replaceState(null, '', nextHash)
+    window.requestAnimationFrame(() => document.querySelector('.yehliu-guide__body')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+  }
+
   const chooseStop = (stopId: number) => {
     setTab('route')
+    if (window.location.hash !== '#guide/yehliu') window.history.replaceState(null, '', '#guide/yehliu')
     setSelectedStop(stopId)
     window.requestAnimationFrame(() => document.getElementById('yehliu-stop-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
   }
@@ -122,6 +136,10 @@ export function YehliuGuideView({ initialSection }: { initialSection?: string })
 
   const toggleVisited = (stopId: number) => {
     setVisited((current) => current.includes(stopId) ? current.filter((id) => id !== stopId) : [...current, stopId])
+  }
+
+  const markVisited = (stopId: number) => {
+    setVisited((current) => current.includes(stopId) ? current : [...current, stopId])
   }
 
   const resetProgress = () => {
@@ -185,7 +203,7 @@ export function YehliuGuideView({ initialSection }: { initialSection?: string })
       <div className="yehliu-guide-tabs-wrap">
         <nav className="yehliu-guide-tabs page-shell" aria-label="예류 가이드 메뉴">
           {tabs.map((item) => (
-            <button className={tab === item.id ? 'is-active' : ''} type="button" aria-current={tab === item.id ? 'page' : undefined} onClick={() => setTab(item.id)} key={item.id}>
+            <button className={tab === item.id ? 'is-active' : ''} type="button" aria-current={tab === item.id ? 'page' : undefined} onClick={() => chooseTab(item.id)} key={item.id}>
               {item.label}
             </button>
           ))}
@@ -195,6 +213,14 @@ export function YehliuGuideView({ initialSection }: { initialSection?: string })
       <div className="page-shell yehliu-guide__body">
         <p className="sr-only" aria-live="polite">{externalNotice}</p>
         {externalNotice && <div className="yehliu-inline-notice"><AlertTriangle size={18} aria-hidden="true" />{externalNotice}<button type="button" onClick={() => setExternalNotice('')}>닫기</button></div>}
+
+        <YehliuGpsNavigator
+          routeId={routeId}
+          display={tab === 'gps' ? 'full' : tab === 'route' ? 'launch' : 'hidden'}
+          onOpenGps={() => chooseTab('gps')}
+          onOpenGuide={chooseStop}
+          onMarkGuideVisited={markVisited}
+        />
 
         {tab === 'route' && (
           <>
