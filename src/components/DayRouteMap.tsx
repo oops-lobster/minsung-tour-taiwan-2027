@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { ExternalLink, MapPin, MapPinned } from 'lucide-react'
+import { ExternalLink, MapPin, MapPinned, Navigation } from 'lucide-react'
 import { dayRoutes, type DayRoute } from '../data/dayRoutes'
 import { getPlaceDisplayHint, placeCatalog } from '../data/localTools'
 import { googleMapsPlaceUrl, imagePath } from '../lib/paths'
@@ -128,19 +128,33 @@ export function DayRouteMap({ dayId, dayLabel, route: suppliedRoute, routeId }: 
                   {stop.note && stop.note !== hint && <small>{stop.note}</small>}
                 </p>
                 {place.descriptionKo && <p className="day-route__stop-description">{place.descriptionKo}</p>}
-                <a
-                  className="day-route__stop-link"
-                  href={googleMapsPlaceUrl(place.latitude, place.longitude, place.localName)}
-                  target="_blank"
-                  rel="noreferrer"
-                  onFocus={() => setActiveStop(index)}
-                  onClick={() => setActiveStop(index)}
-                  aria-label={`${stop.label} 위치를 Google 지도에서 새 탭으로 열기`}
-                >
-                  <MapPin size={15} aria-hidden="true" />
-                  <span>Google 지도</span>
-                  <ExternalLink size={13} aria-hidden="true" />
-                </a>
+                <div className="day-route__stop-actions">
+                  <a
+                    className="day-route__stop-link"
+                    href={googleMapsPlaceUrl(place.latitude, place.longitude, place.localName)}
+                    target="_blank"
+                    rel="noreferrer"
+                    onFocus={() => setActiveStop(index)}
+                    onClick={() => setActiveStop(index)}
+                    aria-label={`${stop.label} 위치를 Google 지도에서 새 탭으로 열기`}
+                  >
+                    <MapPin size={15} aria-hidden="true" />
+                    <span>Google 지도</span>
+                    <ExternalLink size={13} aria-hidden="true" />
+                  </a>
+                  {stop.placeId === 'yehliu' && (
+                    <a
+                      className="day-route__stop-link day-route__stop-link--guide"
+                      href="#guide/yehliu/gps"
+                      onFocus={() => setActiveStop(index)}
+                      onClick={() => setActiveStop(index)}
+                      aria-label="예류 GPS 현장 가이드 열기"
+                    >
+                      <Navigation size={15} aria-hidden="true" />
+                      <span>예류 현장 가이드</span>
+                    </a>
+                  )}
+                </div>
               </div>
             </li>
           )
