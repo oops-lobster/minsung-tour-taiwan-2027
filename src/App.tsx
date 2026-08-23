@@ -101,7 +101,7 @@ function readRoute(): AppRoute {
     return { view: 'tools', section: toolsTabs.includes(section as ToolsTab) ? section : 'quick' }
   }
   if (view === 'guide' && section === 'yehliu') {
-    return { view: 'guide', section: detail === 'offline' ? 'offline' : 'yehliu' }
+    return { view: 'guide', section: detail === 'offline' ? 'offline' : detail === 'gps' ? 'gps' : 'yehliu' }
   }
   if (view === 'food' || view === 'budget' || view === 'minsung' || view === 'principles' || view === 'home') return { view }
 
