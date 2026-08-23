@@ -4,8 +4,8 @@
   "description": "부모님과 함께하는 3박 4일 타이베이 가족여행",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f8f8e8",
-  "theme_color": "#004868",
+  "background_color": "#f4f0e2",
+  "theme_color": "#315f63",
   "lang": "ko-KR",
   "icons": [
     {
