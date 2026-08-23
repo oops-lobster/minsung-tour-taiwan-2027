@@ -61,6 +61,11 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
                   <a className="is-primary" href={`${import.meta.env.BASE_URL}shifen-waterfall.html`}>폭포 설명 더보기</a>
                 </div>
               )}
+              {item.placeId === 'shifen-old-street' && (
+                <div className="yehliu-timeline-actions" aria-label="스펀 옛거리 현장 가이드">
+                  <a className="is-primary" href={`${import.meta.env.BASE_URL}shifen-old-street.html`}>풍등·간식·카페 가이드</a>
+                </div>
+              )}
               {item.tags && (
                 <div className="tag-row" aria-label="일정 상태">
                   {item.tags.map((tag) => <span key={tag}>{tag}</span>)}
