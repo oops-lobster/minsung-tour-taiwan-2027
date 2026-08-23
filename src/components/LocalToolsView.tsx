@@ -5,6 +5,7 @@ import {
   CarTaxiFront,
   Check,
   ChevronDown,
+  ChevronRight,
   CloudSun,
   Copy,
   ExternalLink,
@@ -12,6 +13,7 @@ import {
   Languages,
   MapPinned,
   MessageCircle,
+  Navigation,
   PhoneCall,
   Plane,
   Smartphone,
@@ -77,6 +79,20 @@ function QuickTools() {
 
   return (
     <>
+      <section className="yehliu-tool-entry" aria-label="예류 현장 가이드 바로가기">
+        <div className="page-shell">
+          <a href="#guide/yehliu/gps">
+            <span className="yehliu-tool-entry__icon" aria-hidden="true"><Navigation size={24} /></span>
+            <span className="yehliu-tool-entry__copy">
+              <small>YEHLIU LIVE GUIDE</small>
+              <strong>예류 현장 GPS 가이드</strong>
+              <span>실제 지도와 현재 위치로 다음 관찰 지점을 찾아가요.</span>
+            </span>
+            <span className="yehliu-tool-entry__action">가이드 열기 <ChevronRight size={18} aria-hidden="true" /></span>
+          </a>
+        </div>
+      </section>
+
       <section className="tools-section section-pad">
         <div className="page-shell">
           <SectionHeader eyebrow="DAILY EXCHANGE" title="오늘의 대만달러 계산" description="하루 한 번 갱신되는 참고 환율로 대만달러를 원화로 빠르게 가늠합니다." />
