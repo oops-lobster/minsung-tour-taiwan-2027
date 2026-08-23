@@ -121,7 +121,10 @@ async function guideStatus() {
 }
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(fillCache(SHELL_CACHE, SHELL_ASSETS))
+  event.waitUntil((async () => {
+    await fillCache(SHELL_CACHE, SHELL_ASSETS)
+    await self.skipWaiting()
+  })())
 })
 
 self.addEventListener('activate', (event) => {
