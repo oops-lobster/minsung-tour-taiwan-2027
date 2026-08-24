@@ -17,12 +17,15 @@ const forecastLabel = (date: string) => {
   return `${Number(month)}월 ${Number(day)}일`
 }
 
-const recommendedPlanLabel = (planId: WeatherPlanId) => planId === 'plan-a' ? 'PLAN A' : 'PLAN B1'
-
-const recommendationTitle = (recommendation: WeatherPlanRecommendation, date: string) => {
-  if (recommendation.mode === 'today-preview') return `오늘 같은 날씨라면 ${recommendedPlanLabel(recommendation.recommendedPlanId)}`
-  if (recommendation.mode === 'trip-forecast') return `${forecastLabel(date)} 추천 · ${recommendedPlanLabel(recommendation.recommendedPlanId)}`
-  if (recommendation.mode === 'trip-day-live') return `오늘 추천 · ${recommendedPlanLabel(recommendation.recommendedPlanId)}`
+const recommendationTitle = (
+  recommendation: WeatherPlanRecommendation,
+  date: string,
+  recommendedLabel: string,
+) => {
+  if (recommendation.suspended) return '날씨 판정 대기 · 일정은 직접 선택'
+  if (recommendation.mode === 'today-preview') return `오늘 같은 날씨라면 ${recommendedLabel}`
+  if (recommendation.mode === 'trip-forecast') return `${forecastLabel(date)} 추천 · ${recommendedLabel}`
+  if (recommendation.mode === 'trip-day-live') return `오늘 추천 · ${recommendedLabel}`
   return '기본 순서 · PLAN A'
 }
 
@@ -65,12 +68,16 @@ export function WeatherPlanSelector({
   onSelect,
 }: WeatherPlanSelectorProps) {
   const copy = modeCopy(recommendation, config.date)
+  const recommendedLabel = plans.find((plan) => plan.id === recommendation.recommendedPlanId)?.label
+    ?? (recommendation.recommendedPlanId === 'plan-a' ? 'PLAN A' : 'PLAN B')
   const RecommendedIcon = recommendation.mode === 'fallback'
     ? CloudOff
     : recommendation.recommendedPlanId === 'plan-b' ? CloudRain : SunMedium
-  const orderedPlans = [...plans].sort((left, right) => (
-    left.id === recommendation.recommendedPlanId ? -1 : right.id === recommendation.recommendedPlanId ? 1 : 0
-  ))
+  const orderedPlans = recommendation.suspended
+    ? plans
+    : [...plans].sort((left, right) => (
+      left.id === recommendation.recommendedPlanId ? -1 : right.id === recommendation.recommendedPlanId ? 1 : 0
+    ))
 
   return (
     <section className={`weather-selector weather-selector--${recommendation.strength}`} aria-labelledby="weather-selector-title">
@@ -78,7 +85,7 @@ export function WeatherPlanSelector({
         <span className="weather-selector__icon" aria-hidden="true"><RecommendedIcon size={24} /></span>
         <div className="weather-selector__copy">
           <small>{copy.eyebrow}</small>
-          <h3 id="weather-selector-title">{recommendationTitle(recommendation, config.date)}</h3>
+          <h3 id="weather-selector-title">{recommendationTitle(recommendation, config.date, recommendedLabel)}</h3>
           <p>{recommendation.reason}</p>
           <span>{copy.note}</span>
         </div>
@@ -97,7 +104,7 @@ export function WeatherPlanSelector({
       <div className={`weather-selector__plans weather-selector__plans--${Math.min(plans.length, 3)}`} aria-label="날씨 플랜 선택">
         {orderedPlans.map((plan) => {
           const selected = selectedPlanId === plan.id
-          const recommended = recommendation.recommendedPlanId === plan.id
+          const recommended = !recommendation.suspended && recommendation.recommendedPlanId === plan.id
           const PlanIcon = plan.id === 'plan-b2' ? CloudOff : plan.weatherType === 'rain' ? CloudRain : SunMedium
           return (
             <button

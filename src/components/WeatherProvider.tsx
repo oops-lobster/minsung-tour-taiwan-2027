@@ -4,11 +4,24 @@ import {
   type TaiwanWeatherDataset,
   type WeatherLoadStatus,
 } from '../lib/weather'
+import {
+  fetchDay2WeatherBundle,
+  readDay2WeatherTestMode,
+  type Day2WeatherBundle,
+} from '../lib/day2Weather'
+import { dayWeatherConfigs } from '../data/weatherPlans'
+
+interface Day2WeatherContextValue {
+  bundle: Day2WeatherBundle | null
+  status: WeatherLoadStatus
+  refresh: () => Promise<void>
+}
 
 interface WeatherContextValue {
   dataset: TaiwanWeatherDataset | null
   status: WeatherLoadStatus
   refresh: () => Promise<void>
+  day2: Day2WeatherContextValue
 }
 
 const WeatherContext = createContext<WeatherContextValue | null>(null)
@@ -16,6 +29,9 @@ const WeatherContext = createContext<WeatherContextValue | null>(null)
 export function WeatherProvider({ children }: { children: ReactNode }) {
   const [dataset, setDataset] = useState<TaiwanWeatherDataset | null>(null)
   const [status, setStatus] = useState<WeatherLoadStatus>('loading')
+  const [day2Bundle, setDay2Bundle] = useState<Day2WeatherBundle | null>(null)
+  const [day2Status, setDay2Status] = useState<WeatherLoadStatus>('loading')
+  const day2TestMode = readDay2WeatherTestMode(import.meta.env.DEV, window.location.search)
 
   const loadWeather = useCallback(async (force = false) => {
     setStatus('loading')
@@ -27,6 +43,17 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
       setStatus('error')
     }
   }, [])
+
+  const loadDay2Weather = useCallback(async (force = false) => {
+    setDay2Status('loading')
+    try {
+      const nextBundle = await fetchDay2WeatherBundle(dayWeatherConfigs['day-2'], { force, testMode: day2TestMode })
+      setDay2Bundle(nextBundle)
+      setDay2Status('ready')
+    } catch {
+      setDay2Status('error')
+    }
+  }, [day2TestMode])
 
   useEffect(() => {
     let active = true
@@ -44,11 +71,32 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  useEffect(() => {
+    let active = true
+    void fetchDay2WeatherBundle(dayWeatherConfigs['day-2'], { testMode: day2TestMode })
+      .then((nextBundle) => {
+        if (!active) return
+        setDay2Bundle(nextBundle)
+        setDay2Status('ready')
+      })
+      .catch(() => {
+        if (active) setDay2Status('error')
+      })
+    return () => {
+      active = false
+    }
+  }, [day2TestMode])
+
   const value = useMemo<WeatherContextValue>(() => ({
     dataset,
     status,
     refresh: () => loadWeather(true),
-  }), [dataset, loadWeather, status])
+    day2: {
+      bundle: day2Bundle,
+      status: day2Status,
+      refresh: () => loadDay2Weather(true),
+    },
+  }), [dataset, day2Bundle, day2Status, loadDay2Weather, loadWeather, status])
 
   return <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>
 }

@@ -4,7 +4,7 @@ export const STRONG_WIND_SPEED_THRESHOLD = 30
 export const STRONG_WIND_GUST_THRESHOLD = 40
 export const HEAVY_RAIN_AMOUNT_THRESHOLD = 5
 
-const TAIPEI_TIME_ZONE = 'Asia/Taipei'
+export const TAIPEI_TIME_ZONE = 'Asia/Taipei'
 const WEATHER_CACHE_KEY = 'minsung-tour-taipei-weather-v1'
 const WEATHER_CACHE_TTL = 30 * 60 * 1000
 
@@ -68,6 +68,7 @@ export interface WeatherPlanRecommendation {
   windGust?: number
   sourceDate?: string
   reason: string
+  suspended?: boolean
 }
 
 interface RecommendationOptions {

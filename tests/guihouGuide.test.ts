@@ -102,7 +102,11 @@ test('Guihou route and lazy entry are included in app routing and offline guide 
 
 test('Day 2 keeps the Shifen mini guides alongside the Guihou field guide', async () => {
   const daySection = await readFile(new URL('../src/components/DaySection.tsx', import.meta.url), 'utf8')
+  const localTools = await readFile(new URL('../src/components/LocalToolsView.tsx', import.meta.url), 'utf8')
   assert.match(daySection, /shifen-waterfall\.html/)
   assert.match(daySection, /shifen-old-street\.html/)
   assert.match(daySection, /#guide\/guihou/)
+  assert.match(daySection, /open=\{item\.placeId === 'guihou'/)
+  assert.match(daySection, /현장 가이드 바로 시작/)
+  assert.ok(localTools.indexOf('귀후어항 도착하면 여기 누르기') < localTools.indexOf('예류 현장 GPS 가이드'))
 })

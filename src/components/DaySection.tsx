@@ -10,11 +10,19 @@ import {
   readWeatherTestMode,
   type WeatherPlanId,
 } from '../lib/weather'
+import {
+  classifyDay2Weather,
+  day2DecisionToPlanRecommendation,
+  getDay2ForecastMode,
+  type Day2WeatherBundle,
+  type Day2WeatherClass,
+} from '../lib/day2Weather'
 import { MapLinkButton } from './MapLinkButton'
 import { PlaceActions } from './PlaceActions'
 import { DayRouteMap } from './DayRouteMap'
 import { WeatherPlanSelector } from './WeatherPlanSelector'
 import { useWeather } from './WeatherProvider'
+import { Day2WeatherDecisionCard } from './Day2WeatherDecisionCard'
 
 interface DaySectionProps {
   day: TripDay
@@ -36,7 +44,11 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
         const place = item.placeId ? placeCatalog[item.placeId] : undefined
         const placeHint = getPlaceDisplayHint(place)
         return (
-          <details className={`timeline-item ${item.optional ? 'timeline-item--optional' : ''}`} key={`${item.time}-${item.title}`}>
+          <details
+            className={`timeline-item ${item.optional ? 'timeline-item--optional' : ''} ${item.placeId === 'guihou' ? 'timeline-item--guide-linked' : ''}`}
+            open={item.placeId === 'guihou' ? true : undefined}
+            key={`${item.time}-${item.title}`}
+          >
             <summary className="timeline-item__summary">
               <span className="timeline-item__index" aria-hidden="true">{String(itemIndex + 1).padStart(2, '0')}</span>
               <span className="timeline-item__summary-copy">
@@ -44,6 +56,7 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
                 <h3>{item.title}</h3>
                 {item.localName && <span className="timeline-item__local" lang="zh-Hant">{item.localName}</span>}
                 {placeHint && <span className="timeline-item__place-hint">{placeHint}</span>}
+                {item.placeId === 'guihou' && <span className="timeline-item__guide-hint">현장 가이드가 바로 연결된 점심 일정</span>}
               </span>
               <span className="timeline-item__expand" aria-hidden="true"><ChevronDown size={20} /></span>
             </summary>
@@ -68,8 +81,8 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
               )}
               {item.placeId === 'guihou' && (
                 <div className="yehliu-timeline-actions" aria-label="귀후어항 현장 가이드">
-                  <a className="is-primary" href="#guide/guihou">해산물 가이드 열기</a>
-                  <a href="#guide/guihou/price">가격 계산 바로가기</a>
+                  <a className="is-primary" href="#guide/guihou">① 현장 가이드 바로 시작</a>
+                  <a href="#guide/guihou/price">② 가격 계산 바로가기</a>
                 </div>
               )}
               {item.tags && (
@@ -104,8 +117,9 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
 }
 
 export function DaySection({ day, index }: DaySectionProps) {
-  const { dataset, status } = useWeather()
+  const { dataset, status, day2: day2Weather } = useWeather()
   const [manualPlanId, setManualPlanId] = useState<WeatherPlanId | null>(null)
+  const [manualDay2Class, setManualDay2Class] = useState<Day2WeatherClass | null>(null)
   const keyMealHint = day.keyMealPlaceIds
     ?.map((placeId) => getPlaceDisplayHint(placeCatalog[placeId]))
     .filter(Boolean)
@@ -120,10 +134,30 @@ export function DaySection({ day, index }: DaySectionProps) {
   const plans = getDayPlans(day)
   const weatherConfig = dayWeatherConfigs[day.id]
   const testMode = readWeatherTestMode(import.meta.env.DEV, window.location.search)
-  const recommendation = getWeatherPlanRecommendation({ dataset, status, config: weatherConfig, testMode })
+  const day2FallbackBundle: Day2WeatherBundle = {
+    tripDate: dayWeatherConfigs['day-2'].date,
+    mode: getDay2ForecastMode(dayWeatherConfigs['day-2'].date),
+    weatherByLocation: {},
+    failedLocationIds: [],
+    marineStatus: 'skipped',
+  }
+  const day2Decision = day.id === 'day-2'
+    ? classifyDay2Weather(day2Weather.bundle ?? day2FallbackBundle)
+    : null
+  const recommendation = day2Decision
+    ? day2DecisionToPlanRecommendation(day2Decision, weatherConfig.date)
+    : getWeatherPlanRecommendation({ dataset, status, config: weatherConfig, testMode })
   const selectedPlanId = manualPlanId ?? recommendation.recommendedPlanId
   const selectedPlan = plans.find((plan) => plan.id === selectedPlanId) ?? plans[0]
   const planPanelId = `${day.id}-weather-plan-panel`
+  const handlePlanSelect = (planId: WeatherPlanId) => {
+    setManualPlanId(planId)
+    if (day.id === 'day-2') setManualDay2Class(planId === 'plan-a' ? 'A' : 'B')
+  }
+  const handleDay2ClassChange = (weatherClass: Day2WeatherClass | null) => {
+    setManualDay2Class(weatherClass)
+    setManualPlanId(weatherClass ? weatherClass === 'A' ? 'plan-a' : 'plan-b' : null)
+  }
 
   return (
     <section className={`day-section day-section--${index + 1}`} id={day.id} data-day-section={day.id}>
@@ -175,15 +209,25 @@ export function DaySection({ day, index }: DaySectionProps) {
           <aside className="guihou-day-entry" aria-labelledby="guihou-day-entry-title">
             <UtensilsCrossed aria-hidden="true" />
             <div>
-              <small>DAY 2 · FIELD GUIDE</small>
-              <h3 id="guihou-day-entry-title">귀후어항 해산물 가이드</h3>
-              <p>1층에서 한 바퀴 보고 가격을 확인한 뒤, 2층에서 바다 보며 먹는 현장 작전.</p>
+              <small>DAY 2 · 10:55 도착 후</small>
+              <h3 id="guihou-day-entry-title">귀후어항에 도착하면 여기부터</h3>
+              <p>현장 가이드를 열고 ① 1층 한 바퀴 → ② 가격·조리비 확인 → ③ 2층 식사 순서대로 따라가면 됩니다.</p>
             </div>
             <div>
-              <a className="is-primary" href="#guide/guihou">가이드 열기</a>
-              <a href="#guide/guihou/price">가격 계산</a>
+              <a className="is-primary" href="#guide/guihou">현장 가이드 시작</a>
+              <a href="#guide/guihou/price">바로 가격 계산</a>
             </div>
           </aside>
+        )}
+
+        {day2Decision && (
+          <Day2WeatherDecisionCard
+            decision={day2Decision}
+            status={day2Weather.status}
+            manualClass={manualDay2Class}
+            onManualClassChange={handleDay2ClassChange}
+            onRefresh={day2Weather.refresh}
+          />
         )}
 
         <WeatherPlanSelector
@@ -192,8 +236,8 @@ export function DaySection({ day, index }: DaySectionProps) {
           recommendation={recommendation}
           selectedPlanId={selectedPlan.id}
           panelId={planPanelId}
-          loading={status === 'loading' && testMode === null}
-          onSelect={setManualPlanId}
+          loading={(day.id === 'day-2' ? day2Weather.status === 'loading' : status === 'loading' && testMode === null)}
+          onSelect={handlePlanSelect}
         />
 
         <section

@@ -78,6 +78,20 @@ function QuickTools() {
 
   return (
     <>
+      <section className="guihou-tool-entry" aria-label="귀후어항 해산물 현장 가이드 바로가기">
+        <div className="page-shell">
+          <a href="#guide/guihou">
+            <span className="guihou-tool-entry__icon" aria-hidden="true"><Fish size={24} /></span>
+            <span className="guihou-tool-entry__copy">
+              <small>DAY 2 · LUNCH FIELD GUIDE</small>
+              <strong>귀후어항 도착하면 여기 누르기</strong>
+              <span>점포 고르기 → 가격·조리비 확인 → 2층 식사까지 순서대로 안내</span>
+            </span>
+            <span className="guihou-tool-entry__action">현장 가이드 시작 <ChevronRight size={18} aria-hidden="true" /></span>
+          </a>
+        </div>
+      </section>
+
       <section className="yehliu-tool-entry" aria-label="예류 현장 가이드 바로가기">
         <div className="page-shell">
           <a href="#guide/yehliu/gps">
@@ -102,20 +116,6 @@ function QuickTools() {
               <span>직접 말할 문장 · 상대 말 듣기 · 오프라인 현장 문장</span>
             </span>
             <span className="language-tool-entry__action">회화 도구 열기 <ChevronRight size={18} aria-hidden="true" /></span>
-          </a>
-        </div>
-      </section>
-
-      <section className="guihou-tool-entry" aria-label="귀후어항 해산물 가이드 바로가기">
-        <div className="page-shell">
-          <a href="#guide/guihou">
-            <span className="guihou-tool-entry__icon" aria-hidden="true"><Fish size={24} /></span>
-            <span className="guihou-tool-entry__copy">
-              <small>GUIHOU FISH MARKET FIELD GUIDE</small>
-              <strong>귀후어항 해산물 가이드</strong>
-              <span>1층에서 고르고 · 가격 확인하고 · 2층에서 바다 보며 먹기</span>
-            </span>
-            <span className="guihou-tool-entry__action">가이드 열기 <ChevronRight size={18} aria-hidden="true" /></span>
           </a>
         </div>
       </section>

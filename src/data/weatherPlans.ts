@@ -1,6 +1,5 @@
 import type { DayRoute } from './dayRoutes'
 import { dayRoutes } from './dayRoutes'
-import { rainPlans } from './localTools'
 import type { TimelineItem, TripDay } from './trip'
 import { RAIN_PLAN_THRESHOLD, type DayWeatherConfig, type WeatherPlanId } from '../lib/weather'
 
@@ -42,7 +41,7 @@ export const dayWeatherConfigs: Record<string, DayWeatherConfig> = {
       { id: 'jiufen', name: 'Jiufen', latitude: 25.1099, longitude: 121.8452 },
     ],
     startHour: 9,
-    endHour: 18,
+    endHour: 20,
     rainThreshold: RAIN_PLAN_THRESHOLD,
   },
   'day-3': {
@@ -91,11 +90,11 @@ const dayOneRainSchedule: TimelineItem[] = [
   },
   {
     time: '입국·수하물 후',
-    title: '奇立 ES300h 픽업 → 호텔',
-    localName: '奇立租賃 · Lexus ES300h',
-    description: '피켓 미팅 뒤 Taipei Garden Hotel로 이동합니다. 미팅과 호텔 도착 시각은 입국 및 도로 상황에 따라 유연하게 봅니다.',
-    transport: '奇立租賃 · Lexus ES300h',
-    tags: ['차종 지정', '확인 대기'],
+    title: '공항 픽업 → 호텔',
+    localName: '宇航富豪 · Mercedes 航空椅 차량 우선 검토',
+    description: '날씨와 관계없이 공항 픽업 뒤 호텔에 짐을 맡기고 예약된 점심으로 이동합니다. 현재는 Mercedes 항공의자 차량이 1순위이며, 최종 조건과 예약 확정은 추가 확인 중입니다.',
+    transport: '공항 픽업 후보 · Mercedes 항공의자 차량',
+    tags: ['Plan A/B 공통', '최종 조건 확인 중'],
     placeId: 'hotel',
   },
   {
@@ -254,8 +253,6 @@ const dayOneIndoorBackupSchedule: TimelineItem[] = [
   ...dayOneRainSchedule.slice(11),
 ]
 
-const rainOptionsFor = (day: string) => rainPlans.find((plan) => plan.day === day)?.options ?? []
-
 const dayPlanMeta: Record<string, DayPlanMeta> = {
   'day-1': {
     planATheme: '린안타이 고택 · 백석호 · 벽산암',
@@ -279,19 +276,20 @@ const dayPlanMeta: Record<string, DayPlanMeta> = {
     planATheme: '예류 → 스펀 → 지우펀',
     planASummary: '북해안과 지우펀의 밤을 잇고 21:00 호텔 복귀로 끝나는 맑은 날 확정안',
     planB: {
-      theme: '북해안 날씨 대응 버전',
-      summary: '완전 대체 일정은 준비 중이며, 비의 세기에 따라 야외 구간을 줄입니다.',
+      theme: '비가 와서 더 좋은 별도 일정',
+      summary: 'Plan A를 줄이는 방식이 아닌 독립적인 우천 일정으로 새로 설계할 예정입니다.',
       status: 'draft',
-      schedule: rainOptionsFor('DAY 2').map((option) => ({
-        time: option.condition,
-        title: option.condition === '약한 비' ? '원안 유지' : option.condition === '강한 비' ? '스펀폭포 우선 조절' : '기사님과 동선 재판단',
-        description: option.action,
-        tags: ['날씨 기준 추천', 'Plan B 준비 중'],
-      })),
+      schedule: [{
+        time: '설계 전',
+        title: 'Plan B/C 우천 대안 준비 중',
+        description: '예류·스펀·지우펀을 억지로 유지하지 않습니다. 기사 포함 Alphard 8시간을 활용해 온천·좋은 실내 공간·비 오는 풍경·좋은 식사를 중심으로 별도 일정을 설계합니다.',
+        tags: ['목적지 미확정', 'Plan A 축소판 아님'],
+        placeId: 'hotel',
+      }],
       route: {
-        ...dayRoutes['day-2'],
-        title: '북해안 우천 대응 동선',
-        summary: '아직 완전 대체 일정은 준비 중입니다. 실제 비와 바람을 보고 스펀폭포를 먼저 줄이고, 폭우·강풍에는 기사님과 예류·스펀을 다시 판단합니다.',
+        title: 'Day 2 우천 대안 · 설계 전',
+        summary: '목적지를 아직 확정하지 않았습니다. 타이베이·베이터우·우라이·타오위안·이란까지 열어 두고 가족에게 비가 장점이 되는 하루를 설계합니다.',
+        stops: [{ placeId: 'hotel', label: 'Taipei Garden Hotel', note: '우천 대안 출발 기준점' }],
       },
     },
   },

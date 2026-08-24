@@ -49,6 +49,9 @@ test('public Day 2 sources do not contain protected budget totals', async () => 
     '../src/data/trip.ts',
     '../src/data/weatherPlans.ts',
     '../src/components/DaySection.tsx',
+    '../src/components/Day2WeatherDecisionCard.tsx',
+    '../src/components/WeatherProvider.tsx',
+    '../src/lib/day2Weather.ts',
   ].map((path) => readFile(new URL(path, import.meta.url), 'utf8')))
 
   const combined = publicSources.join('\n')

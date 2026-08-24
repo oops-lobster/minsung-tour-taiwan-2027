@@ -381,64 +381,66 @@ function MobilityView() {
             inverse
           />
           <div className="transport-grid">
-            <article>
-              <span className="transport-grid__icon"><Route size={26} aria-hidden="true" /></span>
-              <small>한국 출발 · 여행의 오프닝</small><h3>Stretch Limousine ?</h3>
-              <p>현재 1순위는 Chrysler 300C Stretch Limousine. 첫 이동부터 평소 쉽게 하지 못하는 경험으로 여행을 시작합니다.</p>
-              <StatusBadge tone="progress">검토 중</StatusBadge>
-              <details className="mobility-detail">
-                <summary>희망 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
-                <ul>
-                  <li>실제 긴 차체의 Stretch Limousine</li>
-                  <li>뒤쪽 L자형 또는 대면형 소파 라운지</li>
-                  <li>성인 3명 동시 이용과 여행가방 적재 가능</li>
-                  <li>2027년 1월 실제 차량과 배차 가능 여부 재확인</li>
-                  <li>조건이 다르면 프리미엄 택시 또는 일반 택시</li>
-                </ul>
-              </details>
-            </article>
             <article className="transport-card--featured">
               <figure className="transport-card__media">
                 <img
-                  src={imagePath('lexus-es300h.webp')}
-                  alt={imageSourceByFile['lexus-es300h.webp'].alt}
-                  width="1280"
-                  height="830"
+                  src={imagePath('g90-lwb-4seat-rear.webp')}
+                  alt={imageSourceByFile['g90-lwb-4seat-rear.webp'].alt}
+                  width="1200"
+                  height="800"
                   loading="lazy"
                   decoding="async"
                 />
-                <figcaption><strong>Lexus ES300h 대표 이미지</strong><span>실제 배차 차량은 이용 2–3일 전 확정</span></figcaption>
+                <figcaption><strong>G90 LWB 4인승 실제 후석</strong><span>업체 제공 사진으로 VIP 독립 후석 확인</span></figcaption>
               </figure>
-              <span className="transport-grid__icon"><CarFront size={26} aria-hidden="true" /></span>
-              <small>DAY 1 · AIRPORT ARRIVAL</small><h3>Lexus ES300h</h3>
-              <p>奇立租賃에 차종 지정 픽업과 피켓 미팅을 요청했습니다. OZ711 도착 뒤 부모님과 함께 대만의 첫 이동을 편안하게 시작합니다.</p>
-              <ul className="transport-facts" aria-label="Lexus ES300h 픽업 핵심 조건">
-                <li>5년 이내</li><li>차종 지정</li><li>성인 3명</li><li>피켓 미팅</li>
+              <span className="transport-grid__icon"><Route size={26} aria-hidden="true" /></span>
+              <small>한국 출발 · 여행의 오프닝</small><h3>Genesis G90 LWB 4인승</h3>
+              <p>글로벌25시콜리무진의 기사 포함 G90 롱휠베이스 4인승으로 목동에서 인천공항 T2까지 이동하는 예약이 확정되었습니다.</p>
+              <ul className="transport-facts" aria-label="G90 공항 이동 핵심 조건">
+                <li>04:10–04:20</li><li>성인 3명</li><li>캐리어 2개</li><li>VIP 독립 후석</li>
               </ul>
-              <StatusBadge tone="waiting">예약 요청 · 확인 대기</StatusBadge>
+              <StatusBadge tone="confirmed">예약 확정</StatusBadge>
               <details className="mobility-detail">
-                <summary>탑승 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
+                <summary>예약 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
                 <ul>
-                  <li>奇立租賃 · 타오위안공항 T2 → Taipei Garden Hotel</li>
+                  <li>글로벌25시콜리무진 · Genesis G90 Long Wheel Base 4인승 지정</li>
+                  <li>2027년 2월 20일 · 목동 → 인천공항 제2터미널</li>
+                  <li>04:10–04:20 픽업 · 성인 3명 · 캐리어 2개</li>
+                  <li>독립형 VIP 후석과 고정식 중앙 콘솔을 실제 사진으로 확인</li>
+                  <li>예약금 없음 · 은행 송금 결제 예정</li>
+                </ul>
+              </details>
+            </article>
+            <article>
+              <span className="transport-grid__icon"><CarFront size={26} aria-hidden="true" /></span>
+              <small>DAY 1 · AIRPORT ARRIVAL</small><h3>Mercedes 항공의자 차량 ?</h3>
+              <p>현재 1순위는 宇航富豪의 독립형 항공의자 차량입니다. 사진 속 Mercedes 차량 지정과 부모님 좌석 사양은 확인했고, 나머지 픽업 조건과 최종 예약은 확인 중입니다.</p>
+              <ul className="transport-facts" aria-label="Mercedes 항공의자 공항 픽업 검토 조건">
+                <li>사진 차량 지정 확인</li><li>독립형 VIP 시트</li><li>성인 3명</li><li>최종 확인 중</li>
+              </ul>
+              <StatusBadge tone="waiting">최종 조건 확인 중</StatusBadge>
+              <details className="mobility-detail">
+                <summary>후보와 확인사항 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
+                <ul>
+                  <li>宇航富豪 · 타오위안공항 T2 → Taipei Garden Hotel</li>
                   <li>성인 3명 · 중형 캐리어 1개 · 기내용 캐리어 1개</li>
-                  <li>5년 이내 Lexus ES300h 지정 · 다른 차종으로 변경 없음</li>
-                  <li>실제 차량과 기사 정보는 이용 2–3일 전 안내</li>
-                  <li>OZ711 실제 착륙 뒤 90분 무료 대기</li>
-                  <li>피켓 미팅 · 주차비 · 통행료 · 일반 픽업 비용 포함</li>
-                  <li>춘절·원소절 추가요금 없음 · 현금 결제 예정</li>
+                  <li>사진 속 Mercedes 항공의자 차량 지정 가능 확인</li>
+                  <li>전동 리클라이닝 · 레그레스트 · 통풍 · 열선 · 마사지 확인</li>
+                  <li>피켓 미팅 · 수하물 도움 · 무료 대기 · 결제 조건은 추가 확인 중</li>
+                  <li>Heycar S-Class와 奇立 ES300h는 확정 전까지 백업 후보</li>
                 </ul>
               </details>
             </article>
             <article>
               <span className="transport-grid__icon"><Sparkles size={26} aria-hidden="true" /></span>
               <small>DAY 2 · DAY 4 · 편안한 근교 이동</small><h3>Toyota New Alphard 40系</h3>
-              <p>LUMI DRIVE 璐米租車의 합법 R 번호판 차량으로 예약을 진행하며, 첫 계약금 송금은 한국 은행 승인 대기 중입니다.</p>
-              <StatusBadge tone="progress">예약금 송금 승인 대기</StatusBadge>
+              <p>LUMI DRIVE 璐米租車의 합법 R 번호판 차량으로 Day 2·4 계약을 진행했고, 첫 예약금 해외송금도 완료했습니다.</p>
+              <StatusBadge tone="progress">첫 예약금 송금 완료</StatusBadge>
               <details className="mobility-detail">
                 <summary>차량 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
                 <ul>
                   <li>Day 2 8시간 · Day 4 약 4시간</li>
-                  <li>첫 예약금 해외송금은 한국 은행 승인 대기</li>
+                  <li>첫 예약금 해외송금 완료 · 중복 송금 금지</li>
                   <li>2024–2026년식 차량 풀 · 신형 연식 우선 배차, 2026년식 지정 보장은 아님</li>
                   <li>합법 R 번호판 · 승객보험 1인당 NT$5,000,000</li>
                   <li>무연 차량 · 출차 전 내·외부 차량 정리</li>
