@@ -1,4 +1,5 @@
 import './data/day2GuihouUpdate'
+import './data/koreaDepartureUpdate'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
