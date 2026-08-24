@@ -1,10 +1,12 @@
 # CURRENT CHAT CHECKPOINT
 
-Last updated: 2026-08-24 16:48 KST
+Last updated: 2026-08-24 21:58 KST
 
 > Canonical handoff for continuing this Taiwan family-trip planning chat.
 >
 > **Freshness rule:** if this checkpoint and the repository disagree, inspect latest `main` first and treat `main` as product source of truth. Protected Supabase remains the operational budget source of truth.
+>
+> Detailed snapshot of tonight's Day 2 B discussion: `docs/chat-checkpoints/2026-08-24_day2-rain-B.md`.
 
 ---
 
@@ -12,86 +14,13 @@ Last updated: 2026-08-24 16:48 KST
 - User: 민성.
 - Tone: persona 4 / 새라 모드 — 친근한 반말, 장난스럽게 가능. 정확한 정보는 엄밀하게.
 - Food priority: **taste > price > transport convenience**.
-- Parents’ comfort matters strongly, especially rear-seat comfort and minimizing luggage burden.
+- Parents’ comfort matters strongly.
 - Rain alternatives should be **equally good alternate days**, not degraded backups.
-- **Do not expose protected budget figures in public docs/UI.** Read Supabase when budget detail is needed.
+- Do **not** expose protected budget figures in public docs/UI.
 - Vendor LINE/chat logs: translate → interpret → classify `keep / one reminder / close & leave` → draft reply if needed.
 - Do **not** send Gmail/email/Calendar/external writes unless explicitly requested in the current message. Default to copy/paste drafts.
-- English reservation/contact name is always **RAY** (`R-A-Y`).
-- Chinese call scripts should, when useful, be shown as:
-  1. Traditional Chinese
-  2. Pinyin
-  3. Korean phonetic reading
-
----
-
-# CURRENT CONVERSATION POSITION
-
-## Day 2 Plan A
-- **Sunny/fair Plan A is CLOSED / FINALIZED. Do not redesign it unless the user explicitly reopens it.**
-- Final daytime flow:
-  - Taipei Garden Hotel breakfast
-  - 08:30 LUMI Alphard departure
-  - Yehliu
-  - Guihou Fishermen’s Market lunch
-  - Shifen Waterfall
-  - Shifen Old Street
-  - Jiufen arrival around 16:15, LUMI 8h service ends
-- Jiufen evening for Plan A:
-  - 16:15–17:20 lantern/photo walk
-  - 17:30 阿理廚坊 / A Li Kitchen — Taiwanese dinner + kaoliang
-  - short night alley walk
-  - ~19:00 逸茶酒室 Golden Bar — Taiwanese craft beer, **Golden Bar remains A-plan first choice**
-  - ~20:15 55688 taxi first choice back to Taipei Garden Hotel; Uber/local taxi backup
-  - optional hidden-stage Korean pocha near hotel only if energy remains
-
-## Day 2 rainy-day reset — IMPORTANT NEW DIRECTION
-Earlier B/C logic tried to preserve parts of Yehliu/Shifen/Jiufen. **That is now obsolete.**
-
-User explicitly decided:
-- **B and C should abandon the entire “예스지” frame.**
-- B/C do **not** have to go to Yehliu, Shifen, Jiufen, north coast, or northeast Taiwan.
-- Treat the LUMI booking as what it really is: **a private chauffeur-driven Alphard for 8 hours**, not a fixed package tour.
-- B/C may go anywhere reasonably reachable within the charter: Taipei, Beitou, Wulai, Taoyuan, Yilan/Jiaoxi, etc.
-- The design criterion is not “save A despite rain.” It is:
-  > **Would the family feel ‘it was actually better because it rained’?**
-- Therefore B/C must be built from a blank page around rain-positive experiences: hot springs, excellent indoor museums, scenic rainy drives, good meals, door-to-door comfort.
-- User is open to Taoyuan or Yilan; no north/northeast constraint.
-- Kaohsiung was discussed jokingly and rejected as impractical for an 8h Taipei-based charter because return travel would dominate the day.
-
-## Current A/B/C/D interpretation
-- **A:** fair / only weak shower → execute finalized Plan A.
-- **B:** ordinary/manageable rain → completely separate “rain is a feature” itinerary, not a damaged A.
-- **C:** persistent/heavier but still safe rain → even more indoor / weather-positive alternative, still fully independent from A.
-- **D:** typhoon / extreme downpour / dangerous wind / road closure / government emergency → stop normal itinerary logic and prioritize safety + LUMI operating decision.
-
-The next major planning task is **design B and C from scratch across the broader Taipei/Taoyuan/Yilan/Beitou/Wulai region**.
-
----
-
-# Day 2 weather-decision web app
-User wants the web app to classify the Day 2 weather situation automatically when the app is opened.
-
-Desired concept:
-- no background server job required
-- app open → fetch latest available forecast/live data → classify/update UI
-- weather inputs should be multi-location, not Taipei-only
-- Yehliu-specific wind/gust/wave data matter for A decision
-- do not show today’s weather as if it were the 2027-02-21 forecast when trip date is outside forecast range
-- show `아직 여행일 예보 제공 전` until real forecast exists
-- D should be a safety override, not “C but worse”
-
-A detailed Codex prompt was prepared for:
-- Open-Meteo weather + marine
-- A/B/C classifier + safety hold
-- per-location status
-- reasons/confidence
-- forecast-range awareness
-- manual override
-- deterministic test modes
-- unit tests/build checks
-
-**Implementation completion has not yet been verified. Inspect latest `main` before claiming it is live.**
+- English reservation/contact name: **RAY** (`R-A-Y`).
+- Chinese call scripts, when useful: Traditional Chinese → Pinyin → Korean phonetic reading.
 
 ---
 
@@ -100,212 +29,352 @@ A detailed Codex prompt was prepared for:
 - Dates: **2027-02-20 to 2027-02-23**.
 - Hotel: **Taipei Garden Hotel**.
 - Day 1 flight source of truth: **Asiana OZ711, ICN 08:00 → TPE T2 09:50 local**.
-- Recheck actual 2027 airline itinerary before travel.
-- Day 2 & Day 4 vehicle: **LUMI DRIVE New Toyota Alphard 40系**.
+- Return currently shown on site: **2027-02-23 TPE→ICN 17:10–20:35**; recheck actual airline schedule before travel.
+- Day 2 & Day 4 vehicle: **LUMI DRIVE New Toyota Alphard 40系**, driver-included charter.
 
 ---
 
-# KOREA DEPARTURE CAR — FINALIZED / CONFIRMED
+# Day 2 weather / branch logic — LATEST
 
-## Global25 chauffeur reservation
-- Vendor: **글로벌25시콜리무진**.
-- Date: **2027-02-20**.
-- Pickup window: **04:10–04:20**.
-- Route: Mokdong → **ICN Terminal 2**.
-- Travelers: 3 adults, 2 suitcases.
-- Vehicle: **Genesis G90 Long Wheel Base 4-seat**.
-- Vendor sent rear-seat photos; they show the desired true 4-seat VIP layout with two independent rear seats, fixed center console, large rear cabin, and visible legrest configuration.
-- User decided this level of evidence is sufficient and proceeded.
-- **Reservation confirmation message has now been received. Reservation is CONFIRMED.**
-- No reservation deposit.
-- User selected bank transfer as payment method in the reservation request.
-- Exact private amount is stored in protected Supabase; do not mirror it in public docs.
+## A
+- **Plan A is CLOSED / FINALIZED. Do not redesign unless user explicitly reopens it.**
+- A means **outdoor itinerary is viable**, not literally zero rain.
+- Light drizzle / weak short shower / umbrella-level rain → keep A.
+- If an unexpected strong shower arrives mid-day, shelter in Alphard or nearby indoor spot and reassess. A short burst does not justify rebuilding the whole day.
+- Only persistent/heavy weather or safety issues should materially change the remainder.
+- Weather classifier should avoid A↔B flapping from brief weak showers.
 
-## Website / budget state
-- Public website has been updated from the old stretch-limo concept to the Global25 G90 LWB 4-seat reservation.
-- G90 rear-seat image has been added to GitHub Pages and linked to the Day 1 departure timeline item.
-- Protected Supabase budget item has been updated to **예약 확정**.
-- Latest relevant website confirmation commit at this checkpoint: `6d889479a643178668366cf88a40e8ab0c266403`.
-- Rear-seat image file on main: `public/images/g90-lwb-4seat-rear.webp`.
+Final A daytime:
+- hotel breakfast
+- 08:30 LUMI departure
+- Yehliu
+- Guihou Fishermen’s Market lunch
+- Shifen Waterfall
+- Shifen Old Street
+- ~16:15 Jiufen / LUMI ends
 
-**Korea departure vehicle search is closed. Do not reopen unless Global25 changes/cancels the confirmed reservation.**
+Final A evening:
+- 16:15–17:20 Jiufen lantern/photo walk
+- 17:30 **阿理廚坊 / A Li Kitchen** — Taiwanese dinner + kaoliang
+- ~19:00 **逸茶酒室 Golden Bar** — first-choice Taiwanese craft beer
+- **Golden Bar is walk-in only; user confirmed it does not accept reservations.**
+- Desired seat: 2F rooftop/open-air scenic seat.
+- If crowded / bad seats, do not force it: leave Jiufen → 55688/Uber → Ximending → **Taihu Driftwood** or another good craft-beer bar.
+- ~20:15-ish return timing if Golden Bar works; 55688 primary, Uber/local taxi backups.
+- **銀河洞 Korean pocha** is an optional Day 2 A late hidden stage only if energy remains; it was **not Day 1**.
+
+## B
+- **Gentle/light-to-moderate steady rain.** Rain should become part of the mood.
+- Current B is being actively designed and is the main conversation position.
+- B no longer preserves Yehliu/Shifen/Jiufen. It is an independent rainy-day route.
+- Current theme:
+  > **Yilan traditional culture → Yilan local banquet-style lunch → Jiaoxi tea → Taipei East District → fresh Taiwanese seafood → drinks**
+
+## C
+- **Heavy/persistent but still safe rain.**
+- Current concept: **Taoyuan / Xpark indoor-focused day**.
+- Xpark alone is not enough; pair with another worthwhile Taoyuan-area indoor/cultural/food stop so the 8h Alphard remains valuable.
+
+## D
+- dangerous/extreme weather, road closures, official warnings, unsafe conditions
+- safety-first + LUMI operating decision
+- if only some attractions close but driving is safe → reroute
+- if natural-disaster conditions prevent normal operation → LUMI confirmed deposit refund to designated account OR future credit option
+
+---
+
+# Day 2 Plan B — CURRENT DRAFT
+
+## B principles / rejected ideas
+- **Pinglin morning tea stop is dropped** from current B. User preferred not to drink tea first thing in the morning.
+- **Lanyang Museum rejected.** User strongly dislikes museum-style sightseeing.
+- Yilan National Center for Traditional Arts is preferred because it is more like **민속촌/한옥마을 + traditional performances + crafts + shops** than a museum.
+- Good for drizzle/light rain; not for C-level heavy persistent rain because outdoor movement remains.
+- Kavalan whisky distillery was considered but parents likely prefer performance/crafts, so cultural village wins.
+- Hot springs are not core B/C right now. If ever used, user prefers them only as last activity before hotel because of makeup/comfort issues.
+
+## Current daytime timing
+
+### 08:30 — Taipei Garden Hotel depart
+- breakfast already eaten
+- LUMI Alphard, hard service window **08:30–16:30 max**
+
+### ~09:40–09:50 — 宜蘭傳藝園區 / National Center for Traditional Arts arrive
+- realistic planning target, not optimistic ideal drive time
+- visit about **2 hours**
+- prioritize:
+  - one good traditional performance
+  - craft demonstrations / craft shops
+  - old Taiwanese streets / architecture
+  - relaxed browsing
+- do NOT turn it into an exhibition-reading day
+- exact Sunday 2027-02-21 program must be rechecked closer to travel
+
+### ~11:50 — leave cultural village
+
+### ~12:10–13:20 — Yilan local lunch
+Current first hold: **拾松 宜蘭總店**.
+
+Concept: **“대만식 향토 한정식 / 지방 잔칫상 / 백반 여러 접시 공유”**.
+
+Current dishes of interest:
+- **西魯肉** — warm thick cabbage/pork/mushroom banquet soup/stew; Korean-palate friendly direction
+- **糕渣** — stock-based custardy fritter; unusual Yilan specialty
+- **卜肉** — crispy fried pork, comparable to sauce-free tangsuyuk-style pork
+- **鴨賞** — savory smoked/cured duck
+- taro/seafood item
+- vegetable
+- optional taro dessert
+
+User liked this direction.
+
+Need later:
+- latest menu/reviews
+- Sunday/reservation policy
+- exact 3-person order without over-ordering
+
+Other explored lunch options:
+- 宜蘭渡小月 — more formal classic Yilan banquet/family dining
+- Red Lantern cherry duck — stronger signature but longer/heavier/more formal; not current first pick
+
+### ~13:20 depart lunch
+
+### ~13:40–14:25/14:40 — Jiaoxi tea stop
+Current candidate: **日光山茶屋 Nikko Hill Tea House**.
+
+Role:
+- post-lunch rainy-afternoon rest
+- warm tea / eaves / mountain-rain atmosphere
+- parents rest before return drive
+- still a candidate, not final locked choice
+
+### ~14:20 onward — live traffic decision
+- Sunday afternoon National Freeway 5 northbound congestion is the timing risk.
+- Driver checks live ETA during tea.
+- leave earlier if needed to protect **16:30 LUMI hard stop**.
+
+### ~16:00–16:30 — Taipei drop-off
+Current preferred zone: **忠孝復興 / 東區 (Taipei East District)**.
+
+Why:
+- excellent rainy-day buffer
+- SOGO Fuxing / SOGO Zhongxiao
+- Dongqu underground passage/shopping
+- East District streets, cafés, shops
+- user is happy to browse department stores and grab a boba/dessert if something looks good, e.g. “幸福堂 같은 거”; do not force a specific branch if it is not nearby/current in 2027
+- dinner will be later, so drop-off does **not** need to be next to dinner
+
+Expected flow:
+- ~16:20/16:30 East District drop-off
+- browse/shop/café/dessert until ~18:30+
+- taxi to dinner
+- dinner around **19:00-ish**, exact time to finalize after restaurant
+
+---
+
+# Day 2 B dinner — LATEST DIRECTION
+
+## Critical next-day constraint
+- **Day 3 dinner is 85TD.**
+- Therefore Day 2 should NOT be another polished high-end Cantonese/Chinese seafood course.
+- Desired contrast:
+  - **Day 2:** lively Taiwanese fresh/live seafood, shared dishes, draft beer
+  - **Day 3:** 85TD modern high-end Cantonese / skyline dinner
+
+## Search categories user wants
+1. **Taiwanese fresh/live seafood restaurant** — clear first choice
+2. excellent sashimi/Japanese seafood restaurant — backup category
+
+## Current #1 — 北海漁村海鮮餐廳 / Northsea Fishing Village
+Why leading:
+- long-running Taiwanese seafood restaurant
+- Penghu sourcing identity
+- public descriptions emphasize selecting good catches from Penghu and bringing them to Taipei
+- shared-table style works for 3 family members
+- strongest answer to user's goal: **“대만이 섬이니까 싱싱한 해산물 제대로 먹고 싶다.”**
+- current menu data suggests **18 Days draft beer / 18天生啤酒** can fit the meal
+
+Desired ordering philosophy later:
+- ask what is best from Penghu / what came in well that day
+- one excellent whole/seasonal fish simply cooked
+- sashimi/raw only if genuinely good that day
+- one crustacean/squid/shellfish dish
+- vegetable
+- rice/noodle/fried rice as needed
+- draft beer
+- don't order prestige seafood only because it is expensive
+
+## Current #2 — 海九澎湖海鮮餐廳
+Why serious challenger:
+- stronger live-tank / “choose what looks best today” character
+- Penghu wild/live seafood angle
+- may be better for the visceral **“오늘 좋은 놈 골라 먹기”** experience
+
+### Tomorrow's first task
+Compare **北海漁村 vs 海九** on:
+- recent consistency/reviews
+- actual freshness/sourcing strength
+- February seasonal seafood
+- exact 3-person order
+- price range
+- comfort/noise/parents suitability
+- Sunday dinner / reservation details
+
+## Down-ranked for this B dinner
+- 真的好海鮮 — good/polished but may overlap too much in tone with next day 85TD
+- Mitsui-style high-end Japanese — good seafood, less specifically Taiwan-local and more formal
+- 小六食堂 — interesting Japanese seafood backup, but not current family-dinner leader
+
+---
+
+# B evening drinks — OPEN
+
+Current rough rhythm:
+> **fresh seafood + 18-day draft beer → second-round drink → optional third round**
+
+- User described it roughly as **“생맥 → ??? → 이자카야”**.
+- If 北海漁村 wins, a Huashan-area cocktail stop such as **防空洞 bomb shelter 華山店** was discussed as one possible second round.
+- Not final; compare nearby bars only after dinner is locked.
+- **銀河洞 Korean pocha** may theoretically be reused but is not a fixed B step; originally it was optional Day 2 A late third round.
+- Do not overpack the night; parents’ energy and Day 3 matter.
+
+---
+
+# Day 2 weather-decision web app
+User wants app-open automatic classification.
+
+Desired:
+- no background server required
+- fetch latest forecast/live data on app open
+- multi-location weather for A, with Yehliu wind/gust/wave especially important
+- do not show today's weather as if it were the 2027-02-21 forecast before forecast range opens
+- show `아직 여행일 예보 제공 전`
+- D safety override
+- manual override
+- deterministic test modes
+- avoid short-shower A/B flapping
+
+A detailed Codex prompt was prepared earlier.
+**Implementation completion must be verified against latest `main` before claiming live.**
+
+---
+
+# LUMI DRIVE — Day 2 / Day 4
+- driver-included charter, not self-drive
+- Day 2 2027-02-21: New Alphard 40系, **08:30–16:30 max**
+- Day 4 2027-02-23: ~4h, hotel → 肥前屋 → TPE T2, luggage held in vehicle
+- vehicle pool 2024–2026, mostly 2025/2026; exact 2026 not guaranteed
+- second-row captain seats/recline/legrest/ventilation/heating/massage confirmed
+- user states **NT$4,000 LUMI deposits are already paid**; user's mental **future 4M KRW budget excludes those already-paid deposits**
+- protected budget record historically showed a discrepancy with this statement; reconcile only if budget is being updated
+
+Extreme-weather confirmation:
+- natural-disaster impact → deposit refund to designated account OR retain for future use
+- partial attraction closure → reroute to other attractions and continue if safe
+
+---
+
+# KOREA DEPARTURE — FINAL / CLOSED
+- Vendor: 글로벌25시콜리무진
+- 2027-02-20, pickup 04:10–04:20
+- Mokdong → ICN T2
+- 3 adults + 2 suitcases
+- **Genesis G90 Long Wheel Base 4-seat** designated
+- actual rear-seat photos confirmed proper VIP 4-seat layout
+- reservation confirmation received
+- no deposit
+- search closed unless vendor changes/cancels
+- public site already updated previously with G90 details and image `public/images/g90-lwb-4seat-rear.webp`
 
 ---
 
 # TAIWAN DAY 1 AIRPORT PICKUP — LIVE BOARD
 
-The user now likes the idea of a different vehicle experience in Taiwan because Korea departure is already a flagship luxury sedan.
+## 宇航富豪 — strongest value/comfort candidate
+- ES300h baseline quoted previously
+- Mercedes aviation-seat vehicle promo upgrade offered
+- user asked whether exact photographed vehicle / promo total could be dispatched; vendor answered **`是的，沒錯`**
+- electric recline, legrest, ventilation, heating, massage asked; vendor: **`都有，是正航空椅`**
+- current pending items historically included signboard/meet fee, luggage help, waiting time, day-of payment/no-deposit, final reservation confirmation
 
-## 1) 宇航富豪 — strongest value/comfort candidate at the moment
-- ES300h pickup baseline was quoted.
-- Vendor offered Mercedes aviation-seat van/MPV upgrade for a very small promo increment.
-- User explicitly asked whether the photographed Mercedes aviation-seat vehicle and promo total were really guaranteed; vendor replied **`是的，沒錯`**.
-- Seat equipment question covered:
-  - electric recline
-  - legrest
-  - ventilation
-  - heating
-  - massage
-- Vendor replied **`都有，是正航空椅`** → interpret as all listed features present; vendor calls them true aviation seats.
-- Photos show very large independent captain/aviation seats and spacious rear cabin.
-- User currently sees this as highly attractive because Korea already provides the luxury-sedan experience.
+## Heycar
+- W223 S-Class priority, not 100% guaranteed
+- fallback remains S-Class family
+- 90m free wait
 
-Pending:
-- signboard/meet-and-greet fee (question was read but unanswered)
-- explicit luggage-help confirmation
-- exact waiting-time confirmation for this promo
-- day-of payment/no-deposit confirmation if needed
-- final reservation confirmation
+## 奇立租賃
+- Lexus ES300h designated, <=5y
+- explicit model guarantee
+- signboard offered
+- strong safe fallback
 
-## 2) Heycar
-- W223 S-Class priority, not 100% guaranteed.
-- Backup remains S-Class family, not a lower class.
-- 90 min free wait after landing confirmed.
-- Strong luxury-sedan option, but less differentiated now that Korea departure is G90 LWB.
-
-## 3) 奇立租賃
-- Lexus ES300h designated, within 5 years.
-- Explicit model guarantee.
-- Signboard offered.
-- Strong low-risk baseline.
-- Conditions were largely agreed, but explicit final reservation confirmation was previously unclear.
-
-## 4) CBI / 錢比國際租賃
-- Closed politely.
-- Vendor also sent a final courtesy close message.
-- **close & leave.**
+## CBI / 錢比
+- politely closed
+- **close & leave**
 
 ---
 
 # Day 1 — structurally finalized
 
-## Sunny Plan A
+Sunny:
 - airport pickup → Taipei Garden Hotel → My灶
 - 12:10–13:15 My灶
-- 13:30 弄宅咖啡, 3 adults, reservation confirmed
-- 14:25–15:20 林安泰古厝民俗文物館
+- 13:30 弄宅咖啡, 3 adults, reserved
+- 14:25–15:20 林安泰古厝
 - Baishihu → Bishanyan sunset
-- 19:00 小統一牛排館, 3 adults, reservation confirmed/fixed
-- Longshan Temple → Huaxi/Guangzhou night market → Carrefour Guilin → hotel
+- 19:00 小統一牛排館, 3 adults, reserved/fixed
+- Longshan → Huaxi/Guangzhou night market → Carrefour Guilin → hotel
 
-## Rain Day 1
-- B1: My灶 + 弄宅 fixed → TFAM if Feb 2027 exhibition fits family → 小隱茶庵 → 19:00 小統一
+Rain Day 1:
+- B1: My灶 + 弄宅 fixed → TFAM if Feb 2027 exhibit fits → 小隱茶庵 → 19:00 小統一
 - B2: if TFAM unsuitable → Miniatures Museum → 小隱茶庵 → 19:00 小統一
-- Do not change 小統一 19:00 without approval.
+- do not change 小統一 19:00 without approval
 
 ---
 
-# LUMI DRIVE — Day 2 / Day 4 contract
-- Driver-included charter, not self-drive.
-- Day 2 2027-02-21: New Alphard 40系, **8h, 08:30–16:30 max**.
-- Day 4 2027-02-23: ~4h, hotel → 肥前屋 → TPE T2.
-- Contract total and payment schedule remain in protected operational records.
-- First deposit transfer from Korea was previously sent; never resend unless formally failed/returned.
-- Vehicle pool 2024–2026, mostly 2025/2026; 2026 not guaranteed.
-- Second-row features confirmed: captain seats, recline, legrest, ventilation, heating, massage.
-
-## LUMI extreme-weather policy — NEW CONFIRMED ANSWER
-LUMI replied on 2026-08-24:
-- `天災影響訂金會協助退還到您的指定帳戶（或者保留下次使用）`
-  - if affected by natural disaster, they will help **refund the deposit to a designated account OR keep it for future use**.
-- `您預訂的日期，已經過了颱風季節了（不會有颱風）`
-  - vendor notes the booked date is outside normal typhoon season; do not interpret this as literal zero meteorological risk.
-- `部份景點關閉會選擇其他景點進行行程！`
-  - if only some attractions close, they will **choose other attractions and continue the itinerary**.
-
-User already thanked them; conversation closed with a sticker. No further reply needed.
-
-Operational D rule:
-- if safe to drive but some attractions close → reroute to alternatives
-- if natural-disaster conditions prevent normal operation → refund/credit option exists
-- D remains a safety-first branch, not a sightseeing optimization branch
+# A Li Kitchen / Jiufen notes
+- Plan A target: **2027-02-21 17:30, 3 adults**
+- goal: Taiwanese dinner + kaoliang, preferably window/night-view seating
+- phone English difficult; user retried using Google Translate TTS
+- best interpretation: call again about one week before
+- TODO around 2027-02-14, reservation name **RAY**
+- do not claim already reserved
 
 ---
 
-# Jiufen / restaurant status
-
-## 阿理廚坊 / A Li Kitchen
-- Plan A target: **2027-02-21 17:30, 3 adults**.
-- Goal: Taiwanese dinner + kaoliang, preferably window/night-view seating.
-- English phone communication was difficult.
-- First call produced `聽不懂` (“I don’t understand”).
-- User retried using Google Translate TTS.
-- Best interpretation of the staff response: **call again about one week before the date**.
-- TODO exists in protected trip tasks:
-  - around **2027-02-14**, call again
-  - reservation name **RAY**
-  - ask for 17:30 / 3 adults / window-night-view seat
-  - Google Translate TTS recommended
-- Do not claim the restaurant is already reserved.
-
-## 逸茶酒室 Golden Bar
-- **Plan A first-choice second round remains Golden Bar.**
-- Desired seat: **2F rooftop/open-air scenic seat**.
-- General reservation policy is unclear/inconsistent across sources; phone contact is preferred over email by user.
-- Facebook Messenger did not work for the user.
-- User tried calling; **no answer yet**.
-- Retry later; target question only:
-  - 2027-02-21 ~19:00
-  - 3 guests
-  - can 2F rooftop scenic seats be reserved?
-- If reservation requires deposit/minimum spend, user is open to it.
-- If A weather is good, Golden Bar remains preferred over Ximending alternatives because the Jiufen rooftop-night-view experience is the point.
-
-## Ximending craft-beer idea
-- Taihu Driftwood / other Ximending craft-beer bars were explored as alternatives.
-- **Do not replace Golden Bar in Plan A.**
-- They are only relevant if later B/C design returns to Taipei or if Golden Bar becomes impractical.
-
----
-
-# Taxi return from Jiufen — Plan A
-- Primary: **Taiwan Taxi 55688 app**.
-- Secondary: Uber.
-- Fallback: local taxi / accessible vehicle pickup point.
-- Golden Bar’s alley may not be directly vehicle-accessible; walk to a reachable pickup point before meeting the taxi.
-
----
-
-# Website / mapping notes
-- User wants actual geographic pins/route maps, not vague area names.
-- Previous map output once geocoded a place incorrectly far south; avoid name-only ambiguous geocoding.
-- When mapping trip points, use verified business refs, exact addresses, or coordinates.
-- Day 1 is entirely Taipei-area after arrival from Taoyuan; it does **not** go anywhere near Kaohsiung.
-- Day 2 Plan A route: Taipei → Yehliu/Guihou → Shifen → Jiufen → Taipei.
-
----
-
-# Protected TODO notes
-- `阿理廚坊 2/21 저녁 예약` task exists for Feb 2027, with one-week-before phone reminder and RAY details.
-- There are older stale TODOs from earlier transport ideas (e.g. stretch-limo follow-up). Since Korea departure is now Global25 G90 confirmed, those obsolete tasks can be cleaned up later if desired.
+# Mapping preference
+- use actual verified business refs / exact addresses / coordinates
+- do not use vague region names as pins
+- previous ambiguous geocoding error annoyed user
+- Day 2 Plan A route: Taipei → Yehliu/Guihou → Shifen → Jiufen → Taipei
 
 ---
 
 # GitHub / website
 Repo: `oops-lobster/minsung-tour-taiwan-2027`
 Public site: `https://oops-lobster.github.io/minsung-tour-taiwan-2027/`
-Checkpoint: `docs/CURRENT_CHAT_CHECKPOINT.md`
+Canonical checkpoint: `docs/CURRENT_CHAT_CHECKPOINT.md`
+Tonight's detailed B snapshot: `docs/chat-checkpoints/2026-08-24_day2-rain-B.md`
 
-Recent relevant main work:
-- Day 2 sunny final schedule / Guihou / Jiufen evening
-- protected Day 2 budget migration
-- Korea departure update to Global25 G90 LWB 4-seat
-- G90 rear-seat image added to public site
-- reservation status changed to confirmed
+Latest `main` observed immediately before tonight's docs save:
+- `98d5b5edf49c850eb11d4cad31191f5a23df71f6` — `feat: sync trip status and add Day 2 weather decision`
+
+**Tonight only Markdown checkpoints were saved; the public itinerary UI was not updated with the new B plan yet.**
 
 ---
 
-# Continuity rules
-- Always inspect latest `main` before claiming website state.
-- Do not resurrect old Day 1 Tamsui/CKS/Chun Shui Tang plan.
-- Do not change 小統一 19:00 reservation.
-- Do not remove 弄宅咖啡 from rainy Day 1.
-- Do not expose protected budget data publicly.
-- OZ711 source of truth remains **09:50 TPE T2** unless airline schedule changes.
-- Guihou lunch is fixed in Day 2 Plan A.
-- **Day 2 Plan A is closed.**
-- **B/C must now be designed from scratch and are not constrained to 예스지, Jiufen, north coast, or northeast Taiwan.**
-- B/C success criterion: **“비 와서 더 좋았다.”**
-- D = safety-first + LUMI operation/refund/credit logic.
-- Korea departure vehicle is **Global25 G90 LWB 4-seat — reservation confirmed — search closed.**
-- Golden Bar remains Plan A’s preferred Jiufen craft-beer second round; phone retry pending.
+# RESUME TOMORROW HERE
+
+1. **Compare 北海漁村 vs 海九 first.**
+2. Lock the fresh-seafood dinner and likely ~19:00 reservation time.
+3. Then refine East District 16:30→dinner rainy browsing route.
+4. Pick second-round bar; keep third round optional.
+5. Recheck/choose Jiaoxi tea house after evening structure is stable.
+6. Later build Plan C in detail.
+
+Continuity anchors:
+- Day 2 A closed/final.
+- B = gentle rain Yilan culture/food/tea + East District + Taiwanese seafood.
+- C = heavy safe rain Taoyuan/Xpark direction.
+- D = safety-first.
+- Day 3 dinner = **85TD**, so do not make Day 2 dinner another similar high-end Chinese course.
