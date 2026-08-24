@@ -1,6 +1,6 @@
 # CURRENT CHAT CHECKPOINT
 
-Last updated: 2026-08-24 13:01 KST
+Last updated: 2026-08-24 13:35 KST
 
 > Canonical handoff for continuing this Taiwan family-trip planning chat.
 >
@@ -17,27 +17,104 @@ Last updated: 2026-08-24 13:01 KST
 - Public budget exposure is forbidden. **Do not copy protected budget figures into public UI/docs; read the protected Supabase source when needed.**
 - Vendor LINE logs are commonly pasted into chat. Expected workflow: translate → evaluate → classify **keep / one reminder / close & leave** → draft reply if needed.
 - For outreach, **do not send Gmail/email or other external messages unless the user explicitly asks to send in that turn.** Default to search + contact info + copy/paste message only.
+- **All English reservation/contact names should use `RAY`.** If spelling is needed: `R-A-Y`.
+- When giving Chinese/Taiwanese vendor call scripts, format in this order whenever useful:
+  1. Traditional Chinese
+  2. Pinyin
+  3. Korean phonetic reading
 
 ---
 
 # CURRENT CONVERSATION POSITION
 
-## What is already closed
+## Already closed/finalized
 - **Day 2 sunny / no-rain Plan A is finalized.**
-- Day 2 Jiufen evening is finalized through hotel return, with an optional third round.
+- Day 2 Jiufen evening structure is finalized through hotel return, with optional third round.
 
-## Deferred planning task
-- Day 2 rainy alternatives are still pending:
-  - **Plan B = normal / manageable rain**
-  - **Plan C = more persistent or heavier rain, but still safe/manageable**
-- Jiufen remains the **fixed ending** for both B and C.
-- Torrential rain / typhoon / dangerous wind / landslide-risk conditions are explicitly **out of scope** for the current B/C design.
-- Existing Day 2 rain logic in `src/data/weatherPlans.ts` is still placeholder/draft and should not be treated as the newly agreed B/C.
+## Current Day 2 planning direction
+The rainy-day logic has now been clarified into **A / B / C / D**:
 
-## Current active topic
-The conversation temporarily shifted from rainy-Day-2 design to **premium airport-transfer decisions**:
-1. Korea home → ICN T2 departure car.
-2. TPE T2 → Taipei Garden Hotel arrival car.
+### A — normal/fair / only weak shower
+- Original finalized outdoor plan can be used basically as-is.
+- Rough initial operational markers:
+  - max hourly precipitation under ~2 mm/h
+  - gust under ~40 km/h
+  - Yehliu wave under ~2.0 m
+- A short light shower alone should not force a rain-plan switch.
+
+### B — normal/manageable rain
+- Umbrella/raincoat weather, but still walkable and tourable.
+- Rough initial markers:
+  - rain probability around >=50%
+  - hourly precipitation roughly 2–5 mm/h
+  - gust roughly 40–50 km/h
+  - Yehliu wave roughly 2.0–2.5 m
+- Outdoor segments may be compressed, but **Jiufen remains fixed**.
+
+### C — persistent/heavier rain but still safe/manageable
+- Outdoor daytime itinerary should be actively modified rather than stubbornly preserved.
+- Rough initial markers:
+  - hourly precipitation >=5 mm/h, or several hours of persistent meaningful rain
+  - high rain probability plus actual expected precipitation
+  - gust >=~50 km/h
+  - Yehliu wave >=~2.5 m
+- Yehliu and/or Shifen may be heavily reduced/replaced depending on local conditions.
+- **Jiufen is still retained if access/roads are safe.**
+- In C, Jiufen photo walk can be shortened substantially; dinner/bar can remain the anchor.
+
+### D — safety override, NOT just “Plan C++”
+- Typhoon / extreme downpour / dangerous wind / road closure / official attraction closure / government emergency signals.
+- D means **release every fixed sightseeing assumption, including Jiufen**.
+- App should show a safety hold such as `안전 확인 필요 · 일반 일정 판정 중지` rather than recommend a normal itinerary.
+- LUMI operation/change/refund terms matter here.
+
+## Important conceptual rule
+- **A = 그냥 간다**
+- **B = 비 맞으면서도 간다 / 조금 압축한다**
+- **C = 낮 일정은 크게 조정하되 안전하면 지우펀 저녁까지 살린다**
+- **D = 지우펀 포함 고정 해제, 안전/운행 여부부터 판단한다**
+
+---
+
+# Day 2 web-app weather decision system — newly requested
+
+User wants the website/app to automatically determine whether Day 2 is currently **A / B / C / D** when the app is opened.
+
+## Desired behavior
+- No background server job is required.
+- **Opening the app is enough:** fetch latest available forecast/live data → classify → update UI.
+- Cache around ~30 minutes on travel day is acceptable.
+- Before forecast range reaches 2027-02-21, do **NOT** misuse today’s Taipei weather as if it were the trip-day decision.
+- Show an explicit out-of-range state such as `아직 여행일 예보 제공 전`.
+- As trip date enters forecast horizon, progress through preview / near-term / live style states.
+
+## Day 2 multi-location inputs
+Do not use Taipei-only weather for Day 2.
+- Yehliu / north coast: rain + wind + gust + **wave height**
+- Shifen: rain + wind + gust
+- Jiufen: rain + wind + gust
+
+Use existing repo coordinates where available; avoid duplicate hardcoding.
+
+## Yehliu-specific rule
+- Rain alone does not automatically mean closure.
+- February north coast can be affected by northeast monsoon; **wind / gust / wave** are critical.
+- A dry but windy/high-wave day can be worse for Yehliu than a rainy calm day.
+- Marine data is only a risk indicator; app must not claim `open/closed` without a real official source.
+
+## Codex prompt status
+- A detailed Codex prompt was prepared in chat to implement:
+  - multi-location weather fetch
+  - Open-Meteo weather + marine data
+  - A/B/C classifier
+  - D safety override
+  - per-location GOOD / CAUTION / POOR
+  - reason strings
+  - forecast-range awareness
+  - manual override while showing auto recommendation
+  - deterministic `weatherTest=day2-a/day2-b/day2-c/day2-safety/...` modes
+  - unit tests + build checks
+- **Implementation is not yet confirmed as completed.** Inspect latest `main` before claiming this feature exists.
 
 ---
 
@@ -51,215 +128,145 @@ The conversation temporarily shifted from rainy-Day-2 design to **premium airpor
 
 ---
 
-# KOREA DEPARTURE CAR — NEW LIVE BOARD
+# KOREA DEPARTURE CAR — LIVE BOARD
 
-## Strategy change
-- Original idea: expensive Chrysler 300C Stretch Limousine for the Korea departure.
-- Current direction: **drop the stretch-limo idea and use a proper chauffeur-driven flagship sedan instead**, because the 04:20 departure is mostly about sleeping comfortably, luggage help, and a smooth door-to-airport experience.
-- Desired experience:
-  - chauffeur arrives and waits in front of home before departure
-  - helps load luggage
-  - parents use the best rear seats
-  - direct drop at ICN T2 departure level
-  - user can rest/sleep during the ride
+## Strategy
+- Stretch-limo idea has been dropped.
+- Desired experience: premium chauffeur sedan, home-front wait, luggage loading, parents in best rear seats, direct ICN T2.
 
 ## Preferred vehicle
-**1st choice: Genesis G90 LWB 4-seat chauffeur car**
-- 4-seat layout is preferred over 5-seat bench because total occupants are driver + 3 travelers.
-- Ideal seating: driver + user in front, parents in the two independent VIP rear seats.
-- Rear-seat experience is the point: independent rear seats / center console / recline / legrest-class chauffeur configuration if available.
+**Genesis G90 LWB 4-seat**
+- Ideal seating: driver + user front, parents in two independent rear VIP seats.
+- True 4-seat LWB is preferred over generic 5-seat G90.
 
-## Korea departure timing / load
-- Date: 2027-02-20.
-- Chauffeur arrival target: about **04:10**.
-- Departure: about **04:20**.
-- Destination: **ICN Terminal 2**.
-- Travelers: 3 adults.
-- Luggage: 1 medium suitcase + 1 cabin/20-inch suitcase.
+## Timing/load
+- 2027-02-20.
+- Driver arrival target ~04:10.
+- Depart ~04:20.
+- Mokdong → ICN T2.
+- 3 adults.
+- 1 medium + 1 cabin/20-inch suitcase.
 
 ## Price psychology
-- Ordinary taxi is much cheaper and remains the practical fallback; departure after 04:00 avoids Seoul taxi late-night surcharge.
-- For a **true G90 LWB 4-seat designated chauffeur**:
-  - roughly 12–15만원 = very good
-  - 15–17만원 = acceptable if vehicle and service are confirmed
-  - ~17만원 = psychological ceiling
-  - 18만원+ = starts to feel unnecessary
-  - 20만원+ = generally reject unless there is an exceptional reason
+- ~12–15만원 = excellent.
+- ~15–17만원 = acceptable if true designated G90 LWB 4-seat + full service.
+- ~17만원 = psychological ceiling.
+- ~18만원+ = starts to feel unnecessary.
+- 20만원+ = generally reject.
 
-## Korea candidates
-### A. 개인/숨고 G90 LWB 4-seat chauffeur
-- A specific individual chauffeur listing for **G90 LWB 4-seat / airport VIP transfer** was found and contacted.
-- Exterior and rear-seat photos were checked.
-- Treat as one of the two finalists together with Global25.
-- Exact current quote/booking outcome should be re-read from the latest chat if needed.
+## Current candidates / outcomes
+### Global25
+- User already called.
+- They said they would send conditions by text.
+- Verify exact G90 LWB 4-seat guarantee, all-in price, early-morning fee, toll/VAT, luggage help, wait/departure timing.
 
-### B. 글로벌25시 콜리무진
-- Public benchmark previously found: Yangcheon → ICN G90 around **KRW 140,000 + VAT**, before any special early-morning adjustments.
-- User has already **called Global25**.
-- They said they would summarize/confirm the details by **text message**.
-- Wait for the text and verify:
-  - G90 **LWB 4-seat** specifically, not generic G90
-  - designated/guaranteed actual dispatch
-  - 04:10 home-front waiting / 04:20 departure
-  - luggage loading help
-  - toll + VAT + early-morning surcharge included final total
-  - reservation/deposit/cancellation terms
+### Individual/Soomgo G90 LWB 4-seat chauffeur
+- Exterior/rear-seat photos were checked previously.
+- Contact phase mostly done; do not expand unless needed.
 
-### C. LANE4
-- User called directly.
-- Quote: **KRW 220,000**.
-- Too expensive for this use case; effectively rejected / backup only.
+### LANE4
+- Quote **KRW 220,000** → reject.
 
-### D. Other Korea candidates
-- OK Korea / AirDrive / other corporate chauffeur services were researched, but currently not worth expanding the search unless the two finalists fail.
-- Current user view: **Global25 vs the G90 LWB 4-seat private/숨고 option is enough.**
-
-## K9 note
-- Do not chase a “K9 4-seat” as the main solution.
-- Current factory K9 is basically a 5-seat bench configuration even with VIP rear-seat options; G90 LWB 4-seat is the cleaner match.
+### New G90 quote
+- A later **KRW 250,000** G90 proposal arrived.
+- This is far beyond target; user should politely decline rather than negotiate aggressively.
+- Classification: **close & leave** unless the quote changes dramatically on its own.
 
 ---
 
-# TAIWAN DAY 1 AIRPORT PICKUP — NEW LIVE BOARD
+# TAIWAN DAY 1 AIRPORT PICKUP — LIVE BOARD
 
-## Main decision frame
-The pickup search is no longer simply “ES300h vs S-Class.” Three distinct experiences are now alive:
-1. **Heycar S-Class** — car itself is the luxury experience.
-2. **宇航富豪 Mercedes aviation-seat van** — rear-seat comfort/value is the experience.
-3. **奇立 ES300h** — clean, low-risk, excellent-value sedan baseline.
+## Main frame
+Three differentiated experiences remain:
+1. **Heycar S-Class** — flagship luxury-sedan experience.
+2. **宇航富豪 Mercedes aviation-seat van** — parent rear-seat comfort/value.
+3. **奇立 ES300h** — simple, clean, low-risk sedan baseline.
 
-Do not reopen dead vendors unless new information materially changes the ranking.
-
----
-
-## 1) Heycar — S-Class candidate
-### Current quote
-- TPE T2 → Taipei Garden Hotel.
-- **Mercedes-Benz S-Class W223 priority arrangement**.
-- Base: **NT$2,500**.
-- Signboard/meet-and-greet: **+NT$200**.
-- Practical total: **NT$2,700**.
-- Includes driver, airport parking, highway tolls, normal airport pickup fees.
-- Flight time corrected to **OZ711 09:50 TPE T2**.
-
-### Vehicle condition / guarantee
-- W223 vehicle age: **within 6 years**.
-- **W223 is NOT 100% guaranteed.**
-- If unexpected dispatch/maintenance issues occur, Heycar says it will still send an **S-Class family vehicle**, not downgrade to another vehicle class.
-- Previously established chat context: fallback S-Class was considered to be within roughly **8 years**; re-confirm if this becomes decision-critical.
-- Heycar supplied exterior/interior/rear-seat photos; vehicle shown looked clean and clearly W223-generation.
-- The shown car is a normal rear bench S-Class, not a 4-seat limousine layout.
-
-### Waiting / surcharge
-- **90 minutes free waiting after actual landing** confirmed.
-- Vendor says Lunar-New-Year-period rides have surcharge.
-- Current trip date 2027-02-20 is outside the official Lunar New Year holiday window, so surcharge is not expected on that basis, but re-confirm the final total before booking.
-
-### Decision position
-- Compared with Taipei Garden Hotel random S-Class pickup (~NT$1,800, older/random generation), the difference to Heycar with signboard is only **NT$900**.
-- Current preference in that comparison: **Heycar is worth the premium** because it sharply reduces old/random S-Class risk.
-- W222 fallback is not automatically “bad”; a clean later W222 remains a genuinely good chauffeur sedan.
+Because Korea departure is likely a flagship sedan, the user now sees more appeal in choosing a different vehicle experience on Taiwan arrival rather than another luxury sedan.
 
 ---
 
-## 2) 奇立租賃 — ES300h low-risk baseline
-### Confirmed conditions
-- **Lexus ES300h designated**.
-- Vehicle age: **within 5 years**.
-- Model guarantee explicitly confirmed: **will not be changed to another model**.
-- Base pickup: **NT$1,300**.
-- Signboard: **+NT$200**.
-- Total understood as **NT$1,500**.
-- 90-min wait after actual landing included.
-- Parking/tolls/normal pickup fees included.
-- Vendor said exact physical car is assigned only 2–3 days before service.
-- Do not push the price again; vendor already explained holiday-period pricing was being treated favorably.
-
-### Booking-status issue
-- User sent a formal reservation request and asked for booking/payment confirmation.
-- Vendor replied to some details (including signboard) but did **not clearly say** `預約成立 / 已幫您保留 / 訂單成立`.
-- Therefore treat as **conditions agreed, reservation status not clearly closed** until explicit confirmation arrives.
-
-### Role now
-- Still an excellent, low-risk **ES300h fallback**.
-- If Heycar or 宇航富豪 fails on certainty/booking, 奇立 remains very strong.
+## 1) Heycar — S-Class
+- W223 priority.
+- Base NT$2,500; signboard +NT$200; practical total NT$2,700.
+- Includes driver, parking, highway, normal airport pickup fees.
+- OZ711 09:50 T2 corrected.
+- W223 within 6 years.
+- **W223 not 100% guaranteed**; if dispatch/maintenance issue, vendor says still S-Class family, no class downgrade.
+- 90 min free waiting after landing confirmed.
+- Strong if user wants the luxury-sedan experience itself.
 
 ---
 
-## 3) 宇航富豪 — SURPRISINGLY STRONG NEW CANDIDATE
-### ES300h offer
-- Lexus ES300h can be designated.
-- Imported-car airport pickup quoted **NT$1,400 all-in**.
-- Company advertises/said vehicles are generally within 3 years.
-- The specific ES300h was said to have been **purchased last April**, so it is very new.
-- Exterior, rear-seat/interior photos and video were eventually provided.
+## 2) 奇立租賃 — ES300h baseline
+- Lexus ES300h designated.
+- Vehicle within 5 years.
+- Explicit model guarantee: will not change to another model.
+- Base NT$1,300.
+- Signboard +NT$200.
+- Total understood NT$1,500.
+- 90-min wait + parking/tolls/normal pickup fees included.
+- Exact physical unit assigned 2–3 days before.
+- Do not push cash-discount negotiation again.
+- Reservation conditions were agreed, but explicit final `預約成立 / 訂單成立` confirmation remained unclear.
 
-### +NT$100 aviation-seat upgrade
-This changed the ranking materially.
+---
 
-- Vendor offered an **“航空椅” Mercedes van/MPV upgrade for only +NT$100** from the ES300h package.
-- Therefore practical promo total discussed: **NT$1,500**.
-- Vendor explained the normal aviation-seat transfer price is around **NT$1,800/1,900**, and the +100 offer is a customer-experience promotion.
-- User explicitly asked whether +100 means the **same photographed Mercedes aviation-seat vehicle can be designated/guaranteed** and whether total is NT$1,500.
-- Vendor answered: **`是的，沒錯`**.
+## 3) 宇航富豪 — aviation-seat Mercedes, currently very attractive
+### ES300h baseline
+- ES300h airport pickup NT$1,400 all-in was quoted.
+- Specific ES300h said to be very new; photos/video supplied.
 
-### Rear-seat equipment
-The supplied photos show very large independent captain/aviation seats and spacious rear cabin.
-User asked whether the seats have:
+### Aviation-seat upgrade
+- Vendor offered Mercedes aviation-seat vehicle for **+NT$100**.
+- Understood promotional total = **NT$1,500**.
+- Vendor said normal aviation-seat pickup price is around NT$1,800/1,900 and this is an experience/promo upgrade.
+- User explicitly asked whether the photographed Mercedes aviation-seat vehicle can actually be the dispatched vehicle and whether final total is NT$1,500.
+- Vendor replied **`是的，沒錯`**.
+
+### Seat equipment
+User asked whether it has:
 - electric recline
 - legrest
 - ventilation
 - heating
 - massage
 
-Vendor replied: **`都有，是正航空椅`** — all are present; vendor describes them as true aviation seats.
+Vendor replied:
+- **`都有，是正航空椅`**
+- Interpret as all listed functions present; vendor calls them true aviation seats.
 
-### Why it is attractive
-- For only ~NT$100 more than ES300h, parents get independent high-comfort rear seats.
-- Pure rear-seat comfort/value may beat the ES300h and can rival or exceed the S-Class for this short airport ride, even if the van itself is less refined than an S-Class chassis.
-- Tradeoff: it overlaps somewhat with Day 2/4 Alphard captain-seat experience; S-Class gives a more distinct luxury-sedan experience.
+### Current pending questions
+- User sent:
+  - whether signboard/meet-and-greet is available with this aviation-seat pickup
+  - if so, extra fee
+- Message was read but **no reply yet** as of this checkpoint.
+- Do not spam follow-up immediately.
+- Luggage assistance has **not yet been explicitly confirmed**.
+- Cash/day-of payment has **not yet been explicitly agreed**.
+- Preferred next confirmations:
+  1. signboard fee
+  2. whether driver waits in arrival hall and helps push/load luggage
+  3. 90 min free wait for this promo
+  4. day-of full cash payment/no deposit if possible
+  5. final written booking confirmation and exact vehicle guarantee
 
-### Still pending / confirm before booking
-- **Signboard/meet-and-greet availability and fee** — user has asked; await/confirm reply.
-- 90-min free wait after landing — confirm if not already explicit for this exact promo.
-- Payment/booking terms.
-- Preferred risk-control: ask whether **full cash payment on service day with no deposit** is acceptable. If yes, this significantly reduces concern about using a smaller operator.
-- Before any advance payment, get written confirmation of:
-  - exact pictured aviation-seat Mercedes vehicle / equivalent exact agreed vehicle
-  - final all-in total including signboard
-  - waiting time
-  - reservation confirmation
-
-### Trust assessment
-- Not currently treated as an obvious scam/fake operator.
-- Has its own website and service information broadly matching LINE responses.
-- Appears more like a smaller transfer/dispatch operation than a heavily reviewed large company.
-- Because independent review depth is limited, prefer **day-of cash payment** and written booking terms over large advance transfer.
+### Trust position
+- Not treated as obvious scam/fake.
+- Has its own website; public service info broadly matches LINE chat.
+- Independent review depth appears limited compared with a major operator.
+- Therefore favor written terms + day-of payment if available.
 
 ---
 
 ## 4) CBI / 錢比國際租賃 — CLOSED
-- ES300h quote was NT$1,800; general 3-year-new-car claim.
-- S-Class inventory/price could not be confirmed now because they have few units and would need to see future dispatch availability.
-- Discount signal weak.
-- User already sent a polite “we will compare with family and contact you if selected” close-out message.
-- **Classification: close & leave.** No more reminders needed.
-
----
-
-## Taiwan airport-pickup ranking logic right now
-Do not force a final winner until the remaining signboard/payment answers arrive.
-
-### If prioritizing “luxury sedan / first-arrival event”
-**Heycar S-Class** is strongest.
-
-### If prioritizing “parents’ rear-seat comfort + absurd value”
-**宇航富豪 aviation-seat Mercedes at NT$1,500 promo** is extremely strong if exact-vehicle guarantee + day-of cash + signboard/waiting terms all check out.
-
-### If prioritizing “certainty / simple low-risk value”
-**奇立 ES300h NT$1,500 incl. signboard** remains the cleanest baseline.
-
-Hotel random S-Class at ~NT$1,800 is now less compelling than Heycar because the Heycar premium is only NT$900 while generation/condition certainty is much better.
+- ES300h NT$1,800; weak price advantage.
+- S-Class availability uncertain.
+- User already closed politely.
+- Vendor’s final reply on 2026-08-24:
+  - `沒問題，非常感謝您的耐心等候，也希望有機會能夠為您服務！謝謝`
+  - pure closing courtesy.
+- **Classification: close & leave. No reply needed.**
 
 ---
 
@@ -275,24 +282,34 @@ Hotel random S-Class at ~NT$1,800 is now less compelling than Heycar because the
 - Longshan Temple → Huaxi/Guangzhou night market → Carrefour Guilin → hotel.
 
 ## Rain Day 1
-- B1: My灶 + 弄宅 fixed → TFAM if February 2027 exhibition fits family → 小隱茶庵 → 19:00 小統一.
-- B2: if TFAM unsuitable, Miniatures Museum only as stable indoor fallback → 小隱茶庵 → 19:00 小統一.
+- B1: My灶 + 弄宅 fixed → TFAM if Feb 2027 exhibition fits family → 小隱茶庵 → 19:00 小統一.
+- B2: if TFAM unsuitable, Miniatures Museum as stable indoor fallback → 小隱茶庵 → 19:00 小統一.
 - Do not change 小統一 19:00 without approval.
 
 ---
 
 # LUMI DRIVE — Day 2 / Day 4 contract
-- Driver-included charter service, not self-drive.
-- 2027-02-21: 8-hour New Alphard 40系, **08:30–16:30 max**.
-- 2027-02-23: approx. 4-hour New Alphard 40系, hotel → 肥前屋 → TPE T2.
-- Package total: **NT$15,000**.
+- Driver-included charter, not self-drive.
+- Day 2 2027-02-21: New Alphard 40系, 8h, **08:30–16:30 max**.
+- Day 4 2027-02-23: ~4h, hotel → 肥前屋 → TPE T2.
+- Contract total NT$15,000.
 - Includes driver, fuel, tolls, parking, passenger insurance; overtime extra.
-- Total deposit: NT$4,000 split into Aug 2026 NT$2,000 + Jan 2027 NT$2,000.
-- First NT$2,000 has been sent from Korea but vendor receipt confirmation is still pending.
-- **Do not resend unless the first transfer is formally returned/failed.**
-- Balance: NT$11,000; later get one final written confirmation of timing/method.
-- Vehicle pool: 2024–2026, mostly 2025/2026; 2026 not guaranteed.
+- Deposit total NT$4,000 split Aug 2026 NT$2,000 + Jan 2027 NT$2,000.
+- First NT$2,000 has been sent from Korea; vendor receipt confirmation remained pending.
+- **Do not resend unless formally failed/returned.**
+- Balance NT$11,000; later confirm timing/method.
+- Vehicle pool 2024–2026, mostly 2025/2026; 2026 not guaranteed.
 - Second-row features confirmed: captain seats, recline, legrest, ventilation, heating, massage.
+
+## Extreme-weather policy question
+- User wants to ask LUMI specifically about **D-scenario** treatment:
+  - typhoon / heavy rain / government closure / road closure
+  - free cancellation or rescheduling?
+  - refund/credit treatment of Day 2 deposit portion?
+  - if only some attractions close but car can safely run, does itinerary simply change while charge stays the same?
+  - if Day 2 is affected, does Day 4 airport transfer stay intact?
+- A Traditional-Chinese inquiry draft was prepared in chat.
+- **Do not assume it has been sent unless the user confirms.**
 
 ---
 
@@ -303,46 +320,157 @@ Hotel random S-Class at ~NT$1,800 is now less compelling than Heycar because the
 - 08:15 lobby.
 - 08:30 LUMI Alphard departure.
 - 09:20–10:45 Yehliu Geopark.
-  - self-guided Zones 1 + 2 only.
+  - self-guided Zones 1 + 2.
   - 10:45 vehicle return target; 10:50 absolute departure ceiling.
-- 10:55–12:10 **Guihou Fishermen’s Market / 龜吼漁夫市集** lunch.
+- 10:55–12:10 Guihou Fishermen’s Market / 龜吼漁夫市集 lunch.
 - 12:10–13:00 drive/rest to Shifen.
-- 13:00–14:00 Shifen Waterfall schedule block.
-  - actual core viewing 40–50 min.
-  - remaining time = exit + Visitor Center restroom.
+- 13:00–14:00 Shifen Waterfall block.
 - 14:10–15:20 Shifen Old Street.
-  - one 4-color lantern shared by all 3.
-  - snacks only as tasting.
-  - coffee max ~15–20 min if desired.
-  - leave ~15:20 to protect Jiufen arrival.
-- 15:20 onward drive to Jiufen.
-- ~16:15 Jiufen arrival / LUMI 8-hour service ends.
+- ~15:20 depart toward Jiufen.
+- ~16:15 Jiufen arrival / LUMI service ends.
 
-## Jiufen late afternoon / night — finalized
-### 16:15–17:20 Jiufen lantern-photo walk
-- 基山街 → 昇平戲院 → 豎崎路 → A-Mei Teahouse exterior / views.
-- Light rain/mist is acceptable and can improve the wet-stone/red-lantern mood.
+---
 
-### 17:30–18:45 1st round — 阿理廚坊 / A Li Kitchen
+# DAY 2 JIUFEN EVENING — A/B/C COMMON ANCHOR
+
+Critical new decision:
+- **A/B/C all use the same Jiufen dinner/bar anchor whenever Jiufen access remains safe.**
+- Only **D** releases this fixed ending.
+
+## 16:15–17:20 Jiufen lantern-photo walk
+- In A: full version.
+- In B: rain-compatible version, still attractive.
+- In C: compress heavily if needed; it is acceptable to wait indoors/under cover and protect dinner time.
+
+## 17:30–18:45 1st round — 阿理廚坊 / A Li Kitchen
 - Proper Taiwanese dinner.
 - Food quality prioritized.
-- Alcohol role: **kaoliang**.
-- Before booking: window/night-view seat + kaoliang sale / outside bottle / corkage.
+- Alcohol role: kaoliang.
+- Target reservation: **2027-02-21 (Sun) 17:30, 3 adults, name RAY.**
+- Desired if possible: window/night-view seat.
+- After reservation feasibility is known, ask about:
+  - English communication
+  - kaoliang availability
+  - BYOB if they do not sell it
+  - corkage
 
-### 18:45–19:05 short night lantern walk
+## 18:45–19:05 short night lantern walk
+- Optional/compressible in rain.
 
-### 19:05–20:15 2nd round — 逸茶酒室 Golden Bar
+## ~19:00–20:15 2nd round — 逸茶酒室 Golden Bar
 - Taiwanese craft beer bar.
-- User expects to drink generously, not just one token drink.
-- Prefer scenic seating.
+- Scenic seating preferred.
+- User expects real drinking, not one symbolic beer.
+- Current public understanding: likely walk-in/no standard reservation, but user wants to ask directly whether reservation is possible.
+- If standard booking is not accepted, later consider politely asking whether a deposit / minimum spend / seat-retention fee could secure a good indoor/window scenic seat.
+- For B/C, indoor/window seat is more valuable than an exposed outdoor view seat.
 
-### 20:15–21:00 taxi to Taipei Garden Hotel
-- Official Day 2 main itinerary ends around 21:00 hotel arrival.
+## ~20:15–21:00 taxi → Taipei Garden Hotel
+- Official Day 2 main itinerary ends around hotel arrival.
 
-### 21:30–23:00 optional hidden stage — 銀河洞 韓式pocha
-- Korean pocha near hotel/Ximending.
-- Light Korean food + soju.
+## Optional ~21:30–23:00 — 銀河洞 韓式pocha
+- Korean food + soju.
 - Delete without regret if tired.
+
+---
+
+# A LI KITCHEN / 阿理廚坊 — LIVE RESERVATION CALL STATE
+
+## Phone
+- Taiwan domestic: **02-2496-7727**
+- From Korea: **+886 2 2496 7727**
+
+## Current timing
+- First call attempt around early afternoon KST on 2026-08-24: **no answer**.
+- At 13:35 KST, Taiwan is 12:35, still lunch-service time; not answering is not suspicious.
+- User is retrying by phone now / shortly.
+- If repeated no answer, a better retry window is Taiwan ~14:00–16:30 (KST ~15:00–17:30).
+
+## First-line phone script
+Traditional Chinese:
+`您好，請問可以說英文嗎？`
+
+Pinyin:
+`Nín hǎo, qǐngwèn kěyǐ shuō Yīngwén ma?`
+
+Korean phonetic:
+`닌 하오, 칭원 커이 슈오 잉원 마?`
+
+## If English is possible
+Say:
+`Hi, I’m calling from Korea. I’d like to make a dinner reservation for three people.`
+
+Then:
+`February 21st, 2027, Sunday, at 5:30 p.m.`
+
+Reservation name:
+`The reservation name is Ray. R-A-Y.`
+
+If reservation is too early:
+`No problem. When is the earliest time I can make the reservation?`
+
+If 17:30 is unavailable:
+`What is the closest available time to 5:30 p.m.?`
+- Do not automatically accept a major shift; bring options back into chat because Day 2 timing is structured.
+
+If seat choice is possible:
+`If possible, could we reserve a window table with a nice night view? We are three adults and I’m traveling with my parents.`
+
+## Chinese fallback for booking
+Traditional Chinese:
+`我想訂位。2027年2月21日，星期日，下午5點半，3位。`
+
+Pinyin:
+`Wǒ xiǎng dìngwèi. Èr líng èr qī nián, èr yuè èrshíyī rì, xīngqírì, xiàwǔ wǔ diǎn bàn, sān wèi.`
+
+Korean phonetic:
+`워 샹 띵웨이. 얼 링 얼 치 니엔, 얼 위에 얼스이 르, 싱치르, 샤우 우 디엔 반, 산 웨이.`
+
+If too early:
+Traditional Chinese:
+`現在訂位太早嗎？`
+
+Pinyin:
+`Xiànzài dìngwèi tài zǎo ma?`
+
+Korean phonetic:
+`시엔짜이 띵웨이 타이 짜오 마?`
+
+Ask when to call again:
+Traditional Chinese:
+`請問什麼時候可以再打電話訂位？`
+
+Pinyin:
+`Qǐngwèn shénme shíhou kěyǐ zài dǎ diànhuà dìngwèi?`
+
+Korean phonetic:
+`칭원 션머 스허우 커이 짜이 다 띠엔화 띵웨이?`
+
+Window/night-view seat:
+Traditional Chinese:
+`可以訂靠窗、可以看夜景的位子嗎？`
+
+Pinyin:
+`Kěyǐ dìng kàochuāng, kěyǐ kàn yèjǐng de wèizi ma?`
+
+Korean phonetic:
+`커이 띵 카오촹, 커이 칸 예징 더 웨이쯔 마?`
+
+## Call priority
+1. English possible?
+2. Can 2027-02-21 17:30 / 3 people be booked now?
+3. If too early, when does booking open?
+4. If booking succeeds, request window/night-view seat.
+5. Ask kaoliang/BYOB/corkage only if the staff sounds unhurried; not necessary during a busy lunch call.
+
+---
+
+# GOLDEN BAR / 逸茶酒室 — NEXT CONTACT
+- User wants to ask two things first:
+  1. English communication possible?
+  2. Can 2027-02-21 around 19:00 for 3 people be reserved?
+- If they say standard reservations are not accepted, later ask politely whether advance deposit / minimum spend / seat-retention fee could secure a good scenic seat.
+- No need to over-negotiate before confirming their normal policy.
 
 ---
 
@@ -353,21 +481,13 @@ Hotel random S-Class at ~NT$1,800 is now less compelling than Heycar because the
 
 ---
 
-# Built Day 2 field tools on website
-- Yehliu: self-guided science-rich geology guide, offline-first PWA, local-only GPS concept.
-- Guihou: fixed lunch + dedicated field guide, price calculator, seafood coach, field Chinese/TTS.
-- Shifen Waterfall: dedicated explainer.
-- Shifen Old Street: dedicated mini guide.
-- Taiwan language AI: outbound speaking / incoming listening / field cheat sheet.
-
----
-
-# WEATHER PLAN STATUS
-- Plan A = sunny/fair — finalized.
-- Plan B = normal/manageable rain — design pending.
-- Plan C = more persistent/heavier but still safe/manageable rain — design pending.
-- Torrential/typhoon/dangerous conditions excluded from current B/C design.
-- Jiufen remains the fixed ending for B and C unless travel itself becomes unsafe.
+# Built Day 2 field tools already known on website
+- Yehliu science-rich offline guide + local GPS concept.
+- Guihou dedicated field guide + price calculator + seafood quality coach + field Chinese/TTS.
+- Shifen Waterfall explainer.
+- Shifen Old Street mini guide.
+- Taiwan language AI tools.
+- **Do not claim the new Day 2 A/B/C/D auto-classifier exists until latest main is inspected and confirms implementation.**
 
 ---
 
@@ -376,19 +496,19 @@ Repo: `oops-lobster/minsung-tour-taiwan-2027`
 Public site: `https://oops-lobster.github.io/minsung-tour-taiwan-2027/`
 Checkpoint: `docs/CURRENT_CHAT_CHECKPOINT.md`
 
-Recent relevant product state already on main:
+Known product state before any new weather-classifier implementation:
 - Taiwan language AI tools.
 - Guihou lunch + field guide.
 - PWA immediate update fix.
 - Shifen Waterfall explainer.
 - Shifen Old Street mini guide.
-- Day 2 Jiufen evening finalized in `src/data/day2GuihouUpdate.ts`.
-- Codex prompt: `docs/codex_day2_sunny_final_schedule_budget.md`.
+- Day 2 Jiufen evening data added previously.
+- Day 2 sunny schedule/budget Codex prompt stored previously.
 
 ---
 
 # Continuity rules
-- Always inspect recent `main` commits before claiming what is currently on the website.
+- Always inspect recent `main` commits before claiming what is currently deployed.
 - Do not resurrect old Day 1 Tamsui/CKS/Chun Shui Tang plan.
 - CKS Memorial Hall is currently unassigned, not on Day 3.
 - Do not change 小統一 19:00 reservation.
@@ -398,9 +518,14 @@ Recent relevant product state already on main:
 - LUMI first NT$2,000 deposit receipt remains pending; do not resend unless failed/returned.
 - Guihou lunch is fixed.
 - Day 2 sunny Plan A is closed.
-- Day 2 rainy Plan B/C is still pending, with Jiufen ending fixed.
-- Current vehicle decisions to resolve next:
-  1. Korea departure: **Global25 vs G90 LWB 4-seat individual/숨고 chauffeur**.
-  2. Taiwan arrival: **Heycar S-Class vs 宇航富豪 aviation-seat Mercedes vs 奇立 ES300h**.
-- For 宇航富豪, wait for/confirm signboard fee and day-of cash/no-deposit possibility before committing.
-- For Global25, wait for the promised text summary and verify exact G90 LWB 4-seat guarantee and final all-in price.
+- **A/B/C/D weather semantics above are the current source of truth for rain planning.**
+- **A/B/C share the Jiufen dinner/bar anchor; only D releases Jiufen.**
+- Current concrete next tasks:
+  1. Retry **A Li Kitchen** call; reservation target 2027-02-21 17:30, 3p, name **RAY**.
+  2. Then contact **Golden Bar** about English + reservation policy.
+  3. Design actual Day 2 **Plan B and Plan C daytime itineraries**.
+  4. Ask LUMI D-scenario cancellation/change/refund rules if not already sent.
+  5. Resolve Taiwan airport pickup after 宇航 signboard/payment answers.
+  6. Resolve Korea departure G90 after Global25 text / final acceptable quote.
+- For Chinese call scripts, always include **Traditional Chinese + Pinyin + Korean phonetic** when useful.
+- Never send an external vendor message/email from connected accounts without explicit current-turn instruction.
