@@ -1,6 +1,6 @@
 # CURRENT CHAT CHECKPOINT
 
-Last updated: 2026-08-24 21:58 KST
+Last updated: 2026-08-25 KST
 
 > Canonical handoff for continuing this Taiwan family-trip planning chat.
 >
@@ -65,10 +65,10 @@ Final A evening:
 
 ## B
 - **Gentle/light-to-moderate steady rain.** Rain should become part of the mood.
-- Current B is being actively designed and is the main conversation position.
+- **READY / IMPLEMENTED.** This is now a complete independent rainy-day route.
 - B no longer preserves Yehliu/Shifen/Jiufen. It is an independent rainy-day route.
-- Current theme:
-  > **Yilan traditional culture → Yilan local banquet-style lunch → Jiaoxi tea → Taipei East District → fresh Taiwanese seafood → drinks**
+- Final theme:
+  > **Yilan traditional culture → Yilan local banquet-style lunch → Jiaoxi tea → Huashan 1914 → Penghu seafood → hotel-area drink or immediate return**
 
 ## C
 - **Heavy/persistent but still safe rain.**
@@ -83,7 +83,34 @@ Final A evening:
 
 ---
 
-# Day 2 Plan B — CURRENT DRAFT
+# Day 2 Plan B — FINAL / READY
+
+Final route:
+
+> Taipei Garden Hotel → 宜蘭傳藝園區 → 拾松 宜蘭總店 → 日光山茶屋 → 華山1914 → 北海漁村海鮮餐廳 台北杭州店 → 臺虎西門 optional → Taipei Garden Hotel
+
+- LUMI New Alphard 40系 is used only from **08:30 to 16:30**.
+- Target arrival at 宜蘭傳藝園區: **09:40–09:50**; culture/performance/crafts until 11:50.
+- 拾松 宜蘭總店: **12:10–13:20**, current first choice, reservation not done.
+- 日光山茶屋: **13:40–14:25/14:40**, current first choice, reservation not done.
+- Driver checks Freeway 5 northbound ETA from 14:20 and protects the 16:30 vehicle hard stop.
+- 華山1914: **16:30–18:15**, with Vinyl Decision as the top priority and a compact in-app field guide for design/craft/backup stops.
+- 北海漁村海鮮餐廳 台北杭州店: **18:30–20:00/20:20**, Plan B dinner first choice, reservation not done.
+- 北海漁村 mobile order guide: `public/beihai-order-guide.html` / deployed at `/minsung-tour-taiwan-2027/beihai-order-guide.html`.
+- After 20:20, 臺虎西門 is optional. Going directly to the hotel is an equally valid normal finish.
+- Hotel return target: **21:30–22:00**, earlier is welcome.
+- All venue hours, Sunday policies, performances, popups, current tenants, menu, market price and 18天生啤酒 availability require a **2027-02 pre-trip recheck**.
+- Schedule information architecture was simplified: compact page intro, one Plan selector, a route-at-a-glance ribbon, collapsed weather evidence, and a collapsed full map/place drawer before the scan-friendly timeline.
+
+A/B/C/D behavior:
+- A remains CLOSED / FINAL and unchanged.
+- B shows the full Yilan–Huashan–Beihai route above.
+- C shows only a separate heavy-rain indoor-plan placeholder; it never reuses B's route.
+- D suppresses normal tourism route/schedule and shows safety-first instructions only.
+
+---
+
+# Day 2 Plan B — ARCHIVED DESIGN NOTES (SUPERSEDED BY FINAL SECTION ABOVE)
 
 ## B principles / rejected ideas
 - **Pinglin morning tea stop is dropped** from current B. User preferred not to drink tea first thing in the morning.
@@ -172,7 +199,7 @@ Expected flow:
 
 ---
 
-# Day 2 B dinner — LATEST DIRECTION
+# Day 2 B dinner — ARCHIVED COMPARISON NOTES
 
 ## Critical next-day constraint
 - **Day 3 dinner is 85TD.**
@@ -227,7 +254,7 @@ Compare **北海漁村 vs 海九** on:
 
 ---
 
-# B evening drinks — OPEN
+# B evening drinks — ARCHIVED EXPLORATION
 
 Current rough rhythm:
 > **fresh seafood + 18-day draft beer → second-round drink → optional third round**
@@ -288,27 +315,31 @@ Extreme-weather confirmation:
 
 ---
 
-# TAIWAN DAY 1 AIRPORT PICKUP — LIVE BOARD
+# TAIWAN DAY 1 AIRPORT PICKUP — FINAL / CLOSED
 
-## 宇航富豪 — strongest value/comfort candidate
-- ES300h baseline quoted previously
-- Mercedes aviation-seat vehicle promo upgrade offered
-- user asked whether exact photographed vehicle / promo total could be dispatched; vendor answered **`是的，沒錯`**
-- electric recline, legrest, ventilation, heating, massage asked; vendor: **`都有，是正航空椅`**
-- current pending items historically included signboard/meet fee, luggage help, waiting time, day-of payment/no-deposit, final reservation confirmation
+## 宇航富豪 — confirmed
+- 2027-02-20 · Taoyuan Airport T2 → Taipei Garden Hotel
+- exact photographed Mercedes-Benz aviation-seat vehicle designated
+- adult 3 + medium suitcase 1 + cabin suitcase 1
+- signboard meeting, luggage help, and 85-minute airport wait confirmed
+- electric recline, legrest, ventilation, heating, massage confirmed
+- public site uses the two clearest cabin photos; price/payment details remain out of public UI
+- search closed unless vendor changes/cancels
 
-## Heycar
+## Retired backups — no longer active on the public site
+
+### Heycar
 - W223 S-Class priority, not 100% guaranteed
 - fallback remains S-Class family
 - 90m free wait
 
-## 奇立租賃
+### 奇立租賃
 - Lexus ES300h designated, <=5y
 - explicit model guarantee
 - signboard offered
 - strong safe fallback
 
-## CBI / 錢比
+### CBI / 錢比
 - politely closed
 - **close & leave**
 
@@ -356,25 +387,25 @@ Public site: `https://oops-lobster.github.io/minsung-tour-taiwan-2027/`
 Canonical checkpoint: `docs/CURRENT_CHAT_CHECKPOINT.md`
 Tonight's detailed B snapshot: `docs/chat-checkpoints/2026-08-24_day2-rain-B.md`
 
-Latest `main` observed immediately before tonight's docs save:
-- `98d5b5edf49c850eb11d4cad31191f5a23df71f6` — `feat: sync trip status and add Day 2 weather decision`
+Latest `main` at the start of the 2026-08-25 implementation:
+- `339bd909f4874498cd239ca943a884d90887ae5b`
 
-**Tonight only Markdown checkpoints were saved; the public itinerary UI was not updated with the new B plan yet.**
+The Day 2 Plan B UI, Huashan mini guide, Beihai static field guide, honest C/D branching, confirmed G90 departure, and confirmed Day 1 airport pickup are included in the next implementation commit after this checkpoint entry.
 
 ---
 
-# RESUME TOMORROW HERE
+# NEXT TODO
 
-1. **Compare 北海漁村 vs 海九 first.**
-2. Lock the fresh-seafood dinner and likely ~19:00 reservation time.
-3. Then refine East District 16:30→dinner rainy browsing route.
-4. Pick second-round bar; keep third round optional.
-5. Recheck/choose Jiaoxi tea house after evening structure is stable.
-6. Later build Plan C in detail.
+1. Confirm 拾松's latest menu, Sunday reservation policy, and a 3-person order.
+2. Finalize 日光山茶屋 and verify its reservation policy.
+3. Reserve 北海漁村 台北杭州店 for 18:30.
+4. In 2027-02, recheck 北海漁村's menu, market prices, seasonal catch and 18天生啤酒, then refresh the field guide.
+5. In 2027-02, recheck Huashan popups, performances and tenant continuity.
+6. Design Plan C in detail as a separate heavy-rain indoor day.
 
 Continuity anchors:
 - Day 2 A closed/final.
-- B = gentle rain Yilan culture/food/tea + East District + Taiwanese seafood.
+- B = gentle-to-moderate steady rain Yilan culture/food/tea + Huashan LP/design + Beihai seafood.
 - C = heavy safe rain Taoyuan/Xpark direction.
 - D = safety-first.
 - Day 3 dinner = **85TD**, so do not make Day 2 dinner another similar high-end Chinese course.

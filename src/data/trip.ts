@@ -22,6 +22,12 @@ export interface TimelineItem {
   mapQuery?: string
   placeId?: PlaceId
   optional?: boolean
+  guide?: {
+    href: string
+    label: string
+    eyebrow?: string
+  }
+  detailPanel?: 'huashan'
 }
 
 export interface TripDay {
@@ -62,9 +68,9 @@ export const tripStatuses: TripStatus[] = [
   },
   {
     label: 'Day 1 공항 픽업',
-    detail: '宇航富豪 · Mercedes 항공의자 차량 우선 검토',
-    status: '최종 조건 확인 중',
-    tone: 'waiting',
+    detail: '宇航富豪 · Mercedes-Benz 항공의자 차량',
+    status: '예약 확정',
+    tone: 'confirmed',
     icon: 'car',
   },
   {
@@ -117,7 +123,7 @@ export const days: TripDay[] = [
     lead: '좋은 점심과 오래된 대만 가옥으로 도시에 들어가, 백석호와 벽산암의 일몰을 보고 완화의 밤으로 하루를 마무리합니다.',
     intensity: '보통',
     walking: '약 7–9천 보 예상',
-    transport: 'G90 LWB 출국 · 공항 픽업 후보 · 택시 · 도보',
+    transport: 'G90 LWB 출국 · Mercedes 항공의자 공항 픽업 · 택시 · 도보',
     keyPlaces: '린안타이 고택 · 백석호 · 벽산암 · 용산사',
     keyMeal: 'My灶 · 小統一牛排',
     keyMealPlaceIds: ['my-zao', 'xiao-tong-yi'],
@@ -172,13 +178,14 @@ export const days: TripDay[] = [
       },
       {
         time: '약 10:35–10:55 예상',
-        title: '공항 픽업 기사 미팅 · 호텔 이동',
-        localName: '宇航富豪 · Mercedes 航空椅 차량 우선 검토',
-        description: '현재 1순위는 부모님이 독립형 항공의자에 편하게 앉을 수 있는 宇航富豪의 Mercedes 차량입니다. 업체가 사진 속 차량 지정과 리클라이닝·레그레스트·통풍·열선·마사지 사양을 확인했으며, 피켓 미팅·수하물 도움·무료 대기·결제 조건과 최종 예약 확정은 추가 확인 중입니다.',
-        transport: '공항 픽업 후보 · Mercedes 항공의자 차량',
-        tags: ['1순위 후보', '사진 속 차량 지정 확인', '최종 조건 확인 중'],
-        mapQuery: 'Taipei Garden Hotel',
-        placeId: 'hotel',
+        title: 'Mercedes 항공의자 차량 · 호텔 이동',
+        localName: '宇航富豪 · 賓士航空椅',
+        description: '타오위안공항 T2에서 피켓을 든 기사님을 만나 사진 속 Mercedes-Benz 항공의자 차량으로 Taipei Garden Hotel까지 이동합니다. 성인 3명과 캐리어 2개 조건으로 예약이 확정되었고, 수하물 도움과 공항 도착 후 85분 대기가 포함됩니다.',
+        transport: '宇航富豪 · Mercedes-Benz 항공의자 차량',
+        tags: ['예약 확정', '사진 속 차량 지정', '피켓 미팅', '85분 대기', '수하물 도움'],
+        image: 'airport-pickup-mercedes-cabin.jpg',
+        mapQuery: 'Taoyuan International Airport Terminal 2 to Taipei Garden Hotel',
+        placeId: 'taoyuan-t2',
       },
       {
         time: '약 11:20–11:40',
@@ -638,6 +645,12 @@ export const driverPlaces: DriverPlace[] = [
   { korean: '예류지질공원', local: '野柳地質公園', query: 'Yehliu Geopark', placeId: 'yehliu' },
   { korean: '스펀 옛거리', local: '十分老街', query: 'Shifen Old Street', placeId: 'shifen-old-street' },
   { korean: '지우펀 옛거리', local: '九份老街', query: 'Jiufen Old Street', placeId: 'jiufen' },
+  { korean: '이란 전통예술센터 · Plan B', local: '宜蘭傳藝園區', query: '宜蘭傳藝園區 宜蘭縣五結鄉五濱路二段201號', placeId: 'yilan-traditional-arts' },
+  { korean: '拾松 이란 본점 · Plan B', local: '拾松 宜蘭總店', query: '拾松 宜蘭總店 宜蘭縣宜蘭市女中路一段303號', placeId: 'shisong-yilan-main' },
+  { korean: '日光山茶屋 · Plan B', local: '日光山茶屋', query: '日光山茶屋 宜蘭縣礁溪鄉興農路322巷6號', placeId: 'nikko-hill' },
+  { korean: '화산1914 · Plan B 차량 종료', local: '華山1914文化創意產業園區', query: '華山1914文化創意產業園區 台北市中正區八德路一段1號', placeId: 'huashan-1914' },
+  { korean: '북해어촌 항저우점 · Plan B 저녁', local: '北海漁村海鮮餐廳 台北杭州店', query: '北海漁村海鮮餐廳 台北杭州店 台北市中正區杭州南路一段8號', placeId: 'beihai-hangzhou' },
+  { korean: '臺虎西門 · Plan B 선택 2차', local: '臺虎西門 Taihu Driftwood', query: '臺虎西門 Taihu Driftwood 台北市萬華區昆明街46號', placeId: 'taihu-driftwood' },
   { korean: '국립고궁박물원', local: '國立故宮博物院', query: 'National Palace Museum Taipei', placeId: 'palace' },
   { korean: '딘타이펑 신생점', local: '鼎泰豐 新生店', query: 'Din Tai Fung Xinsheng Branch Taipei', placeId: 'din-tai-fung-xinsheng' },
   { korean: '용캉제·칭톈제', local: '永康街 · 青田街', query: 'Yongkang Street and Qingtian Street Taipei', placeId: 'yongkang-qingtian' },

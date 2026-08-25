@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#173f49" />
+  <meta name="description" content="북해어촌 타이베이 항저우점에서 세 사람이 과주문 없이 좋은 펑후 해산물을 주문하는 현장 가이드" />
+  <title>北海漁村 3인 주문 가이드 | 민성투어</title>
+  <style>
+    :root{--ink:#17333a;--muted:#637477;--paper:#f7f2e7;--card:#fffdf7;--line:#d9d7c9;--sea:#176175;--deep:#173f49;--coral:#c85f45;--coral-soft:#f5dfd4;--jade:#dce9e1;--gold:#a9782b;--shadow:0 16px 42px rgba(23,51,58,.09)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:linear-gradient(180deg,#dfecea 0,#f7f2e7 24rem);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;line-height:1.65;overflow-wrap:anywhere}
+    button,a{font:inherit;touch-action:manipulation}
+    button{cursor:pointer}
+    a{color:inherit}
+    :focus-visible{outline:3px solid #f0a27f;outline-offset:3px}
+    .shell{width:min(780px,calc(100% - 28px));margin-inline:auto}
+    .topbar{position:sticky;z-index:30;top:0;border-bottom:1px solid rgba(23,63,73,.16);background:rgba(247,242,231,.94);backdrop-filter:blur(15px)}
+    .topbar .shell{display:flex;min-height:60px;align-items:center;justify-content:space-between;gap:10px}
+    .back,.staff-toggle,.bottom-back{display:inline-flex;min-height:46px;align-items:center;justify-content:center;border-radius:999px;text-decoration:none;font-weight:850}
+    .back{padding:0 10px 0 0;color:var(--deep)}
+    .staff-toggle{padding:0 14px;border:1px solid var(--deep);background:var(--deep);color:white;font-size:.78rem}
+    .staff-toggle[aria-pressed="true"]{background:var(--coral);border-color:var(--coral)}
+    .hero{padding:26px 0 17px}
+    .eyebrow{display:block;color:var(--coral);font-size:.68rem;font-weight:900;letter-spacing:.12em}
+    h1{margin:5px 0 7px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,10vw,3.7rem);font-weight:500;letter-spacing:-.055em;line-height:1.08}
+    .hero p{margin:0;color:var(--muted);font-size:.83rem}
+    main{padding-bottom:80px}
+    .quick{display:grid;gap:13px;padding:18px;border:1px solid rgba(23,63,73,.17);border-radius:24px;background:rgba(255,253,247,.95);box-shadow:var(--shadow)}
+    .quick-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .quick-head h2,.card h2{margin:2px 0 0;font-family:Georgia,"Times New Roman",serif;font-size:1.42rem;font-weight:500;line-height:1.25}
+    .status{flex:0 0 auto;padding:6px 9px;border-radius:999px;background:var(--coral-soft);color:#913c2b;font-size:.64rem;font-weight:900}
+    .order-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:0;padding:0;list-style:none;counter-reset:order}
+    .order-grid li{position:relative;min-height:58px;padding:10px 9px 9px 35px;border:1px solid var(--line);border-radius:14px;background:#fff;color:#42575b;font-size:.73rem;font-weight:750;line-height:1.45}
+    .order-grid li:before{counter-increment:order;content:counter(order);position:absolute;left:9px;top:10px;display:grid;width:20px;height:20px;place-items:center;border-radius:50%;background:var(--deep);color:white;font-size:.64rem}
+    .order-grid li:last-child{grid-column:1/-1}
+    .budget{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:13px 14px;border-radius:16px;background:var(--deep);color:white}
+    .budget span{display:block;color:#b8d5d5;font-size:.66rem;font-weight:800}
+    .budget strong{display:block;font-size:.95rem}
+    .budget b{color:#ffc1a7;font-size:1.03rem;white-space:nowrap}
+    .quick-action{display:inline-flex;min-height:52px;align-items:center;justify-content:center;border:0;border-radius:999px;background:var(--coral);color:#fff;font-weight:900;text-decoration:none}
+    .quick-note{margin:0;color:var(--muted);font-size:.67rem}
+    .section{margin-top:28px;scroll-margin-top:75px}
+    .section-title{margin-bottom:12px}
+    .section-title small{color:var(--coral);font-size:.65rem;font-weight:900;letter-spacing:.1em}
+    .section-title h2{margin:3px 0 4px;font-family:Georgia,"Times New Roman",serif;font-size:1.65rem;font-weight:500;line-height:1.2}
+    .section-title p{margin:0;color:var(--muted);font-size:.78rem}
+    .card{margin-top:12px;padding:18px;border:1px solid var(--line);border-radius:21px;background:var(--card);box-shadow:0 8px 24px rgba(23,51,58,.045)}
+    .show-card{border-color:rgba(200,95,69,.34);background:#fff8ee}
+    .show-card header,.phrase-card header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .copy{display:inline-flex;min-width:70px;min-height:44px;align-items:center;justify-content:center;padding:0 12px;border:1px solid rgba(23,63,73,.26);border-radius:999px;background:white;color:var(--deep);font-size:.72rem;font-weight:900}
+    .copy.is-copied{border-color:#2e775e;background:#2e775e;color:white}
+    .zh{margin:14px 0 8px;color:#132f36;font-size:1.28rem;font-weight:800;line-height:1.72;letter-spacing:.01em;white-space:pre-line}
+    .pinyin{margin:8px 0 0;color:#667879;font-size:.76rem;line-height:1.65}
+    .phonetic{margin:7px 0 0;padding-top:7px;border-top:1px dashed var(--line);color:#8f4a38;font-size:.75rem;line-height:1.7}
+    .meaning{margin:7px 0 0;color:#526568;font-size:.74rem}
+    .reading-note{margin:10px 0 0;color:var(--muted);font-size:.65rem}
+    .steps{display:grid;gap:8px;margin:0;padding:0;list-style:none;counter-reset:steps}
+    .steps li{position:relative;padding:15px 14px 15px 51px;border:1px solid var(--line);border-radius:16px;background:var(--card);font-size:.78rem}
+    .steps li:before{counter-increment:steps;content:counter(steps);position:absolute;left:14px;top:14px;display:grid;width:27px;height:27px;place-items:center;border-radius:50%;background:var(--sea);color:white;font-size:.72rem;font-weight:900}
+    .crab{border-color:#d9b26d;background:linear-gradient(135deg,#fff7df,#fffaf1)}
+    .crab h2{color:#80551e}
+    .checklist{display:grid;gap:8px;margin:13px 0 0;padding:0;list-style:none}
+    .checklist li{position:relative;padding-left:25px;color:#40565a;font-size:.77rem}
+    .checklist li:before{content:"✓";position:absolute;left:0;color:var(--coral);font-weight:950}
+    .warning{border-color:#d89a83;background:#fff0e9}
+    .warning ul,.branches{margin:12px 0 0;padding-left:20px;color:#674940;font-size:.77rem}
+    .warning li,.branches li{margin-top:8px}
+    .phrase-list{display:grid;gap:10px}
+    .phrase-card{padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+    .phrase-card h3{margin:0;font-size:.86rem}
+    .phrase-card .zh{margin-top:12px;font-size:1.28rem}
+    .sources a{display:flex;min-height:46px;align-items:center;border-top:1px solid var(--line);color:var(--sea);font-size:.75rem;font-weight:800;text-underline-offset:3px}
+    .sources a:first-of-type{margin-top:10px}
+    .bottom-back{width:100%;margin-top:28px;padding:0 18px;background:var(--deep);color:white}
+    .toast{position:fixed;z-index:60;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));left:14px;display:none;min-height:48px;align-items:center;justify-content:center;border-radius:999px;background:#276b56;color:white;box-shadow:var(--shadow);font-size:.78rem;font-weight:900}
+    .toast.is-visible{display:flex}
+    body.staff-mode{background:#fff}
+    body.staff-mode .hero,body.staff-mode .quick,body.staff-mode .ko-only,body.staff-mode .pinyin,body.staff-mode .phonetic,body.staff-mode .meaning,body.staff-mode .reading-note,body.staff-mode .sections-after-request{display:none!important}
+    body.staff-mode .section{margin-top:18px}
+    body.staff-mode .show-card{margin-top:14px;border:0;box-shadow:none;background:white;padding:8px}
+    body.staff-mode .show-card .zh{font-size:clamp(1.55rem,7vw,2.3rem);line-height:1.9}
+    body.staff-mode .show-card h2{font-size:1rem}
+    @media(min-width:660px){.order-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.order-grid li:last-child{grid-column:auto}.phrase-list{grid-template-columns:repeat(2,minmax(0,1fr))}.quick{padding:24px}}
+    @media(max-width:390px){.shell{width:min(100% - 20px,780px)}.topbar .shell{min-height:56px}.back{font-size:.75rem}.staff-toggle{padding-inline:11px;font-size:.7rem}.hero{padding-top:19px}h1{font-size:2.12rem}.quick{padding:14px;border-radius:20px}.order-grid li{font-size:.68rem}.budget{padding:11px}.budget b{font-size:.93rem}.card{padding:15px}.zh{font-size:1.25rem}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+    @media print{.topbar,.copy,.quick-action,.toast{display:none!important}body{background:white}.shell{width:100%}.card,.phrase-card{break-inside:avoid;box-shadow:none}.bottom-back{display:none}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell">
+      <a class="back" href="./#schedule/day-2" aria-label="Day 2 일정으로 돌아가기">← DAY 2 일정</a>
+      <button class="staff-toggle" id="staffToggle" type="button" aria-pressed="false" aria-controls="staff-request">직원에게 보여주기</button>
+    </div>
+  </header>
+
+  <section class="hero shell ko-only">
+    <span class="eyebrow">DAY 2 · FIELD ORDER TOOL</span>
+    <h1>北海漁村<br />3인 주문 가이드</h1>
+    <p>좋은 펑후 생선을 고르고, 양과 시가를 먼저 확인해 과주문을 막는 현장용 페이지.</p>
+  </section>
+
+  <main class="shell">
+    <section class="quick ko-only" aria-labelledby="quick-title">
+      <div class="quick-head">
+        <div><span class="eyebrow">18:30 · 기본 주문</span><h2 id="quick-title">세 명이 나눌 한 상</h2></div>
+        <span class="status">예약 전</span>
+      </div>
+      <ol class="order-grid">
+        <li>소량 사시미<br />좋은 생선 2종</li>
+        <li>펑후 생선 1마리<br />3인 크기·시가 확인</li>
+        <li>中卷/小卷<br />데침 또는 구이</li>
+        <li>새우 1접시<br />좋은 게면 교체</li>
+        <li>채소 1 + 주식 1<br />18天 맥주 확인</li>
+      </ol>
+      <div class="budget"><div><span>현재 목표 · 실제 가격은 현장 확인</span><strong>음식 2,500–2,700 + 맥주 300–400</strong></div><b>상한 NT$3,200</b></div>
+      <a class="quick-action" href="#staff-request">직원에게 보여줄 중국어 바로 보기</a>
+      <p class="quick-note">게와 새우는 기본적으로 둘 중 하나. 둘 다 주문하려면 가격·양·전체 금액을 듣고 우리가 명시적으로 승인합니다.</p>
+    </section>
+
+    <section class="section" id="staff-request" aria-labelledby="staff-title">
+      <div class="section-title ko-only"><small>SHOW THIS FIRST</small><h2 id="staff-title">통째로 보여줄 핵심 요청</h2><p>오른쪽 위 ‘직원에게 보여주기’를 누르면 한국어 설명을 접고 중국어만 크게 보여줍니다.</p></div>
+      <article class="card show-card">
+        <header><h2 lang="zh-Hant">給店員看的點餐需求</h2><button class="copy" type="button" data-copy="coreRequest">복사</button></header>
+        <p class="zh" id="coreRequest" lang="zh-Hant">我們三位，包含飲料的總預算大約是三千元，最多希望控制在三千二百元以內。
+想吃今天品質最好的澎湖鮮魚、少量生魚片、中卷或小卷，還有蝦。
+如果今天當季的澎湖螃蟹特別好，可以用螃蟹代替蝦，但請先告訴我們這隻的價格和整桌總價。
+再幫我們配一份青菜和一份主食就好，請不要點太多。
+不一定要最貴的，想吃今天最好吃、最適合三個人的。
+如果總價可能超過三千二百元，請先告訴我們，謝謝。</p>
+        <p class="pinyin">Wǒmen sān wèi, bāohán yǐnliào de zǒng yùsuàn dàyuē shì sānqiān yuán, zuìduō xīwàng kòngzhì zài sānqiān èrbǎi yuán yǐnèi.<br />Xiǎng chī jīntiān pǐnzhì zuì hǎo de Pénghú xiānyú, shǎoliàng shēngyúpiàn, zhōngjuǎn huò xiǎojuǎn, háiyǒu xiā.<br />Rúguǒ jīntiān dāngjì de Pénghú pángxiè tèbié hǎo, kěyǐ yòng pángxiè dàitì xiā, dàn qǐng xiān gàosu wǒmen zhè zhī de jiàgé hé zhěng zhuō zǒngjià.<br />Zài bāng wǒmen pèi yí fèn qīngcài hé yí fèn zhǔshí jiù hǎo, qǐng bú yào diǎn tài duō.<br />Bú yídìng yào zuì guì de, xiǎng chī jīntiān zuì hǎochī, zuì shìhé sān ge rén de.<br />Rúguǒ zǒngjià kěnéng chāoguò sānqiān èrbǎi yuán, qǐng xiān gàosu wǒmen, xièxie.</p>
+        <p class="phonetic">워먼 싼 웨이, 빠오한 인랴오 더 쭝 위쑤안 따위에 스 싼첸 위앤, 쭈이뚜어 시왕 콩즈 짜이 싼첸 얼바이 위앤 이네이.<br />샹 츠 진티엔 핀즈 쭈이 하오 더 펑후 시엔위, 샤오량 셩위피엔, 중쥐앤 훠 샤오쥐앤, 하이여우 샤.<br />루궈 진티엔 당지 더 펑후 팡시에 터비에 하오, 커이 용 팡시에 따이티 샤, 딴 칭 시엔 까오쑤 워먼 쪄 즈 더 지아거 허 정 줘 쭝지아.<br />짜이 빵 워먼 페이 이 펀 칭차이 허 이 펀 주스 지우 하오, 칭 부야오 디앤 타이 뚜어.<br />부 이딩 야오 쭈이 꾸이 더, 샹 츠 진티엔 쭈이 하오츠, 쭈이 스허 싼 거 런 더.<br />루궈 쭝쟈 커넝 차오궈 싼첸 얼바이 위앤, 칭 시엔 까오쑤 워먼, 씨에씨에.</p>
+        <p class="reading-note">한국어 음차는 정확한 성조를 대신하지 않는 현장 읽기 보조입니다.</p>
+      </article>
+    </section>
+
+    <div class="sections-after-request">
+      <section class="section ko-only" aria-labelledby="steps-title">
+        <div class="section-title"><small>ORDER IN 5 STEPS</small><h2 id="steps-title">이 순서만 지키기</h2></div>
+        <ol class="steps">
+          <li><strong>3명 · 총 NT$3,000 안팎 · 상한 NT$3,200</strong>을 먼저 말합니다.</li>
+          <li>오늘 회로 좋은 생선 두 종류, 좋은 펑후 생선, 당일 펑후 게 상태를 묻습니다.</li>
+          <li>생선 크기·시가와 게 한 마리 가격을 조리 전에 확인합니다.</li>
+          <li>사시미·생선·中卷/小卷·새우·채소·주식으로 잠그고, 게가 정말 좋으면 <strong>새우를 빼고 교체</strong>합니다.</li>
+          <li>넣기 전에 “이렇게 전부 얼마쯤인가요?”를 한 번 더 묻습니다. 새우+게는 추가 승인을 한 경우만.</li>
+        </ol>
+      </section>
+
+      <section class="section ko-only" aria-labelledby="crab-title">
+        <article class="card crab">
+          <span class="eyebrow">SEASONAL UPGRADE</span><h2 id="crab-title">오늘 게가 정말 좋다면 새우와 교체</h2>
+          <ul class="checklist">
+            <li>오늘 펑후에서 들어온 게인지, 종류와 살 차는 상태 확인</li>
+            <li>3명이 먹기 지나치게 크지 않은 개체 선택</li>
+            <li>한 마리 가격과 교체 후 전체 예상금액 확인</li>
+            <li>포란한 암게가 아닌 살이 꽉 찬 개체 요청</li>
+            <li>게+새우 동시 주문은 양·가격 증가를 우리가 승인할 때만</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="phrases-title">
+        <div class="section-title ko-only"><small>QUICK PHRASES</small><h2 id="phrases-title">상황별 문장</h2><p>중국어 문장만 복사해 직원에게 보여주세요.</p></div>
+        <div class="phrase-list">
+          <article class="phrase-card"><header><h3 class="ko-only">오늘 좋은 사시미</h3><button class="copy" type="button" data-copy="p1">복사</button></header><p class="zh" id="p1" lang="zh-Hant">今天做生魚片，哪兩種魚最好？可以做小份的雙魚刺身嗎？</p><p class="pinyin">Jīntiān zuò shēngyúpiàn, nǎ liǎng zhǒng yú zuì hǎo? Kěyǐ zuò xiǎo fèn de shuāng yú cìshēn ma?</p><p class="phonetic">진티엔 쭤 셩위피엔, 나 량 중 위 쭈이 하오? 커이 쭤 샤오 펀 더 솽 위 츠션 마?</p><p class="meaning">오늘 사시미로 가장 좋은 생선 두 종류가 무엇인가요? 작은 두 종류 모둠으로 해주실 수 있나요?</p></article>
+          <article class="phrase-card"><header><h3 class="ko-only">오늘 좋은 펑후 생선</h3><button class="copy" type="button" data-copy="p2">복사</button></header><p class="zh" id="p2" lang="zh-Hant">今天澎湖來的魚，哪一種品質最好？不一定要最貴的。</p><p class="pinyin">Jīntiān Pénghú lái de yú, nǎ yì zhǒng pǐnzhì zuì hǎo? Bú yídìng yào zuì guì de.</p><p class="phonetic">진티엔 펑후 라이 더 위, 나 이 중 핀즈 쭈이 하오? 부 이딩 야오 쭈이 꾸이 더.</p><p class="meaning">오늘 펑후에서 들어온 생선 중 품질이 가장 좋은 것은 무엇인가요? 꼭 가장 비싼 것이 아니어도 됩니다.</p></article>
+          <article class="phrase-card"><header><h3 class="ko-only">생선 가격</h3><button class="copy" type="button" data-copy="p3">복사</button></header><p class="zh" id="p3" lang="zh-Hant">這條魚大概多少錢？</p><p class="pinyin">Zhè tiáo yú dàgài duōshǎo qián?</p><p class="phonetic">쩌 티아오 위 따까이 뚜어샤오 치앤?</p><p class="meaning">이 생선은 대략 얼마인가요?</p></article>
+          <article class="phrase-card"><header><h3 class="ko-only">조리법 추천</h3><button class="copy" type="button" data-copy="p4">복사</button></header><p class="zh" id="p4" lang="zh-Hant">這條魚比較適合清蒸還是鹽烤？</p><p class="pinyin">Zhè tiáo yú bǐjiào shìhé qīngzhēng háishì yánkǎo?</p><p class="phonetic">쩌 티아오 위 비쟈오 스허 칭정 하이스 옌카오?</p><p class="meaning">이 생선은 청증과 소금구이 중 어느 쪽이 더 잘 어울리나요?</p></article>
+          <article class="phrase-card"><header><h3 class="ko-only">전체 금액</h3><button class="copy" type="button" data-copy="p5">복사</button></header><p class="zh" id="p5" lang="zh-Hant">這樣全部大概多少錢？</p><p class="pinyin">Zhèyàng quánbù dàgài duōshǎo qián?</p><p class="phonetic">쩌양 취앤부 따까이 뚜어샤오 치앤?</p><p class="meaning">이렇게 주문하면 전부 대략 얼마인가요?</p></article>
+          <article class="phrase-card"><header><h3 class="ko-only">상한 초과 전 알림</h3><button class="copy" type="button" data-copy="p6">복사</button></header><p class="zh" id="p6" lang="zh-Hant">如果超過三千二百元，請先告訴我們。</p><p class="pinyin">Rúguǒ chāoguò sānqiān èrbǎi yuán, qǐng xiān gàosu wǒmen.</p><p class="phonetic">루궈 차오궈 싼첸 얼바이 위앤, 칭 시엔 까오쑤 워먼.</p><p class="meaning">NT$3,200을 넘으면 먼저 알려주세요.</p></article>
+          <article class="phrase-card"><header><h3 class="ko-only">과주문 방지</h3><button class="copy" type="button" data-copy="p7">복사</button></header><p class="zh" id="p7" lang="zh-Hant">我們只有三個人，請幫我們控制份量，不要點太多。</p><p class="pinyin">Wǒmen zhǐyǒu sān ge rén, qǐng bāng wǒmen kòngzhì fènliàng, bú yào diǎn tài duō.</p><p class="phonetic">워먼 즈여우 싼 거 런, 칭 빵 워먼 콩즈 펀량, 부야오 디앤 타이 뚜어.</p><p class="meaning">저희는 세 명뿐이니 양을 조절해 너무 많이 주문하지 않도록 도와주세요.</p></article>
+          <article class="phrase-card"><header><h3 class="ko-only">18일 맥주</h3><button class="copy" type="button" data-copy="p8">복사</button></header><p class="zh" id="p8" lang="zh-Hant">請問今天有18天生啤酒嗎？</p><p class="pinyin">Qǐngwèn jīntiān yǒu shíbā tiān shēng píjiǔ ma?</p><p class="phonetic">칭원 진티엔 여우 스바 티엔 셩 피지우 마?</p><p class="meaning">오늘 18일 생맥주가 있나요?</p></article>
+          <article class="phrase-card"><header><h3 class="ko-only">오늘의 펑후 게</h3><button class="copy" type="button" data-copy="p9">복사</button></header><p class="zh" id="p9" lang="zh-Hant">今天有當季的澎湖螃蟹嗎？哪一種肉最飽滿？</p><p class="pinyin">Jīntiān yǒu dāngjì de Pénghú pángxiè ma? Nǎ yì zhǒng ròu zuì bǎomǎn?</p><p class="phonetic">진티엔 여우 당지 더 펑후 팡시에 마? 나 이 중 러우 쭈이 바오만?</p><p class="meaning">오늘 제철인 펑후 게가 있나요? 어떤 종류가 살이 가장 꽉 찼나요?</p></article>
+          <article class="phrase-card"><header><h3 class="ko-only">게 가격과 새 총액</h3><button class="copy" type="button" data-copy="p10">복사</button></header><p class="zh" id="p10" lang="zh-Hant">這隻大概多少錢？加進去之後，總價大概多少？</p><p class="pinyin">Zhè zhī dàgài duōshǎo qián? Jiā jìnqù zhīhòu, zǒngjià dàgài duōshǎo?</p><p class="phonetic">쩌 즈 따까이 뚜어샤오 치앤? 지아 진취 즈허우, 쭝지아 따까이 뚜어샤오?</p><p class="meaning">이 한 마리는 대략 얼마인가요? 넣으면 전체 금액은 대략 얼마인가요?</p></article>
+          <article class="phrase-card"><header><h3 class="ko-only">게로 새우 교체</h3><button class="copy" type="button" data-copy="p11">복사</button></header><p class="zh" id="p11" lang="zh-Hant">如果螃蟹今天很好，我們可以不要蝦。</p><p class="pinyin">Rúguǒ pángxiè jīntiān hěn hǎo, wǒmen kěyǐ bú yào xiā.</p><p class="phonetic">루궈 팡시에 진티엔 헌 하오, 워먼 커이 부야오 샤.</p><p class="meaning">오늘 게가 좋다면 새우는 빼도 됩니다.</p></article>
+          <article class="phrase-card"><header><h3 class="ko-only">살이 꽉 찬 게</h3><button class="copy" type="button" data-copy="p12">복사</button></header><p class="zh" id="p12" lang="zh-Hant">不要抱卵的母蟹，我們想吃肉飽滿的。</p><p class="pinyin">Bú yào bàoluǎn de mǔxiè, wǒmen xiǎng chī ròu bǎomǎn de.</p><p class="phonetic">부야오 빠오롼 더 무시에, 워먼 샹 츠 러우 바오만 더.</p><p class="meaning">알을 품은 암게 말고 살이 꽉 찬 것으로 먹고 싶습니다.</p></article>
+        </div>
+      </section>
+
+      <section class="section ko-only" aria-labelledby="warning-title">
+        <article class="card warning"><span class="eyebrow">DO NOT OVERORDER</span><h2 id="warning-title">큰 생선과 시가부터 잠그기</h2><ul><li>큰 생선 한 마리가 양과 총액을 가장 크게 흔듭니다. 3명용 작은 쪽을 요청합니다.</li><li>사시미는 소량, 채소 하나, 주식 하나만.</li><li>게와 새우를 자동으로 같이 넣지 않습니다.</li><li>랍스터·전복은 기본 주문에 넣지 않습니다.</li><li>시가 요리는 가격을 듣기 전 확정하지 않습니다.</li><li>비싼 것보다 오늘 품질이 가장 좋은 것을 우선합니다.</li></ul></article>
+      </section>
+
+      <section class="section ko-only" aria-labelledby="branch-title">
+        <div class="section-title"><small>LIVE DECISIONS</small><h2 id="branch-title">오늘 상황에 따른 조정</h2></div>
+        <ul class="branches"><li><strong>생선이 비쌈:</strong> 더 작은 생선을 요청하거나 갑각류 슬롯을 줄입니다.</li><li><strong>사시미가 평범함:</strong> 사시미를 빼고 좋은 생선이나 조개류에 집중합니다.</li><li><strong>게가 정말 좋음:</strong> 종류·살·개체 가격·새 총액을 확인한 뒤 새우와 교체합니다.</li><li><strong>게와 새우가 모두 좋음:</strong> 양과 추가 금액을 듣고 우리가 승인한 경우만 둘 다 주문합니다.</li><li><strong>게가 평범하거나 너무 큼:</strong> 새우를 유지합니다.</li><li><strong>부모님이 많이 못 드심:</strong> 주식 또는 갑각류 하나를 뺍니다.</li><li><strong>18天 맥주 없음:</strong> 다른 대만 생맥주를 추천받습니다.</li></ul>
+      </section>
+
+      <section class="section card sources ko-only" aria-labelledby="source-title">
+        <span class="eyebrow">OFFICIAL CHECK</span><h2 id="source-title">방문 직전 다시 확인</h2>
+        <p class="meaning">메뉴·시가·당일 어획·게 종류·18天生啤酒는 2027년 2월과 현장에서 다시 확인합니다. 이 페이지의 금액은 현재 계획용 목표이며 확정 가격이 아닙니다.</p>
+        <a href="https://www.fineseafood.com.tw/" target="_blank" rel="noreferrer">北海漁村 공식 사이트 ↗</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=%E5%8C%97%E6%B5%B7%E6%BC%81%E6%9D%91%E6%B5%B7%E9%AE%AE%E9%A4%90%E5%BB%B3%20%E5%8F%B0%E5%8C%97%E6%9D%AD%E5%B7%9E%E5%BA%97" target="_blank" rel="noreferrer">北海漁村 台北杭州店 지도 ↗</a>
+      </section>
+
+      <a class="bottom-back ko-only" href="./#schedule/day-2">← DAY 2 일정으로 돌아가기</a>
+    </div>
+  </main>
+
+  <div class="toast" id="copyToast" role="status" aria-live="polite">중국어 문장을 복사했어요</div>
+  <script>
+    (function(){
+      var body=document.body;
+      var staff=document.getElementById('staffToggle');
+      var toast=document.getElementById('copyToast');
+      var timer;
+      staff.addEventListener('click',function(){
+        var active=body.classList.toggle('staff-mode');
+        staff.setAttribute('aria-pressed',String(active));
+        staff.textContent=active?'전체 가이드 보기':'직원에게 보여주기';
+        if(active)document.getElementById('staff-request').scrollIntoView({block:'start'});
+      });
+      function fallbackCopy(text){
+        var area=document.createElement('textarea');
+        area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';
+        document.body.appendChild(area);area.select();var ok=document.execCommand('copy');area.remove();return ok;
+      }
+      document.querySelectorAll('[data-copy]').forEach(function(button){
+        button.addEventListener('click',async function(){
+          var target=document.getElementById(button.getAttribute('data-copy'));
+          if(!target)return;
+          var text=target.textContent.trim();var ok=false;
+          try{await navigator.clipboard.writeText(text);ok=true}catch(error){ok=fallbackCopy(text)}
+          button.classList.toggle('is-copied',ok);button.textContent=ok?'복사됨':'직접 선택';
+          toast.textContent=ok?'중국어 문장을 복사했어요':'복사가 막혔어요. 문장을 길게 눌러 선택해 주세요.';
+          toast.classList.add('is-visible');clearTimeout(timer);timer=setTimeout(function(){toast.classList.remove('is-visible');button.classList.remove('is-copied');button.textContent='복사'},1800);
+        });
+      });
+    }());
+  </script>
+</body>
+</html>

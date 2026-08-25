@@ -9,6 +9,7 @@ interface WeatherPlanSelectorProps {
   selectedPlanId: WeatherPlanId
   panelId: string
   loading: boolean
+  compact?: boolean
   onSelect: (planId: WeatherPlanId) => void
 }
 
@@ -54,7 +55,7 @@ const modeCopy = (recommendation: WeatherPlanRecommendation, date: string) => {
   }
   return {
     eyebrow: 'WEATHER CHECK',
-    note: '날씨는 추천만 합니다. Plan A, B1, B2는 언제든 직접 선택할 수 있어요.',
+    note: '날씨는 추천만 합니다. 준비된 각 플랜은 언제든 직접 선택할 수 있어요.',
   }
 }
 
@@ -65,6 +66,7 @@ export function WeatherPlanSelector({
   selectedPlanId,
   panelId,
   loading,
+  compact = false,
   onSelect,
 }: WeatherPlanSelectorProps) {
   const copy = modeCopy(recommendation, config.date)
@@ -72,7 +74,7 @@ export function WeatherPlanSelector({
     ?? (recommendation.recommendedPlanId === 'plan-a' ? 'PLAN A' : 'PLAN B')
   const RecommendedIcon = recommendation.mode === 'fallback'
     ? CloudOff
-    : recommendation.recommendedPlanId === 'plan-b' ? CloudRain : SunMedium
+    : recommendation.recommendedPlanId === 'plan-b' || recommendation.recommendedPlanId === 'plan-c' ? CloudRain : SunMedium
   const orderedPlans = recommendation.suspended
     ? plans
     : [...plans].sort((left, right) => (
@@ -80,8 +82,17 @@ export function WeatherPlanSelector({
     ))
 
   return (
-    <section className={`weather-selector weather-selector--${recommendation.strength}`} aria-labelledby="weather-selector-title">
-      <div className="weather-selector__summary" aria-live="polite" aria-busy={loading}>
+    <section className={`weather-selector weather-selector--${recommendation.strength} ${compact ? 'weather-selector--compact' : ''}`} aria-labelledby="weather-selector-title">
+      {compact ? (
+        <header className="weather-selector__compact-head" aria-live="polite" aria-busy={loading}>
+          <div>
+            <small>CHOOSE YOUR DAY</small>
+            <h3 id="weather-selector-title">오늘 화면에 표시할 일정</h3>
+            <p>{recommendationTitle(recommendation, config.date, recommendedLabel)} · 가족 컨디션에 맞춰 직접 바꿀 수 있어요.</p>
+          </div>
+          <span><RecommendedIcon size={17} aria-hidden="true" /> 자동 추천 {recommendedLabel}</span>
+        </header>
+      ) : <div className="weather-selector__summary" aria-live="polite" aria-busy={loading}>
         <span className="weather-selector__icon" aria-hidden="true"><RecommendedIcon size={24} /></span>
         <div className="weather-selector__copy">
           <small>{copy.eyebrow}</small>
@@ -99,13 +110,13 @@ export function WeatherPlanSelector({
             <span><Wind size={15} aria-hidden="true" /> 돌풍 {Math.round(recommendation.windGust)}km/h</span>
           )}
         </div>
-      </div>
+      </div>}
 
       <div className={`weather-selector__plans weather-selector__plans--${Math.min(plans.length, 3)}`} aria-label="날씨 플랜 선택">
         {orderedPlans.map((plan) => {
           const selected = selectedPlanId === plan.id
           const recommended = !recommendation.suspended && recommendation.recommendedPlanId === plan.id
-          const PlanIcon = plan.id === 'plan-b2' ? CloudOff : plan.weatherType === 'rain' ? CloudRain : SunMedium
+          const PlanIcon = plan.id === 'plan-b2' || plan.id === 'plan-c' ? CloudOff : plan.weatherType === 'rain' ? CloudRain : SunMedium
           return (
             <button
               className={`weather-plan-choice ${selected ? 'is-selected' : ''} ${recommended ? 'is-recommended' : ''}`}
@@ -120,6 +131,7 @@ export function WeatherPlanSelector({
                 <span className="weather-plan-choice__badges">
                   {recommended && <strong>{recommendation.mode === 'fallback' ? '기본 순서' : '날씨 기준 추천'}</strong>}
                   {plan.id === 'plan-b2' && <em>전시 취향 백업</em>}
+                  {plan.id === 'plan-c' && <em>별도 실내안</em>}
                   {plan.status === 'draft' && <em>준비 중</em>}
                 </span>
               </span>

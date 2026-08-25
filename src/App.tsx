@@ -288,7 +288,7 @@ function ScheduleView({ dayId }: { dayId: string }) {
   const activeDay = days.find((day) => day.id === dayId) ?? days[0]
 
   return (
-    <div className="portal-view">
+    <div className="portal-view portal-view--schedule">
       <ViewHero
         image="jiufen.webp"
         eyebrow="THE ITINERARY"
@@ -411,23 +411,33 @@ function MobilityView() {
                 </ul>
               </details>
             </article>
-            <article>
+            <article className="transport-card--featured">
+              <figure className="transport-card__media">
+                <img
+                  src={imagePath('airport-pickup-mercedes-cabin.jpg')}
+                  alt={imageSourceByFile['airport-pickup-mercedes-cabin.jpg'].alt}
+                  width="1474"
+                  height="1110"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption><strong>실제 지정 차량 · VIP 실내</strong><span>독립형 항공의자 두 좌석과 별빛 천장 확인</span></figcaption>
+              </figure>
               <span className="transport-grid__icon"><CarFront size={26} aria-hidden="true" /></span>
-              <small>DAY 1 · AIRPORT ARRIVAL</small><h3>Mercedes 항공의자 차량 ?</h3>
-              <p>현재 1순위는 宇航富豪의 독립형 항공의자 차량입니다. 사진 속 Mercedes 차량 지정과 부모님 좌석 사양은 확인했고, 나머지 픽업 조건과 최종 예약은 확인 중입니다.</p>
-              <ul className="transport-facts" aria-label="Mercedes 항공의자 공항 픽업 검토 조건">
-                <li>사진 차량 지정 확인</li><li>독립형 VIP 시트</li><li>성인 3명</li><li>최종 확인 중</li>
+              <small>DAY 1 · TPE T2 → HOTEL</small><h3>Mercedes-Benz 항공의자 차량</h3>
+              <p>宇航富豪의 사진 속 지정 차량으로 타오위안공항 T2에서 Taipei Garden Hotel까지 이동하는 예약이 확정되었습니다.</p>
+              <ul className="transport-facts" aria-label="Mercedes-Benz 항공의자 공항 픽업 확정 조건">
+                <li>사진 차량 지정</li><li>독립형 항공의자</li><li>성인 3명</li><li>캐리어 2개</li>
               </ul>
-              <StatusBadge tone="waiting">최종 조건 확인 중</StatusBadge>
+              <StatusBadge tone="confirmed">예약 확정</StatusBadge>
               <details className="mobility-detail">
-                <summary>후보와 확인사항 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
+                <summary>확정 조건 보기 <ChevronRight size={17} aria-hidden="true" /></summary>
                 <ul>
                   <li>宇航富豪 · 타오위안공항 T2 → Taipei Garden Hotel</li>
                   <li>성인 3명 · 중형 캐리어 1개 · 기내용 캐리어 1개</li>
-                  <li>사진 속 Mercedes 항공의자 차량 지정 가능 확인</li>
-                  <li>전동 리클라이닝 · 레그레스트 · 통풍 · 열선 · 마사지 확인</li>
-                  <li>피켓 미팅 · 수하물 도움 · 무료 대기 · 결제 조건은 추가 확인 중</li>
-                  <li>Heycar S-Class와 奇立 ES300h는 확정 전까지 백업 후보</li>
+                  <li>사진 속 Mercedes-Benz 항공의자 차량 지정 확정</li>
+                  <li>전동 리클라이닝 · 레그레스트 · 통풍 · 열선 · 마사지</li>
+                  <li>피켓 미팅 · 수하물 도움 · 공항 도착 후 85분 대기</li>
                 </ul>
               </details>
             </article>

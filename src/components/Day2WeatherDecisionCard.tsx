@@ -1,6 +1,7 @@
 import {
   AlertTriangle,
   CheckCircle2,
+  ChevronDown,
   CloudRain,
   CloudSun,
   MapPin,
@@ -31,8 +32,8 @@ interface Day2WeatherDecisionCardProps {
 
 const classCopy: Record<Day2WeatherClass, { title: string; short: string }> = {
   A: { title: '정상 야외 일정', short: '기존 일정 진행' },
-  B: { title: '비가 있지만 이동 가능', short: '우천 대비' },
-  C: { title: '야외 일정 적극 조정 권고', short: '동선 재검토' },
+  B: { title: '이란·화산 우천 일정', short: '약한 비–중간 비 독립 일정' },
+  C: { title: '강한 비 · 별도 실내안', short: '상세 동선 설계 중' },
 }
 
 const modeCopy: Record<Day2ForecastMode, string> = {
@@ -112,7 +113,7 @@ export function Day2WeatherDecisionCard({
     ? ShieldAlert
     : effectiveClass === 'A' ? CloudSun : effectiveClass ? CloudRain : AlertTriangle
   const title = safetyHold
-    ? todayPreview ? '오늘 같은 날씨라면 · 안전 확인 필요' : '안전 확인 필요 · 일반 일정 판정 중지'
+    ? todayPreview ? '오늘 같은 날씨라면 D · 안전 확인 필요' : 'D · 안전 우선 · 일반 일정 판정 중지'
     : effectiveClass
       ? `${todayPreview ? '오늘 같은 날씨라면 ' : ''}${effectiveClass} · ${classCopy[effectiveClass].title}`
       : status === 'loading' ? '북부 대만 기상 자료를 확인하는 중' : '오늘 날씨 미리보기를 불러오지 못했습니다'
@@ -167,46 +168,45 @@ export function Day2WeatherDecisionCard({
         </p>
       )}
 
-      <div className="day2-weather-decision__locations">
-        {decision.locations.map((location) => <LocationWeatherCard location={location} key={location.locationId} />)}
-      </div>
-
-      <div className="day2-weather-decision__reason">
-        <div>
-          <small>{safetyHold ? 'SAFETY OVERRIDE' : 'WHY THIS DECISION'}</small>
-          <h4>{safetyHold ? '왜 일반 판정을 멈췄나요?' : '왜 이렇게 판단했나요?'}</h4>
+      <details className="day2-weather-decision__details">
+        <summary>
+          <span>
+            <small>DETAILS</small>
+            <strong>지역별 날씨와 판단 근거</strong>
+          </span>
+          <span>{decision.locations.length}개 지역 <ChevronDown size={18} aria-hidden="true" /></span>
+        </summary>
+        <div className="day2-weather-decision__locations">
+          {decision.locations.map((location) => <LocationWeatherCard location={location} key={location.locationId} />)}
         </div>
-        <ul>
-          {decision.reasons.map((reason) => <li key={reason}>{reason}</li>)}
-        </ul>
-      </div>
 
-      <div className="day2-weather-decision__controls">
-        <div>
-          <strong>표시할 플랜</strong>
-          <small>자동 판정과 가족의 최종 선택은 분리해 기억합니다.</small>
+        <div className="day2-weather-decision__reason">
+          <div>
+            <small>{safetyHold ? 'SAFETY OVERRIDE' : 'WHY THIS DECISION'}</small>
+            <h4>{safetyHold ? '왜 일반 판정을 멈췄나요?' : '왜 이렇게 판단했나요?'}</h4>
+          </div>
+          <ul>
+            {decision.reasons.map((reason) => <li key={reason}>{reason}</li>)}
+          </ul>
         </div>
-        <div role="group" aria-label="Day 2 날씨 플랜 수동 선택">
+      </details>
+
+      <div className="day2-weather-decision__plan-note">
+        <div>
+          <strong>{safetyHold ? 'Plan D · 안전 우선' : `화면에 표시 중 · ${effectiveClass ?? '자동 판정 대기'}`}</strong>
+          <small>{manualClass ? `자동 ${decision.weatherClass ?? '대기'} 대신 가족이 ${manualClass}를 선택했습니다.` : '바로 아래 플랜 카드에서 일정을 바꿀 수 있어요.'}</small>
+        </div>
+        {manualClass && !safetyHold && (
           <button
             type="button"
-            aria-pressed={manualClass === null}
-            className={manualClass === null ? 'is-selected' : ''}
             onClick={() => onManualClassChange(null)}
-          >자동 {decision.weatherClass ?? '대기'}</button>
-          {(['A', 'B', 'C'] as Day2WeatherClass[]).map((weatherClass) => (
-            <button
-              type="button"
-              aria-pressed={manualClass === weatherClass}
-              className={manualClass === weatherClass ? 'is-selected' : ''}
-              disabled={safetyHold}
-              title={safetyHold ? '안전 확인 전에는 일반 플랜으로 전환할 수 없습니다.' : classCopy[weatherClass].short}
-              onClick={() => onManualClassChange(weatherClass)}
-              key={weatherClass}
-            >{weatherClass}</button>
-          ))}
-        </div>
-        {(effectiveClass === 'B' || effectiveClass === 'C') && (
-          <p><Waves size={16} aria-hidden="true" /> Plan B/C 상세 동선은 아직 설계 전입니다. 아래에는 현재 준비 중인 우천 대응 안내만 표시됩니다.</p>
+          >자동 {decision.weatherClass ?? '대기'}로 돌아가기</button>
+        )}
+        {effectiveClass === 'B' && (
+          <p><Waves size={16} aria-hidden="true" /> Plan B는 이란 전통문화 → 자오시 차 → 화산 LP → 北海漁村으로 이어지는 완성된 독립 우천 일정입니다.</p>
+        )}
+        {effectiveClass === 'C' && (
+          <p><Waves size={16} aria-hidden="true" /> Plan C는 강한 비에도 운행이 안전할 때 쓰는 별도 실내안입니다. B 일정을 재사용하지 않으며 상세 동선은 아직 설계 중입니다.</p>
         )}
         {safetyHold && <p><Wind size={16} aria-hidden="true" /> 안전 확인이 끝날 때까지 A/B/C 자동 추천과 수동 전환을 중지합니다.</p>}
       </div>

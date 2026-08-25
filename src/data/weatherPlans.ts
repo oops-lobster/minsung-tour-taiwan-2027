@@ -21,6 +21,7 @@ interface DayPlanMeta {
   planASummary: string
   planB: Omit<DayPlan, 'id' | 'label' | 'weatherType'>
   planB2?: Omit<DayPlan, 'id' | 'label' | 'weatherType'>
+  planC?: Omit<DayPlan, 'id' | 'label' | 'weatherType'>
 }
 
 export const dayWeatherConfigs: Record<string, DayWeatherConfig> = {
@@ -90,12 +91,14 @@ const dayOneRainSchedule: TimelineItem[] = [
   },
   {
     time: '입국·수하물 후',
-    title: '공항 픽업 → 호텔',
-    localName: '宇航富豪 · Mercedes 航空椅 차량 우선 검토',
-    description: '날씨와 관계없이 공항 픽업 뒤 호텔에 짐을 맡기고 예약된 점심으로 이동합니다. 현재는 Mercedes 항공의자 차량이 1순위이며, 최종 조건과 예약 확정은 추가 확인 중입니다.',
-    transport: '공항 픽업 후보 · Mercedes 항공의자 차량',
-    tags: ['Plan A/B 공통', '최종 조건 확인 중'],
-    placeId: 'hotel',
+    title: 'Mercedes 항공의자 차량 → 호텔',
+    localName: '宇航富豪 · 賓士航空椅',
+    description: '날씨와 관계없이 타오위안공항 T2에서 사진 속 Mercedes-Benz 항공의자 차량을 타고 Taipei Garden Hotel로 이동합니다. 피켓 미팅과 수하물 도움을 받은 뒤 호텔에 짐을 맡기고 예약된 점심으로 이동합니다.',
+    transport: '宇航富豪 · Mercedes-Benz 항공의자 차량',
+    tags: ['Plan A/B 공통', '예약 확정', '사진 속 차량 지정'],
+    image: 'airport-pickup-mercedes-cabin.jpg',
+    mapQuery: 'Taoyuan International Airport Terminal 2 to Taipei Garden Hotel',
+    placeId: 'taoyuan-t2',
   },
   {
     time: '약 11:20–11:40',
@@ -253,6 +256,140 @@ const dayOneIndoorBackupSchedule: TimelineItem[] = [
   ...dayOneRainSchedule.slice(11),
 ]
 
+const dayTwoRainRoute: DayRoute = {
+  title: '비 오는 이란에서 화산의 LP와 펑후 해산물까지',
+  summary: '08:30–16:30에는 LUMI Alphard로 이란과 자오시를 거쳐 화산1914까지 이동하고, 이후에는 택시와 도보로 저녁과 숙소 생활권을 잇습니다.',
+  stops: [
+    { placeId: 'hotel', label: 'Taipei Garden Hotel', note: '08:30 · LUMI 출발' },
+    { placeId: 'yilan-traditional-arts', label: '이란 전통예술센터', note: '공연·공예·옛 거리' },
+    { placeId: 'shisong-yilan-main', label: '拾松 이란 본점', note: '점심 1순위 · 예약 전' },
+    { placeId: 'nikko-hill', label: '日光山茶屋', note: '차·휴식 · 예약 전' },
+    { placeId: 'huashan-1914', label: '화산1914', note: '16:30까지 LUMI 종료' },
+    { placeId: 'beihai-hangzhou', label: '北海漁村', note: '18:30 저녁 1순위 · 예약 전' },
+    { placeId: 'taihu-driftwood', label: '臺虎西門', note: '선택형 2차' },
+    { placeId: 'hotel', label: '호텔', note: '21:30–22:00 목표 · 더 일러도 좋음' },
+  ],
+}
+
+const dayTwoRainSchedule: TimelineItem[] = [
+  {
+    time: '08:30',
+    title: '호텔 출발 · LUMI 8시간 시작',
+    localName: '台北花園大酒店 → 宜蘭',
+    description: '호텔 조식을 마치고 LUMI DRIVE의 Toyota New Alphard 40系로 출발합니다. 오늘 차량 시간은 08:30–16:30이 hard stop이며, 화산1914 도착을 위해 14:20 이후 북상 교통을 우선 판단합니다.',
+    transport: 'LUMI DRIVE · Toyota New Alphard 40系',
+    tags: ['08:30 출발', '16:30 hard stop', 'Plan B'],
+    placeId: 'hotel',
+  },
+  {
+    time: '약 09:40–09:50',
+    title: '이란 전통예술센터 도착',
+    localName: '宜蘭傳藝園區',
+    description: '일요일 국도 5호선 상황을 감안한 도착 범위입니다. 비가 분위기의 일부가 되는 전통문화 마을로 들어갑니다.',
+    transport: 'LUMI Alphard',
+    tags: ['현실적 도착 범위'],
+    placeId: 'yilan-traditional-arts',
+  },
+  {
+    time: '09:50–11:50',
+    title: '공연 하나와 공예·옛 거리',
+    localName: '宜蘭傳藝園區',
+    description: '공연 하나를 중심으로 공예 시연과 상점, 옛 대만 거리와 건축을 천천히 봅니다. 긴 전시 설명을 전부 읽기보다 가족이 재미있어하는 장면에 머뭅니다. 2027-02-21 실제 공연 시간표는 여행 직전에 다시 확인합니다.',
+    tags: ['공연 1개', '공예·상점', '2027년 2월 직전 재확인'],
+    placeId: 'yilan-traditional-arts',
+  },
+  {
+    time: '11:50 출발 · 약 12:10–13:20',
+    title: '拾松 이란 본점 · 향토 점심',
+    localName: '拾松 宜蘭總店',
+    description: '西魯肉·糕渣·卜肉 같은 이란 잔칫상 음식을 여러 접시로 나눠 먹는 점심 1순위입니다. 다른 지점이 아닌 女中路一段303號의 이란 본점이며, 최신 메뉴와 일요일 예약 정책을 확인한 뒤 확정합니다.',
+    transport: 'LUMI Alphard',
+    tags: ['점심 1순위', '예약 전', '이란 본점 지정', '2027년 2월 직전 재확인'],
+    placeId: 'shisong-yilan-main',
+  },
+  {
+    time: '13:20 출발 · 약 13:40–14:25/14:40',
+    title: '日光山茶屋 · 부모님 휴식',
+    localName: '日光山茶屋 · Nikko Hill Tea House',
+    description: '따뜻한 차와 비 내리는 처마·산 분위기 속에서 쉬어 갑니다. 관광지를 더 넣는 시간이 아니라 북상 전 부모님이 편하게 쉬는 완충 구간이며, 현재 1순위이지만 최종 예약은 아직입니다.',
+    transport: 'LUMI Alphard',
+    tags: ['차와 휴식', '현재 1순위', '예약 전'],
+    placeId: 'nikko-hill',
+  },
+  {
+    time: '14:20 이후',
+    title: '실시간 교통 확인 · 16:30 보호',
+    description: '기사님이 국도 5호선 북상 ETA를 확인합니다. 차 시간을 더 쓰기보다 화산1914 도착과 16:30 LUMI 종료를 지키는 것이 우선이며, 정체가 예상되면 차 시간을 짧게 줄이고 바로 출발합니다.',
+    transport: 'LUMI Alphard · 실시간 ETA',
+    tags: ['16:30 hard stop 최우선'],
+  },
+  {
+    time: '약 16:00–16:30 도착',
+    title: '화산1914 도착 · LUMI 종료',
+    localName: '華山1914文化創意產業園區',
+    description: '늦어도 16:30에 차량 서비스를 종료합니다. 이 지점부터는 LUMI가 아니라 택시와 도보로 움직입니다.',
+    transport: 'LUMI 종료 · 이후 택시·도보',
+    tags: ['16:30 차량 종료', '이후 LUMI 사용 안 함'],
+    placeId: 'huashan-1914',
+  },
+  {
+    time: '16:30–18:15',
+    title: '화산1914 · 디자인·소품·LP',
+    localName: '華山1914 · 黑膠咖啡 · 未来市',
+    description: 'Vinyl Decision에서 LP를 고르고 음악을 듣는 시간을 가장 우선합니다. 이어 대만·일본 디자인 소품, 목재 선물과 당일 팝업을 골라 보고, 홍차우유는 걸으며 마시는 테이크아웃 정도로 둡니다.',
+    tags: ['LP 최우선', '디자인 소품', '팝업은 여행 직전 갱신'],
+    placeId: 'huashan-1914',
+    detailPanel: 'huashan',
+  },
+  {
+    time: '18:15 전후 출발 · 18:30–20:00/20:20',
+    title: '北海漁村 · 펑후 해산물 저녁',
+    localName: '北海漁村海鮮餐廳 台北杭州店',
+    description: '1983년 시작한 펑후 해산물 노포에서 오늘 좋은 펑후 생선, 소량 사시미, 中卷/小卷, 새우 또는 당일 좋은 제철 게와 대만 맥주를 나눕니다. 재료의 원맛을 살리는 활기 있는 현지식 저녁이며 18:30 예약은 아직 확정 전입니다.',
+    transport: '화산1914 → 택시',
+    tags: ['B안 저녁 1순위', '예약 전', '2027년 메뉴·18天生啤酒 재확인'],
+    placeId: 'beihai-hangzhou',
+    guide: {
+      href: 'beihai-order-guide.html',
+      label: '北海漁村 3인 주문 가이드 열기',
+      eyebrow: '현장에서 바로 보여주기',
+    },
+  },
+  {
+    time: '20:20 이후 · 약 20:35–20:45 도착',
+    title: '臺虎西門 한잔 또는 바로 호텔',
+    localName: '臺虎西門 Taihu Driftwood',
+    description: '택시로 숙소 생활권에 돌아온 뒤 크래프트 맥주 한잔이 더 당길 때만 들릅니다. 피곤하면 바로 호텔로 가는 것도 계획대로 잘 끝낸 정상적인 선택입니다. 2027년 일요일 영업시간은 직전에 확인합니다.',
+    transport: '택시 · 이후 도보 또는 짧은 택시',
+    tags: ['선택형 2차', '예약 전', '호텔 직행 정상 선택', '2027년 2월 직전 재확인'],
+    placeId: 'taihu-driftwood',
+    optional: true,
+  },
+  {
+    time: '21:30–22:00 목표',
+    title: '호텔 귀가 · 더 일러도 좋음',
+    localName: '台北花園大酒店',
+    description: '가족 컨디션에 따라 더 일찍 돌아와도 됩니다. 2차를 생략하는 것은 실패가 아니라 부모님이 편하게 하루를 마치는 정식 선택입니다.',
+    transport: '도보 또는 짧은 택시',
+    tags: ['컨디션 우선', '정상 종료'],
+    placeId: 'hotel',
+  },
+]
+
+const dayTwoHeavyRainRoute: DayRoute = {
+  title: '강한 비에도 운행 가능한 실내안 · 설계 중',
+  summary: 'Plan B 일정을 그대로 보여주지 않습니다. 운행과 도로가 안전한 경우에만 타오위안권 실내 문화·식사 동선을 별도로 설계할 예정입니다.',
+  stops: [{ placeId: 'hotel', label: 'Taipei Garden Hotel', note: '안전·도로 상황 확인 후 결정' }],
+}
+
+const dayTwoHeavyRainSchedule: TimelineItem[] = [{
+  time: '별도 설계 중',
+  title: 'Plan C · 강한 비지만 운행 가능한 날',
+  description: '지속적인 강한 비에도 도로와 공식 운영이 안전할 때 쓰는 실내 중심 대안입니다. Xpark만 단독으로 넣지 않고 타오위안권의 좋은 실내 문화·식사 한 곳을 함께 묶어, Alphard 8시간의 가치가 있는 별도 하루로 설계합니다.',
+  tags: ['B안 재사용 아님', '상세 일정 설계 중', '안전 확인 우선'],
+  placeId: 'hotel',
+}]
+
 const dayPlanMeta: Record<string, DayPlanMeta> = {
   'day-1': {
     planATheme: '린안타이 고택 · 백석호 · 벽산암',
@@ -276,21 +413,18 @@ const dayPlanMeta: Record<string, DayPlanMeta> = {
     planATheme: '예류 → 스펀 → 지우펀',
     planASummary: '북해안과 지우펀의 밤을 잇고 21:00 호텔 복귀로 끝나는 맑은 날 확정안',
     planB: {
-      theme: '비가 와서 더 좋은 별도 일정',
-      summary: 'Plan A를 줄이는 방식이 아닌 독립적인 우천 일정으로 새로 설계할 예정입니다.',
+      theme: '이란 전통문화 · 자오시 차 · 화산 LP · 펑후 해산물',
+      summary: '약한 비부터 중간 정도의 꾸준한 비에 여는 독립 일정 · LUMI는 08:30–16:30까지만',
+      status: 'ready',
+      schedule: dayTwoRainSchedule,
+      route: dayTwoRainRoute,
+    },
+    planC: {
+      theme: '강한 비 · 별도 실내안 설계 중',
+      summary: '운행은 가능하지만 야외 일정이 어려운 날을 위한 독립안이며, B안 동선을 대신 표시하지 않습니다.',
       status: 'draft',
-      schedule: [{
-        time: '설계 전',
-        title: 'Plan B/C 우천 대안 준비 중',
-        description: '예류·스펀·지우펀을 억지로 유지하지 않습니다. 기사 포함 Alphard 8시간을 활용해 온천·좋은 실내 공간·비 오는 풍경·좋은 식사를 중심으로 별도 일정을 설계합니다.',
-        tags: ['목적지 미확정', 'Plan A 축소판 아님'],
-        placeId: 'hotel',
-      }],
-      route: {
-        title: 'Day 2 우천 대안 · 설계 전',
-        summary: '목적지를 아직 확정하지 않았습니다. 타이베이·베이터우·우라이·타오위안·이란까지 열어 두고 가족에게 비가 장점이 되는 하루를 설계합니다.',
-        stops: [{ placeId: 'hotel', label: 'Taipei Garden Hotel', note: '우천 대안 출발 기준점' }],
-      },
+      schedule: dayTwoHeavyRainSchedule,
+      route: dayTwoHeavyRainRoute,
     },
   },
   'day-3': {
@@ -370,6 +504,15 @@ export const getDayPlans = (day: TripDay): DayPlan[] => {
       label: 'PLAN B2',
       weatherType: 'rain',
       ...meta.planB2,
+    })
+  }
+
+  if (meta.planC) {
+    plans.push({
+      id: 'plan-c',
+      label: 'PLAN C',
+      weatherType: 'rain',
+      ...meta.planC,
     })
   }
 

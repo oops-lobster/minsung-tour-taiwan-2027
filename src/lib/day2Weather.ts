@@ -697,7 +697,9 @@ export const day2DecisionToPlanRecommendation = (
     }
   }
   return {
-    recommendedPlanId: decision.weatherClass === 'A' ? 'plan-a' : 'plan-b',
+    recommendedPlanId: decision.weatherClass === 'A'
+      ? 'plan-a'
+      : decision.weatherClass === 'B' ? 'plan-b' : 'plan-c',
     mode: decision.mode === 'OUT_OF_RANGE' ? 'today-preview' : decision.mode === 'LIVE' ? 'trip-day-live' : 'trip-forecast',
     strength: decision.weatherClass === 'C' ? 'strong' : 'recommended',
     sourceDate: tripDate,

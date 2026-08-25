@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CarFront, ChevronDown, Footprints, Gauge, Map, UtensilsCrossed } from 'lucide-react'
+import { CarFront, ChevronDown, Footprints, Gauge, Map, ShieldAlert, UtensilsCrossed } from 'lucide-react'
 import type { TimelineItem, TripDay } from '../data/trip'
 import { getDayPlans, dayWeatherConfigs, type DayPlan } from '../data/weatherPlans'
 import { imageSourceByFile } from '../data/imageSources'
@@ -23,6 +23,7 @@ import { DayRouteMap } from './DayRouteMap'
 import { WeatherPlanSelector } from './WeatherPlanSelector'
 import { useWeather } from './WeatherProvider'
 import { Day2WeatherDecisionCard } from './Day2WeatherDecisionCard'
+import { HuashanMiniGuide } from './HuashanMiniGuide'
 
 interface DaySectionProps {
   day: TripDay
@@ -45,8 +46,8 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
         const placeHint = getPlaceDisplayHint(place)
         return (
           <details
-            className={`timeline-item ${item.optional ? 'timeline-item--optional' : ''} ${item.placeId === 'guihou' ? 'timeline-item--guide-linked' : ''}`}
-            open={item.placeId === 'guihou' ? true : undefined}
+            className={`timeline-item ${item.optional ? 'timeline-item--optional' : ''} ${(item.placeId === 'guihou' || item.guide) ? 'timeline-item--guide-linked' : ''}`}
+            open={item.placeId === 'guihou' ? true : item.placeId === 'beihai-hangzhou' ? true : undefined}
             key={`${item.time}-${item.title}`}
           >
             <summary className="timeline-item__summary">
@@ -57,6 +58,7 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
                 {item.localName && <span className="timeline-item__local" lang="zh-Hant">{item.localName}</span>}
                 {placeHint && <span className="timeline-item__place-hint">{placeHint}</span>}
                 {item.placeId === 'guihou' && <span className="timeline-item__guide-hint">현장 가이드가 바로 연결된 점심 일정</span>}
+                {item.guide && <span className="timeline-item__guide-hint">{item.guide.eyebrow ?? '현장 가이드 연결'}</span>}
               </span>
               <span className="timeline-item__expand" aria-hidden="true"><ChevronDown size={20} /></span>
             </summary>
@@ -83,6 +85,13 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
                 <div className="yehliu-timeline-actions" aria-label="귀후어항 현장 가이드">
                   <a className="is-primary" href="#guide/guihou">① 현장 가이드 바로 시작</a>
                   <a href="#guide/guihou/price">② 가격 계산 바로가기</a>
+                </div>
+              )}
+              {item.detailPanel === 'huashan' && <HuashanMiniGuide />}
+              {item.guide && (
+                <div className="timeline-field-guide" aria-label={item.guide.label}>
+                  {item.guide.eyebrow && <small>{item.guide.eyebrow}</small>}
+                  <a href={`${import.meta.env.BASE_URL}${item.guide.href}`}>{item.guide.label}</a>
                 </div>
               )}
               {item.tags && (
@@ -149,14 +158,19 @@ export function DaySection({ day, index }: DaySectionProps) {
     : getWeatherPlanRecommendation({ dataset, status, config: weatherConfig, testMode })
   const selectedPlanId = manualPlanId ?? recommendation.recommendedPlanId
   const selectedPlan = plans.find((plan) => plan.id === selectedPlanId) ?? plans[0]
+  const day2SafetyHold = day.id === 'day-2' && day2Decision?.safetyState === 'safety-hold'
   const planPanelId = `${day.id}-weather-plan-panel`
   const handlePlanSelect = (planId: WeatherPlanId) => {
     setManualPlanId(planId)
-    if (day.id === 'day-2') setManualDay2Class(planId === 'plan-a' ? 'A' : 'B')
+    if (day.id === 'day-2') {
+      setManualDay2Class(planId === 'plan-a' ? 'A' : planId === 'plan-c' ? 'C' : 'B')
+    }
   }
   const handleDay2ClassChange = (weatherClass: Day2WeatherClass | null) => {
     setManualDay2Class(weatherClass)
-    setManualPlanId(weatherClass ? weatherClass === 'A' ? 'plan-a' : 'plan-b' : null)
+    setManualPlanId(weatherClass
+      ? weatherClass === 'A' ? 'plan-a' : weatherClass === 'B' ? 'plan-b' : 'plan-c'
+      : null)
   }
 
   return (
@@ -205,7 +219,7 @@ export function DaySection({ day, index }: DaySectionProps) {
           </div>
         </div>
 
-        {day.id === 'day-2' && (
+        {day.id === 'day-2' && selectedPlan.id === 'plan-a' && !day2SafetyHold && (
           <aside className="guihou-day-entry" aria-labelledby="guihou-day-entry-title">
             <UtensilsCrossed aria-hidden="true" />
             <div>
@@ -230,38 +244,81 @@ export function DaySection({ day, index }: DaySectionProps) {
           />
         )}
 
-        <WeatherPlanSelector
-          config={weatherConfig}
-          plans={plans}
-          recommendation={recommendation}
-          selectedPlanId={selectedPlan.id}
-          panelId={planPanelId}
-          loading={(day.id === 'day-2' ? day2Weather.status === 'loading' : status === 'loading' && testMode === null)}
-          onSelect={handlePlanSelect}
-        />
-
-        <section
-          className={`day-plan-detail day-plan-detail--${selectedPlan.id}`}
-          id={planPanelId}
-          aria-labelledby={`${day.id}-${selectedPlan.id}-title`}
-        >
-          <header className="day-plan-detail__heading">
+        {day2SafetyHold ? (
+          <section className="day2-safety-plan" aria-labelledby="day2-safety-plan-title">
+            <ShieldAlert size={30} aria-hidden="true" />
             <div>
-              <small>{selectedPlan.label} · {selectedPlan.weatherType === 'rain' ? '비 오는 날' : '비가 적은 날'}</small>
-              <h3 id={`${day.id}-${selectedPlan.id}-title`}>{selectedPlan.theme}</h3>
-              <p>{selectedPlan.summary}</p>
+              <small>PLAN D · SAFETY FIRST</small>
+              <h3 id="day2-safety-plan-title">정상 관광 동선을 표시하지 않습니다</h3>
+              <p>공식 경보·도로 통제·관광지 운영 상태와 LUMI 기사님의 운행 판단을 먼저 확인합니다. 안전이 확보되지 않으면 이동을 시작하지 않고, 일부 구간만 안전하면 그때 짧은 실내 동선을 새로 정합니다.</p>
+              <span>위험이 해제되기 전에는 A·B·C 수동 전환도 잠깁니다.</span>
             </div>
-            {selectedPlan.status === 'draft' && <span>완전 대체 일정 준비 중</span>}
-          </header>
+          </section>
+        ) : (
+          <>
+            <WeatherPlanSelector
+              config={weatherConfig}
+              plans={plans}
+              recommendation={recommendation}
+              selectedPlanId={selectedPlan.id}
+              panelId={planPanelId}
+              loading={(day.id === 'day-2' ? day2Weather.status === 'loading' : status === 'loading' && testMode === null)}
+              compact={day.id === 'day-2'}
+              onSelect={handlePlanSelect}
+            />
 
-          <DayRouteMap
-            dayId={day.id}
-            dayLabel={`${day.day} · ${selectedPlan.label}`}
-            route={selectedPlan.route}
-            routeId={`${day.id}-${selectedPlan.id}`}
-          />
-          <PlanTimeline day={day} plan={selectedPlan} />
-        </section>
+            <section
+              className={`day-plan-detail day-plan-detail--${selectedPlan.id}`}
+              id={planPanelId}
+              aria-labelledby={`${day.id}-${selectedPlan.id}-title`}
+            >
+              <header className="day-plan-detail__heading">
+                <div>
+                  <small>{selectedPlan.label} · {selectedPlan.weatherType === 'rain' ? '비 오는 날' : '비가 적은 날'}</small>
+                  <h3 id={`${day.id}-${selectedPlan.id}-title`}>{selectedPlan.theme}</h3>
+                  <p>{selectedPlan.summary}</p>
+                </div>
+                {selectedPlan.status === 'draft' && <span>별도 일정 설계 중</span>}
+              </header>
+
+              <nav className="day-plan-glance" aria-label={`${day.day} ${selectedPlan.label} 핵심 동선`}>
+                <small>ROUTE AT A GLANCE</small>
+                <ol>
+                  {selectedPlan.route.stops.map((stop, stopIndex) => (
+                    <li key={`${stop.placeId}-${stopIndex}`}>
+                      <span>{stopIndex + 1}</span>
+                      <strong>{stop.label}</strong>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+
+              <details className="day-plan-route-drawer">
+                <summary>
+                  <Map size={21} aria-hidden="true" />
+                  <span><small>MAP & PLACES</small><strong>동선 지도와 장소 설명 보기</strong></span>
+                  <em>{selectedPlan.route.stops.length}곳</em>
+                  <ChevronDown size={20} aria-hidden="true" />
+                </summary>
+                <DayRouteMap
+                  dayId={day.id}
+                  dayLabel={`${day.day} · ${selectedPlan.label}`}
+                  route={selectedPlan.route}
+                  routeId={`${day.id}-${selectedPlan.id}`}
+                />
+              </details>
+
+              <section className="day-plan-timeline" aria-labelledby={`${day.id}-${selectedPlan.id}-timeline-title`}>
+                <header>
+                  <small>DAY BY TIME</small>
+                  <h4 id={`${day.id}-${selectedPlan.id}-timeline-title`}>시간순 일정</h4>
+                  <p>먼저 시간과 장소만 훑고, 필요한 일정만 눌러 설명·지도·현장 가이드를 확인하세요.</p>
+                </header>
+                <PlanTimeline day={day} plan={selectedPlan} />
+              </section>
+            </section>
+          </>
+        )}
       </div>
     </section>
   )
