@@ -26,7 +26,8 @@ import {
 import { Brand } from './components/Brand'
 import { Countdown } from './components/Countdown'
 import { DaySection } from './components/DaySection'
-import { LocalToolsView, RestaurantPlanB } from './components/LocalToolsView'
+import { DayHeader } from './components/itinerary/DayHeader'
+import { LocalToolsView, RestaurantPlanB, SnackAtlas } from './components/LocalToolsView'
 import type { ToolsTab } from './components/LocalToolsView'
 import { MapLinkButton } from './components/MapLinkButton'
 import { OpeningSequence } from './components/OpeningSequence'
@@ -48,6 +49,7 @@ import { imagePath } from './lib/paths'
 const BudgetDashboard = lazy(() => import('./components/BudgetDashboard').then((module) => ({ default: module.BudgetDashboard })))
 const YehliuGuideView = lazy(() => import('./components/YehliuGuideView').then((module) => ({ default: module.YehliuGuideView })))
 const GuihouGuideView = lazy(() => import('./components/GuihouGuideView').then((module) => ({ default: module.GuihouGuideView })))
+const HuashanGuideView = lazy(() => import('./components/HuashanGuideView').then((module) => ({ default: module.HuashanGuideView })))
 
 type ViewId = 'home' | 'schedule' | 'bookings' | 'food' | 'budget' | 'minsung' | 'principles' | 'tools' | 'guide'
 type BookingTab = 'status' | 'stay' | 'mobility'
@@ -55,7 +57,7 @@ type BookingTab = 'status' | 'stay' | 'mobility'
 interface AppRoute {
   view: ViewId
   section?: string
-  guide?: 'yehliu' | 'guihou'
+  guide?: 'yehliu' | 'guihou' | 'huashan'
 }
 
 const statusIcons: Record<string, LucideIcon> = {
@@ -108,6 +110,7 @@ function readRoute(): AppRoute {
   if (view === 'guide' && section === 'guihou') {
     return { view: 'guide', guide: 'guihou', section: detail ?? 'operation' }
   }
+  if (view === 'guide' && section === 'huashan') return { view: 'guide', guide: 'huashan', section: 'huashan' }
   if (view === 'food' || view === 'budget' || view === 'minsung' || view === 'principles' || view === 'home') return { view }
 
   return { view: 'home' }
@@ -289,12 +292,7 @@ function ScheduleView({ dayId }: { dayId: string }) {
 
   return (
     <div className="portal-view portal-view--schedule">
-      <ViewHero
-        image="jiufen.webp"
-        eyebrow="THE ITINERARY"
-        title="4일 일정"
-        description="하루를 선택하면 그날 동선만 펼쳐집니다. 날짜를 바꿔도 화면 구조는 그대로 유지돼요."
-      />
+      <DayHeader day={activeDay} />
       <nav className="section-tabs section-tabs--days" aria-label="날짜 선택">
         <div className="page-shell">
           {days.map((day) => (
@@ -577,6 +575,7 @@ function FoodView() {
         </div>
       </section>
       <RestaurantPlanB />
+      <SnackAtlas />
     </div>
   )
 }
@@ -672,7 +671,7 @@ function App() {
       minsung: '민성이 챙길 것',
       principles: '여행 원칙',
       tools: '현지 도구',
-      guide: route.guide === 'guihou' ? '민성의 귀후어항 해산물 가이드' : '민성의 예류 지질 가이드',
+      guide: route.guide === 'guihou' ? '민성의 귀후어항 해산물 가이드' : route.guide === 'huashan' ? '화산1914 큐레이션' : '민성의 예류 지질 가이드',
     }
     document.title = `${labels[route.view]} | 민성투어 대만 2027`
 
@@ -720,7 +719,8 @@ function App() {
         {route.view === 'principles' && <PrinciplesView />}
         {route.view === 'tools' && <LocalToolsView tab={toolsTab} />}
         {route.view === 'guide' && route.guide === 'guihou' && <Suspense fallback={<div className="yehliu-guide-loading">귀후어항 현장 가이드를 펼치는 중…</div>}><GuihouGuideView initialSection={route.section} /></Suspense>}
-        {route.view === 'guide' && route.guide !== 'guihou' && <Suspense fallback={<div className="yehliu-guide-loading">예류 오프라인 가이드를 펼치는 중…</div>}><YehliuGuideView initialSection={route.section} /></Suspense>}
+        {route.view === 'guide' && route.guide === 'huashan' && <Suspense fallback={<div className="yehliu-guide-loading">화산1914 가이드를 펼치는 중…</div>}><HuashanGuideView /></Suspense>}
+        {route.view === 'guide' && route.guide === 'yehliu' && <Suspense fallback={<div className="yehliu-guide-loading">예류 오프라인 가이드를 펼치는 중…</div>}><YehliuGuideView initialSection={route.section} /></Suspense>}
       </main>
 
       {(route.view === 'schedule' || route.view === 'tools') && <HotelReturnButton hotel={placeCatalog.hotel} />}

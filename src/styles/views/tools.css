@@ -1,0 +1,3518 @@
+/* V2 local travel tools */
+.portal-view--tools {
+  overflow: clip;
+  background: var(--ivory);
+}
+
+.tools-hero {
+  min-height: 350px;
+}
+
+.tools-hero > img {
+  object-position: center 54%;
+  filter: saturate(.78) contrast(1.04);
+}
+
+.tools-hero__copy {
+  padding-block: 74px 40px;
+}
+
+.tools-hero__copy > div {
+  max-width: 680px;
+}
+
+.tools-hero__copy > div > span,
+.tool-card__heading small,
+.budget-shortcut small,
+.private-modal__panel header small {
+  color: var(--coral-soft);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+
+.tools-hero__copy h1 {
+  margin-top: 6px;
+}
+
+.section-tabs--tools > .page-shell {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.section-tabs--tools a {
+  padding-inline: 2px;
+  font-size: clamp(.66rem, 3.35vw, .76rem);
+  white-space: nowrap;
+}
+
+.yehliu-tool-entry {
+  padding-block: 20px;
+  background: var(--paper);
+}
+
+.yehliu-tool-entry a {
+  display: grid;
+  min-height: 92px;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid rgba(0, 72, 104, .18);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 92% 10%, rgba(230, 107, 83, .18), transparent 14rem),
+    linear-gradient(135deg, rgba(220, 234, 230, .78), rgba(255, 250, 240, .94));
+  box-shadow: var(--shadow-sm);
+  color: var(--jade-deep);
+  cursor: pointer;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.yehliu-tool-entry__icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--jade-deep);
+  color: var(--paper);
+}
+
+.yehliu-tool-entry__copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.yehliu-tool-entry__copy small {
+  color: var(--vermilion);
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.yehliu-tool-entry__copy strong {
+  font-family: var(--font-display);
+  font-size: .96rem;
+}
+
+.yehliu-tool-entry__copy > span {
+  color: var(--ink-soft);
+  font-size: .64rem;
+  line-height: 1.55;
+}
+
+.yehliu-tool-entry__action {
+  display: inline-flex;
+  min-height: 44px;
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 999px;
+  background: var(--vermilion);
+  color: var(--paper);
+  font-size: .67rem;
+  font-weight: 700;
+}
+
+@media (hover: hover) {
+  .yehliu-tool-entry a:hover {
+    border-color: var(--brand-coral);
+    box-shadow: 0 18px 48px rgba(47, 77, 72, .16);
+    transform: translateY(-2px);
+  }
+}
+
+.tools-private-access {
+  position: relative;
+  z-index: 12;
+  display: flex;
+  min-height: 62px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.private-access {
+  display: inline-flex;
+  min-width: 122px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 15px;
+  border: 1px solid rgba(0, 72, 104, .24);
+  border-radius: 999px;
+  background: rgba(251, 250, 246, .86);
+  color: var(--jade-deep);
+  box-shadow: 0 8px 24px rgba(0, 51, 73, .07);
+  cursor: pointer;
+  font-size: .73rem;
+  font-weight: 700;
+  transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.private-access:hover {
+  border-color: var(--jade);
+  background: var(--jade);
+  color: white;
+}
+
+.tools-section {
+  background: var(--paper);
+}
+
+.tools-section--dark {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(248, 80, 64, .1), transparent 33%),
+    var(--jade-deep);
+  color: white;
+}
+
+.tool-card {
+  width: min(100%, 760px);
+  min-width: 0;
+  margin-top: 32px;
+  padding: 22px 18px;
+  border: 1px solid rgba(0, 72, 104, .18);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(220, 234, 230, .5), transparent 18rem),
+    var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.tool-card__heading {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.tool-card__heading > div {
+  min-width: 0;
+}
+
+.tool-card__heading small {
+  display: block;
+  color: var(--vermilion);
+}
+
+.tool-card__heading h2 {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 7vw, 2.15rem);
+  font-weight: 500;
+  letter-spacing: -.055em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.tool-card__heading > button {
+  display: grid;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--jade);
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.tool-card__heading > button:hover {
+  background: var(--jade);
+  color: white;
+}
+
+.tool-card__heading > button:disabled {
+  cursor: wait;
+  opacity: .65;
+}
+
+.tool-card__heading .is-spinning {
+  animation: exchange-spin 800ms linear infinite;
+}
+
+@keyframes exchange-spin {
+  to { transform: rotate(360deg); }
+}
+
+.tool-card > label,
+.expense-form label,
+.pin-form label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--ink-soft);
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.currency-input {
+  display: grid;
+  min-width: 0;
+  min-height: 62px;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(0, 72, 104, .3);
+  border-radius: 12px;
+  background: white;
+}
+
+.currency-input span {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-inline: 16px;
+  border-right: 1px solid var(--line);
+  background: var(--jade-light);
+  color: var(--jade-deep);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: .92rem;
+  font-weight: 600;
+}
+
+.currency-input input {
+  width: 100%;
+  min-width: 0;
+  height: 60px;
+  padding: 0 14px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 600 1.4rem/1 'Noto Sans KR', sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.currency-input:focus-within {
+  border-color: var(--jade);
+  box-shadow: 0 0 0 3px rgba(0, 72, 104, .12);
+}
+
+.currency-result {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 17px 2px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.currency-result span {
+  flex: 0 0 auto;
+  color: var(--ink-soft);
+  font-size: .72rem;
+}
+
+.currency-result strong {
+  min-width: 0;
+  color: var(--jade-deep);
+  font-size: clamp(1rem, 5vw, 1.35rem);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.quick-amounts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.quick-amounts button {
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--ivory);
+  color: var(--jade-deep);
+  cursor: pointer;
+  font-size: .69rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.quick-amounts button:hover,
+.quick-amounts button:active {
+  border-color: var(--jade);
+  background: var(--jade);
+  color: white;
+}
+
+.data-status {
+  margin: 15px 0 0;
+  color: var(--ink-soft);
+  font-size: .65rem;
+  line-height: 1.55;
+}
+
+.data-status--live::before {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #34785f;
+  content: '';
+  vertical-align: 1px;
+}
+
+.data-status--cached::before {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--jade);
+  content: '';
+  vertical-align: 1px;
+}
+
+.data-status--fallback {
+  color: #795c2e;
+}
+
+.exchange-provider {
+  margin: 7px 0 0;
+  color: var(--ink-soft);
+  font-size: .62rem;
+  line-height: 1.55;
+}
+
+.exchange-provider a {
+  color: var(--jade);
+  text-underline-offset: 2px;
+}
+
+/* Destination actions */
+.place-actions {
+  min-width: 0;
+  margin-top: 18px;
+}
+
+.place-actions__buttons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.place-actions__buttons a {
+  display: flex;
+  min-width: 0;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 5px;
+  border: 1px solid rgba(0, 72, 104, .24);
+  border-radius: 3px;
+  background: rgba(251, 250, 246, .72);
+  color: var(--jade-deep);
+  cursor: pointer;
+  font-size: clamp(.59rem, 2.8vw, .71rem);
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.place-actions__buttons a svg {
+  flex: 0 0 auto;
+}
+
+.place-actions__buttons a:hover {
+  border-color: var(--jade);
+  background: var(--jade);
+  color: white;
+}
+
+.driver-reveal {
+  margin-top: 9px;
+  border-top: 1px solid var(--line);
+}
+
+.driver-reveal > summary {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--jade-deep);
+  cursor: pointer;
+  font-size: .71rem;
+  font-weight: 700;
+  list-style: none;
+}
+
+.driver-reveal > summary::-webkit-details-marker {
+  display: none;
+}
+
+.driver-reveal > summary > span {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+}
+
+.driver-reveal > summary > svg {
+  flex: 0 0 auto;
+  transition: transform 180ms ease;
+}
+
+.driver-reveal[open] > summary > svg {
+  transform: rotate(180deg);
+}
+
+.driver-reveal__card {
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid rgba(0, 72, 104, .2);
+  border-radius: 4px;
+  background: var(--ivory);
+  color: var(--ink);
+}
+
+.driver-reveal__card small {
+  display: block;
+  color: var(--ink-soft);
+  font-size: .65rem;
+}
+
+.driver-reveal__card strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--jade-deep);
+  font-size: 1.1rem;
+  overflow-wrap: anywhere;
+}
+
+.driver-reveal__card p {
+  margin: 5px 0 14px;
+  color: var(--ink-soft);
+  font-size: .73rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.driver-reveal__card button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 14px;
+  border: 1px solid var(--jade);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--jade-deep);
+  cursor: pointer;
+  font-size: .69rem;
+  font-weight: 700;
+}
+
+.tools-section--dark .quick-place-grid {
+  margin-top: 34px;
+}
+
+.quick-place-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.quick-place-card {
+  display: flex;
+  min-width: 0;
+  min-height: 330px;
+  flex-direction: column;
+  padding: 22px 18px;
+  border: 1px solid var(--white-line);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .04);
+  box-shadow: 0 18px 48px rgba(0, 22, 35, .12);
+}
+
+.quick-place-card > small {
+  color: var(--coral-soft);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.quick-place-card h3 {
+  margin: 8px 0 5px;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 7vw, 1.8rem);
+  font-weight: 500;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.quick-place-card__hint {
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, .84);
+  font-size: .76rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.quick-place-card > p {
+  margin: 0;
+  color: rgba(255, 255, 255, .6);
+  font-size: .72rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.quick-place-card .place-actions {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.quick-place-card .place-actions__buttons a {
+  border-color: rgba(255, 255, 255, .22);
+  background: rgba(255, 255, 255, .05);
+  color: white;
+}
+
+.quick-place-card .place-actions__buttons a:hover {
+  border-color: var(--coral-soft);
+  background: var(--coral-soft);
+  color: var(--jade-deep);
+}
+
+.quick-place-card .driver-reveal {
+  border-color: var(--white-line);
+}
+
+.quick-place-card .driver-reveal > summary {
+  color: rgba(255, 255, 255, .84);
+}
+
+.place-actions--compact .place-actions__buttons a span {
+  white-space: nowrap;
+}
+
+.hotel-return-button {
+  position: fixed;
+  z-index: 70;
+  right: 12px;
+  bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + 12px);
+  display: inline-flex;
+  max-width: calc(100vw - 24px);
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 16px;
+  border: 1px solid rgba(0, 72, 104, .3);
+  border-radius: 3px;
+  background: var(--paper);
+  color: var(--jade-deep);
+  box-shadow: 0 8px 24px rgba(0, 51, 73, .07);
+  cursor: pointer;
+  font-size: .73rem;
+  font-weight: 700;
+  transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.hotel-return-button svg:last-child {
+  margin-left: 3px;
+  opacity: .68;
+}
+
+.hotel-return-button:hover {
+  border-color: var(--jade);
+  background: var(--jade);
+  color: white;
+}
+
+/* Weather */
+.tool-loading,
+.tool-error {
+  min-height: 120px;
+  margin: 0;
+}
+
+.tool-loading {
+  display: grid;
+  place-items: center;
+  color: var(--ink-soft);
+  font-size: .8rem;
+  text-align: center;
+}
+
+.tool-error {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid rgba(200, 61, 50, .22);
+  border-radius: 4px;
+  background: rgba(200, 61, 50, .06);
+}
+
+.tool-error p {
+  margin: 0 0 12px;
+  color: #9d3028;
+  font-size: .76rem;
+}
+
+.tool-error button {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--vermilion);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--vermilion);
+  cursor: pointer;
+  font-size: .7rem;
+  font-weight: 700;
+}
+
+.weather-now {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--line);
+}
+
+.weather-now > div {
+  display: flex;
+  min-width: 0;
+  min-height: 138px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 17px 14px;
+  background: var(--paper);
+}
+
+.weather-now > div:first-child {
+  grid-column: 1 / -1;
+  min-height: 160px;
+  background: var(--jade-deep);
+  color: white;
+}
+
+.weather-now svg {
+  margin-bottom: auto;
+  color: var(--vermilion);
+}
+
+.weather-now span {
+  color: var(--ink-soft);
+  font-size: .66rem;
+  font-weight: 600;
+}
+
+.weather-now strong {
+  margin-top: 3px;
+  font-size: clamp(1.05rem, 5vw, 1.45rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.25;
+}
+
+.weather-now small {
+  margin-top: 5px;
+  color: var(--ink-soft);
+  font-size: .62rem;
+  line-height: 1.4;
+}
+
+.weather-now > div:first-child span,
+.weather-now > div:first-child small {
+  color: rgba(255, 255, 255, .65);
+}
+
+.weather-now > div:first-child strong {
+  color: var(--coral-soft);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: clamp(3rem, 16vw, 5rem);
+  font-weight: 500;
+  line-height: .95;
+}
+
+.weather-alert {
+  margin-top: 14px;
+  padding: 16px;
+  border-left: 3px solid var(--jade);
+  background: var(--jade-light);
+}
+
+.weather-alert strong {
+  color: var(--jade-deep);
+  font-size: .78rem;
+}
+
+.weather-alert p {
+  margin: 4px 0 0;
+  color: var(--ink-soft);
+  font-size: .68rem;
+  line-height: 1.55;
+}
+
+.weather-alert--warning {
+  border-left-color: var(--vermilion);
+  background: rgba(200, 61, 50, .08);
+}
+
+.weather-alert--warning strong {
+  color: #9d3028;
+}
+
+.weather-links {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.weather-links a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--jade-deep);
+  font-size: .69rem;
+  font-weight: 700;
+}
+
+/* Language tools */
+.language-layout {
+  min-width: 0;
+}
+
+.phrase-display {
+  min-width: 0;
+  margin-top: 32px;
+  padding: 24px 18px;
+  border: 1px solid rgba(0, 72, 104, .2);
+  border-radius: 7px;
+  background: var(--jade-deep);
+  color: white;
+  box-shadow: var(--shadow-lg);
+}
+
+.phrase-display > small {
+  display: block;
+  color: var(--coral-soft);
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .11em;
+}
+
+.phrase-display p {
+  margin: 20px 0 8px;
+  color: rgba(255, 255, 255, .68);
+  font-size: .82rem;
+}
+
+.phrase-display strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 9.5vw, 3.7rem);
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.phrase-display a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 7px;
+  margin-top: 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, .38);
+  color: rgba(255, 255, 255, .78);
+  font-size: .68rem;
+  font-weight: 700;
+}
+
+.phrase-groups {
+  display: grid;
+  gap: 30px;
+  margin-top: 38px;
+}
+
+.phrase-groups > section {
+  min-width: 0;
+}
+
+.phrase-groups h2 {
+  margin: 0 0 12px;
+  color: var(--jade-deep);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+}
+
+.phrase-groups section > div {
+  display: grid;
+  gap: 8px;
+}
+
+.phrase-groups button {
+  display: flex;
+  min-width: 0;
+  min-height: 62px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.phrase-groups button span {
+  font-size: .76rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.phrase-groups button small {
+  margin-top: 3px;
+  color: var(--ink-soft);
+  font-size: .68rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.phrase-groups button:hover,
+.phrase-groups button.is-active {
+  border-color: var(--jade);
+  background: var(--jade-light);
+  color: var(--jade-deep);
+}
+
+.phrase-groups button.is-active {
+  box-shadow: inset 3px 0 var(--vermilion);
+}
+
+.translate-launch,
+.copy-site-address {
+  display: inline-flex;
+  width: 100%;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 22px;
+  padding: 8px 16px;
+  border: 1px solid var(--jade);
+  border-radius: 3px;
+  background: var(--jade);
+  color: white;
+  cursor: pointer;
+  font-size: .73rem;
+  font-weight: 700;
+  text-align: center;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.translate-launch:hover,
+.copy-site-address:hover {
+  background: var(--paper);
+  color: var(--jade-deep);
+}
+
+/* Taiwan language copilot */
+.language-tool-entry {
+  padding-block: 18px;
+  background: linear-gradient(135deg, rgba(230, 107, 83, .1), rgba(220, 234, 230, .62));
+  border-bottom: 1px solid var(--line);
+}
+
+.language-tool-entry a {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid rgba(49, 95, 99, .24);
+  border-radius: 14px;
+  background: rgba(255, 250, 240, .9);
+  box-shadow: var(--shadow-sm);
+}
+
+.language-tool-entry__icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--brand-coral);
+  color: white;
+}
+
+.language-tool-entry__copy {
+  min-width: 0;
+}
+
+.language-tool-entry__copy small,
+.language-tool-entry__copy strong,
+.language-tool-entry__copy span {
+  display: block;
+}
+
+.language-tool-entry__copy small {
+  color: var(--vermilion);
+  font-size: .61rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.language-tool-entry__copy strong {
+  margin-top: 2px;
+  color: var(--jade-deep);
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
+.language-tool-entry__copy span {
+  color: var(--ink-soft);
+  font-size: .67rem;
+}
+
+.language-tool-entry__action {
+  display: inline-flex;
+  grid-column: 1 / -1;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: 999px;
+  background: var(--jade-deep);
+  color: white;
+  font-size: .68rem;
+  font-weight: 700;
+}
+
+.taiwan-language {
+  position: relative;
+  background:
+    radial-gradient(circle at 4% 0%, rgba(230, 107, 83, .12), transparent 28rem),
+    radial-gradient(circle at 95% 18%, rgba(130, 182, 177, .18), transparent 32rem),
+    var(--ivory);
+}
+
+.taiwan-language .section-header {
+  max-width: 760px;
+}
+
+.taiwan-language button,
+.taiwan-language input,
+.taiwan-language textarea {
+  font-family: inherit;
+}
+
+.taiwan-language-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.taiwan-language-status span {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 250, 240, .72);
+  color: var(--ink-soft);
+  font-size: .64rem;
+  font-weight: 700;
+}
+
+.taiwan-language-status span:first-child::before {
+  width: 7px;
+  height: 7px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: #9a443d;
+  content: '';
+}
+
+.taiwan-language-status span:first-child.is-online::before {
+  background: #3f8567;
+}
+
+.taiwan-mode-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 30px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 250, 240, .8);
+  box-shadow: 0 10px 30px rgba(47, 77, 72, .06);
+}
+
+.taiwan-mode-tabs button {
+  display: flex;
+  min-width: 0;
+  min-height: 58px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 7px 4px;
+  border: 0;
+  border-radius: 11px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: .66rem;
+  font-weight: 700;
+}
+
+.taiwan-mode-tabs button.is-active {
+  background: var(--jade-deep);
+  color: white;
+  box-shadow: 0 9px 20px rgba(36, 76, 82, .18);
+}
+
+.taiwan-consent {
+  display: grid;
+  gap: 12px;
+  align-items: start;
+  margin-top: 18px;
+  padding: 17px;
+  border: 1px solid rgba(197, 89, 72, .25);
+  border-radius: 12px;
+  background: rgba(255, 247, 232, .92);
+  color: var(--ink);
+}
+
+.taiwan-consent > svg {
+  color: var(--brand-coral);
+}
+
+.taiwan-consent strong {
+  font-size: .82rem;
+}
+
+.taiwan-consent p {
+  margin: 4px 0 0;
+  color: var(--ink-soft);
+  font-size: .69rem;
+  line-height: 1.65;
+}
+
+.taiwan-consent button {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--brand-coral);
+  color: white;
+  cursor: pointer;
+  font-size: .71rem;
+  font-weight: 700;
+}
+
+.taiwan-consent--done {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  padding-block: 10px;
+  border-color: rgba(63, 133, 103, .22);
+  background: rgba(220, 234, 230, .68);
+  color: var(--jade-deep);
+  font-size: .67rem;
+  font-weight: 700;
+}
+
+.taiwan-config-notice {
+  margin: 12px 0 0;
+  padding: 10px 13px;
+  border-radius: 8px;
+  background: rgba(229, 182, 143, .18);
+  color: var(--ink-soft);
+  font-size: .67rem;
+}
+
+.taiwan-mode-grid,
+.taiwan-incoming-layout,
+.taiwan-phrasebook-layout {
+  display: grid;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.taiwan-input-card,
+.taiwan-result-card,
+.taiwan-empty-result,
+.taiwan-record-request,
+.taiwan-recorder,
+.taiwan-listening-result,
+.taiwan-reply-panel,
+.taiwan-order-card,
+.taiwan-unit-calculator,
+.taiwan-phrase-browser,
+.taiwan-phrase-detail {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 250, 240, .94);
+  box-shadow: var(--shadow-sm);
+}
+
+.taiwan-input-card,
+.taiwan-result-card,
+.taiwan-record-request,
+.taiwan-recorder,
+.taiwan-listening-result,
+.taiwan-reply-panel,
+.taiwan-order-card,
+.taiwan-unit-calculator,
+.taiwan-phrase-detail {
+  padding: 20px 17px;
+}
+
+.taiwan-card-kicker {
+  display: block;
+  color: var(--vermilion);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+}
+
+.taiwan-input-card h2,
+.taiwan-record-request h2,
+.taiwan-listening-result h2,
+.taiwan-order-card h2 {
+  margin: 6px 0 7px;
+  color: var(--jade-deep);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -.03em;
+  line-height: 1.35;
+}
+
+.taiwan-input-card > p {
+  margin: 0 0 20px;
+  color: var(--ink-soft);
+  font-size: .74rem;
+}
+
+.taiwan-input-card > label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--jade-deep);
+  font-size: .69rem;
+  font-weight: 700;
+}
+
+.taiwan-input-card textarea {
+  width: 100%;
+  min-height: 142px;
+  resize: vertical;
+  padding: 14px;
+  border: 1px solid rgba(49, 95, 99, .27);
+  border-radius: 10px;
+  background: white;
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.taiwan-context-chips,
+.taiwan-category-scroll {
+  display: flex;
+  max-width: 100%;
+  gap: 7px;
+  overflow-x: auto;
+  padding-block: 12px 4px;
+  scrollbar-width: none;
+}
+
+.taiwan-context-chips::-webkit-scrollbar,
+.taiwan-category-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.taiwan-context-chips button,
+.taiwan-category-scroll button {
+  display: inline-flex;
+  min-width: max-content;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: .66rem;
+  font-weight: 700;
+}
+
+.taiwan-context-chips button.is-active,
+.taiwan-category-scroll button.is-active {
+  border-color: var(--jade);
+  background: var(--jade-light);
+  color: var(--jade-deep);
+}
+
+.taiwan-main-action,
+.taiwan-record-button,
+.taiwan-listen-record {
+  display: flex;
+  width: 100%;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--brand-coral);
+  color: white;
+  cursor: pointer;
+  font-size: .78rem;
+  font-weight: 700;
+  box-shadow: 0 12px 28px rgba(201, 89, 72, .2);
+}
+
+.taiwan-main-action:disabled,
+.taiwan-record-button:disabled,
+.taiwan-listen-record:disabled {
+  cursor: not-allowed;
+  opacity: .52;
+}
+
+.taiwan-ai-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 12px 0 0;
+  padding: 11px;
+  border-radius: 8px;
+  background: rgba(201, 89, 72, .1);
+  color: #893d35;
+  font-size: .69rem;
+  line-height: 1.55;
+}
+
+.taiwan-google-fallback {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  color: var(--jade-deep);
+  font-size: .67rem;
+  font-weight: 700;
+}
+
+.taiwan-result-slot {
+  min-width: 0;
+}
+
+.taiwan-empty-result {
+  display: grid;
+  min-height: 250px;
+  place-items: center;
+  align-content: center;
+  padding: 26px;
+  color: var(--jade);
+  text-align: center;
+}
+
+.taiwan-empty-result strong {
+  margin-top: 12px;
+  color: var(--jade-deep);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.taiwan-empty-result p {
+  margin: 5px 0 0;
+  color: var(--ink-soft);
+  font-size: .7rem;
+}
+
+.taiwan-result-card {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(160deg, rgba(220, 234, 230, .5), transparent 45%),
+    rgba(255, 250, 240, .98);
+}
+
+.taiwan-result-card::after {
+  position: absolute;
+  z-index: 0;
+  right: -45px;
+  bottom: -50px;
+  width: 150px;
+  height: 150px;
+  border: 30px solid rgba(230, 107, 83, .08);
+  border-radius: 50%;
+  content: '';
+}
+
+.taiwan-result-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.taiwan-result-card__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--ink-soft);
+  font-size: .66rem;
+  font-weight: 700;
+}
+
+.taiwan-result-card__label button {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  background: transparent;
+  color: var(--jade-deep);
+  cursor: pointer;
+  font-size: .63rem;
+  font-weight: 700;
+}
+
+.taiwan-result-card__korean {
+  margin: 7px 0 12px;
+  color: var(--ink);
+  font-size: .86rem;
+  font-weight: 600;
+}
+
+.taiwan-result-card__arrow {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  margin-block: 6px 14px;
+  border-radius: 50%;
+  background: var(--jade-light);
+  color: var(--jade-deep);
+  transform: rotate(90deg);
+}
+
+.taiwan-result-card__eyebrow {
+  color: var(--brand-coral);
+  font-size: .67rem;
+  font-weight: 700;
+}
+
+.taiwan-result-card__chinese,
+.taiwan-record-request > strong,
+.taiwan-listening-result__transcript,
+.taiwan-reply-panel > strong,
+.taiwan-phrase-detail > strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--jade-deep);
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1.75rem, 8.6vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: .01em;
+  line-height: 1.48;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.taiwan-result-card__pinyin,
+.taiwan-record-request > p[lang='en'],
+.taiwan-listening-result__pinyin,
+.taiwan-reply-panel > p[lang='en'],
+.taiwan-phrase-detail__pinyin {
+  margin: 16px 0 4px;
+  color: var(--jade-deep);
+  font-family: Georgia, serif;
+  font-size: clamp(1.02rem, 4.8vw, 1.25rem);
+  line-height: 1.65;
+}
+
+.taiwan-result-card__tones,
+.taiwan-phrase-detail__tones {
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .76rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.taiwan-result-card__pronunciation,
+.taiwan-record-request > p:not([lang='en']),
+.taiwan-reply-panel > p:not([lang='en']),
+.taiwan-phrase-detail__pronunciation {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-left: 3px solid var(--brand-coral);
+  background: rgba(230, 107, 83, .07);
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.taiwan-speech-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 15px;
+}
+
+.taiwan-speech-controls button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--jade-deep);
+  cursor: pointer;
+  font-size: .67rem;
+  font-weight: 700;
+}
+
+.taiwan-speech-controls button.is-primary {
+  border-color: var(--jade);
+  background: var(--jade);
+  color: white;
+}
+
+.taiwan-speech-controls button small {
+  color: inherit;
+  opacity: .72;
+}
+
+.taiwan-result-card__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.taiwan-result-card__actions button,
+.taiwan-secondary-show,
+.taiwan-reply-panel > button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: .65rem;
+  font-weight: 700;
+}
+
+.taiwan-natural-note {
+  display: flex;
+  gap: 9px;
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 9px;
+  background: var(--jade-light);
+  color: var(--jade-deep);
+}
+
+.taiwan-natural-note p {
+  margin: 0;
+  font-size: .68rem;
+}
+
+.taiwan-natural-note strong {
+  display: block;
+}
+
+.taiwan-pronunciation-note {
+  margin: 10px 0 0;
+  color: var(--ink-soft);
+  font-size: .62rem;
+}
+
+.taiwan-short-alternative {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.taiwan-short-alternative summary {
+  min-height: 44px;
+  color: var(--jade-deep);
+  cursor: pointer;
+  font-size: .7rem;
+  font-weight: 700;
+}
+
+.taiwan-short-alternative > strong {
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+.taiwan-short-alternative > p {
+  margin: 4px 0;
+  font-size: .78rem;
+}
+
+.taiwan-result-card.is-practicing .taiwan-result-card__chinese,
+.taiwan-result-card.is-practicing .taiwan-result-card__pinyin,
+.taiwan-result-card.is-practicing .taiwan-result-card__tones,
+.taiwan-result-card.is-practicing .taiwan-result-card__pronunciation {
+  filter: blur(12px);
+  user-select: none;
+}
+
+.taiwan-practice-reveal {
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  margin: 12px auto;
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--brand-coral);
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.taiwan-show-overlay {
+  position: fixed;
+  z-index: 1300;
+  inset: 0;
+  display: flex;
+  min-width: 0;
+  min-height: 100dvh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: max(62px, env(safe-area-inset-top)) 24px max(38px, env(safe-area-inset-bottom));
+  background: var(--paper);
+  color: var(--jade-deep);
+  text-align: center;
+}
+
+.taiwan-show-overlay__close {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  right: 16px;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: white;
+  color: var(--jade-deep);
+  cursor: pointer;
+}
+
+.taiwan-show-overlay > small {
+  color: var(--brand-coral);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.taiwan-show-overlay > strong {
+  display: block;
+  max-width: 1000px;
+  margin-top: 24px;
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(2.3rem, 10vw, 5rem);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.taiwan-show-overlay > p {
+  margin-top: 24px;
+  color: var(--ink-soft);
+  font-size: clamp(.9rem, 3vw, 1.2rem);
+}
+
+.taiwan-show-overlay > button:last-child {
+  display: inline-flex;
+  min-height: 54px;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--jade-deep);
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.taiwan-record-request {
+  border-color: rgba(230, 107, 83, .3);
+  background:
+    linear-gradient(150deg, rgba(239, 176, 156, .18), transparent 50%),
+    var(--paper);
+}
+
+.taiwan-record-request__shorts {
+  display: grid;
+  gap: 7px;
+  margin-top: 16px;
+}
+
+.taiwan-record-request__shorts button {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .5);
+  color: var(--jade-deep);
+  cursor: pointer;
+  text-align: left;
+}
+
+.taiwan-record-request__shorts span,
+.taiwan-record-request__shorts strong,
+.taiwan-record-request__shorts small {
+  display: block;
+}
+
+.taiwan-record-request__shorts small {
+  color: var(--ink-soft);
+  font-size: .62rem;
+}
+
+.taiwan-listen-record {
+  background: var(--jade-deep);
+  box-shadow: 0 12px 28px rgba(36, 76, 82, .2);
+}
+
+.taiwan-secondary-show {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.taiwan-recorder {
+  align-content: start;
+  background: var(--jade-deep);
+  color: white;
+}
+
+.taiwan-recorder .taiwan-context-chips button {
+  border-color: rgba(255, 255, 255, .2);
+  background: rgba(255, 255, 255, .06);
+  color: rgba(255, 255, 255, .72);
+}
+
+.taiwan-recorder .taiwan-context-chips button.is-active {
+  border-color: var(--coral-soft);
+  background: rgba(239, 176, 156, .16);
+  color: white;
+}
+
+.taiwan-recorder__status {
+  display: grid;
+  place-items: center;
+  padding: 28px 8px 12px;
+  text-align: center;
+}
+
+.taiwan-recorder__pulse {
+  display: grid;
+  width: 70px;
+  height: 70px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .08);
+  color: var(--coral-soft);
+}
+
+.taiwan-recorder.is-recording .taiwan-recorder__pulse {
+  animation: taiwan-recording-pulse 1.4s ease-in-out infinite;
+  background: var(--brand-coral);
+  color: white;
+}
+
+.taiwan-recorder__status strong {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.taiwan-recorder__status p {
+  margin: 5px 0 0;
+  color: rgba(255, 255, 255, .63);
+  font-size: .68rem;
+}
+
+.taiwan-record-button.is-stop {
+  background: white;
+  color: var(--brand-coral);
+}
+
+.taiwan-recorder .taiwan-ai-error {
+  background: rgba(255, 255, 255, .1);
+  color: white;
+}
+
+@keyframes taiwan-recording-pulse {
+  50% { box-shadow: 0 0 0 14px rgba(230, 107, 83, .13); transform: scale(1.04); }
+}
+
+.taiwan-listening-result {
+  grid-column: 1 / -1;
+}
+
+.taiwan-listening-result__transcript {
+  font-size: clamp(1.6rem, 7.5vw, 2.5rem);
+}
+
+.taiwan-translation-block,
+.taiwan-intent {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 10px;
+  background: var(--jade-light);
+}
+
+.taiwan-translation-block small,
+.taiwan-intent small,
+.taiwan-suggested-replies > small {
+  color: var(--jade-deep);
+  font-size: .64rem;
+  font-weight: 700;
+}
+
+.taiwan-translation-block p,
+.taiwan-intent p {
+  margin: 5px 0 0;
+  color: var(--ink);
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+.taiwan-number-watch {
+  margin-top: 16px;
+  overflow: hidden;
+  border: 2px solid var(--brand-coral);
+  border-radius: 12px;
+  background: #fff8ec;
+}
+
+.taiwan-number-watch header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 13px;
+  background: rgba(230, 107, 83, .1);
+  color: #863b33;
+}
+
+.taiwan-number-watch header strong,
+.taiwan-number-watch header span {
+  display: block;
+}
+
+.taiwan-number-watch header span {
+  font-size: .61rem;
+}
+
+.taiwan-number-watch ul {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.taiwan-number-watch li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 10px;
+  padding: 11px 13px;
+  border-top: 1px solid rgba(230, 107, 83, .14);
+}
+
+.taiwan-number-watch li strong {
+  color: var(--ink);
+  font-size: .79rem;
+}
+
+.taiwan-number-watch li span {
+  grid-column: 1;
+  color: var(--ink-soft);
+  font-size: .64rem;
+}
+
+.taiwan-number-watch li b {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: center;
+  color: var(--brand-coral);
+  font-size: .82rem;
+}
+
+.taiwan-derived-total {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border-top: 1px solid rgba(230, 107, 83, .22);
+  background: rgba(230, 107, 83, .14);
+}
+
+.taiwan-derived-total span {
+  min-width: 0;
+  padding: 10px 6px;
+  background: #fff8ec;
+  text-align: center;
+}
+
+.taiwan-derived-total small,
+.taiwan-derived-total strong {
+  display: block;
+}
+
+.taiwan-derived-total small {
+  color: var(--ink-soft);
+  font-size: .55rem;
+}
+
+.taiwan-derived-total strong {
+  color: #863b33;
+  font-size: .72rem;
+}
+
+.taiwan-uncertainty {
+  display: flex;
+  gap: 5px;
+  color: #873f35 !important;
+  font-size: .68rem !important;
+}
+
+.taiwan-suggested-replies {
+  display: grid;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+.taiwan-suggested-replies button {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--paper);
+  color: var(--jade-deep);
+  cursor: pointer;
+  font-size: .7rem;
+  font-weight: 700;
+}
+
+.taiwan-reply-panel {
+  grid-column: 1 / -1;
+  border-color: rgba(49, 95, 99, .34);
+}
+
+.taiwan-reply-panel > small {
+  color: var(--brand-coral);
+  font-weight: 700;
+}
+
+.taiwan-phrasebook-guide {
+  display: grid;
+  gap: 16px;
+}
+
+.taiwan-order-card {
+  background:
+    linear-gradient(160deg, rgba(220, 234, 230, .7), transparent 52%),
+    var(--paper);
+}
+
+.taiwan-order-card ol {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.taiwan-order-card ol li {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 10px;
+  font-size: .72rem;
+  font-weight: 600;
+}
+
+.taiwan-order-card ol span {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--jade-deep);
+  color: white;
+  font-family: Georgia, serif;
+}
+
+.taiwan-order-card > strong {
+  display: block;
+  padding: 13px;
+  border-radius: 8px;
+  background: var(--brand-coral);
+  color: white;
+  font-size: .73rem;
+  text-align: center;
+}
+
+.taiwan-order-card details {
+  margin-top: 13px;
+}
+
+.taiwan-order-card summary {
+  min-height: 44px;
+  color: var(--jade-deep);
+  cursor: pointer;
+  font-size: .7rem;
+  font-weight: 700;
+}
+
+.taiwan-order-card details p,
+.taiwan-order-card details li {
+  color: var(--ink-soft);
+  font-size: .66rem;
+}
+
+.taiwan-unit-calculator header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--jade-deep);
+}
+
+.taiwan-unit-calculator header strong,
+.taiwan-unit-calculator header span {
+  display: block;
+}
+
+.taiwan-unit-calculator header span {
+  color: var(--ink-soft);
+  font-size: .63rem;
+}
+
+.taiwan-unit-calculator__inputs {
+  display: grid;
+  gap: 9px;
+  margin-top: 16px;
+}
+
+.taiwan-unit-calculator label {
+  color: var(--ink-soft);
+  font-size: .63rem;
+  font-weight: 700;
+}
+
+.taiwan-unit-calculator input {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 4px;
+  padding: 7px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.taiwan-unit-calculator__result {
+  display: grid;
+  gap: 4px;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 9px;
+  background: var(--jade-light);
+  color: var(--jade-deep);
+  font-size: .72rem;
+}
+
+.taiwan-unit-calculator__result strong {
+  color: var(--brand-coral);
+  font-size: .9rem;
+}
+
+.taiwan-unit-calculator > small {
+  display: block;
+  margin-top: 9px;
+  color: var(--ink-soft);
+  font-size: .59rem;
+}
+
+.taiwan-phrase-browser {
+  overflow: hidden;
+  padding: 14px;
+}
+
+.taiwan-phrase-search {
+  display: flex;
+  min-height: 50px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: white;
+  color: var(--ink-soft);
+}
+
+.taiwan-phrase-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: .78rem;
+}
+
+.taiwan-phrase-browser__body {
+  display: grid;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.taiwan-phrase-list {
+  display: grid;
+  max-height: 470px;
+  gap: 7px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.taiwan-phrase-list > button {
+  position: relative;
+  display: block;
+  min-width: 0;
+  min-height: 66px;
+  padding: 10px 42px 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.taiwan-phrase-list > button.is-active {
+  border-color: var(--jade);
+  background: var(--jade-light);
+  box-shadow: inset 3px 0 var(--brand-coral);
+}
+
+.taiwan-phrase-list span,
+.taiwan-phrase-list strong {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.taiwan-phrase-list span {
+  font-size: .67rem;
+  font-weight: 700;
+}
+
+.taiwan-phrase-list strong {
+  margin-top: 2px;
+  color: var(--ink-soft);
+  font-size: .69rem;
+}
+
+.taiwan-phrase-list b {
+  position: absolute;
+  top: 9px;
+  right: 8px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--brand-coral);
+  color: white;
+  font-size: .52rem;
+}
+
+.taiwan-phrase-detail {
+  margin: 0;
+  box-shadow: none;
+}
+
+.taiwan-phrase-detail header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.taiwan-phrase-detail header > span {
+  color: var(--brand-coral);
+  font-size: .66rem;
+  font-weight: 700;
+}
+
+.taiwan-phrase-detail header b {
+  margin-left: 6px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--brand-coral);
+  color: white;
+  font-size: .52rem;
+}
+
+.taiwan-phrase-detail header button {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  background: transparent;
+  color: #b9663f;
+  cursor: pointer;
+  font-size: .62rem;
+  font-weight: 700;
+}
+
+.taiwan-phrase-detail > p:first-of-type {
+  margin: 12px 0 0;
+  color: var(--ink);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.taiwan-phrase-detail footer {
+  display: flex;
+  gap: 7px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: .64rem;
+}
+
+.taiwan-history {
+  margin-top: 22px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 250, 240, .78);
+}
+
+.taiwan-history summary {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  color: var(--jade-deep);
+  cursor: pointer;
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.taiwan-history summary span {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--jade-light);
+  font-size: .6rem;
+}
+
+.taiwan-history > div {
+  display: grid;
+  gap: 7px;
+}
+
+.taiwan-history article {
+  padding: 10px;
+  border-radius: 8px;
+  background: white;
+}
+
+.taiwan-history article small,
+.taiwan-history article strong,
+.taiwan-history article p {
+  display: block;
+  margin: 0;
+}
+
+.taiwan-history article small {
+  color: var(--brand-coral);
+  font-size: .56rem;
+}
+
+.taiwan-history article strong {
+  font-size: .67rem;
+}
+
+.taiwan-history article p {
+  color: var(--ink-soft);
+  font-size: .65rem;
+}
+
+.taiwan-history > button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  border: 0;
+  background: transparent;
+  color: #8f453d;
+  cursor: pointer;
+  font-size: .63rem;
+  font-weight: 700;
+}
+
+@media (min-width: 640px) {
+  .language-tool-entry a { grid-template-columns: 52px minmax(0, 1fr) auto; padding: 18px 20px; }
+  .language-tool-entry__icon { width: 52px; height: 52px; }
+  .language-tool-entry__copy strong { font-size: 1.08rem; }
+  .language-tool-entry__action { grid-column: auto; min-width: 145px; padding-inline: 18px; }
+  .taiwan-consent { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; }
+  .taiwan-consent--done { display: flex; }
+  .taiwan-input-card,
+  .taiwan-result-card,
+  .taiwan-record-request,
+  .taiwan-recorder,
+  .taiwan-listening-result,
+  .taiwan-reply-panel,
+  .taiwan-order-card,
+  .taiwan-unit-calculator,
+  .taiwan-phrase-detail { padding: 26px; }
+  .taiwan-unit-calculator__inputs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .taiwan-phrase-browser { padding: 20px; }
+  .taiwan-phrase-browser__body { grid-template-columns: minmax(220px, .72fr) minmax(0, 1.28fr); align-items: start; }
+  .taiwan-phrase-detail { position: sticky; top: calc(var(--header-height) + var(--day-nav-height) + 24px); }
+}
+
+@media (min-width: 900px) {
+  .taiwan-mode-tabs { width: min(100%, 720px); }
+  .taiwan-mode-tabs button { min-height: 64px; flex-direction: row; font-size: .72rem; }
+  .taiwan-mode-grid { grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); align-items: start; gap: 22px; }
+  .taiwan-result-card { position: sticky; top: calc(var(--header-height) + var(--day-nav-height) + 24px); }
+  .taiwan-incoming-layout { grid-template-columns: minmax(0, 1fr); align-items: start; gap: 22px; }
+  .taiwan-phrasebook-layout { grid-template-columns: minmax(280px, .36fr) minmax(0, .64fr); align-items: start; gap: 22px; }
+  .taiwan-phrasebook-guide { position: sticky; top: calc(var(--header-height) + var(--day-nav-height) + 24px); }
+}
+
+@media (max-width: 374px) {
+  .taiwan-language > .page-shell { width: min(100% - 22px, var(--shell)); }
+  .taiwan-mode-tabs button { font-size: .59rem; }
+  .taiwan-input-card,
+  .taiwan-result-card,
+  .taiwan-record-request,
+  .taiwan-recorder,
+  .taiwan-listening-result,
+  .taiwan-reply-panel,
+  .taiwan-order-card,
+  .taiwan-unit-calculator,
+  .taiwan-phrase-detail { padding-inline: 13px; }
+  .taiwan-result-card__actions { grid-template-columns: 1fr; }
+  .taiwan-derived-total { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .taiwan-recorder.is-recording .taiwan-recorder__pulse { animation: none; }
+}
+
+/* Rain alternatives */
+.rain-plan-section {
+  background:
+    radial-gradient(circle at 90% 8%, rgba(248, 80, 64, .12), transparent 35%),
+    var(--night);
+  color: white;
+}
+
+.rain-plan-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.rain-plan-grid > article {
+  min-width: 0;
+  padding: 22px 18px;
+  border: 1px solid var(--white-line);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .035);
+}
+
+.rain-plan-grid > article > small {
+  color: var(--coral-soft);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+}
+
+.rain-plan-grid h3 {
+  margin: 6px 0 19px;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+}
+
+.rain-plan-grid p {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 14px 0;
+  border-top: 1px solid rgba(255, 255, 255, .11);
+}
+
+.rain-plan-grid p strong {
+  color: var(--coral-soft);
+  font-size: .68rem;
+}
+
+.rain-plan-grid p span {
+  color: rgba(255, 255, 255, .68);
+  font-size: .73rem;
+  line-height: 1.6;
+}
+
+/* Snack atlas */
+.snack-atlas {
+  background: var(--ivory);
+}
+
+.snack-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.snack-grid > article {
+  display: grid;
+  min-width: 0;
+  min-height: 176px;
+  grid-template-columns: minmax(96px, .72fr) minmax(0, 1.28fr);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 180ms ease, opacity 180ms ease;
+}
+
+.snack-grid > article > img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+}
+
+.snack-grid > article > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 14px;
+}
+
+.snack-grid small {
+  color: var(--vermilion);
+  font-size: .63rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.snack-grid h3 {
+  margin: 5px 0 0;
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 500;
+}
+
+.snack-grid p {
+  margin: 1px 0 12px;
+  color: var(--jade);
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+.snack-grid div > span {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--ink-soft);
+  font-size: .72rem;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.snack-grid button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: auto;
+  padding: 0 14px;
+  border: 1px solid var(--jade);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--jade-deep);
+  cursor: pointer;
+  font-size: .7rem;
+  font-weight: 700;
+}
+
+.snack-grid > article.is-eaten {
+  border-color: rgba(0, 72, 104, .42);
+  background: #eef2ec;
+}
+
+.snack-grid > article.is-eaten img {
+  opacity: .68;
+}
+
+.snack-grid > article.is-eaten button {
+  background: var(--jade);
+  color: white;
+}
+
+.snack-grid-toggle {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  border: 1px solid rgba(0, 72, 104, .28);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--jade-deep);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  touch-action: manipulation;
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.snack-grid-toggle svg {
+  transition: transform 180ms ease;
+}
+
+.snack-grid-toggle[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 639px) {
+  .snack-grid:not(.snack-grid--expanded) > .snack-grid__extra {
+    display: none;
+  }
+}
+
+/* Restaurant alternatives */
+.restaurant-plan {
+  background: var(--paper);
+}
+
+.restaurant-plan-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.restaurant-plan-grid > article {
+  min-width: 0;
+  padding: 20px 18px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--ivory);
+}
+
+.restaurant-plan-grid article > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.restaurant-plan-grid header small {
+  color: var(--vermilion);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: .7rem;
+  font-weight: 600;
+}
+
+.restaurant-plan-grid header span {
+  padding: 4px 8px;
+  border-radius: 2px;
+  background: var(--jade-light);
+  color: var(--jade-deep);
+  font-size: .61rem;
+  font-weight: 700;
+}
+
+.restaurant-plan-grid article > div {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.restaurant-plan-grid article > div > b {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(0, 72, 104, .25);
+  border-radius: 50%;
+  color: var(--jade);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: .78rem;
+}
+
+.restaurant-plan-grid article > div > p {
+  display: flex;
+  min-width: 0;
+  margin: 0;
+  flex-direction: column;
+}
+
+.restaurant-plan-grid article > div small {
+  color: var(--ink-soft);
+  font-size: .57rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+}
+
+.restaurant-plan-grid article > div strong {
+  font-size: .78rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.restaurant-plan-grid article > div em {
+  margin-top: 4px;
+  color: #51646a;
+  font-size: .76rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.restaurant-plan-grid footer {
+  padding-top: 14px;
+  color: var(--ink-soft);
+  font-size: .68rem;
+  line-height: 1.55;
+}
+
+/* App and install hubs */
+.app-hub {
+  background: var(--paper-deep);
+}
+
+.app-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 34px;
+}
+
+.app-grid > article {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--paper);
+}
+
+.app-grid > article > svg {
+  display: block;
+  box-sizing: content-box;
+  padding: 9px;
+  border-radius: 3px;
+  background: var(--jade-light);
+  color: var(--jade);
+}
+
+.app-grid article > div {
+  min-width: 0;
+}
+
+.app-grid h3 {
+  margin: 0;
+  font-size: .86rem;
+}
+
+.app-grid p {
+  margin: 3px 0 0;
+  color: var(--ink-soft);
+  font-size: .68rem;
+  line-height: 1.5;
+}
+
+.app-grid article > div:last-child {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.app-grid a {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 72, 104, .23);
+  border-radius: 3px;
+  color: var(--jade-deep);
+  font-size: .68rem;
+  font-weight: 700;
+}
+
+.install-guide {
+  background:
+    linear-gradient(150deg, rgba(0, 72, 104, .94), rgba(7, 22, 31, .98)),
+    var(--night);
+  color: white;
+}
+
+.install-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.install-grid > article {
+  min-width: 0;
+  padding: 22px 18px;
+  border: 1px solid var(--white-line);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .045);
+}
+
+.install-grid article > svg {
+  color: var(--coral-soft);
+}
+
+.install-grid small {
+  display: block;
+  margin-top: 22px;
+  color: var(--coral-soft);
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.install-grid h3 {
+  margin: 5px 0 16px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.install-grid ol {
+  margin: 0;
+  padding-left: 20px;
+  color: rgba(255, 255, 255, .68);
+  font-size: .73rem;
+  line-height: 1.8;
+}
+
+.install-grid article > a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  margin-top: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, .36);
+  color: white;
+  font-size: .7rem;
+  font-weight: 700;
+}
+
+.install-guide .copy-site-address {
+  border-color: var(--coral-soft);
+  background: var(--coral-soft);
+  color: var(--jade-deep);
+}
+
+.install-caveat {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, .5);
+  font-size: .64rem;
+  line-height: 1.55;
+}
+
+.kakao-notice {
+  margin: 0 0 24px;
+  padding: 18px;
+  border: 1px solid rgba(248, 80, 64, .45);
+  border-radius: 5px;
+  background: rgba(248, 80, 64, .1);
+}
+
+.kakao-notice strong {
+  color: var(--coral-soft);
+  font-size: .8rem;
+}
+
+.kakao-notice p {
+  margin: 5px 0 14px;
+  color: rgba(255, 255, 255, .72);
+  font-size: .7rem;
+}
+
+.kakao-notice > div {
+  display: grid;
+  gap: 8px;
+}
+
+.kakao-notice a,
+.kakao-notice button {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  border: 1px solid var(--white-line);
+  border-radius: 3px;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font: 700 .68rem/1.2 'Noto Sans KR', sans-serif;
+}
+
+.budget-shortcut {
+  background: var(--ivory);
+}
+
+.budget-shortcut > .page-shell {
+  display: grid;
+  min-width: 0;
+  gap: 18px;
+  padding: 24px 20px;
+  border: 1px solid rgba(0, 72, 104, .19);
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.budget-shortcut > .page-shell > svg {
+  color: var(--vermilion);
+}
+
+.budget-shortcut small {
+  display: block;
+  color: var(--vermilion);
+}
+
+.budget-shortcut h2 {
+  margin: 5px 0 6px;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 7vw, 2rem);
+  font-weight: 500;
+}
+
+.budget-shortcut p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: .74rem;
+}
+
+.budget-shortcut a {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border: 1px solid var(--jade);
+  border-radius: 3px;
+  background: var(--jade);
+  color: white;
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+/* Private expense sheet */
+.private-modal {
+  position: fixed;
+  z-index: 1100;
+  inset: 0;
+  display: grid;
+  align-items: end;
+  padding-top: env(safe-area-inset-top);
+}
+
+.private-modal__scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: rgba(0, 22, 35, .64);
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+}
+
+.private-modal__panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-height: calc(100dvh - max(16px, env(safe-area-inset-top)));
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 16px 16px 0 0;
+  background: var(--paper);
+  box-shadow: 0 -28px 80px rgba(0, 27, 42, .32);
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+}
+
+.private-modal__panel > header {
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  display: flex;
+  min-height: 74px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(251, 250, 246, .96);
+  backdrop-filter: blur(16px);
+}
+
+.private-modal__panel header small {
+  display: block;
+  color: var(--vermilion);
+  font-size: .58rem;
+}
+
+.private-modal__panel header h2 {
+  margin: 2px 0 0;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.private-modal__panel header > button {
+  display: grid;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.pin-form {
+  display: flex;
+  width: min(100% - 32px, 420px);
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: stretch;
+  padding-block: 46px 30px;
+  text-align: center;
+}
+
+.pin-form > svg {
+  align-self: center;
+  color: var(--jade);
+}
+
+.pin-form > p:not(.form-message) {
+  margin: 14px 0 26px;
+  color: var(--ink-soft);
+  font-size: .76rem;
+}
+
+.pin-form label {
+  text-align: left;
+}
+
+.pin-form input,
+.expense-form input,
+.expense-form select {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 13px;
+  border: 1px solid rgba(0, 72, 104, .25);
+  border-radius: 3px;
+  outline: 0;
+  background: white;
+  color: var(--ink);
+  font: 500 1rem/1.2 'Noto Sans KR', sans-serif;
+}
+
+.pin-form input {
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .28em;
+  text-align: center;
+}
+
+.pin-form input:focus,
+.expense-form input:focus,
+.expense-form select:focus {
+  border-color: var(--jade);
+  box-shadow: 0 0 0 3px rgba(0, 72, 104, .12);
+}
+
+.pin-form > button,
+.expense-form > button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  border: 1px solid var(--jade);
+  border-radius: 3px;
+  background: var(--jade);
+  color: white;
+  cursor: pointer;
+  font-size: .73rem;
+  font-weight: 700;
+}
+
+.pin-form > button {
+  margin-top: 9px;
+}
+
+.form-message {
+  min-height: 22px;
+  margin: 7px 0 0;
+  color: var(--jade);
+  font-size: .67rem;
+  line-height: 1.5;
+}
+
+.form-message--error {
+  color: var(--vermilion);
+}
+
+.expense-manager {
+  width: min(100% - 32px, 900px);
+  margin-inline: auto;
+  padding-block: 22px 12px;
+}
+
+.expense-summary {
+  display: grid;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--line);
+}
+
+.expense-summary > div {
+  display: flex;
+  min-width: 0;
+  min-height: 72px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 13px 15px;
+  background: var(--ivory);
+}
+
+.expense-summary span {
+  color: var(--ink-soft);
+  font-size: .65rem;
+}
+
+.expense-summary strong {
+  margin-top: 3px;
+  color: var(--jade-deep);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.expense-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--ivory);
+}
+
+.expense-form > div {
+  min-width: 0;
+}
+
+.expense-form .form-message {
+  margin: 0;
+}
+
+.expense-ratios,
+.expense-history {
+  margin-top: 30px;
+}
+
+.expense-ratios h3,
+.expense-history h3 {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+}
+
+.expense-ratio {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 12px;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.expense-ratio > span,
+.expense-ratio > strong {
+  font-size: .7rem;
+}
+
+.expense-ratio > strong {
+  color: var(--jade);
+  font-variant-numeric: tabular-nums;
+}
+
+.expense-ratio > i {
+  position: relative;
+  display: block;
+  height: 8px;
+  grid-column: 1 / -1;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--paper-deep);
+}
+
+.expense-ratio > i > b {
+  display: block;
+  height: 100%;
+  min-width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--jade), #31829b);
+  transition: width 240ms ease-out;
+}
+
+.expense-history {
+  border-top: 1px solid var(--line);
+  padding-top: 26px;
+}
+
+.expense-history > p {
+  margin: 0;
+  padding: 22px;
+  background: var(--ivory);
+  color: var(--ink-soft);
+  font-size: .72rem;
+  text-align: center;
+}
+
+.expense-history > article {
+  display: grid;
+  min-width: 0;
+  min-height: 68px;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.expense-history article > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.expense-history article strong {
+  color: var(--jade-deep);
+  font-size: .84rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.expense-history article span {
+  margin-top: 2px;
+  color: var(--ink-soft);
+  font-size: .66rem;
+  overflow-wrap: anywhere;
+}
+
+.expense-history article button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(200, 61, 50, .22);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--vermilion);
+  cursor: pointer;
+}
+
+.privacy-note {
+  margin: 22px 0 0;
+  padding: 14px;
+  border-left: 3px solid var(--sand);
+  background: var(--ivory);
+  color: var(--ink-soft);
+  font-size: .64rem;
+  line-height: 1.55;
+}
+
+/* Home status additions */
+.today-taiwan {
+  background:
+    radial-gradient(circle at 92% 10%, rgba(159, 197, 188, .13), transparent 28rem),
+    var(--paper);
+}
+
+.today-taiwan > .page-shell,
+.today-taiwan .today-taiwan__inner {
+  display: grid;
+  min-width: 0;
+  gap: 18px;
+}
+
+.today-taiwan article,
+.today-taiwan__card {
+  min-width: 0;
+  padding: 20px 18px;
+  border: 1px solid rgba(0, 72, 104, .18);
+  border-radius: 20px;
+  background: rgba(244, 240, 226, .78);
+  box-shadow: var(--shadow-sm);
+}
+
+.today-taiwan__card {
+  position: relative;
+  display: flex;
+  min-height: 360px;
+  align-items: flex-end;
+  overflow: hidden;
+  padding: 0;
+  border-color: rgba(255, 255, 255, .16);
+  background: var(--night);
+  color: white;
+}
+
+.today-taiwan__card > img,
+.today-taiwan__scrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.today-taiwan__card > img {
+  object-fit: cover;
+  filter: saturate(.76) contrast(.93) brightness(1.04);
+  transition: transform 360ms ease;
+}
+
+.today-taiwan__scrim {
+  background:
+    linear-gradient(180deg, rgba(23, 60, 67, .03) 20%, rgba(23, 60, 67, .88) 100%),
+    linear-gradient(90deg, rgba(36, 76, 82, .46), transparent 85%);
+}
+
+.today-taiwan__copy {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 720px);
+  min-width: 0;
+  padding: 26px 20px;
+}
+
+.today-taiwan__copy > span {
+  color: var(--coral-soft);
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .13em;
+}
+
+.today-taiwan__copy h2 {
+  margin: 6px 0 8px;
+  color: white;
+  font-size: clamp(1.75rem, 9vw, 3.5rem);
+  line-height: 1.22;
+}
+
+.today-taiwan__copy p {
+  max-width: 580px;
+  margin: 0;
+  color: rgba(255, 255, 255, .72);
+  line-height: 1.65;
+}
+
+.today-taiwan__copy strong {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: white;
+  font-size: .72rem;
+}
+
+.today-taiwan__card:hover > img {
+  transform: scale(1.025);
+}
+
+.today-taiwan h2,
+.today-taiwan h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+}
+
+.today-taiwan p {
+  color: var(--ink-soft);
+  font-size: .75rem;
+}
+
+.today-taiwan a,
+.today-taiwan button {
+  min-height: 44px;
+}
+
+.vehicle-candidates {
+  display: grid;
+  min-width: 0;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.vehicle-candidates > article,
+.vehicle-candidates > div {
+  min-width: 0;
+  padding: 20px 18px;
+  border: 1px solid var(--white-line);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .04);
+}
+
+.vehicle-candidates h3 {
+  margin: 5px 0 8px;
+  color: white;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+}
+
+.vehicle-candidates p,
+.vehicle-candidates li {
+  color: rgba(255, 255, 255, .66);
+  font-size: .72rem;
+  line-height: 1.65;
+}
+
+.vehicle-candidates ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+}
+
+.vehicle-candidates small,
+.vehicle-candidates > article > span,
+.vehicle-candidates > div > span {
+  color: var(--coral-soft);
+  font-size: .63rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+@media (min-width: 640px) {
+  .yehliu-tool-entry a { grid-template-columns: 52px minmax(0, 1fr) auto; padding: 18px 20px; }
+  .yehliu-tool-entry__icon { width: 52px; height: 52px; }
+  .yehliu-tool-entry__copy strong { font-size: 1.08rem; }
+  .yehliu-tool-entry__action { min-width: 132px; grid-column: auto; padding-inline: 18px; }
+  .tool-card { padding: 30px; }
+  .quick-amounts { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .quick-place-grid,
+  .snack-grid,
+  .restaurant-plan-grid,
+  .install-grid,
+  .rain-plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .app-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .weather-now { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .weather-now > div:first-child { grid-column: auto; min-height: 170px; }
+  .weather-now > div { min-height: 170px; }
+  .weather-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .phrase-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .snack-grid > article { grid-template-columns: minmax(150px, .8fr) minmax(0, 1.2fr); }
+  .snack-grid > article > img { height: 100%; aspect-ratio: auto; }
+  .snack-grid > article > div { padding: 18px; }
+  .snack-grid h3 { font-size: 1.35rem; }
+  .snack-grid button { margin-top: 18px; }
+  .snack-grid-toggle { display: none; }
+  .budget-shortcut > .page-shell { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; padding: 30px; }
+  .budget-shortcut a { min-width: 150px; }
+  .kakao-notice > div { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .expense-summary { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .expense-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .expense-form__note,
+  .expense-form > button,
+  .expense-form .form-message { grid-column: 1 / -1; }
+  .today-taiwan .today-taiwan__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vehicle-candidates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .transport-view .transport-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 900px) {
+  .tools-hero { min-height: 430px; }
+  .tools-hero__copy { padding-block: 104px 66px; }
+  .tools-private-access { min-height: 72px; }
+  .hotel-return-button { right: 24px; bottom: 24px; }
+  .tool-card { margin-top: 46px; }
+  .quick-place-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .quick-place-card { min-height: 350px; padding: 26px 22px; }
+  .place-actions__buttons a { font-size: .67rem; }
+  .language-layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(420px, 1.2fr); gap: 38px 64px; align-items: start; }
+  .language-layout > .section-header,
+  .language-layout > .translate-launch { grid-column: 1 / -1; }
+  .phrase-display,
+  .phrase-groups { margin-top: 0; }
+  .phrase-display { position: sticky; top: calc(var(--header-height) + var(--day-nav-height) + 30px); padding: 34px; }
+  .rain-plan-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .snack-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .snack-grid > article { display: flex; min-height: 470px; flex-direction: column; }
+  .snack-grid > article > img { height: auto; aspect-ratio: 4 / 3; }
+  .snack-grid > article > div { flex: 1; }
+  .snack-grid button { margin-top: auto; }
+  .restaurant-plan-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .app-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .app-grid > article { align-content: start; grid-template-columns: 44px minmax(0, 1fr); }
+  .install-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .install-grid > article { padding: 30px; }
+  .private-modal { align-items: center; padding: max(24px, env(safe-area-inset-top)) 32px max(24px, env(safe-area-inset-bottom)); }
+  .private-modal__panel { width: min(100%, 980px); max-height: calc(100dvh - 48px); margin: auto; border-radius: 10px; padding-bottom: 24px; }
+  .private-modal__panel > header { padding-inline: 26px; }
+  .expense-manager { padding-block: 30px 18px; }
+  .expense-form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.4fr) auto; align-items: end; padding: 22px; }
+  .expense-form__note,
+  .expense-form > button { grid-column: auto; }
+  .expense-form .form-message { grid-column: 1 / -1; }
+  .expense-form > button { min-width: 120px; }
+  .today-taiwan .today-taiwan__inner { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 28px; }
+  .today-taiwan__card { min-height: 500px; }
+  .today-taiwan__copy { padding: 48px; }
+  .vehicle-candidates { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .transport-view .transport-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 374px) {
+  .tools-hero__copy { padding-bottom: 34px; }
+  .section-tabs--tools a { font-size: .62rem; }
+  .tool-card { padding-inline: 14px; }
+  .tool-card__heading h2 { font-size: 1.32rem; }
+  .currency-input span { padding-inline: 12px; }
+  .currency-input input { padding-inline: 10px; font-size: 1.2rem; }
+  .place-actions__buttons a { flex-direction: column; gap: 3px; padding-inline: 2px; }
+  .place-actions__buttons a span { font-size: .57rem; }
+  .quick-place-card { padding-inline: 14px; }
+  .phrase-display { padding-inline: 15px; }
+  .weather-now > div { padding-inline: 11px; }
+  .weather-selector__summary { grid-template-columns: 40px minmax(0, 1fr); padding-inline: 14px; }
+  .weather-selector__icon { width: 40px; height: 40px; }
+  .weather-plan-choice { padding-inline: 14px; }
+  .weather-plan-choice__top { align-items: flex-start; }
+  .weather-plan-choice__badges { max-width: 105px; }
+  .app-grid > article { padding-inline: 12px; }
+  .private-modal__panel > header { padding-inline: 12px; }
+  .expense-manager { width: min(100% - 24px, 900px); }
+  .expense-form { padding-inline: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yehliu-tool-entry a {
+    transition: none;
+  }
+  .expense-ratio > i > b,
+  .driver-reveal > summary > svg,
+  .snack-grid-toggle svg,
+  .tool-card__heading > button {
+    transition: none;
+  }
+  .today-taiwan__card > img {
+    transition: none;
+  }
+  .day-plan-detail {
+    animation: none;
+  }
+}
+

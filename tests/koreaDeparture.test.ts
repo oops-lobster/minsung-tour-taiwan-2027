@@ -1,12 +1,15 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import test from 'node:test'
+import { day1 } from '../src/data/itinerary/day1.ts'
+import { imageSourceByFile } from '../src/data/imageSources.ts'
+import { tripStatuses } from '../src/data/trip.ts'
 
 test('Korea departure vehicle is consistently the confirmed G90 LWB 4-seat', async () => {
   const sources = await Promise.all([
     '../src/App.tsx',
     '../src/data/trip.ts',
-    '../src/data/koreaDepartureUpdate.ts',
+    '../src/data/itinerary/day1.ts',
   ].map((path) => readFile(new URL(path, import.meta.url), 'utf8')))
   const combined = sources.join('\n')
 
@@ -17,22 +20,17 @@ test('Korea departure vehicle is consistently the confirmed G90 LWB 4-seat', asy
   assert.match(combined, /g90-lwb-4seat-rear\.webp/)
 })
 
-test('the G90 image metadata patch loads before the application renders', async () => {
+test('G90 metadata is canonical and the app has no side-effect update imports', async () => {
   const source = await readFile(new URL('../src/main.tsx', import.meta.url), 'utf8')
-  const imagePatch = source.indexOf("import './data/g90ImageSourceUpdate'")
-  const appImport = source.indexOf("import App from './App'")
-
-  assert.ok(imagePatch >= 0)
-  assert.ok(appImport > imagePatch)
+  assert.ok(imageSourceByFile['g90-lwb-4seat-rear.webp'])
+  assert.doesNotMatch(source, /Update'/)
 })
 
-test('the confirmed Taiwan airport pickup patch loads before the application renders', async () => {
+test('confirmed Taiwan airport pickup is stored directly in canonical itinerary data', async () => {
   const source = await readFile(new URL('../src/main.tsx', import.meta.url), 'utf8')
-  const pickupPatch = source.indexOf("import './data/airportPickupUpdate'")
-  const appImport = source.indexOf("import App from './App'")
-
-  assert.ok(pickupPatch >= 0)
-  assert.ok(appImport > pickupPatch)
+  assert.ok(day1.schedule.some((item) => item.title.includes('Mercedes 항공의자 차량')))
+  assert.equal(tripStatuses.find((status) => status.label === 'Day 1 공항 픽업')?.status, '예약 확정')
+  assert.doesNotMatch(source, /airportPickupUpdate/)
 })
 
 test('Day 1 Taiwan airport pickup is consistently confirmed from TPE T2 to the hotel', async () => {
@@ -40,7 +38,7 @@ test('Day 1 Taiwan airport pickup is consistently confirmed from TPE T2 to the h
     '../src/App.tsx',
     '../src/data/trip.ts',
     '../src/data/weatherPlans.ts',
-    '../src/data/airportPickupUpdate.ts',
+    '../src/data/itinerary/day1.ts',
   ].map((path) => readFile(new URL(path, import.meta.url), 'utf8')))
   const combined = sources.join('\n')
 

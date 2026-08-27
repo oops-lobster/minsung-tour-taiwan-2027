@@ -15,7 +15,7 @@ const weatherLabel = (code: number) => {
 export function WeatherCard() {
   const { dataset, status, refresh } = useWeather()
   const weather = dataset ? getTodayWeatherSummary(dataset) : null
-  const strongWind = weather ? (weather.windGust ?? 0) >= 40 || weather.windSpeed >= 30 : false
+  const strongWind = weather ? (weather.dayWindGustMax ?? 0) >= 40 || weather.windSpeed >= 30 : false
 
   return (
     <article className="tool-card weather-card" aria-labelledby="weather-title">
@@ -37,7 +37,7 @@ export function WeatherCard() {
           <div className="weather-now">
             <div><span>현재</span><strong>{weather.temperature.toFixed(1)}°</strong><small>{weatherLabel(weather.weatherCode)}</small></div>
             <div><CloudRain size={21} aria-hidden="true" /><span>오늘 강수확률</span><strong>{weather.precipitationProbability === undefined ? '—' : `${weather.precipitationProbability}%`}</strong><small>현재 강수 {weather.precipitation}mm</small></div>
-            <div><Wind size={21} aria-hidden="true" /><span>바람</span><strong>{weather.windSpeed.toFixed(0)}km/h</strong><small>최대 돌풍 {weather.windGust === undefined ? '—' : `${weather.windGust.toFixed(0)}km/h`}</small></div>
+            <div><Wind size={21} aria-hidden="true" /><span>현재 바람</span><strong>{weather.windSpeed.toFixed(0)}km/h</strong><small>현재 돌풍 {weather.currentWindGust === undefined ? '—' : `${weather.currentWindGust.toFixed(0)}km/h`} · 오늘 예상 최대 돌풍 {weather.dayWindGustMax === undefined ? '—' : `${weather.dayWindGustMax.toFixed(0)}km/h`}</small></div>
           </div>
           <div className={`weather-alert ${strongWind ? 'weather-alert--warning' : ''}`}>
             <strong>{strongWind ? '강풍 가능성 있음' : '현재 강풍 징후 낮음'}</strong>
@@ -47,7 +47,7 @@ export function WeatherCard() {
             <a href="https://www.cwa.gov.tw/V8/C/P/Typhoon/TY_NEWS.html" target="_blank" rel="noreferrer">
               태풍·기상 특보 확인 <ExternalLink size={15} aria-hidden="true" />
             </a>
-            <button type="button" onClick={() => document.getElementById('tools-weather-plans')?.scrollIntoView({ behavior: 'smooth' })}>Plan B 요약 보기</button>
+            <a href="#tools/weather">날짜별 판단 기준 보기</a>
           </div>
           <p className="data-status">타이베이 시간 {weather.updatedAt} · Open-Meteo</p>
         </>

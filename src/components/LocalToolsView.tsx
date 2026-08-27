@@ -8,12 +8,10 @@ import {
   ChevronRight,
   CloudSun,
   Copy,
-  Fish,
   HeartHandshake,
   Languages,
   MapPinned,
   MessageCircle,
-  Navigation,
   PhoneCall,
   Plane,
   Smartphone,
@@ -23,7 +21,6 @@ import { imageSourceByFile } from '../data/imageSources'
 import {
   getPlaceDisplayHint,
   placeCatalog,
-  rainPlans,
   restaurantFallbacks,
   streetSnacks,
   travelApps,
@@ -34,14 +31,16 @@ import { PlaceActions } from './PlaceActions'
 import { SectionHeader } from './SectionHeader'
 import { WeatherCard } from './WeatherCard'
 import { TaiwanLanguageTools } from './TaiwanLanguageTools'
+import { GuideHub } from './guides/GuideHub'
+import { conditionPolicySummaries } from '../domain/conditions/policies'
 
 export type ToolsTab = 'quick' | 'language' | 'weather' | 'guide'
 
 const toolTabs: Array<{ id: ToolsTab; label: string }> = [
   { id: 'quick', label: '빠른 도구' },
-  { id: 'language', label: '번역' },
-  { id: 'weather', label: '날씨' },
-  { id: 'guide', label: '간식·설치' },
+  { id: 'language', label: '회화' },
+  { id: 'weather', label: '날씨·안전' },
+  { id: 'guide', label: '현장 가이드' },
 ]
 
 const quickPlaceIds = ['hotel', 'longshan', 'palace', 'din-tai-fung-xinsheng', 'taipei-101', 'hizenya'] as const
@@ -78,47 +77,7 @@ function QuickTools() {
 
   return (
     <>
-      <section className="guihou-tool-entry" aria-label="귀후어항 해산물 현장 가이드 바로가기">
-        <div className="page-shell">
-          <a href="#guide/guihou">
-            <span className="guihou-tool-entry__icon" aria-hidden="true"><Fish size={24} /></span>
-            <span className="guihou-tool-entry__copy">
-              <small>DAY 2 · LUNCH FIELD GUIDE</small>
-              <strong>귀후어항 도착하면 여기 누르기</strong>
-              <span>점포 고르기 → 가격·조리비 확인 → 2층 식사까지 순서대로 안내</span>
-            </span>
-            <span className="guihou-tool-entry__action">현장 가이드 시작 <ChevronRight size={18} aria-hidden="true" /></span>
-          </a>
-        </div>
-      </section>
-
-      <section className="yehliu-tool-entry" aria-label="예류 현장 가이드 바로가기">
-        <div className="page-shell">
-          <a href="#guide/yehliu/gps">
-            <span className="yehliu-tool-entry__icon" aria-hidden="true"><Navigation size={24} /></span>
-            <span className="yehliu-tool-entry__copy">
-              <small>YEHLIU LIVE GUIDE</small>
-              <strong>예류 현장 GPS 가이드</strong>
-              <span>실제 지도와 현재 위치로 다음 관찰 지점을 찾아가요.</span>
-            </span>
-            <span className="yehliu-tool-entry__action">가이드 열기 <ChevronRight size={18} aria-hidden="true" /></span>
-          </a>
-        </div>
-      </section>
-
-      <section className="language-tool-entry" aria-label="대만 회화 AI 바로가기">
-        <div className="page-shell">
-          <a href="#tools/language">
-            <span className="language-tool-entry__icon" aria-hidden="true"><Languages size={24} /></span>
-            <span className="language-tool-entry__copy">
-              <small>TAIWAN LANGUAGE COPILOT</small>
-              <strong>대만 회화 AI</strong>
-              <span>직접 말할 문장 · 상대 말 듣기 · 오프라인 현장 문장</span>
-            </span>
-            <span className="language-tool-entry__action">회화 도구 열기 <ChevronRight size={18} aria-hidden="true" /></span>
-          </a>
-        </div>
-      </section>
+      <section className="today-field-tools section-pad" aria-labelledby="today-field-tools-title"><div className="page-shell"><header><small>바로 꺼내 쓰기</small><h2 id="today-field-tools-title">오늘의 현장 도구</h2><a href="#tools/language">대만 회화 열기 <ChevronRight size={18} aria-hidden="true" /></a></header><GuideHub compact /></div></section>
 
       <section className="tools-section section-pad">
         <div className="page-shell">
@@ -155,6 +114,7 @@ function QuickTools() {
       </section>
 
       <AppHub />
+      <InstallGuide />
 
       <section className="budget-shortcut section-pad">
         <div className="page-shell">
@@ -176,16 +136,11 @@ function WeatherTools() {
           <WeatherCard />
         </div>
       </section>
-      <section className="rain-plan-section section-pad" id="tools-weather-plans">
+      <section className="condition-summary-section section-pad" id="tools-weather-plans">
         <div className="page-shell">
-          <SectionHeader eyebrow="ALL-DAY PLAN B" title="비가 오면?" description="모든 날에 미리 정해둔 축소 기준입니다. 일정표보다 날씨와 부모님 컨디션이 먼저예요." inverse />
-          <div className="rain-plan-grid">
-            {rainPlans.map((plan) => (
-              <article key={plan.day}>
-                <small>{plan.day}</small><h3>{plan.title}</h3>
-                {plan.options.map((option) => <p key={option.condition}><strong>{option.condition}</strong><span>{option.action}</span></p>)}
-              </article>
-            ))}
+          <SectionHeader eyebrow="DAY CONDITIONS" title="날짜별 판단 기준" description="일정을 다시 펼치지 않고, 무엇이 바뀌는지만 확인합니다." inverse />
+          <div className="condition-summary-list">
+            {conditionPolicySummaries.map((summary, index) => <a href={`#schedule/${summary.dayId}`} key={summary.dayId}><span>DAY {index + 1}</span><strong>{summary.title}</strong><small>{summary.detail}</small><ChevronRight size={18} aria-hidden="true" /></a>)}
           </div>
         </div>
       </section>
@@ -193,7 +148,7 @@ function WeatherTools() {
   )
 }
 
-function SnackAtlas() {
+export function SnackAtlas() {
   const [checked, setChecked] = useState<string[]>(() => {
     try { return JSON.parse(window.localStorage.getItem('minsung-tour-snacks-v2') ?? '[]') as string[] } catch { return [] }
   })
@@ -340,9 +295,7 @@ function AppHub() {
   )
 }
 
-function GuideTools() {
-  return <><SnackAtlas /><RestaurantPlanB /><InstallGuide /></>
-}
+function GuideTools() { return <GuideHub /> }
 
 export function LocalToolsView({ tab }: { tab: ToolsTab }) {
   return (

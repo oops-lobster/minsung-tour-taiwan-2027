@@ -21,6 +21,8 @@ import type {
   Day2WeatherClass,
   Day2WeatherDecision,
 } from '../lib/day2Weather'
+import type { YehliuOperationSnapshot } from '../domain/conditions/yehliuOperation'
+import { YehliuOperationStatus } from './conditions/YehliuOperationStatus'
 
 interface Day2WeatherDecisionCardProps {
   decision: Day2WeatherDecision
@@ -28,6 +30,7 @@ interface Day2WeatherDecisionCardProps {
   manualClass: Day2WeatherClass | null
   onManualClassChange: (weatherClass: Day2WeatherClass | null) => void
   onRefresh: () => Promise<void>
+  operation: YehliuOperationSnapshot | null
 }
 
 const classCopy: Record<Day2WeatherClass, { title: string; short: string }> = {
@@ -49,6 +52,8 @@ const confidenceCopy: Record<Day2Confidence, string> = {
   low: '신뢰도 낮음',
   unavailable: '판정 자료 없음',
 }
+
+const triggerCopy = { rain: '비', wind: '돌풍', wave: '파고', 'official-operation': '공식 통제', safety: '안전 신호' } as const
 
 const riskCopy = {
   good: 'GOOD · 진행 가능',
@@ -104,6 +109,7 @@ export function Day2WeatherDecisionCard({
   manualClass,
   onManualClassChange,
   onRefresh,
+  operation,
 }: Day2WeatherDecisionCardProps) {
   const safetyHold = decision.safetyState === 'safety-hold'
   const todayPreview = decision.mode === 'OUT_OF_RANGE'
@@ -154,12 +160,15 @@ export function Day2WeatherDecisionCard({
         <span>{formatUpdatedAt(decision.fetchedAt)}</span>
         <span>Open-Meteo Forecast + Marine</span>
       </div>
+      {decision.triggers.length > 0 && <p className="day2-trigger-ribbon"><strong>추천을 바꾼 원인</strong><span>{decision.triggers.map((trigger) => triggerCopy[trigger]).join(' · ')}</span></p>}
 
       {todayPreview && (
         <p className="day2-weather-decision__preview" role="note">
           지금은 오늘의 예류·스펀·지우펀 날씨를 같은 시간대에 대입한 참고 화면입니다. 2027년 2월 14일부터 2월 21일 여행일 예보로 자동 전환됩니다.
         </p>
       )}
+
+      <YehliuOperationStatus snapshot={operation} />
 
       {(decision.degraded || status === 'error') && (
         <p className="day2-weather-decision__degraded" role="status">

@@ -1,51 +1,27 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import test from 'node:test'
+import { day2 } from '../src/data/itinerary/day2.ts'
 
 test('Day 2 sunny Plan A keeps the finalized order and official 21:00 ending', async () => {
-  const base = await readFile(new URL('../src/data/trip.ts', import.meta.url), 'utf8')
-  const update = await readFile(new URL('../src/data/day2GuihouUpdate.ts', import.meta.url), 'utf8')
   const weather = await readFile(new URL('../src/data/weatherPlans.ts', import.meta.url), 'utf8')
 
   const markers = [
-    "time: '06:30–07:30'",
-    "time: '08:15 로비 · 08:30 출발'",
-    "time: '09:20–10:45'",
-    "time: '10:55–12:10'",
-    "time: '12:10–13:00'",
-    "time: '13:00–14:00'",
-    "time: '14:10–15:20'",
-    "time: '15:20 이후'",
-    "time: '16:15 전후'",
-    "time: '16:15–17:20'",
-    "time: '17:30–18:45'",
-    "time: '18:45–19:05'",
-    "time: '19:05–20:15'",
-    "time: '20:15–21:00'",
-    "time: '21:00–21:30'",
-    "time: '21:30–23:00 · 선택'",
+    '06:30–07:30', '08:15 로비 · 08:30 출발', '09:20–10:45', '10:55–12:10', '12:10–13:00', '13:00–14:00',
+    '14:10–15:20', '15:20 이후', '16:15 전후', '16:15–17:20', '17:30–18:45', '18:45–19:05', '19:05–20:15',
+    '20:15–21:00', '21:00–21:30', '21:30–23:00 · 선택',
   ]
-  const baseMarkers = markers.slice(0, 3).concat(markers.slice(5, 9))
-  const updateMarkers = markers.slice(3, 5).concat(markers.slice(9))
-
-  for (const marker of baseMarkers) assert.match(base, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
-  let previous = -1
-  for (const marker of updateMarkers) {
-    const current = update.indexOf(marker)
-    assert.ok(current > previous, `${marker} must appear after the previous finalized stop`)
-    previous = current
-  }
-
-  assert.match(update, /tags: \['Day 2 본편 종료', '21:00 호텔 목표'\]/)
-  assert.match(update, /21:00 호텔 도착과 함께 Day 2 공식 본편은 끝/)
-  assert.match(update, /optional: true,[\s\S]*'HIDDEN STAGE'/)
+  assert.deepEqual(day2.schedule.map((item) => item.time), markers)
+  assert.ok(day2.schedule.some((item) => item.tags?.includes('Day 2 본편 종료')))
+  assert.ok(day2.schedule.some((item) => item.description.includes('Day 2 공식 본편은 끝')))
+  assert.ok(day2.schedule.some((item) => item.optional && item.tags?.includes('HIDDEN STAGE')))
   assert.match(weather, /21:00 호텔 복귀로 끝나는 맑은 날 확정안/)
   assert.match(weather, /'day-2':[\s\S]*status: 'draft'/)
 })
 
 test('public Day 2 sources do not contain protected budget totals', async () => {
   const publicSources = await Promise.all([
-    '../src/data/day2GuihouUpdate.ts',
+    '../src/data/itinerary/day2.ts',
     '../src/data/trip.ts',
     '../src/data/weatherPlans.ts',
     '../src/components/DaySection.tsx',

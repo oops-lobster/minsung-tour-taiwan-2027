@@ -1,12 +1,8 @@
-import './data/day2GuihouUpdate'
-import './data/g90ImageSourceUpdate'
-import './data/koreaDepartureUpdate'
-import './data/airportPickupUpdate'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import { WeatherProvider } from './components/WeatherProvider'
-import './styles.css'
+import './styles/index.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

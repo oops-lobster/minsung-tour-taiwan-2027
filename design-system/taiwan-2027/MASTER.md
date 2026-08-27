@@ -1,12 +1,12 @@
 # 민성투어 Taiwan 2027 — Design System
 
-UI/UX Pro Max의 storytelling hero, editorial typography, mobile-first accessibility 권고를 바탕으로 가족여행 포털에 맞게 확정한 시스템이다.
+세 사람이 여행 당일 펼쳐 보는 개인 운영책자라는 제품 정의에서 출발한다. 시각 탐색과 자기비판 기록은 `docs/DESIGN_REFACTOR_DIRECTION.md`가 canonical source다.
 
 ## Direction
 
-- Premium family travel + editorial travel magazine
-- 실제 여행 사진이 화면의 중심
-- 따뜻하고 정돈된 여행사 상품 페이지의 신뢰감
+- Quiet family travel operations + edited journey booklet
+- 실제 여행 사진은 기억할 장면에만 크게 사용
+- 시간·장소·다음 행동이 먼저 보이는 운영책자의 확신
 - 부모님도 별도 설명 없이 읽을 수 있는 큰 글씨와 선명한 정보 위계
 - 첫 진입에만 짧은 타이포그래피 오프닝, 이후에는 콘텐츠 중심
 - 긴 단일 페이지 대신 화면·탭·아코디언을 이용한 progressive disclosure
@@ -24,6 +24,8 @@ UI/UX Pro Max의 storytelling hero, editorial typography, mobile-first accessibi
 | Warm sand | `#c8ac7b` | 프리미엄 보조 강조 |
 | Ink | `#17201c` | 본문 텍스트 |
 
+현재 구현의 핵심 재해석은 `journey ribbon`이다. Ink `#153943`, mist `#DDEAE7`, action jade `#287565`, caution amber `#B97835`, safety red `#812F2A`를 상태 문구와 함께 사용한다.
+
 색은 기능적 의미와 텍스트 라벨을 함께 사용한다. 주홍색과 금색은 포인트로만 쓰며 중국풍 장식을 만들지 않는다.
 
 ## Typography
@@ -33,7 +35,7 @@ UI/UX Pro Max의 storytelling hero, editorial typography, mobile-first accessibi
 - Editorial Latin and numerals: `Libre Bodoni`, Georgia fallback
 - Mobile body: 16px / 1.75
 - Desktop body: 18px / 1.75
-- Hero: responsive 41–91px, Korean line breaks 우선
+- Day hero: responsive 39–86px, 한 화면에 하나만 사용
 - 모든 숫자·시간은 tabular 숫자를 가능한 범위에서 적용
 
 ## Layout
@@ -46,6 +48,19 @@ UI/UX Pro Max의 storytelling hero, editorial typography, mobile-first accessibi
 - Hash deep link와 브라우저 back stack 유지
 - Touch target 44px minimum
 - Card nesting을 피하고 border, whitespace, editorial image composition으로 섹션을 구분
+- 일정은 얇은 metadata row → condition ribbon → 조용한 segmented picker → 실제 순서 spine으로 읽힌다.
+- 가이드는 registry 한 곳에서 일정 launcher와 현장 hub를 함께 파생한다.
+
+## CSS architecture
+
+- `src/styles/tokens.css`: token, reset, base accessibility
+- `src/styles/opening.css`: 첫 진입 모션
+- `src/styles/core.css`: 공통 앱·홈·예약·식사
+- `src/styles/views/tools.css`: 현지 도구와 언어 UI
+- `src/styles/views/private.css`: 보호 예산·민성 TODO
+- `src/styles/views/field-guides.css`: 예류·귀후 SPA
+- `src/styles/views/schedule.css`: 일정·날씨 기존 호환
+- `src/styles/views/refactor.css`: journey ribbon, registry guide, condition UI
 
 ## Images
 

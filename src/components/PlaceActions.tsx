@@ -67,7 +67,8 @@ export function HotelReturnButton({ hotel }: { hotel: PlaceInfo }) {
       aria-label="현재 위치에서 Taipei Garden Hotel까지 길찾기"
     >
       <Hotel size={19} aria-hidden="true" />
-      <span>호텔로 돌아가기</span>
+      <span className="hotel-return-button__full">호텔로 돌아가기</span>
+      <span className="hotel-return-button__short">호텔</span>
       <Navigation size={16} aria-hidden="true" />
     </a>
   )

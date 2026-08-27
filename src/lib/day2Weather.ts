@@ -3,6 +3,8 @@ import type {
   WeatherLocation,
   WeatherPlanRecommendation,
 } from './weather'
+import type { ConditionTrigger } from '../domain/conditions/types'
+import type { YehliuOperationState } from '../domain/conditions/yehliuOperation'
 
 const TAIPEI_TIME_ZONE = 'Asia/Taipei'
 
@@ -151,6 +153,8 @@ export interface Day2WeatherDecision {
   reasons: string[]
   locations: Day2LocationAssessment[]
   fetchedAt?: number
+  triggers: ConditionTrigger[]
+  operationState?: YehliuOperationState
 }
 
 interface ForecastApiPayload {
@@ -621,7 +625,7 @@ const classificationReasonsFor = (locations: Day2LocationAssessment[], weatherCl
     : [weatherClass === 'C' ? '야외 구간을 적극 조정할 기상 신호가 있습니다.' : '일부 구간에 우천 대비가 필요합니다.']
 }
 
-export const classifyDay2Weather = (bundle: Day2WeatherBundle): Day2WeatherDecision => {
+export const classifyDay2Weather = (bundle: Day2WeatherBundle, operationState?: YehliuOperationState): Day2WeatherDecision => {
   const locations = DAY2_WEATHER_WINDOWS.map((window) => assessLocation(bundle, window))
   const availableCount = locations.filter((location) => location.available).length
   const degraded = availableCount < DAY2_WEATHER_WINDOWS.length || bundle.marineStatus !== 'ready'
@@ -635,6 +639,8 @@ export const classifyDay2Weather = (bundle: Day2WeatherBundle): Day2WeatherDecis
       reasons: ['모든 지역의 시간별 기상 데이터를 불러오지 못해 판정할 수 없습니다.'],
       locations,
       fetchedAt: bundle.fetchedAt,
+      triggers: [],
+      operationState,
     }
   }
 
@@ -649,13 +655,31 @@ export const classifyDay2Weather = (bundle: Day2WeatherBundle): Day2WeatherDecis
       reasons: safetyReasons.slice(0, 3),
       locations,
       fetchedAt: bundle.fetchedAt,
+      triggers: ['safety'],
+      operationState,
     }
   }
 
-  const weatherClass: Day2WeatherClass = locations.some((location) => location.risk === 'poor')
+  let weatherClass: Day2WeatherClass = locations.some((location) => location.risk === 'poor')
     ? 'C'
     : locations.some((location) => location.risk === 'caution') ? 'B' : 'A'
   const reasons = classificationReasonsFor(locations, weatherClass)
+  const triggers = new Set<ConditionTrigger>()
+  locations.forEach((location) => {
+    if ((location.maxHourlyPrecipitation ?? 0) >= DAY2_WEATHER_THRESHOLDS.planB.maxHourlyPrecipitation || (location.persistentRainHours ?? 0) >= DAY2_WEATHER_THRESHOLDS.planC.persistentRainHours) triggers.add('rain')
+    if ((location.windGust ?? 0) >= DAY2_WEATHER_THRESHOLDS.planB.windGust) triggers.add('wind')
+    if ((location.waveHeight ?? 0) >= DAY2_WEATHER_THRESHOLDS.planB.waveHeight) triggers.add('wave')
+  })
+  if (operationState === 'full-closure') {
+    weatherClass = weatherClass === 'C' ? 'C' : 'B'
+    triggers.add('official-operation')
+    reasons.unshift('예류 공식 공지에서 전면 폐쇄가 확인되어 현재 형태의 Plan A를 선택할 수 없습니다.')
+  } else if (operationState === 'partial-closure') {
+    triggers.add('official-operation')
+    reasons.unshift('예류 일부 구역 통제 공지가 있어 Plan A를 선택해도 현장에서 동선을 줄여야 합니다.')
+  } else if (operationState === 'unknown') {
+    reasons.push('예류 공식 운영상태를 확인하지 못해 공식 공지를 직접 확인해야 합니다.')
+  }
   if (bundle.mode === 'OUT_OF_RANGE') {
     reasons.unshift('오늘 북부 대만의 같은 시간대 자료로 미리 보는 화면이며, 2027-02-21 여행일 예보는 아닙니다.')
   }
@@ -671,6 +695,8 @@ export const classifyDay2Weather = (bundle: Day2WeatherBundle): Day2WeatherDecis
     reasons: reasons.slice(0, 3),
     locations,
     fetchedAt: bundle.fetchedAt,
+    triggers: [...triggers],
+    operationState,
   }
 }
 

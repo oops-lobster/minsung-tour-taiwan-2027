@@ -1,3 +1,6 @@
+import { dayConditionPolicies, evaluateRainOnly } from '../domain/conditions/policies.ts'
+import type { ConditionTrigger } from '../domain/conditions/types'
+
 export const RAIN_PLAN_THRESHOLD = 50
 export const STRONG_RAIN_THRESHOLD = 70
 export const STRONG_WIND_SPEED_THRESHOLD = 30
@@ -22,6 +25,7 @@ export interface WeatherLocation {
 }
 
 export interface DayWeatherConfig {
+  dayId: string
   date: string
   representativeLocation: string
   locations?: WeatherLocation[]
@@ -41,6 +45,7 @@ export interface TaiwanWeatherDataset {
     precipitation: number
     weatherCode: number
     windSpeed: number
+    windGust?: number
   }
   hourly: {
     time: string[]
@@ -69,6 +74,7 @@ export interface WeatherPlanRecommendation {
   sourceDate?: string
   reason: string
   suspended?: boolean
+  triggers?: ConditionTrigger[]
 }
 
 interface RecommendationOptions {
@@ -97,6 +103,7 @@ interface OpenMeteoPayload {
     precipitation: number
     weather_code: number
     wind_speed_10m: number
+    wind_gusts_10m?: number
   }
   hourly: {
     time: string[]
@@ -220,14 +227,18 @@ const recommendationFromWindow = (
   sourceDate: string,
   summary: WeatherWindowSummary,
   rainThreshold: number,
+  dayId: string,
 ): WeatherPlanRecommendation => {
   const strongWind = (summary.windGust ?? 0) >= STRONG_WIND_GUST_THRESHOLD
     || (summary.windSpeed ?? 0) >= STRONG_WIND_SPEED_THRESHOLD
   const strongRain = (summary.rainProbability ?? 0) >= STRONG_RAIN_THRESHOLD
     || (summary.precipitation ?? 0) >= HEAVY_RAIN_AMOUNT_THRESHOLD
   const rainingNow = (summary.currentPrecipitation ?? 0) >= 0.2
-  const recommendRain = strongWind || strongRain || rainingNow || (summary.rainProbability ?? 0) >= rainThreshold
-  const strong = recommendRain && (strongWind || strongRain)
+  const policy = dayConditionPolicies[dayId]
+  const recommendRain = policy?.kind === 'multi-factor'
+    ? strongWind || strongRain || rainingNow || (summary.rainProbability ?? 0) >= rainThreshold
+    : evaluateRainOnly(summary)
+  const strong = recommendRain && (strongRain || (policy?.kind === 'multi-factor' && strongWind))
   const recommendedPlanId: WeatherPlanId = recommendRain ? 'plan-b' : 'plan-a'
 
   return {
@@ -239,7 +250,10 @@ const recommendationFromWindow = (
     windSpeed: summary.windSpeed,
     windGust: summary.windGust,
     sourceDate,
-    reason: buildReason(mode, summary, recommendedPlanId, strong),
+    reason: policy?.kind !== 'multi-factor' && strongWind && !recommendRain
+      ? `${mode === 'today-preview' ? '오늘 현지' : '여행일'} 바람은 강하지만 이 날은 비만 일정 분기에 사용해 기본 일정을 유지해요.`
+      : buildReason(mode, summary, recommendedPlanId, strong),
+    triggers: recommendRain ? ['rain'] : [],
   }
 }
 
@@ -264,7 +278,7 @@ export const getWeatherPlanRecommendation = ({
       precipitation: testMode === 'rain' ? 6 : 0,
       windSpeed: testMode === 'rain' ? 18 : 8,
       windGust: testMode === 'rain' ? 28 : 14,
-    }, config.rainThreshold)
+    }, config.rainThreshold, config.dayId)
   }
   if (testMode === 'forecast') {
     return recommendationFromWindow('trip-forecast', config.date, {
@@ -272,7 +286,7 @@ export const getWeatherPlanRecommendation = ({
       precipitation: 0,
       windSpeed: 9,
       windGust: 16,
-    }, config.rainThreshold)
+    }, config.rainThreshold, config.dayId)
   }
 
   if (status !== 'ready' || !dataset) {
@@ -303,7 +317,7 @@ export const getWeatherPlanRecommendation = ({
     }
   }
 
-  return recommendationFromWindow(mode, sourceDate, summary, config.rainThreshold)
+  return recommendationFromWindow(mode, sourceDate, summary, config.rainThreshold, config.dayId)
 }
 
 const readCachedDataset = () => {
@@ -337,7 +351,7 @@ export const fetchTaipeiWeather = async (force = false): Promise<TaiwanWeatherDa
   const params = new URLSearchParams({
     latitude: '25.033',
     longitude: '121.5654',
-    current: 'temperature_2m,precipitation,weather_code,wind_speed_10m',
+    current: 'temperature_2m,precipitation,weather_code,wind_speed_10m,wind_gusts_10m',
     hourly: 'precipitation_probability,precipitation,wind_speed_10m,wind_gusts_10m',
     daily: 'precipitation_probability_max,precipitation_sum,wind_speed_10m_max,wind_gusts_10m_max',
     forecast_days: '16',
@@ -359,6 +373,7 @@ export const fetchTaipeiWeather = async (force = false): Promise<TaiwanWeatherDa
           precipitation: data.current.precipitation,
           weatherCode: data.current.weather_code,
           windSpeed: data.current.wind_speed_10m,
+          windGust: data.current.wind_gusts_10m,
         },
         hourly: {
           time: data.hourly.time,
@@ -394,7 +409,8 @@ export const getTodayWeatherSummary = (dataset: TaiwanWeatherDataset, now = new 
     precipitation: dataset.current.precipitation,
     precipitationProbability: dailyIndex >= 0 ? dataset.daily.precipitationProbabilityMax[dailyIndex] : undefined,
     windSpeed: dataset.current.windSpeed,
-    windGust: dailyIndex >= 0 ? dataset.daily.windGustMax[dailyIndex] : undefined,
+    currentWindGust: dataset.current.windGust,
+    dayWindGustMax: dailyIndex >= 0 ? dataset.daily.windGustMax[dailyIndex] : undefined,
     weatherCode: dataset.current.weatherCode,
     updatedAt: new Intl.DateTimeFormat('ko-KR', {
       hour: '2-digit',

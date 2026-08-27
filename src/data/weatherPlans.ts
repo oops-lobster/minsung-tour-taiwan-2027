@@ -1,7 +1,7 @@
 import type { DayRoute } from './dayRoutes'
-import { dayRoutes } from './dayRoutes'
+import { dayRoutes } from './dayRoutes.ts'
 import type { TimelineItem, TripDay } from './trip'
-import { RAIN_PLAN_THRESHOLD, type DayWeatherConfig, type WeatherPlanId } from '../lib/weather'
+import { RAIN_PLAN_THRESHOLD, type DayWeatherConfig, type WeatherPlanId } from '../lib/weather.ts'
 
 export type WeatherPlanStatus = 'ready' | 'draft'
 
@@ -26,6 +26,7 @@ interface DayPlanMeta {
 
 export const dayWeatherConfigs: Record<string, DayWeatherConfig> = {
   'day-1': {
+    dayId: 'day-1',
     date: '2027-02-20',
     representativeLocation: 'Taipei',
     locations: [{ id: 'taipei', name: 'Taipei', latitude: 25.033, longitude: 121.5654 }],
@@ -34,6 +35,7 @@ export const dayWeatherConfigs: Record<string, DayWeatherConfig> = {
     rainThreshold: RAIN_PLAN_THRESHOLD,
   },
   'day-2': {
+    dayId: 'day-2',
     date: '2027-02-21',
     representativeLocation: 'Taipei · Northern Taiwan',
     locations: [
@@ -46,6 +48,7 @@ export const dayWeatherConfigs: Record<string, DayWeatherConfig> = {
     rainThreshold: RAIN_PLAN_THRESHOLD,
   },
   'day-3': {
+    dayId: 'day-3',
     date: '2027-02-22',
     representativeLocation: 'Taipei',
     locations: [{ id: 'taipei', name: 'Taipei', latitude: 25.033, longitude: 121.5654 }],
@@ -54,6 +57,7 @@ export const dayWeatherConfigs: Record<string, DayWeatherConfig> = {
     rainThreshold: RAIN_PLAN_THRESHOLD,
   },
   'day-4': {
+    dayId: 'day-4',
     date: '2027-02-23',
     representativeLocation: 'Taipei',
     locations: [{ id: 'taipei', name: 'Taipei', latitude: 25.033, longitude: 121.5654 }],
@@ -339,7 +343,7 @@ const dayTwoRainSchedule: TimelineItem[] = [
     description: 'Vinyl Decision에서 LP를 고르고 음악을 듣는 시간을 가장 우선합니다. 이어 대만·일본 디자인 소품, 목재 선물과 당일 팝업을 골라 보고, 홍차우유는 걸으며 마시는 테이크아웃 정도로 둡니다.',
     tags: ['LP 최우선', '디자인 소품', '팝업은 여행 직전 갱신'],
     placeId: 'huashan-1914',
-    detailPanel: 'huashan',
+    guideId: 'huashan',
   },
   {
     time: '18:15 전후 출발 · 18:30–20:00/20:20',
@@ -349,11 +353,7 @@ const dayTwoRainSchedule: TimelineItem[] = [
     transport: '화산1914 → 택시',
     tags: ['B안 저녁 1순위', '예약 전', '2027년 메뉴·18天生啤酒 재확인'],
     placeId: 'beihai-hangzhou',
-    guide: {
-      href: 'beihai-order-guide.html',
-      label: '北海漁村 3인 주문 가이드 열기',
-      eyebrow: '현장에서 바로 보여주기',
-    },
+    guideId: 'beihai-order',
   },
   {
     time: '20:20 이후 · 약 20:35–20:45 도착',

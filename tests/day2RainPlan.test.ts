@@ -26,7 +26,7 @@ test('Day 2 rainy Plan B is a complete independent Yilan route with a 16:30 LUMI
   assert.match(source, /localName: '北海漁村海鮮餐廳 台北杭州店'/)
   assert.match(source, /tags: \['B안 저녁 1순위', '예약 전'/)
   assert.doesNotMatch(source, /北海漁村[\s\S]{0,500}예약 확정/)
-  assert.match(source, /href: 'beihai-order-guide\.html'/)
+  assert.match(source, /guideId: 'beihai-order'/)
 })
 
 test('Day 2 C is a separate placeholder and D recommendation suspends normal routing', async () => {
@@ -71,7 +71,8 @@ test('Day 2 Plan B source is free of retired placeholder language and uses the d
   ].map((path) => readFile(new URL(path, import.meta.url), 'utf8')))
   const combined = sources.join('\n')
   assert.doesNotMatch(combined, /Plan B\/C 우천 대안 준비 중|목적지 미확정|온천·좋은 실내 공간|동구 드롭|Syntrend/)
-  assert.match(combined, /\$\{import\.meta\.env\.BASE_URL\}\$\{item\.guide\.href\}/)
+  assert.match(combined, /GuideLauncher/)
+  assert.match(combined, /guideId: 'beihai-order'/)
   assert.match(combined, /day2-weather-decision__details/)
   assert.match(combined, /day-plan-glance/)
   assert.match(combined, /day-plan-route-drawer/)

@@ -216,17 +216,6 @@ export const placeCatalog = {
     displayHintKo: '수산시장 · 제철 해산물 · 바다 전망 식사',
     descriptionKo: '1층에서 당일 좋은 해산물을 고르고 가격과 조리비를 확인한 뒤, 2층에서 바다를 보며 식사하는 현장 선택형 점심 장소입니다.',
   },
-  'qiao-yan': {
-    name: 'Qiao Yan Seafood',
-    localName: '俏宴',
-    address: '新北市萬里區野柳里港東路附近',
-    latitude: 25.203,
-    longitude: 121.688,
-    categoryKo: '해산물 식당',
-    specialtyKo: '스시·사시미',
-    displayHintKo: '해산물 · 스시·사시미',
-    descriptionKo: '예류 일정 중 실내에서 해산물과 스시·사시미를 먹는 점심 후보입니다.',
-  },
   'shifen-waterfall': {
     name: '스펀폭포',
     localName: '十分瀑布',
@@ -432,44 +421,6 @@ export function getPlaceDisplayHint(place?: PlaceInfo): string | undefined {
   const generatedHint = [place.categoryKo, place.specialtyKo].filter(Boolean).join(' · ')
   return (place.displayHintKo ?? generatedHint) || undefined
 }
-
-export const rainPlans = [
-  {
-    day: 'DAY 1',
-    title: '비 오는 타이베이 · 카페, 전시와 대만차',
-    options: [
-      { condition: 'B1', action: 'My灶·弄宅咖啡 뒤 2027년 2월 전시를 확인한 타이베이 시립미술관과 小隱茶庵으로 이어갑니다.' },
-      { condition: 'B2', action: '미술관 전시가 가족 취향에 맞지 않으면 수진박물관의 미니어처 상설 전시로 바꿉니다.' },
-      { condition: '찻집 만석', action: '小隱茶庵 대신 回留에서 대만차를 즐깁니다.' },
-      { condition: '저녁 이후', action: '비가 약해지면 용산사·야시장, 계속 강하면 까르푸만 짧게 들릅니다.' },
-    ],
-  },
-  {
-    day: 'DAY 2',
-    title: '강수량에 따라 야외 구간 조절',
-    options: [
-      { condition: '약한 비', action: '원안을 유지합니다.' },
-      { condition: '강한 비', action: '스펀폭포를 우선 축소하거나 생략합니다.' },
-      { condition: '폭우·강풍', action: '예류·스펀 변경을 기사님과 함께 검토합니다.' },
-    ],
-  },
-  {
-    day: 'DAY 3',
-    title: '고궁은 유지, 골목은 카페로 대체',
-    options: [
-      { condition: '비', action: '국립고궁박물원과 딘타이펑 신생점은 그대로 진행합니다.' },
-      { condition: '대안', action: '용캉제·칭톈제 산책은 줄이고 카페 체류 시간을 늘립니다.' },
-    ],
-  },
-  {
-    day: 'DAY 4',
-    title: '출국일은 가장 단순하게',
-    options: [
-      { condition: '비', action: '타이베이 식물원은 미련 없이 생략할 수 있습니다.' },
-      { condition: '대안', action: '호텔 체크아웃과 비전옥 점심 중심으로 단순화합니다.' },
-    ],
-  },
-]
 
 export const translationPhrases = [
   { category: '기사님', korean: '여기서 기다려주세요.', chinese: '請在這裡等我們。' },

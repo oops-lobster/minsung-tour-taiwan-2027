@@ -10,11 +10,13 @@ import {
   type Day2WeatherBundle,
 } from '../lib/day2Weather'
 import { dayWeatherConfigs } from '../data/weatherPlans'
+import { fetchYehliuOperation, type YehliuOperationSnapshot } from '../domain/conditions/yehliuOperation'
 
 interface Day2WeatherContextValue {
   bundle: Day2WeatherBundle | null
   status: WeatherLoadStatus
   refresh: () => Promise<void>
+  operation: YehliuOperationSnapshot | null
 }
 
 interface WeatherContextValue {
@@ -31,6 +33,7 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<WeatherLoadStatus>('loading')
   const [day2Bundle, setDay2Bundle] = useState<Day2WeatherBundle | null>(null)
   const [day2Status, setDay2Status] = useState<WeatherLoadStatus>('loading')
+  const [operation, setOperation] = useState<YehliuOperationSnapshot | null>(null)
   const day2TestMode = readDay2WeatherTestMode(import.meta.env.DEV, window.location.search)
 
   const loadWeather = useCallback(async (force = false) => {
@@ -87,6 +90,8 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
     }
   }, [day2TestMode])
 
+  useEffect(() => { void fetchYehliuOperation().then(setOperation) }, [])
+
   const value = useMemo<WeatherContextValue>(() => ({
     dataset,
     status,
@@ -95,8 +100,9 @@ export function WeatherProvider({ children }: { children: ReactNode }) {
       bundle: day2Bundle,
       status: day2Status,
       refresh: () => loadDay2Weather(true),
+      operation,
     },
-  }), [dataset, day2Bundle, day2Status, loadDay2Weather, loadWeather, status])
+  }), [dataset, day2Bundle, day2Status, loadDay2Weather, loadWeather, operation, status])
 
   return <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>
 }

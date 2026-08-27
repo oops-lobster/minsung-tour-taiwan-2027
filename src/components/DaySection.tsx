@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { CarFront, ChevronDown, Footprints, Gauge, Map, ShieldAlert, UtensilsCrossed } from 'lucide-react'
+import { ChevronDown, Map, ShieldAlert } from 'lucide-react'
 import type { TimelineItem, TripDay } from '../data/trip'
 import { getDayPlans, dayWeatherConfigs, type DayPlan } from '../data/weatherPlans'
 import { imageSourceByFile } from '../data/imageSources'
 import { getPlaceDisplayHint, placeCatalog } from '../data/localTools'
-import { imagePath } from '../lib/paths'
 import {
   getWeatherPlanRecommendation,
   readWeatherTestMode,
@@ -23,7 +22,7 @@ import { DayRouteMap } from './DayRouteMap'
 import { WeatherPlanSelector } from './WeatherPlanSelector'
 import { useWeather } from './WeatherProvider'
 import { Day2WeatherDecisionCard } from './Day2WeatherDecisionCard'
-import { HuashanMiniGuide } from './HuashanMiniGuide'
+import { GuideLauncher } from './guides/GuideLauncher'
 
 interface DaySectionProps {
   day: TripDay
@@ -35,8 +34,6 @@ interface PlanTimelineProps {
   plan: DayPlan
 }
 
-const detailIcons = [Gauge, Footprints, Map, UtensilsCrossed]
-
 function PlanTimeline({ day, plan }: PlanTimelineProps) {
   return (
     <div className="timeline" aria-label={`${day.day} ${plan.label} 상세 일정`}>
@@ -46,8 +43,7 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
         const placeHint = getPlaceDisplayHint(place)
         return (
           <details
-            className={`timeline-item ${item.optional ? 'timeline-item--optional' : ''} ${(item.placeId === 'guihou' || item.guide) ? 'timeline-item--guide-linked' : ''}`}
-            open={item.placeId === 'guihou' ? true : item.placeId === 'beihai-hangzhou' ? true : undefined}
+            className={`timeline-item ${item.optional ? 'timeline-item--optional' : ''} ${item.guideId ? 'timeline-item--guide-linked' : ''}`}
             key={`${item.time}-${item.title}`}
           >
             <summary className="timeline-item__summary">
@@ -57,43 +53,14 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
                 <h3>{item.title}</h3>
                 {item.localName && <span className="timeline-item__local" lang="zh-Hant">{item.localName}</span>}
                 {placeHint && <span className="timeline-item__place-hint">{placeHint}</span>}
-                {item.placeId === 'guihou' && <span className="timeline-item__guide-hint">현장 가이드가 바로 연결된 점심 일정</span>}
-                {item.guide && <span className="timeline-item__guide-hint">{item.guide.eyebrow ?? '현장 가이드 연결'}</span>}
+                {item.guideId && <span className="timeline-item__guide-hint">현장 가이드 연결</span>}
               </span>
               <span className="timeline-item__expand" aria-hidden="true"><ChevronDown size={20} /></span>
             </summary>
             <div className="timeline-item__details">
               {item.transport && <span className="transport-label">{item.transport}</span>}
               <p className="timeline-item__description">{item.description}</p>
-              {item.placeId === 'yehliu' && (
-                <div className="yehliu-timeline-actions" aria-label="예류 셀프 가이드">
-                  <a className="is-primary" href="#guide/yehliu">민성 해설 열기</a>
-                  <a href="#guide/yehliu/offline">오프라인 가이드 준비</a>
-                </div>
-              )}
-              {item.placeId === 'shifen-waterfall' && (
-                <div className="yehliu-timeline-actions" aria-label="스펀폭포 설명">
-                  <a className="is-primary" href={`${import.meta.env.BASE_URL}shifen-waterfall.html`}>폭포 설명 더보기</a>
-                </div>
-              )}
-              {item.placeId === 'shifen-old-street' && (
-                <div className="yehliu-timeline-actions" aria-label="스펀 옛거리 현장 가이드">
-                  <a className="is-primary" href={`${import.meta.env.BASE_URL}shifen-old-street.html`}>풍등·간식·카페 가이드</a>
-                </div>
-              )}
-              {item.placeId === 'guihou' && (
-                <div className="yehliu-timeline-actions" aria-label="귀후어항 현장 가이드">
-                  <a className="is-primary" href="#guide/guihou">① 현장 가이드 바로 시작</a>
-                  <a href="#guide/guihou/price">② 가격 계산 바로가기</a>
-                </div>
-              )}
-              {item.detailPanel === 'huashan' && <HuashanMiniGuide />}
-              {item.guide && (
-                <div className="timeline-field-guide" aria-label={item.guide.label}>
-                  {item.guide.eyebrow && <small>{item.guide.eyebrow}</small>}
-                  <a href={`${import.meta.env.BASE_URL}${item.guide.href}`}>{item.guide.label}</a>
-                </div>
-              )}
+              {item.guideId && <GuideLauncher guideId={item.guideId} />}
               {item.tags && (
                 <div className="tag-row" aria-label="일정 상태">
                   {item.tags.map((tag) => <span key={tag}>{tag}</span>)}
@@ -102,7 +69,7 @@ function PlanTimeline({ day, plan }: PlanTimelineProps) {
               {imageSource && item.image && (
                 <figure className="timeline-photo">
                   <img
-                    src={imagePath(item.image)}
+                    src={`${import.meta.env.BASE_URL}images/${item.image}`}
                     alt={imageSource.alt}
                     width="1600"
                     height="1067"
@@ -139,7 +106,6 @@ export function DaySection({ day, index }: DaySectionProps) {
     { label: '핵심 장소', value: day.keyPlaces, hint: undefined },
     { label: '주요 식사', value: day.keyMeal, hint: keyMealHint },
   ]
-  const coverSource = imageSourceByFile[day.cover]
   const plans = getDayPlans(day)
   const weatherConfig = dayWeatherConfigs[day.id]
   const testMode = readWeatherTestMode(import.meta.env.DEV, window.location.search)
@@ -151,13 +117,20 @@ export function DaySection({ day, index }: DaySectionProps) {
     marineStatus: 'skipped',
   }
   const day2Decision = day.id === 'day-2'
-    ? classifyDay2Weather(day2Weather.bundle ?? day2FallbackBundle)
+    ? classifyDay2Weather(day2Weather.bundle ?? day2FallbackBundle, day2Weather.operation?.state)
     : null
   const recommendation = day2Decision
     ? day2DecisionToPlanRecommendation(day2Decision, weatherConfig.date)
     : getWeatherPlanRecommendation({ dataset, status, config: weatherConfig, testMode })
   const selectedPlanId = manualPlanId ?? recommendation.recommendedPlanId
-  const selectedPlan = plans.find((plan) => plan.id === selectedPlanId) ?? plans[0]
+  const selectedPlanRaw = plans.find((plan) => plan.id === selectedPlanId) ?? plans[0]
+  const selectedPlan = day.id === 'day-4' && recommendation.recommendedPlanId === 'plan-b'
+    ? {
+        ...selectedPlanRaw,
+        schedule: selectedPlanRaw.schedule.filter((item) => item.placeId !== 'botanical'),
+        route: { ...selectedPlanRaw.route, stops: selectedPlanRaw.route.stops.filter((stop) => stop.placeId !== 'botanical') },
+      }
+    : selectedPlanRaw
   const day2SafetyHold = day.id === 'day-2' && day2Decision?.safetyState === 'safety-hold'
   const planPanelId = `${day.id}-weather-plan-panel`
   const handlePlanSelect = (planId: WeatherPlanId) => {
@@ -175,64 +148,22 @@ export function DaySection({ day, index }: DaySectionProps) {
 
   return (
     <section className={`day-section day-section--${index + 1}`} id={day.id} data-day-section={day.id}>
-      <div className="day-cover">
-        <img
-          src={imagePath(day.cover)}
-          alt={coverSource.alt}
-          width="1600"
-          height="1067"
-          loading="lazy"
-          decoding="async"
-        />
-        <div className="day-cover__scrim" />
-        <div className="day-cover__content page-shell">
-          <div className="day-cover__number">
-            <span>{day.day}</span>
-            <strong>{day.date}</strong>
-            <small>{day.weekday}</small>
-          </div>
-          <div className="day-cover__title">
-            <span>{day.theme}</span>
-            <h2>{day.title}</h2>
-            <p>{day.lead}</p>
-          </div>
-        </div>
-      </div>
-
       <div className="page-shell day-section__body">
-        <div className="day-quick-grid">
-          {summaryDetails.map((detail, detailIndex) => {
-            const Icon = detailIcons[detailIndex]
-            return (
-              <div className="day-quick" key={detail.label}>
-                <Icon size={21} aria-hidden="true" />
+        <dl className="day-meta-row">
+          {summaryDetails.map((detail) => (
+              <div key={detail.label}>
                 <span>{detail.label}</span>
                 <strong>{detail.value}</strong>
                 {detail.hint && <small className="day-quick__hint">{detail.hint}</small>}
               </div>
-            )
-          })}
-          <div className="day-quick day-quick--wide">
-            <CarFront size={21} aria-hidden="true" />
+          ))}
+          <div>
             <span>이동수단</span>
             <strong>{day.transport}</strong>
           </div>
-        </div>
+        </dl>
 
-        {day.id === 'day-2' && selectedPlan.id === 'plan-a' && !day2SafetyHold && (
-          <aside className="guihou-day-entry" aria-labelledby="guihou-day-entry-title">
-            <UtensilsCrossed aria-hidden="true" />
-            <div>
-              <small>DAY 2 · 10:55 도착 후</small>
-              <h3 id="guihou-day-entry-title">귀후어항에 도착하면 여기부터</h3>
-              <p>현장 가이드를 열고 ① 1층 한 바퀴 → ② 가격·조리비 확인 → ③ 2층 식사 순서대로 따라가면 됩니다.</p>
-            </div>
-            <div>
-              <a className="is-primary" href="#guide/guihou">현장 가이드 시작</a>
-              <a href="#guide/guihou/price">바로 가격 계산</a>
-            </div>
-          </aside>
-        )}
+        {day.id === 'day-2' && selectedPlan.id === 'plan-a' && !day2SafetyHold && <GuideLauncher guideId="guihou" compact />}
 
         {day2Decision && (
           <Day2WeatherDecisionCard
@@ -241,6 +172,7 @@ export function DaySection({ day, index }: DaySectionProps) {
             manualClass={manualDay2Class}
             onManualClassChange={handleDay2ClassChange}
             onRefresh={day2Weather.refresh}
+            operation={day2Weather.operation}
           />
         )}
 
@@ -256,7 +188,12 @@ export function DaySection({ day, index }: DaySectionProps) {
           </section>
         ) : (
           <>
-            <WeatherPlanSelector
+            {day.id === 'day-4' ? (
+              <div className={`day-condition-ribbon ${recommendation.recommendedPlanId === 'plan-b' ? 'is-caution' : 'is-good'}`} role="status">
+                <strong>식물원: {recommendation.recommendedPlanId === 'plan-b' ? '비면 생략' : '진행 가능'}</strong>
+                <span>{recommendation.reason} 호텔 체크아웃·비전옥·공항 일정은 그대로입니다.</span>
+              </div>
+            ) : <WeatherPlanSelector
               config={weatherConfig}
               plans={plans}
               recommendation={recommendation}
@@ -265,7 +202,7 @@ export function DaySection({ day, index }: DaySectionProps) {
               loading={(day.id === 'day-2' ? day2Weather.status === 'loading' : status === 'loading' && testMode === null)}
               compact={day.id === 'day-2'}
               onSelect={handlePlanSelect}
-            />
+            />}
 
             <section
               className={`day-plan-detail day-plan-detail--${selectedPlan.id}`}

@@ -270,6 +270,27 @@ export const imageSources: ImageSource[] = [
     attributionRequired: true,
     retrievedAt: '2026-08-17',
   },
+  {
+    file: 'g90-lwb-4seat-rear.webp',
+    place: 'Genesis G90 Long Wheel Base 4인승 후석',
+    alt: '베이지 가죽 독립 후석 두 자리와 중앙 콘솔, 펼쳐진 레그레스트가 보이는 제네시스 G90 롱휠베이스 4인승 후석',
+    sourceUrl: '', author: '글로벌25시콜리무진 제공', license: '예약 문의 시 업체 제공 사진',
+    attributionRequired: false, retrievedAt: '2026-08-24',
+  },
+  {
+    file: 'airport-pickup-mercedes-cabin.jpg',
+    place: '宇航富豪 Mercedes 항공의자 차량 실내',
+    alt: '별빛 천장 조명 아래 독립형 VIP 시트가 배치된 Mercedes 공항 픽업 차량 실내',
+    sourceUrl: '', author: '宇航富豪 제공', license: '예약 상담 시 업체 제공 사진',
+    attributionRequired: false, retrievedAt: '2026-08-25',
+  },
+  {
+    file: 'airport-pickup-mercedes-vip-seats.jpg',
+    place: '宇航富豪 Mercedes 항공의자 VIP 시트',
+    alt: '도어를 연 상태에서 독립형 항공의자 두 좌석과 넓은 레그룸이 보이는 Mercedes 차량 실내',
+    sourceUrl: '', author: '宇航富豪 제공', license: '예약 상담 시 업체 제공 사진',
+    attributionRequired: false, retrievedAt: '2026-08-25',
+  },
 ]
 
 export const imageSourceByFile = Object.fromEntries(
