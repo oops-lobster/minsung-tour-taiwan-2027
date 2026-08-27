@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Design"
+  short_description: "Distinctive, subject-specific frontend visual direction"
+  default_prompt: "Use $frontend-design to reshape this interface with an intentional, non-template visual direction. Respect the repository's existing product constraints and design system, then verify the result at mobile and desktop widths."
