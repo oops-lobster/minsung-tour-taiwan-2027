@@ -33,7 +33,7 @@ import { MapLinkButton } from './components/MapLinkButton'
 import { OpeningSequence } from './components/OpeningSequence'
 import { HotelReturnButton } from './components/PlaceActions'
 import { SectionHeader } from './components/SectionHeader'
-import { StatusBadge } from './components/StatusBadge'
+import { StatusBadge } from './components/StatusBadge'\nimport { TaiwanRouteMap } from './components/TaiwanRouteMap'
 import { imageSourceByFile, imageSources } from './data/imageSources'
 import { getPlaceDisplayHint, placeCatalog, todayTaiwanCards, type PlaceId } from './data/localTools'
 import {
