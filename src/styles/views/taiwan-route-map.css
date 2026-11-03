@@ -1,0 +1,41 @@
+/* Geographic overview: keep the island thumbnail separate from the pin map. */
+.taiwan-route__geo-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 24px 24px 18px;
+}
+.taiwan-route__geo-heading small { color: var(--brand-coral); font-size: .65rem; font-weight: 800; letter-spacing: .12em; }
+.taiwan-route__geo-heading strong { display: block; margin-top: 6px; color: var(--jade-deep); font-family: var(--font-display); font-size: 1.25rem; }
+.taiwan-route__geo-heading p { margin: 5px 0 0; color: var(--ink-soft); font-size: .77rem; }
+.taiwan-route__geo-overview { flex: 0 0 70px; text-align: center; }
+.taiwan-route__geo-overview img { display: block; width: 40px; height: 76px; margin: 0 auto; object-fit: contain; opacity: .65; }
+.taiwan-route__geo-overview span { display: block; margin-top: 5px; color: var(--ink-soft); font-size: .6rem; }
+.taiwan-route__geo-canvas { position: relative; margin: 0 12px; overflow: hidden; border: 1px solid rgba(49,95,99,.15); border-radius: 18px; background: #e8eeea; }
+.taiwan-route__geo-svg { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; isolation: isolate; }
+.taiwan-route__geo-tiles { opacity: .72; }
+.taiwan-route__geo-route-halo { fill: none; stroke: #fffaf0; stroke-width: 7; stroke-linejoin: round; stroke-linecap: round; }
+.taiwan-route__geo-route { fill: none; stroke: var(--brand-coral, #e66b53); stroke-width: 3; stroke-dasharray: 7 7; stroke-linejoin: round; stroke-linecap: round; }
+.taiwan-route__geo-stop { cursor: pointer; outline: none; }
+.taiwan-route__geo-stop-circle { fill: var(--jade-deep, #173c43); stroke: #fffaf0; stroke-width: 4; }
+.taiwan-route__geo-stop.is-day2 .taiwan-route__geo-stop-circle { fill: var(--brand-coral, #e66b53); }
+.taiwan-route__geo-stop-number { fill: #fff; text-anchor: middle; dominant-baseline: central; font-family: sans-serif; font-size: 20px; font-weight: 800; pointer-events: none; }
+.taiwan-route__geo-stop-label { fill: var(--jade-deep, #173c43); stroke: #fffaf0; stroke-width: 6; stroke-linejoin: round; paint-order: stroke; text-anchor: middle; font-family: var(--font-body, sans-serif); font-size: 21px; font-weight: 800; pointer-events: none; }
+.taiwan-route__geo-focus-ring { fill: none; stroke: var(--jade-deep, #173c43); stroke-width: 2; opacity: 0; }
+.taiwan-route__geo-stop:hover .taiwan-route__geo-focus-ring,
+.taiwan-route__geo-stop:focus .taiwan-route__geo-focus-ring { opacity: 1; }
+.taiwan-route__geo-north { fill: var(--jade-deep, #173c43); font-family: Georgia, serif; font-size: 17px; font-weight: 700; text-anchor: middle; }
+.taiwan-route__geo-attribution { position: relative; display: block; padding: 7px 10px; background: rgba(255,250,240,.96); color: var(--ink-soft); font-size: 11px; line-height: 1.4; text-align: right; }
+.taiwan-route__geo-attribution a { text-decoration: underline; text-underline-offset: 2px; }
+.taiwan-route__geo-note { margin: 14px 22px 18px; color: var(--ink-soft); font-size: .74rem; line-height: 1.65; }
+.taiwan-route__geo-warning { display: block; margin-top: 5px; color: #8b4f2b; }
+.taiwan-route__geo-list-link { display: block; border-radius: 4px; }
+.taiwan-route__geo-list-link:focus-visible { outline: 2px solid var(--jade-deep); outline-offset: 5px; }
+.taiwan-route__geo-list-link:hover strong { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 520px) {
+  .taiwan-route__geo-heading { gap: 10px; padding: 18px 18px 14px; }
+  .taiwan-route__geo-heading strong { font-size: 1.08rem; }
+  .taiwan-route__geo-canvas { margin-inline: 8px; border-radius: 14px; }
+  .taiwan-route__geo-note { margin-inline: 18px; }
+}
