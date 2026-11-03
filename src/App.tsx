@@ -33,7 +33,8 @@ import { MapLinkButton } from './components/MapLinkButton'
 import { OpeningSequence } from './components/OpeningSequence'
 import { HotelReturnButton } from './components/PlaceActions'
 import { SectionHeader } from './components/SectionHeader'
-import { StatusBadge } from './components/StatusBadge'\nimport { TaiwanRouteMap } from './components/TaiwanRouteMap'
+import { StatusBadge } from './components/StatusBadge'
+import { TaiwanRouteMap } from './components/TaiwanRouteMap'
 import { imageSourceByFile, imageSources } from './data/imageSources'
 import { getPlaceDisplayHint, placeCatalog, todayTaiwanCards, type PlaceId } from './data/localTools'
 import {
@@ -226,6 +227,7 @@ function HomeView() {
       </section>
 
       <StatusOverview compact />
+      <TaiwanRouteMap />
 
       <section className="today-taiwan section-pad" aria-labelledby="today-taiwan-title">
         <div className="page-shell">
