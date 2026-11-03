@@ -3507,3 +3507,325 @@
   .opening { display: none; }
 }
 
+
+
+/* Taiwan route overview */
+.taiwan-route {
+  position: relative;
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 16% 24%, rgba(229, 182, 143, .22), transparent 24rem),
+    linear-gradient(180deg, rgba(255, 250, 240, .94), rgba(244, 240, 226, .98));
+}
+
+.taiwan-route__heading {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 34px;
+}
+
+.taiwan-route__heading h2 {
+  margin: 8px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7vw, 3.6rem);
+  font-weight: 500;
+  letter-spacing: -.055em;
+  line-height: 1.12;
+}
+
+.taiwan-route__heading > p {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+
+.taiwan-route__layout {
+  display: grid;
+  gap: 22px;
+}
+
+.taiwan-route__map-card {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(49, 95, 99, .16);
+  border-radius: 28px;
+  background: rgba(255, 250, 240, .74);
+  box-shadow: var(--shadow-sm);
+}
+
+.taiwan-route__map-stage {
+  position: relative;
+  width: min(74%, 360px);
+  aspect-ratio: 473 / 892;
+  margin: 22px auto 14px;
+}
+
+.taiwan-route__map-stage > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: .16;
+  filter: sepia(.2) saturate(.9);
+}
+
+.taiwan-route__route-line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.taiwan-route__route-line path {
+  fill: none;
+  stroke: var(--brand-coral);
+  stroke-width: 1.45;
+  stroke-linecap: round;
+  stroke-dasharray: 2.5 2.8;
+  vector-effect: non-scaling-stroke;
+}
+
+.taiwan-route__pin {
+  position: absolute;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  border: 3px solid var(--paper);
+  border-radius: 50%;
+  background: var(--jade-deep);
+  box-shadow: 0 8px 20px rgba(23, 60, 67, .24);
+  color: white;
+  font-size: .68rem;
+  font-weight: 800;
+}
+
+.taiwan-route__pin--airport { left: 38%; top: 13%; }
+.taiwan-route__pin--taipei { left: 63%; top: 10%; }
+.taiwan-route__pin--yehliu { left: 77%; top: 7%; background: var(--brand-coral); }
+.taiwan-route__pin--shifen { left: 80%; top: 14%; background: var(--brand-coral); }
+.taiwan-route__pin--jiufen { left: 86%; top: 16%; background: var(--brand-coral); }
+
+.taiwan-route__north {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  color: var(--jade-deep);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+
+.taiwan-route__north::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 34px;
+  margin: 6px auto 0;
+  background: var(--jade-deep);
+  opacity: .45;
+}
+
+.taiwan-route__map-note {
+  position: absolute;
+  right: -8px;
+  bottom: 18px;
+  color: var(--ink-soft);
+  font-size: .52rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  writing-mode: vertical-rl;
+}
+
+.taiwan-route__map-card figcaption {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  padding: 18px 20px;
+  border-top: 1px solid var(--line);
+  background: rgba(255, 255, 255, .45);
+}
+
+.taiwan-route__map-card figcaption > span {
+  color: var(--jade-deep);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+}
+
+.taiwan-route__map-card figcaption small {
+  grid-column: 1 / -1;
+  color: var(--ink-soft);
+  font-size: .66rem;
+}
+
+.taiwan-route__map-card figcaption a {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  color: var(--brand-coral);
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.taiwan-route__story {
+  display: grid;
+  gap: 22px;
+}
+
+.taiwan-route__stops {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--line);
+  list-style: none;
+}
+
+.taiwan-route__stops li {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: center;
+  gap: 14px;
+  min-height: 76px;
+  padding: 14px 18px;
+  background: rgba(255, 250, 240, .96);
+}
+
+.taiwan-route__stops li > span {
+  color: var(--brand-coral);
+  font-family: 'Libre Bodoni', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.taiwan-route__stops strong,
+.taiwan-route__stops small {
+  display: block;
+}
+
+.taiwan-route__stops strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.taiwan-route__stops small {
+  margin-top: 2px;
+  color: var(--ink-soft);
+  font-size: .76rem;
+}
+
+.taiwan-route__days {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.taiwan-route__days a {
+  display: grid;
+  align-content: start;
+  min-height: 126px;
+  padding: 16px;
+  border: 1px solid rgba(49, 95, 99, .16);
+  border-radius: 18px;
+  background: rgba(255, 250, 240, .8);
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.taiwan-route__days a:active {
+  transform: scale(.985);
+}
+
+.taiwan-route__days span {
+  color: var(--brand-coral);
+  font-size: .64rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.taiwan-route__days strong {
+  margin-top: 5px;
+  color: var(--jade-deep);
+  font-family: var(--font-display);
+  font-size: .98rem;
+  line-height: 1.35;
+}
+
+.taiwan-route__days small {
+  margin-top: 6px;
+  color: var(--ink-soft);
+  font-size: .7rem;
+  line-height: 1.55;
+}
+
+@media (min-width: 760px) {
+  .taiwan-route__heading {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+    align-items: end;
+  }
+
+  .taiwan-route__heading > p {
+    justify-self: end;
+  }
+
+  .taiwan-route__layout {
+    grid-template-columns: minmax(320px, .82fr) minmax(0, 1.18fr);
+    align-items: stretch;
+    gap: 30px;
+  }
+
+  .taiwan-route__map-stage {
+    width: min(72%, 390px);
+    margin-block: 28px 18px;
+  }
+
+  .taiwan-route__story {
+    grid-template-rows: auto 1fr;
+  }
+
+  .taiwan-route__days {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .taiwan-route__days a:hover {
+    transform: translateY(-2px);
+    border-color: rgba(230, 107, 83, .42);
+    background: var(--paper);
+  }
+}
+
+@media (max-width: 520px) {
+  .taiwan-route__map-card {
+    border-radius: 22px;
+  }
+
+  .taiwan-route__map-stage {
+    width: 68%;
+  }
+
+  .taiwan-route__pin {
+    width: 27px;
+    height: 27px;
+    border-width: 2px;
+    font-size: .62rem;
+  }
+
+  .taiwan-route__days {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .taiwan-route__days a {
+    min-height: 118px;
+    padding: 14px;
+  }
+}
